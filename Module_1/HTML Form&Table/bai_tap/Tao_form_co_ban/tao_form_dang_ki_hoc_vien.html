@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1">
+    <title>Đăng kí học viên</title>
+    <style>
+        .dangKi{
+            position: absolute;
+            height: 70%;
+            width: 50%;
+            background-color: darksalmon;
+            left: 25%;
+        }
+    </style>
+</head>
+<body>
+    <div class="dangKi">
+        <h2 style="width: 98%; position: relative; left: 1%; margin-top: 1%; background-color: #4dd3ff; color: blue">ĐĂNG KÍ HỌC VIÊN</h2>
+        <form id="frm1">
+            <div style="position: absolute; color: blue; left: 1%">
+                <label for="name" style="line-height: 30px;">Họ và tên</label><br>
+                <label for="ngaySinh" style="line-height: 30px;">Ngày sinh</label><br>
+                <label style="line-height: 30px;">Giới tính</label><br>
+                <label style="line-height: 30px;">Địa chỉ</label><br>
+            </div>
+            <div style="position: absolute; top: 230px; color: blue; left: 1%">
+                <label for="lop" style="line-height: 30px;">Lớp</label><br>
+                <label for="email" style="line-height: 30px;">Email</label><br>
+                <label for="dienThoai" style="line-height: 30px;">Điện thoại</label>
+            </div>
+            <div style="position: absolute; left: 100px;">
+                <input type="text" id="name" name="name" style="margin-top: 5px"><br>
+                <input type="date" id="ngaySinh" name="ngaySinh" style="margin-top: 7px"><br>
+                <input type="radio" id="nam" onclick="selectNam()" checked="true" style="margin-top: 13px">
+                <label for="nam">Nam</label>
+                <input type="radio" id="nu" onclick="selectNu()">
+                <label for="nu">Nữ</label><br>
+                <textarea name="diaChi" style="height: 70px; width: 200px; margin-top: 7px"></textarea><br>
+                <select id="lop" name="lop" style="margin-top: 10px">
+                    <option value="chonLop">--Chọn lớp--</option>
+                    <option value="9a">9A</option>
+                    <option value="9b">9B</option>
+                    <option value="9c">9C</option>
+                    <option value="9d">9D</option>
+                </select><br>
+                <input type="text" id="email" name="email" style="margin-top: 9px"><br>
+                <input type="text" id="dienThoai" name="dienThoai" style="margin-top: 7px"><br>
+                <input type="button" value="Đăng ký" style="margin-top: 7px">
+                <input type="button" value="Nhập lại" onclick="nhapLai()">
+            </div>
+        </form>
+    </div>
+    <script>
+        function nhapLai() {
+            document.getElementById("frm1").reset();
+        }
+        function selectNam() {
+            document.getElementById("nu").checked = false;
+        }
+        function selectNu() {
+            document.getElementById("nam").checked = false;
+        }
+    </script>
+</body>
+</html>
