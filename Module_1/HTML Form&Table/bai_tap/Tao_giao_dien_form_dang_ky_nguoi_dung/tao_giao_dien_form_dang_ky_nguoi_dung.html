@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1">
+    <title>Đăng kí học viên</title>
+    <style>
+        .dangKi{
+            position: absolute;
+            height: 70%;
+            width: 21%;
+            background-color: rgb(255, 255, 255);
+            left: 39.5%;
+        }
+    </style>
+</head>
+<body>
+    <div class="dangKi">
+        <h2 style="position: relative; color: blue;">ĐĂNG KÍ NGƯỜI DÙNG</h2>
+        <form id="frm1">
+            <label for="name" style="line-height: 30px;">Họ và tên:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <label for="email" style="line-height: 30px;">Email:</label><br>
+            <input type="text" id="email" name="email"><br>
+            <label for="phone" style="line-height: 30px;">Số điện thoại:</label><br>
+            <input type="text" id="phone" name="phone"><br>
+            <label style="line-height: 30px;">Giới tính:</label><br>
+            <input type="radio" id="male" name="male" onclick="radioMale()">
+            <label for="male">Nam</label>
+            <input type="radio" id="female" name="male" onclick="radioFemale()">
+            <label for="female">Nữ</label><br>
+            <input type="button" value="Đăng ký" style="margin-top: 7px">
+        </form>
+    </div>
+    <script>
+        function radioMale() {
+            document.getElementById("female").checked=false;
+        }
+        function selectFemale() {
+            document.getElementById("male").checked = false;
+        }
+    </script>
+</body>
+</html>
