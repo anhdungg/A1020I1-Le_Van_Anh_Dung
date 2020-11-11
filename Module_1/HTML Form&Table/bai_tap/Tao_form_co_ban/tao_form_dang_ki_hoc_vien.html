@@ -31,9 +31,9 @@
             <div style="position: absolute; left: 100px;">
                 <input type="text" id="name" name="name" style="margin-top: 5px"><br>
                 <input type="date" id="ngaySinh" name="ngaySinh" style="margin-top: 7px"><br>
-                <input type="radio" id="nam" onclick="selectNam()" style="margin-top: 13px">
+                <input type="radio" id="nam" name="gender" style="margin-top: 13px">
                 <label for="nam">Nam</label>
-                <input type="radio" id="nu" onclick="selectNu()" checked="true">
+                <input type="radio" id="nu" name="gender">
                 <label for="nu">Nữ</label><br>
                 <textarea name="diaChi" style="height: 70px; width: 200px; margin-top: 7px"></textarea><br>
                 <select id="lop" name="lop" style="margin-top: 10px">
@@ -46,20 +46,9 @@
                 <input type="text" id="email" name="email" style="margin-top: 9px"><br>
                 <input type="text" id="dienThoai" name="dienThoai" style="margin-top: 7px"><br>
                 <input type="button" value="Đăng ký" style="margin-top: 7px">
-                <input type="button" value="Nhập lại" onclick="nhapLai()">
+                <input type="reset" value="Nhập lại">
             </div>
         </form>
     </div>
-    <script>
-        function nhapLai() {
-            document.getElementById("frm1").reset();
-        }
-        function selectNam() {
-            document.getElementById("nu").checked = false;
-        }
-        function selectNu() {
-            document.getElementById("nam").checked = false;
-        }
-    </script>
 </body>
 </html>
