@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bàn cờ vua</title>
+</head>
+<body style="background-color: yellowgreen">
+    <button id="begin" onclick="banCoVua()">Tạo bàn cờ</button>
+    <table id="tableCoVua" style="margin-left: auto; margin-right: auto; margin-top: 10px"></table>
+
+    <script>
+        const pixelBanCo = 65 + "px";
+        const arrayCol = ["A", "B", "C", "D", "E", "F", "G", "H"];
+        const arrayRow = ["1", "2", "3", "4", "5", "6", "7", "8"];
+
+        function banCoVua() {
+            let banCo = document.getElementById("tableCoVua");
+            for(let i=0; i<9; i++)
+            {
+                let addRow = banCo.insertRow(i);
+                for (let j=0; j<9; j++)
+                {
+                    let addCell = addRow.insertCell(j);
+                    if(i===0)
+                    {
+                        addCell.style.textAlign = "center";
+                        if(j>0)addCell.innerHTML = arrayRow[j-1];
+                    }
+                    else
+                    {
+                        if(j===0){
+                            if(i>0)addCell.innerHTML = arrayCol[i-1];
+                        }
+                        else {
+                            if ((i % 2) === 0) {
+                                if ((j % 2) === 0) {
+                                    // addCell.innerHTML="2"
+                                    addCell.style.backgroundColor = "#000000";
+                                    addCell.style.width = pixelBanCo;
+                                    addCell.style.height = pixelBanCo;
+                                } else {
+                                    // addCell.innerHTML="1"
+                                    addCell.style.backgroundColor = "#FFFFFF";
+                                    addCell.style.width = pixelBanCo;
+                                    addCell.style.height = pixelBanCo;
+                                }
+                            }
+                            else {
+                                if ((j % 2) === 0) {
+                                    // addCell.innerHTML="1"
+                                    addCell.style.backgroundColor = "#FFFFFF";
+                                    addCell.style.width = pixelBanCo;
+                                    addCell.style.height = pixelBanCo;
+                                } else {
+                                    // addCell.innerHTML="2"
+                                    addCell.style.backgroundColor = "#000000";
+                                    addCell.style.width = pixelBanCo;
+                                    addCell.style.height = pixelBanCo;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
