@@ -13,22 +13,26 @@
         }
     </style>
 </head>
-<body>
+<body onload="loadPage()">
     <div class="dangKi">
         <h2 style="position: relative; color: blue;">ĐĂNG KÍ NGƯỜI DÙNG</h2>
-        <form id="frm1">
+        <form id="frm1" action="http://demo.codegym.vn/6/registration_form/register.php" method="POST">
             <label for="name" style="line-height: 30px;">Họ và tên:</label><br>
             <input type="text" id="name" name="name"><br>
+
             <label for="email" style="line-height: 30px;">Email:</label><br>
             <input type="text" id="email" name="email"><br>
+
             <label for="phone" style="line-height: 30px;">Số điện thoại:</label><br>
             <input type="text" id="phone" name="phone"><br>
+
             <label style="line-height: 30px;">Giới tính:</label><br>
-            <input type="radio" id="male" name="male" onclick="radioMale()">
+            <input type="radio" id="male" name="gender" onclick="radioMale()">
             <label for="male">Nam</label>
-            <input type="radio" id="female" name="male" onclick="radioFemale()">
+            <input type="radio" id="female" name="gender" onclick="radioFemale()">
             <label for="female">Nữ</label><br>
-            <input type="button" value="Đăng ký" style="margin-top: 7px">
+
+            <input type="submit" value="Đăng ký" style="margin-top: 7px">
         </form>
     </div>
     <script>
@@ -37,6 +41,9 @@
         }
         function selectFemale() {
             document.getElementById("male").checked = false;
+        }
+        function loadPage(){
+            document.getElementById("frm1").reset();
         }
     </script>
 </body>
