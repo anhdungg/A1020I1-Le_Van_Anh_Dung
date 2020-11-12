@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lịch tháng 10/2009</title>
+        <style>
+            th, td{
+                width: 100px;
+                height: 50px;
+                font-size: 20px;
+                border: 1px solid rgb(255, 255, 255);; 
+            }
+        </style>
+    </head>
+    <body onload="lich()">
+        <h1 style="text-align: center; color: blue;">Tháng 10 October</h1>
+        <table id="table1" style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <th style="background-color: red; color: white;">C.Nhật</th>
+                <th style="background-color:  rgb(223, 226, 19); color: white;">T.Hai</th>
+                <th style="background-color:  rgb(223, 226, 19); color: white;">T.Ba</th>
+                <th style="background-color:  rgb(223, 226, 19); color: white;">T.Tư</th>
+                <th style="background-color:  rgb(223, 226, 19); color: white;">T.Năm</th>
+                <th style="background-color: rgb(223, 226, 19); color: white;">T.Sáu</th>
+                <th style="background-color: rgb(0, 0, 255); color: white;">T.Bảy</th>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="color: rgb(255, 0, 0);">Sun</td>
+                <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+                <td style="color: blue;">Sat</td>
+            </tr>
+        </table>
+        <table id="table2" onload="lich()" style="margin-left: auto; margin-right: auto; border: 1px groove rgb(237, 240, 224);">
+
+        </table>
+        <script>
+            function lich(){
+                let statusCount = false;
+                let countDuongLich = 1;
+                let countAmlich = 13;
+                let lichInsert = document.getElementById("table2");
+                for(let i=0; i<5; i++){
+                    let addRow = lichInsert.insertRow(i);
+                    for(let j=0; j<7; j++){
+                        let addCell = addRow.insertCell(j);
+                        if(j===4) statusCount = true;
+                        if(statusCount===true){
+                            let amLich = countAmlich.toString().sub();
+                            if(countAmlich>29){
+                                countAmlich=1; 
+                                amLich = countAmlich.toString() + ".9";
+                                amLich = amLich.sub();
+                            }   
+                            if(j===0) addCell.style.color = "red";
+                            if(j===6) addCell.style.color = "blue";
+                            addCell.style.textAlign = "center";
+                            addCell.style.fontSize = "23px";
+                            addCell.style.border = "1px groove rgb(237, 240, 224)";
+                            addCell.innerHTML =  countDuongLich.toString().bold() + amLich;
+                            countDuongLich++;
+                            countAmlich++;
+                        }
+                        else addCell.style.border = "1px groove rgb(237, 240, 224)";
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
