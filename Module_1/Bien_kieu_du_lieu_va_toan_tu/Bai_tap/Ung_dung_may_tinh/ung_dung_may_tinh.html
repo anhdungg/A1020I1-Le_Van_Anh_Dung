@@ -36,7 +36,7 @@
                 text-align: center;
                 border-radius: 10px;
                 border: 3px solid #ffffff;
-                background-color: rgb(145, 149, 128);
+                background-color: rgb(194, 197, 181);
                 margin: 1px;
             }
         </style>
@@ -44,7 +44,7 @@
     <body>
         <div class="main">
             <div class="ketQua" id="ketQua">
-                <p id="phepTinh" style="text-align: right; margin: 0px 10px 0px 0px;">Ans=</p>
+                <p id="phepTinh" style="text-align: right; margin: 0px 10px 0px 0px;">Ans=0</p>
                 <p id="congThuc" style="text-align: right; font-size: 25px; margin: 0px 10px 0px 0px;">0</p>
             </div>
             <div class="calculator">
@@ -97,7 +97,9 @@
             </div>
         </div>
         <script>
+            const defaultNumber = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "-", "x", "+", "."];
             var congThucString="";
+            let result=0;
             function tinhToan(){
                 let eventTable = document.getElementById("table1");
                 for(let i=0; i<eventTable.rows.length; i++)
@@ -116,14 +118,49 @@
             function mouseDown(eventTable, i, j) {
                 document.getElementById("ketQua").style.border = "2px solid  rgb(255, 255, 255)";
                 eventTable.rows[i].cells[j].style.border = "2px solid  rgb(25, 162, 241)";
-                if(eventTable.rows[i].cells[j].innerHTML === "CE"){
+                let dataInput = eventTable.rows[i].cells[j].innerHTML;
+                if(dataInput === "CE"){
                     if(congThucString.length !== 0){
                         let lastString = congThucString.length;
                         congThucString = congThucString.substring(0, lastString-1);
                         document.getElementById("congThuc").innerHTML = congThucString;
                     }
                 }
-                else congThucString += eventTable.rows[i].cells[j].innerHTML.toString();
+                if(dataInput === "AC"){
+                    document.getElementById("phepTinh").innerHTML = "Ans=" + congThucString;
+                    eventTable.rows[0].cells[5].innerHTML = "CE";
+                    congThucString = "0";
+                }
+                for(let x=0; x<defaultNumber.length; x++){
+                    if(dataInput === defaultNumber[x]){
+                        switch (dataInput){
+                            case "x":
+                                congThucString+="*";
+                                break;
+                            case "÷":
+                                congThucString += "/";
+                                break;
+                            default:
+                                congThucString += dataInput.toString();
+                        }
+                    } 
+                    eventTable.rows[0].cells[5].innerHTML = "CE";
+                    document.getElementById("phepTinh").innerHTML = "Ans=" + result;
+                }
+                //Tránh trường hợp không hiển thị số 0 khi xoá hết số đã nhập
+                if(congThucString.length===0) congThucString = "0";
+                //Tránh trường hợp hiển thị số 0 đầu các số đã nhập
+                if(congThucString.indexOf("0")===0 && congThucString.length > 1) congThucString = congThucString.substring(1, congThucString.length);
+                //Khi ấn dấu =
+                if(eventTable.rows[i].cells[j].innerHTML === "="){
+                    if(congThucString.indexOf(0)!==0){
+                        eventTable.rows[0].cells[5].innerHTML = "AC";
+                        document.getElementById("phepTinh").innerHTML = congThucString + "=";
+                        congThucString = eval(congThucString);
+                        result = congThucString;
+                    }
+                    
+                }
                 document.getElementById("congThuc").innerHTML = congThucString;
             }
             function mouseUp(eventTable, i, j) {
