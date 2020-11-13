@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Máy tính</title>
+        <style>
+            .main{
+                height: 305px; 
+                width: 600px; 
+                border-radius: 11px ;
+                border: 1px solid rgb(184, 178, 178); 
+                /* background-color: aqua; */
+                margin: auto;
+            }
+            .ketQua{
+                height: 50px; 
+                width: 580px; 
+                border-radius: 6px ;
+                border: 1px solid  rgb(25, 162, 241); 
+                /* background-color: aqua; */
+                margin: auto;   
+                margin-top: 10px;
+            }
+            .calculator{
+                height: 207px; 
+                width: 600px; 
+                border-radius: 6px ;
+                /* border: 1px solid rgb(184, 178, 178);  */
+                /* background-color: aqua; */
+                margin: auto;   
+                margin-top: 10px;
+            }
+            td{
+                height: 35px;
+                width: 80px;
+                text-align: center;
+                border-radius: 10px;
+                border: 3px solid white;
+                background-color: rgb(190, 194, 173);
+                margin: 1px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="ketQua">
+                <p id="phepTinh" style="text-align: right; margin: 0px; margin-top: 0px; margin-right: 10px;">as</p>
+                <p id="congThuc" style="text-align: right; font-size: 25px; margin: 0px; margin-right: 10px;">0</p>
+            </div>
+            <div class="calculator">
+                <table id="table1" style="margin-left: auto; margin-right: auto;" onmousedown="tinhToan()">
+                    <tr>
+                        <td colspan="2"><span style="margin-right: 25px; color: rgb(121, 121, 116);">Rad</span>|<span style="margin-left: 25px;">Deg</span></td>
+                        <td>x!</td>
+                        <td>(</td>
+                        <td>)</td>
+                        <td>%</td>
+                        <td>CE</td>
+                    </tr>
+                    <tr>
+                        <td>Inv</td>
+                        <td>sin</td>
+                        <td>ln</td>
+                        <td style="background-color: rgb(236, 236, 231);">7</button></td>
+                        <td style="background-color: rgb(236, 236, 231);">8</td>
+                        <td style="background-color: rgb(236, 236, 231);">9</td>
+                        <td style="font-size: 18px;">÷</td>
+                    </tr>
+                    <tr>
+                        <td>π</td>
+                        <td>cos</td>
+                        <td>log</td>
+                        <td style="background-color: rgb(236, 236, 231);">4</td>
+                        <td style="background-color: rgb(236, 236, 231);">5</td>
+                        <td style="background-color: rgb(236, 236, 231);">6</td>
+                        <td style="font-size: 15px;">x</td>
+                    </tr> 
+                    <tr>
+                        <td>e</button></td>
+                        <td>tan</td>
+                        <td>√</td>
+                        <td style="background-color: rgb(236, 236, 231);">1</td>
+                        <td style="background-color: rgb(236, 236, 231);">2</td>
+                        <td style="background-color: rgb(236, 236, 231);">3</td>
+                        <td style="font-size: 20px;">-</td>
+                    </tr>   
+                    <tr>
+                        <td>Ans</td>
+                        <td>EXP</td>
+                        <td>x<sup>y</sup></td>
+                        <td style="background-color: rgb(236, 236, 231);">0</td>
+                        <td style="background-color: rgb(236, 236, 231);">.</td>
+                        <td style="background-color: rgb(71, 176, 236);">=</td>
+                        <td style="font-size: 18px;">+</td>
+                    </tr>   
+                </table>
+            </div>
+        </div>
+        <script>
+            function tinhToan(){
+                var eventTable = document.getElementById("table1")
+                for(let i=0; i<eventTable.rows.length; i++)
+                {
+                    for(let j=0; j<eventTable.rows[i].length; j++)
+                    {
+                        eventTable.row[i].cells[j].onmousedown = function() {mouseDown()};
+                    }
+                }
+            }
+            function mouseDown() {
+                alert("Hi");
+            }
+        </script>
+    </body>
+</html>
