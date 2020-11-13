@@ -16,7 +16,7 @@
                 height: 50px; 
                 width: 580px; 
                 border-radius: 6px ;
-                border: 1px solid  rgb(25, 162, 241); 
+                border: 2px solid  rgb(25, 162, 241);
                 /* background-color: aqua; */
                 margin: auto;   
                 margin-top: 10px;
@@ -35,20 +35,20 @@
                 width: 80px;
                 text-align: center;
                 border-radius: 10px;
-                border: 3px solid white;
-                background-color: rgb(190, 194, 173);
+                border: 3px solid #ffffff;
+                background-color: rgb(145, 149, 128);
                 margin: 1px;
             }
         </style>
     </head>
     <body>
         <div class="main">
-            <div class="ketQua">
-                <p id="phepTinh" style="text-align: right; margin: 0px; margin-top: 0px; margin-right: 10px;">as</p>
-                <p id="congThuc" style="text-align: right; font-size: 25px; margin: 0px; margin-right: 10px;">0</p>
+            <div class="ketQua" id="ketQua">
+                <p id="phepTinh" style="text-align: right; margin: 0px 10px 0px 0px;">Ans=</p>
+                <p id="congThuc" style="text-align: right; font-size: 25px; margin: 0px 10px 0px 0px;">0</p>
             </div>
             <div class="calculator">
-                <table id="table1" style="margin-left: auto; margin-right: auto;" onmousedown="tinhToan()">
+                <table id="table1" style="margin-left: auto; margin-right: auto;" onmouseout="tinhToan()">
                     <tr>
                         <td colspan="2"><span style="margin-right: 25px; color: rgb(121, 121, 116);">Rad</span>|<span style="margin-left: 25px;">Deg</span></td>
                         <td>x!</td>
@@ -61,7 +61,7 @@
                         <td>Inv</td>
                         <td>sin</td>
                         <td>ln</td>
-                        <td style="background-color: rgb(236, 236, 231);">7</button></td>
+                        <td style="background-color: rgb(236, 236, 231);">7</td>
                         <td style="background-color: rgb(236, 236, 231);">8</td>
                         <td style="background-color: rgb(236, 236, 231);">9</td>
                         <td style="font-size: 18px;">÷</td>
@@ -76,7 +76,7 @@
                         <td style="font-size: 15px;">x</td>
                     </tr> 
                     <tr>
-                        <td>e</button></td>
+                        <td>e</td>
                         <td>tan</td>
                         <td>√</td>
                         <td style="background-color: rgb(236, 236, 231);">1</td>
@@ -88,8 +88,8 @@
                         <td>Ans</td>
                         <td>EXP</td>
                         <td>x<sup>y</sup></td>
-                        <td style="background-color: rgb(236, 236, 231);">0</td>
-                        <td style="background-color: rgb(236, 236, 231);">.</td>
+                        <td style="background-color: rgb(240,240,235);">0</td>
+                        <td style="background-color: rgb(240,240,235);">.</td>
                         <td style="background-color: rgb(71, 176, 236);">=</td>
                         <td style="font-size: 18px;">+</td>
                     </tr>   
@@ -97,18 +97,38 @@
             </div>
         </div>
         <script>
+            var congThucString="";
             function tinhToan(){
-                var eventTable = document.getElementById("table1")
+                let eventTable = document.getElementById("table1");
                 for(let i=0; i<eventTable.rows.length; i++)
                 {
-                    for(let j=0; j<eventTable.rows[i].length; j++)
+                    for(let j=0; j<eventTable.rows[i].cells.length; j++)
                     {
-                        eventTable.row[i].cells[j].onmousedown = function() {mouseDown()};
+                        eventTable.rows[i].cells[j].onmousedown = function () {
+                            mouseDown(eventTable, i, j);
+                        };
+                        eventTable.rows[i].cells[j].onmouseup = function () {
+                            mouseUp(eventTable, i, j);
+                        };
                     }
                 }
             }
-            function mouseDown() {
-                alert("Hi");
+            function mouseDown(eventTable, i, j) {
+                document.getElementById("ketQua").style.border = "2px solid  rgb(255, 255, 255)";
+                eventTable.rows[i].cells[j].style.border = "2px solid  rgb(25, 162, 241)";
+                if(eventTable.rows[i].cells[j].innerHTML === "CE"){
+                    if(congThucString.length !== 0){
+                        let lastString = congThucString.length;
+                        congThucString = congThucString.substring(0, lastString-1);
+                        document.getElementById("congThuc").innerHTML = congThucString;
+                    }
+                }
+                else congThucString += eventTable.rows[i].cells[j].innerHTML.toString();
+                document.getElementById("congThuc").innerHTML = congThucString;
+            }
+            function mouseUp(eventTable, i, j) {
+                document.getElementById("ketQua").style.border = "2px solid  rgb(25, 162, 241)";
+                eventTable.rows[i].cells[j].style.border = "2px solid  rgb(255, 255, 255)";
             }
         </script>
     </body>
