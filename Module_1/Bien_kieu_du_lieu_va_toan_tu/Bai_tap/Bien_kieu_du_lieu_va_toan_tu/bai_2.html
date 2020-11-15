@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Chuyển đổi độ C</title>
+        <style>
+            input{
+                width: 50px;
+                margin-right: 0px;
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body style="text-align: center;">
+        <form >
+            <input type="text" id="doC">
+            <label for="doC">&degC</label>
+            <span>=</span>
+            <input type="text" id="doF">
+            <label for="doF">&degF</label><br>
+            <input type="button" value="Chuyển" id="button" onclick="toF()" style="margin-top: 30px; width: auto;">
+        </form>
+        
+        <script>
+            function toF(){
+                let doC = parseFloat(document.getElementById("doC").value);  
+                document.getElementById("doF").value = (1.8*doC+32).toFixed(2);
+            }
+        </script>
+    </body>
+</html>

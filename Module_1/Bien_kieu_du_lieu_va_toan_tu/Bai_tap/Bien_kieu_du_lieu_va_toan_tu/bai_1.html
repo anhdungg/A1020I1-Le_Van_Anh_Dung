@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tính điểm trung bình</title>
+        <style>
+            input{
+                width: 50px;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body style="text-align: center;">
+        <form >
+            <label for="toan">Toán</label>
+            <input type="text" id="toan">
+            <label for="ly">Lý</label>
+            <input type="text" id="ly">
+            <label for="hoa">Hoá</label>
+            <input type="text" id="hoa"><br>
+            <p id="ketQua" style="margin-top: 20px;"></p>
+            <input type="button" value="Tính điểm" id="button" onclick="tinhDiem()" style="margin-top: 34px; width: auto;">
+        </form>
+        
+        <script>
+            function tinhDiem(){
+                let toan = parseFloat(document.getElementById("toan").value);  
+                let ly = parseFloat(document.getElementById("ly").value);
+                let hoa = parseFloat(document.getElementById("hoa").value);  
+                document.getElementById("ketQua").innerHTML = "Điểm trung bình: " + ((toan+ly+hoa)/3).toFixed(2); 
+                document.getElementById("button").style.marginTop = "0px";
+            }
+        </script>
+    </body>
+</html>

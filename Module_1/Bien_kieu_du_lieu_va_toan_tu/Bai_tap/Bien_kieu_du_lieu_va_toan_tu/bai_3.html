@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tính diện tích hình tròn</title>
+        <style>
+            input{
+                width: 50px;
+                margin-right: 0px;
+            }
+        </style>
+    </head>
+    <body style="text-align: center;">
+        <h2 style="text-align: center; color: rgb(212, 0, 255);">Tính chu vi và diện tích hình tròn</h2>
+        <form >
+            <label for="banKinh">Bán kính:</label>
+            <input type="text" id="banKinh">
+            <label style="margin-left: 0px;">cm</label>
+            <br>
+            <p id="ketQua" style="margin-top: 20px;"></p>
+            <input type="button" value="Tính" id="button" onclick="dienTichHinhTron()" style="margin-top: 34px; width: auto;">
+        </form>
+        
+        <script>
+            function dienTichHinhTron(){
+                let banKinh = parseFloat(document.getElementById("banKinh").value);  
+                document.getElementById("ketQua").innerHTML = "<b>Chu vi</b>: " + (banKinh*2*Math.PI).toFixed(2) + "cm <b>Diện tích</b>:" + (Math.pow(banKinh,2)*Math.PI).toFixed(2) + "cm"; 
+                document.getElementById("button").style.marginTop = "0px";
+            }
+        </script>
+    </body>
+</html>
