@@ -27,7 +27,7 @@
             </div>
             <div style="position: absolute; left: 230px; text-align: center; top: 0px;">
                 <label style="margin-top: 0px;"><b>Form Currency</b></label><br>
-                <select id="tienViet" style="width: 105px; height: 21px;">
+                <select id="tienViet" style="width: 100%; height: 21px;">
                     <option value="vnd">VietNam</option>
                     <option value="usd">USD</option>
                     <option value="jpy">JPY</option>
@@ -36,7 +36,7 @@
             </div>
             <div style="position: absolute; left: 390px; text-align: center; top: 0px;">
                 <label style="margin-top: 0px;"><b>To Currency</b></label><br>
-                <select id="doLa" style="width: 85px; height: 21px;">
+                <select id="doLa" style="width: 100%; height: 21px;">
                     <option value="usd">USD</option>
                     <option value="vnd">VietNam</option>
                     <option value="jpy">JPY</option>
@@ -50,73 +50,87 @@
         <p id="ketQua" style="margin: auto; width: 50%; height: 50px; position: relative; color: blue; font-size: 20px;"></p>
         <script>
             function chuyenTien(){
-                value = parseFloat(document.getElementById("amout").value);
-                result=0;
-                switch(document.getElementById("tienViet").value){
-                    case "vnd":
-                        switch(document.getElementById("doLa").value){
-                            case "usd":
-                                result = value / 23176;
-                                break;
-                            case "vnd":
-                                result = value;
-                                break;
-                            case "jpy":
-                                result = value / 211.49;
-                                break;
-                            case "cny":
-                                result = value / 3508.11;
-                                break;
-                        }
-                        break;
-                    case "usd":
-                        switch(document.getElementById("doLa").value){
-                            case "vnd":
-                                result = value * 23176;
-                                break;
-                            case "usd":
-                                result = value;
-                                break;
-                            case "jpy":
-                                result = value * 104.69;
-                                break;
-                            case "cny":
-                                result = value * 6.61;
-                                break;
-                        }
-                        break;
-                    case "jpy":
-                        switch(document.getElementById("doLa").value){
-                            case "vnd":
-                                result = value * 211.49;
-                                break;
-                            case "usd":
-                                result = value / 104.69;
-                                break;
-                            case "jpy":
-                                result = value;
-                                break;
-                            case "cny":
-                                result = value / 15.85;
-                                break;
-                        }
-                        break;
-                    case "cny":
-                        switch(document.getElementById("doLa").value){
-                            case "vnd":
-                                result = value * 3508.11;
-                                break;
-                            case "usd":
-                                result = value / 6.61;
-                                break;
-                            case "jpy":
-                                result = value * 15.85;
-                                break;
-                            case "cny":
-                                result = value;
-                                break;
-                        }
-                        break;
+                let value = parseFloat(document.getElementById("amout").value);
+                let result=0;
+                if(!isNaN(value)){
+                    switch(document.getElementById("tienViet").value){
+                        case "vnd":
+                            switch(document.getElementById("doLa").value){
+                                case "usd":
+                                    if(value!=0)result = value / 23176;
+                                    break;
+                                case "vnd":
+                                    result = value;
+                                    break;
+                                case "jpy":
+                                    result = value / 211.49;
+                                    break;
+                                case "cny":
+                                    result = value / 3508.11;
+                                    break;
+                                default:
+                                    result = 0;
+                            }
+                            break;
+                        case "usd":
+                            switch(document.getElementById("doLa").value){
+                                case "vnd":
+                                    result = value * 23176;
+                                    break;
+                                case "usd":
+                                    result = value;
+                                    break;
+                                case "jpy":
+                                    result = value * 104.69;
+                                    break;
+                                case "cny":
+                                    result = value * 6.61;
+                                    break;
+                                default:
+                                    result = 0;
+                            }
+                            break;
+                        case "jpy":
+                            switch(document.getElementById("doLa").value){
+                                case "vnd":
+                                    result = value * 211.49;
+                                    break;
+                                case "usd":
+                                    result = value / 104.69;
+                                    break;
+                                case "jpy":
+                                    result = value;
+                                    break;
+                                case "cny":
+                                    result = value / 15.85;
+                                    break;
+                                default:
+                                    result = 0;
+                            }
+                            break;
+                        case "cny":
+                            switch(document.getElementById("doLa").value){
+                                case "vnd":
+                                    result = value * 3508.11;
+                                    break;
+                                case "usd":
+                                    result = value / 6.61;
+                                    break;
+                                case "jpy":
+                                    result = value * 15.85;
+                                    break;
+                                case "cny":
+                                    result = value;
+                                    break;
+                                default:
+                                    result = 0;
+                                    break
+                            }
+                            break;
+                        default:
+                            result = 0;
+                            break;
+                    }
                 }
                 document.getElementById("ketQua").innerHTML = "Result: " + result.toFixed(10);
             }
