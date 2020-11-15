@@ -64,7 +64,7 @@
                         <td style="background-color: rgb(236, 236, 231);">7</td>
                         <td style="background-color: rgb(236, 236, 231);">8</td>
                         <td style="background-color: rgb(236, 236, 231);">9</td>
-                        <td style="font-size: 18px;">÷</td>
+                        <td style="font-size: 18px;">/</td>
                     </tr>
                     <tr>
                         <td>π</td>
@@ -73,7 +73,7 @@
                         <td style="background-color: rgb(236, 236, 231);">4</td>
                         <td style="background-color: rgb(236, 236, 231);">5</td>
                         <td style="background-color: rgb(236, 236, 231);">6</td>
-                        <td style="font-size: 15px;">x</td>
+                        <td style="font-size: 15px;">*</td>
                     </tr> 
                     <tr>
                         <td>e</td>
@@ -97,8 +97,8 @@
             </div>
         </div>
         <script>
-            const defaultNumber = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "-", "x", "+", "."];
-            var congThucString="";
+            const defaultNumber = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "-", "+", "*", "/", "."];
+            var congThucString=document.getElementById("congThuc").innerHTML;
             let result=0;
             function tinhToan(){
                 let eventTable = document.getElementById("table1");
@@ -133,16 +133,48 @@
                 }
                 for(let x=0; x<defaultNumber.length; x++){
                     if(dataInput === defaultNumber[x]){
-                        switch (dataInput){
-                            case "x":
-                                congThucString+="*";
-                                break;
-                            case "÷":
-                                congThucString += "/";
-                                break;
-                            default:
-                                congThucString += dataInput.toString();
+                        let lastString = congThucString.length-1;
+                        if(congThucString.lastIndexOf("+") != lastString && congThucString.lastIndexOf("/") != lastString && congThucString.lastIndexOf("*") != lastString && congThucString.lastIndexOf("-") != lastString){
+                            congThucString+=dataInput;
                         }
+                        else{
+                            if(congThucString.lastIndexOf("*") != lastString && congThucString.lastIndexOf("/") != lastString){
+                                
+                                if(congThucString.lastIndexOf("*",lastString-1) == -1 && congThucString.lastIndexOf("/",lastString-1) == -1){
+                                    if(dataInput === "+" || dataInput === "-" || dataInput === "*" || dataInput === "/") {
+                                        congThucString = congThucString.substring(0, lastString);
+                                        congThucString+=dataInput;
+                                    }
+                                    else congThucString+=dataInput;
+                                    
+                                }
+                                else{
+                                    if(dataInput!="+" && dataInput!="-" && dataInput!="*" && dataInput!="/") congThucString+=dataInput;
+                                }
+                            }
+                            else{
+                                if(congThucString.lastIndexOf("-") != lastString){
+                                    if(dataInput=="-"){
+                                        congThucString+=dataInput;
+                                    } 
+                                    else{
+                                        if(dataInput === "+" || dataInput === "-" || dataInput === "*" || dataInput === "/") {
+                                        congThucString = congThucString.substring(0, lastString);
+                                        congThucString+=dataInput;
+                                        }
+                                        else congThucString+=dataInput;
+                                    }
+                                    
+                                }
+                                else{
+                                    if(dataInput === "+" || dataInput === "-" || dataInput === "*" || dataInput === "/") {
+                                        congThucString = congThucString.substring(0, lastString);
+                                        congThucString+=dataInput;
+                                    }
+                                    else congThucString+=dataInput;
+                                }
+                            }
+                        }                        
                     } 
                     eventTable.rows[0].cells[5].innerHTML = "CE";
                     document.getElementById("phepTinh").innerHTML = "Ans=" + result;
@@ -150,16 +182,26 @@
                 //Tránh trường hợp không hiển thị số 0 khi xoá hết số đã nhập
                 if(congThucString.length===0) congThucString = "0";
                 //Tránh trường hợp hiển thị số 0 đầu các số đã nhập
-                if(congThucString.indexOf("0")===0 && congThucString.length > 1) congThucString = congThucString.substring(1, congThucString.length);
+                if(congThucString.indexOf("0")===0 && congThucString.length > 1) congThucString = congThucString.substr(1);
                 //Khi ấn dấu =
                 if(eventTable.rows[i].cells[j].innerHTML === "="){
+                    let lastString = congThucString.length-1;
                     if(congThucString.indexOf(0)!==0){
-                        eventTable.rows[0].cells[5].innerHTML = "AC";
-                        document.getElementById("phepTinh").innerHTML = congThucString + "=";
-                        congThucString = eval(congThucString);
-                        result = congThucString;
+                        for(let x=0; x<12; x++){
+                            if(congThucString.substring(0, 1) == defaultNumber[x]){
+                                eventTable.rows[0].cells[5].innerHTML = "AC";
+                                document.getElementById("phepTinh").innerHTML = congThucString + "=";
+                                congThucString = eval(congThucString).toString();
+                                result = congThucString;
+                            }
+                            else{
+                                eventTable.rows[0].cells[5].innerHTML = "AC";
+                                congThucString = "Error";
+                                console.log("Error");
+                            }
+                        }
+                        
                     }
-                    
                 }
                 document.getElementById("congThuc").innerHTML = congThucString;
             }
