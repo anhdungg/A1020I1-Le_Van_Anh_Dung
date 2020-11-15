@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Chuyển đổi tiền tệ</title>
+        <style>
+            input{
+                margin-top: 0px;
+            }
+            .button{
+                background-color: rgb(92, 92, 243); 
+                color: white; 
+                width: 100px; 
+                height: 30px; 
+                border-radius: 5px; 
+                font-size: 15px; 
+                margin-top: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style="text-align: center; color: rgb(212, 0, 255);">Chuyển đổi tiền tệ</h2>
+        <div style="margin: auto; width: 50%; height: 50px; position: relative;">
+            <div style="position: absolute; text-align: center; top: 0px;">
+                <label for="amout"><b>Amount</b></label><br>
+                <input type="text" id="amout" style="text-align: end;">
+            </div>
+            <div style="position: absolute; left: 230px; text-align: center; top: 0px;">
+                <label style="margin-top: 0px;"><b>Form Currency</b></label><br>
+                <select id="tienViet" style="width: 105px; height: 21px;">
+                    <option value="vnd">VietNam</option>
+                    <option value="usd">USD</option>
+                    <option value="jpy">JPY</option>
+                    <option value="cny">CNY</option>
+                </select>
+            </div>
+            <div style="position: absolute; left: 390px; text-align: center; top: 0px;">
+                <label style="margin-top: 0px;"><b>To Currency</b></label><br>
+                <select id="doLa" style="width: 85px; height: 21px;">
+                    <option value="usd">USD</option>
+                    <option value="vnd">VietNam</option>
+                    <option value="jpy">JPY</option>
+                    <option value="cny">CNY</option>
+                </select>
+            </div>
+            <div style="position: absolute; left: 530px; text-align: center; top: 0px;">
+                <input type="button" onclick="chuyenTien()" value="Convert" class="button">
+            </div>
+        </div>
+        <p id="ketQua" style="margin: auto; width: 50%; height: 50px; position: relative; color: blue; font-size: 20px;"></p>
+        <script>
+            function chuyenTien(){
+                value = parseFloat(document.getElementById("amout").value);
+                result=0;
+                switch(document.getElementById("tienViet").value){
+                    case "vnd":
+                        switch(document.getElementById("doLa").value){
+                            case "usd":
+                                result = value / 23176;
+                                break;
+                            case "vnd":
+                                result = value;
+                                break;
+                            case "jpy":
+                                result = value / 211.49;
+                                break;
+                            case "cny":
+                                result = value / 3508.11;
+                                break;
+                        }
+                        break;
+                    case "usd":
+                        switch(document.getElementById("doLa").value){
+                            case "vnd":
+                                result = value * 23176;
+                                break;
+                            case "usd":
+                                result = value;
+                                break;
+                            case "jpy":
+                                result = value * 104.69;
+                                break;
+                            case "cny":
+                                result = value * 6.61;
+                                break;
+                        }
+                        break;
+                    case "jpy":
+                        switch(document.getElementById("doLa").value){
+                            case "vnd":
+                                result = value * 211.49;
+                                break;
+                            case "usd":
+                                result = value / 104.69;
+                                break;
+                            case "jpy":
+                                result = value;
+                                break;
+                            case "cny":
+                                result = value / 15.85;
+                                break;
+                        }
+                        break;
+                    case "cny":
+                        switch(document.getElementById("doLa").value){
+                            case "vnd":
+                                result = value * 3508.11;
+                                break;
+                            case "usd":
+                                result = value / 6.61;
+                                break;
+                            case "jpy":
+                                result = value * 15.85;
+                                break;
+                            case "cny":
+                                result = value;
+                                break;
+                        }
+                        break;
+                }
+                document.getElementById("ketQua").innerHTML = "Result: " + result.toFixed(10);
+            }
+        </script>
+    </body>
+</html>
