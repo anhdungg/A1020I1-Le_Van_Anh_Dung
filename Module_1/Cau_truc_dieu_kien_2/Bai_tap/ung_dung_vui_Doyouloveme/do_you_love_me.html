@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Do you love me</title>
+    </head>
+    <body >
+        <h1 style="text-align: center; color: rgb(212, 0, 255);">Do you love me?</h1>
+        <button onclick="dongY()" id="yes" style="margin-right: 40px; width: 70px; height: 40px; position: relative; left: 42%; background-color: rgb(255, 0, 0); border-radius: 10px; font-size: 20px;">Yes</button>
+        <button id="no" onmouseenter="sayNo()" style="width: 70px; height: 40px; position: absolute; left: 690px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); border-radius: 10px; font-size: 20px;">No</button>
+        <script>
+            function dongY(){
+                alert("<3");
+            }
+            function sayNo(){
+                let x = Math.floor(Math.random() * 900)+5;
+                let y = Math.floor(Math.random() * 350)+300;
+                document.getElementById("no").style.left = x.toString() + "px";
+                document.getElementById("no").style.top = y.toString() + "px";
+            }
+        </script>
+    </body>
+</html>

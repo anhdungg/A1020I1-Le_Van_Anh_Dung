@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉ số cân nặng cơ thể(BMI)</title>
+</head>
+<body>
+    <h1 style="text-align: center; color: #0aff72">Chỉ số BMI</h1>
+    <form >
+        <div style="position: relative; left: 42%">
+            <div style="position: absolute;">
+                <label for="canNang"><b>Cân Nặng:</b></label><br><br>
+                <label for="chieuCao"><b>Chiều Cao:</b></label><br><br>
+                <span><b>Kết quả: </b></span>
+                <span id="ketQua"></span><br><br>
+                <span><b>BMI: </b></span>
+                <span id="chiSo"></span>
+            </div>
+            <div style="position: absolute; left: 80px">
+                <input type="text" id="canNang" style="width: 50px;">
+                <span>kg</span><br>
+                <input type="text" id="chieuCao" style="width: 50px; margin-top: 15px">
+                <span>m</span><br>
+            </div>
+        </div>
+        <input type="button" value="Tính" onclick="calculator()" style="position: absolute; left: 43%; top: 45%; height: 30px; width: 60px; border-radius: 10px; background-color: #ffcb1d; font-size: 15px; ">
+        <input type="reset" value="Đặt lại" style="position: absolute; left: 50%; top: 45%; height: 30px; width: 60px; border-radius: 10px; background-color: #2d1eff; font-size: 15px; color: white">
+    </form>
+    <script>
+        function calculator() {
+            let chieuCao = parseFloat(document.getElementById("chieuCao").value);
+            let canNang = parseFloat(document.getElementById("canNang").value);
+            let bmi=0;
+            // console.log(chieuCao);
+            if(!isNaN(chieuCao) && !isNaN(canNang)){
+                bmi = canNang / Math.pow(chieuCao,2);
+                // console.log(bmi);
+            }
+            if(isNaN(bmi)) bmi=0;
+            document.getElementById("ketQua").innerHTML = bmi.toFixed(2);
+            if(bmi<18.5){
+                if(bmi!==0)document.getElementById("chiSo").innerHTML = "Underweight";
+                else document.getElementById("chiSo").innerHTML = "Error";
+            }
+            else {
+                if (bmi<25.0){
+                    document.getElementById("chiSo").innerHTML = "Normal";
+                }
+                else {
+                    if (bmi<30){
+                        document.getElementById("chiSo").innerHTML = "Overweight";
+                    }
+                    else {
+                        document.getElementById("chiSo").innerHTML = "Obese";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

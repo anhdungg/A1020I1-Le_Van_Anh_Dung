@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉ số cân nặng cơ thể(BMI)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./bootstrap.min.js"></script>
+</head>
+<body onload="canhBao()">
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="color: #ff0000; font-size: 30px"><b>Cảnh báo</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size: 20px">Trang web này chỉ tính chỉ số BMI cho người trên 20 tuổi. Bạn đã trên 20 tuổi?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="butDuoi" onclick="window.location.href='https://www.google.com/search?sxsrf=ALeKk01zhVlAWxxC5qDnHQzQengxQX0fsg%3A1605500028433&source=hp&ei=fPyxX5uvGKrdmAXc55_oAg&q=ch%E1%BB%89+s%E1%BB%91+bmi+%C4%91%E1%BB%91i+v%E1%BB%9Bi+ng%C6%B0%E1%BB%9Di+d%C6%B0%E1%BB%9Bi+20+tu%E1%BB%95i&oq=%C4%91o+ch%E1%BB%89+s%E1%BB%91+bmi+cho+ng%C6%B0%E1%BB%9Di+d%C6%B0%E1%BB%9Bi+20+tu%E1%BB%95i&gs_lcp=CgZwc3ktYWIQARgAMgUIABDNAjIFCAAQzQIyBQgAEM0COgQIIxAnOggIABCxAxCDAToFCAAQsQM6AggAOgoILhCxAxBDEJMCOgQIABBDOgoIABCxAxCDARAKOgUILhCxAzoECAAQCjoHCCMQ6gIQJzoJCCMQ6gIQJxATOgQILhAnOggILhCxAxCDAToCCC46BggAEBYQHjoFCCEQoAE6BwghEAoQoAE6BAgAEA06CAghEBYQHRAeOgoIIRAWEAoQHRAeOgQIIRAVUPssWMDBAWDW6wFoJHAAeAiAAd0BiAH0PpIBBzIwLjUwLjKYAQCgAQGqAQdnd3Mtd2l6sAEK&sclient=psy-ab'">Dưới 20 tuổi</button>
+                        <button type="button" class="btn btn-default" id="butTren" onclick="document.location='tren_20.html'">Trên 20 tuổi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function canhBao() {
+            $("#myModal").modal();
+        }
+    </script>
+</body>
+</html>

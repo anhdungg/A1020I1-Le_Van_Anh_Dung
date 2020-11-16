@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Switch case</title>
+</head>
+<body onload="readKeyboard()">
+    <h1 style="text-align: center; color: #ff5d24">Tính số ngày trong một tháng</h1>
+    <div style="position: relative; width: 100%;">
+        <div style="position: relative; width: 100%; text-align: center; ">
+            <label for="month"><b>Tháng:</b></label>
+            <input type="text" id="month" style="width: 20px">
+        </div>
+
+        <p id="hienThi" style="text-align: center; height: 20px"></p>
+        <button id="butTinh" onclick="tinhNgay()" style="position: relative; left: 46.5%; ">Tính số ngày</button>
+    </div>
+    <script>
+        function tinhNgay() {
+            month = parseInt(document.getElementById("month").value);
+            if(!isNaN(month)){
+                if(month<13 && month !== 0)
+                {
+                    switch (month) {
+                        case 2:
+                            document.getElementById("hienThi").innerHTML = "Tháng " + month.toString() + " có 28 hoặc 29 ngày";
+                            break;
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            document.getElementById("hienThi").innerHTML = "Tháng " + month.toString() + " có 31 ngày";
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            document.getElementById("hienThi").innerHTML = "Tháng " + month.toString() + " có 30 ngày";
+                            break;
+                    }
+                }
+                else document.getElementById("hienThi").innerHTML = "Error";
+            }
+            else document.getElementById("hienThi").innerHTML = "Hãy nhập tháng bạn muốn tính";
+        }
+        function action(evt) {
+            if(evt.keyCode === 13) tinhNgay();
+        }
+        function readKeyboard() {
+            window.addEventListener('keydown', action);
+        }
+    </script>
+</body>
+</html>
