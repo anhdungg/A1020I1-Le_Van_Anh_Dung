@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ball</title>
+    <title>Game Puzzle</title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./bootstrap.min.js"></script>
     <style>
         td{
             height: 75px;
             width: 75px;
             border: 2px solid black;
-            color: #0aff72;
-            /*text-align: center;*/
-            border-collapse: collapse
+            /*border-collapse: collapse;*/
+            /*border-spacing: 5px;*/
         }
         img{
             /*display: block;*/
@@ -38,9 +40,9 @@
     <div id="divImage08" class="image" style="top: 250px; left: 150px"><img src="" alt="Ball" id="image08"></div>
     <div id="divImage09" class="image" style="top: 350px; left: 150px"><img src="" alt="Ball" id="image09"></div>
 
-    <table id="tbl1" style="position: relative; left: 40%; top: 30%; border: 2px solid black;border-collapse: collapse;">
+    <table id="tbl1" style="position: relative; left: 40%; top: 30%;">
         <tr>
-            <td id="cell01"></td>
+            <td id="cell01" ></td>
             <td id="cell02"></td>
             <td id="cell03"></td>
         </tr>
@@ -55,6 +57,20 @@
             <td id="cell09"></td>
         </tr>
     </table>
+</div>
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color: #ff0000; font-size: 30px"><b>Chúc mừng bạn đã hoàn thành trò chơi</b></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     // For random image
@@ -171,6 +187,8 @@
             let idArray = parseInt(idCell.substring(idCell.length-1, idCell.length));
             // console.log(idArray);
             arrayImage[idArray] = idImageDrag;
+            checkFinishGame();
+            checkEmptyCell();
         }
         else {
             document.getElementById(idCell).style.border = "2px solid #A41A1D";
@@ -197,6 +215,42 @@
             for (let i=0; i<10; i++){
                 if(idImageDrag===arrayImage[i]){
                     document.getElementById("cell0" + i.toString()).style.border = "2px solid black";
+                }
+            }
+        }
+    }
+    // Hoan thanh tro choi
+    function checkFinishGame() {
+        let table = document.getElementById("tbl1");
+        let count=1;
+        let statusFinish = true;
+        for(let i=0; i<table.rows.length; i++){
+            for (let j=0; j<table.rows[i].cells.length; j++){
+                let checkCell = table.rows[i].cells[j].innerHTML;
+                if(checkCell !== ""){
+                    checkCell = checkCell.substring(checkCell.indexOf(".jpg")-1, checkCell.indexOf(".jpg"));
+                    if(checkCell !== count.toString()){
+                        statusFinish = false;
+                        console.log(""+checkCell + ":" + count );
+                    }
+                }
+                else{
+                    statusFinish = false;
+                }
+                count++;
+            }
+        }
+        if(statusFinish==true){
+            $("#myModal").modal();
+        }
+    }
+    // Kiem tra o con trong va boi den
+    function checkEmptyCell() {
+        let table = document.getElementById("tbl1");
+        for (let i=0; i<table.rows.length; i++){
+            for (let j=0; j<table.rows[i].cells.length; j++){
+                if(table.rows[i].cells[j].innerHTML === ""){
+                    table.rows[i].cells[j].style.border = "2px solid black";
                 }
             }
         }
