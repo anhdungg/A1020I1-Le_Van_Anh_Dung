@@ -134,13 +134,13 @@
                 for(let x=0; x<defaultNumber.length; x++){
                     if(dataInput === defaultNumber[x]){
                         let lastString = congThucString.length-1;
-                        if(congThucString.lastIndexOf("+") != lastString && congThucString.lastIndexOf("/") != lastString && congThucString.lastIndexOf("*") != lastString && congThucString.lastIndexOf("-") != lastString){
+                        if(congThucString.lastIndexOf("+") !== lastString && congThucString.lastIndexOf("/") !== lastString && congThucString.lastIndexOf("*") !== lastString && congThucString.lastIndexOf("-") !== lastString){
                             congThucString+=dataInput;
                         }
                         else{
-                            if(congThucString.lastIndexOf("*") != lastString && congThucString.lastIndexOf("/") != lastString){
+                            if(congThucString.lastIndexOf("*") !== lastString && congThucString.lastIndexOf("/") !== lastString){
                                 
-                                if(congThucString.lastIndexOf("*",lastString-1) == -1 && congThucString.lastIndexOf("/",lastString-1) == -1){
+                                if(congThucString.lastIndexOf("*",lastString-1) === -1 && congThucString.lastIndexOf("/",lastString-1) === -1){
                                     if(dataInput === "+" || dataInput === "-" || dataInput === "*" || dataInput === "/") {
                                         congThucString = congThucString.substring(0, lastString);
                                         congThucString+=dataInput;
@@ -149,12 +149,12 @@
                                     
                                 }
                                 else{
-                                    if(dataInput!="+" && dataInput!="-" && dataInput!="*" && dataInput!="/") congThucString+=dataInput;
+                                    if(dataInput!=="+" && dataInput!=="-" && dataInput!=="*" && dataInput!=="/") congThucString+=dataInput;
                                 }
                             }
                             else{
-                                if(congThucString.lastIndexOf("-") != lastString){
-                                    if(dataInput=="-"){
+                                if(congThucString.lastIndexOf("-") !== lastString){
+                                    if(dataInput==="-"){
                                         congThucString+=dataInput;
                                     } 
                                     else{
@@ -185,22 +185,23 @@
                 if(congThucString.indexOf("0")===0 && congThucString.length > 1) congThucString = congThucString.substr(1);
                 //Khi ấn dấu =
                 if(eventTable.rows[i].cells[j].innerHTML === "="){
-                    let lastString = congThucString.length-1;
+                    let status = false;
                     if(congThucString.indexOf(0)!==0){
                         for(let x=0; x<12; x++){
-                            if(congThucString.substring(0, 1) == defaultNumber[x]){
-                                eventTable.rows[0].cells[5].innerHTML = "AC";
-                                document.getElementById("phepTinh").innerHTML = congThucString + "=";
-                                congThucString = eval(congThucString).toString();
-                                result = congThucString;
-                            }
-                            else{
-                                eventTable.rows[0].cells[5].innerHTML = "AC";
-                                congThucString = "Error";
-                                console.log("Error");
-                            }
+                            if(congThucString.substring(0, 1) === defaultNumber[x]) status = true; // Nếu không có kí tự đặc biệt trước số
                         }
-                        
+                    }
+                    if(status===true){
+                        eventTable.rows[0].cells[5].innerHTML = "AC";
+                        document.getElementById("phepTinh").innerHTML = congThucString + "=";
+                        congThucString = eval(congThucString).toString();
+                        result = congThucString;
+                        console.log(result);
+                    }
+                    else{
+                        eventTable.rows[0].cells[5].innerHTML = "AC";
+                        congThucString = "Error";
+                        console.log("Error");
                     }
                 }
                 document.getElementById("congThuc").innerHTML = congThucString;
