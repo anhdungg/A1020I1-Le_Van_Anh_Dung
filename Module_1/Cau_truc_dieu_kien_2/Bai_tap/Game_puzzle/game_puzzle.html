@@ -5,32 +5,77 @@
     <title>Ball</title>
     <style>
         td{
-            height: 100px;
-            width: 100px;
-            border: 1px solid black;
+            height: 75px;
+            width: 75px;
+            border: 2px solid black;
+            color: #0aff72;
+            /*text-align: center;*/
+            border-collapse: collapse
+        }
+        img{
+            /*display: block;*/
+            vertical-align: bottom;
+        }
+        .image{
+            position: absolute;
+            background-color: #4dd3ff;
+            height: 75px;
+            width: 75px
         }
     </style>
 
 </head>
-<body onload="randomImage(),createTable()">
-<div id="divMain" style="width: 1200px; height: 620px; background-color: #2e6da4">
-    <img src="" alt="Ball"   id="image01" ondragstart="return false;" style="position: absolute; top: 50px; left: 50px">
-    <img src="" alt="Ball"   id="image02" ondragstart="return false;" style="position: absolute; top: 150px; left: 50px">
-    <img src="" alt="Ball"   id="image03" ondragstart="return false;" style="position: absolute; top: 250px; left: 50px">
-    <img src="" alt="Ball"   id="image04" ondragstart="return false;" style="position: absolute; top: 350px; left: 50px">
-    <img src="" alt="Ball"   id="image05" ondragstart="return false;" style="position: absolute; top: 450px; left: 50px">
-    <img src="" alt="Ball"   id="image06" ondragstart="return false;" style="position: absolute; top: 50px; left: 150px">
-    <img src="" alt="Ball"   id="image07" ondragstart="return false;" style="position: absolute; top: 150px; left: 150px">
-    <img src="" alt="Ball"   id="image08" ondragstart="return false;" style="position: absolute; top: 250px; left: 150px">
-    <img src="" alt="Ball"   id="image09" ondragstart="return false;" style="position: absolute; top: 350px; left: 150px">
-    <table id="tbl1" style="position: absolute; left: 400px"></table>
+<body onload="randomImage()">
+<div id="divMain" style="width: 100%; height: 670px; background-color: #2e6da4">
+<!--    ondragstart=\"return false;\" disable drag and drop-->
+    <div id="divImage01" class="image" style="top: 50px; left: 50px"><img src="" alt="Ball" id="image01"></div>
+    <div id="divImage02" class="image" style="top: 150px; left: 50px"><img src="" alt="Ball" id="image02"></div>
+    <div id="divImage03" class="image" style="top: 250px; left: 50px"><img src="" alt="Ball" id="image03"></div>
+    <div id="divImage04" class="image" style="top: 350px; left: 50px"><img src="" alt="Ball" id="image04"></div>
+    <div id="divImage05" class="image" style="top: 450px; left: 50px"><img src="" alt="Ball" id="image05"></div>
+    <div id="divImage06" class="image" style="top: 50px; left: 150px"><img src="" alt="Ball" id="image06"></div>
+    <div id="divImage07" class="image" style="top: 150px; left: 150px"><img src="" alt="Ball" id="image07"></div>
+    <div id="divImage08" class="image" style="top: 250px; left: 150px"><img src="" alt="Ball" id="image08"></div>
+    <div id="divImage09" class="image" style="top: 350px; left: 150px"><img src="" alt="Ball" id="image09"></div>
+
+    <table id="tbl1" style="position: relative; left: 40%; top: 30%; border: 2px solid black;border-collapse: collapse;">
+        <tr>
+            <td id="cell01"></td>
+            <td id="cell02"></td>
+            <td id="cell03"></td>
+        </tr>
+        <tr>
+            <td id="cell04"></td>
+            <td id="cell05"></td>
+            <td id="cell06"></td>
+        </tr>
+        <tr>
+            <td id="cell07"></td>
+            <td id="cell08"></td>
+            <td id="cell09"></td>
+        </tr>
+    </table>
 </div>
 <script>
     // For random image
     function randomImage(){
-        for (let i=1; i<10; i++){
+        let arrayRandom = new Array(10);
+        let count=1;
+        while (true){
             let random = Math.floor(Math.random() * 9)+1;
-            document.getElementById("image0" + i.toString()).src= "./image/image_part_00" + random.toString() + ".jpg";
+            let status = true;
+            for (let i=1; i<=count; i++){
+                if(random === arrayRandom[i]){
+                    status = false;
+                    break;
+                }
+            }
+            if(status===true){
+                document.getElementById("image0" + count.toString()).src = "./image/image_part_00" + random.toString() + ".jpg";
+                arrayRandom[count] = random;
+                count++;
+            }
+            if(count>9) break;
         }
     }
     // For move image
@@ -39,23 +84,11 @@
     let gMouseDownOffsetX = 0;
     let gMouseDownOffsetY = 0;
     let idImage;
-    for(let i=1; i<10; i++) {
-        document.getElementById('image0' + i.toString()).addEventListener('mousedown', e => {
-            mouseDown(e, 'image0' + i.toString());
-        }, false);
-    }
-    document.getElementById("tbl1").addEventListener('mousedown', e=>{
-        mouseDown(e, idImage);
-    }, false);
-    window.addEventListener('mouseup', e=>{
-        window.removeEventListener('mousemove', divMove, true);
-    }, false);
-
     function mouseDown(e, getId) {
         gMouseDownX = e.clientX;
         gMouseDownY = e.clientY;
         idImage = getId;
-        // console.log(idImage);
+        // console.log(e.target.id);
         let div = document.getElementById(getId);
 
         //The following block gets the X offset (the difference between where it starts and where it was clicked)
@@ -80,7 +113,6 @@
 
         window.addEventListener('mousemove', divMove, true);
     }
-
     function divMove(e){
         // console.log(idImage);
         let div = document.getElementById(idImage);
@@ -90,14 +122,82 @@
         let leftAmount = e.clientX - gMouseDownOffsetX;
         div.style.left = leftAmount + 'px';
     }
-    // For table
-    function createTable() {
-        let table = document.getElementById("tbl1");
-        for(let i=0; i<3; i++){
-            let addRow = table.insertRow(i);
-            for(let j=0; j<3; j++){
-                let addCell = addRow.insertCell(j);
-                addCell.innerHTML = "1";
+    // For event
+    let idImageDrag;
+    let arrayImage = new Array(10);
+    for(let i=1; i<10; i++) {
+        // document.getElementById('image0' + i.toString()).addEventListener('mousedown', e => {
+        //     mouseDown(e, 'image0' + i.toString());
+        // }, false);
+        document.getElementById('image0' + i.toString()).addEventListener('drag', e => {
+            dragImage(e);
+        });
+        document.getElementById('cell0' + i.toString()).addEventListener('drop', ev => {
+            dropImage(ev, "cell0"+i.toString());
+        });
+        document.getElementById('cell0' + i.toString()).addEventListener('dragover', ev => {
+            allowImage(ev, "cell0"+i.toString());
+        });
+        document.getElementById('cell0' + i.toString()).addEventListener('dragleave', ev => {
+            leaveImage(ev, "cell0"+i.toString());
+        });
+        document.getElementById("divImage0" + i.toString()).addEventListener('dragover', ev => {
+            allowRemoveImage(ev);
+        });
+        document.getElementById("divImage0" + i.toString()).addEventListener('drop', ev => {
+            dropRemoveImage(ev, "divImage0" + i.toString());
+        });
+    }
+
+    // window.addEventListener('mouseup', e=>{
+    //     window.removeEventListener('mousemove', divMove, true);
+    // }, false);
+    function dragImage(e) {
+        e.dataTransfer.setData("Text", e.target.id);
+        idImageDrag = e.target.id;
+        // console.log(document.getElementById(idImageDrag).innerHTML);
+    }
+    function allowImage(ev, idCell) {
+        ev.preventDefault();
+        document.getElementById(idCell).style.border = "2px solid #0aff72";
+        // console.log("Allow");
+    }
+    function dropImage(ev, idCell) {
+        ev.preventDefault();
+        // let data = ev.dataTransfer.getData("Text");
+        if(document.getElementById(idCell).innerHTML === ""){
+            ev.target.appendChild(document.getElementById(idImageDrag));
+            document.getElementById(idCell).style.border = "2px solid #A41A1D";
+            let idArray = parseInt(idCell.substring(idCell.length-1, idCell.length));
+            // console.log(idArray);
+            arrayImage[idArray] = idImageDrag;
+        }
+        else {
+            document.getElementById(idCell).style.border = "2px solid #A41A1D";
+        }
+
+    }
+
+    function leaveImage(ev, idCell) {
+        if(document.getElementById(idCell).innerHTML === ""){
+            document.getElementById(idCell).style.border = "2px solid black";
+        }
+        else {
+            document.getElementById(idCell).style.border = "2px solid #A41A1D";
+        }
+    }
+
+    function allowRemoveImage(ev) {
+        ev.preventDefault();
+    }
+    function dropRemoveImage(ev, idDiv) {
+        ev.preventDefault();
+        if(document.getElementById(idDiv).innerHTML===""){
+            ev.target.appendChild(document.getElementById(idImageDrag));
+            for (let i=0; i<10; i++){
+                if(idImageDrag===arrayImage[i]){
+                    document.getElementById("cell0" + i.toString()).style.border = "2px solid black";
+                }
             }
         }
     }
