@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20 số nguyên tố đầu tiên</title>
+    <style>
+        td{
+            height: 25px;
+            width: 50px;
+            background: #b4ceff;
+            border: 3px groove white;
+            text-align: center;
+            /*border-collapse: collapse;*/
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title" style="text-align: center"></h1>
+    <table id="tbl1" style="margin-right: auto; margin-left: auto; border: 3px groove white; margin-top: 25px"></table>
+    <script>
+        let maxNguyenTo = prompt("Bạn muốn hiển thị bao nhiêu số nguyên tố đầu tiên?");
+        maxNguyenTo = parseInt(maxNguyenTo);
+        if(isNaN(maxNguyenTo)){
+            alert("Bạn đã nhập lỗi");
+        }
+        else{
+            if(maxNguyenTo>0){
+                document.getElementById("title").innerHTML = "Bảng hiển thị " + maxNguyenTo + " số nguyên tố đầu tiên";
+                soNguyenTo(maxNguyenTo);
+            }
+            else alert("Bạn đã nhập lỗi");
+        }
+
+        function soNguyenTo(max) {
+            let table = document.getElementById("tbl1");
+            let countNguyenTo = 2;
+            let count=0, maxCount=20, countInsertCell=2, countIdRow=10;
+            while (true){
+                let statusNguyenTo = true;
+                for (let i=1; i<=countNguyenTo;i++){
+                    if(countNguyenTo%i === 0){
+                        if (i!==1 && i!==countNguyenTo){
+                            statusNguyenTo = false;
+                        }
+                    }
+                }
+                if (statusNguyenTo===true){
+                    if(count<=9) {
+                        let addRow = table.insertRow(count);
+                        addRow.id = "row0" + count;
+                        let addCell= addRow.insertCell(0);
+                        addCell.innerHTML = (count+1).toString() + ".";
+                        addCell = addRow.insertCell(1);
+                        addCell.innerHTML = countNguyenTo.toString();
+                    }
+                    else {
+                        if(count%maxCount !==0){
+                            let row = document.getElementById("row0"+(count-countIdRow));
+                            let addCell = row.insertCell(countInsertCell);
+                            addCell.innerHTML = (count+1).toString() + ".";
+                            addCell = row.insertCell(countInsertCell+1);
+                            addCell.innerHTML = countNguyenTo.toString();
+                        }
+                        else {
+                            maxCount+=10;
+                            countInsertCell+=2;
+                            countIdRow+=10;
+                            let row = document.getElementById("row0"+(count-countIdRow));
+                            let addCell = row.insertCell(countInsertCell);
+                            addCell.innerHTML = (count+1).toString() + ".";
+                            addCell = row.insertCell(countInsertCell+1);
+                            addCell.innerHTML = countNguyenTo.toString();
+                        }
+                    }
+                    count++;
+                }
+                countNguyenTo++;
+                if(count>max-1) break;
+            }
+        }
+    </script>
+</body>
+</html>
