@@ -5,88 +5,138 @@
     <title>Fast Good Cheap</title>
     <link rel="icon" href="./image-20200514080809-1.png" type="image/icon type">
     <style>
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {
+        /* Hide the input */
+        input[type=checkbox] {
+            position: absolute;
             opacity: 0;
-            width: 0;
-            height: 0;
+            z-index: -1;
         }
 
-        .slider {
-            position: absolute;
+        .check-trail {
+            display: flex;
+            align-items: center;
+            width: 75px;
+            height: 30px;
+            background: #2c3e50;
+            border-radius: 50px;
+            transition: all 0.4s ease;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
+        .check-handler {
+            display: flex;
+            margin-left: 0;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
             border-radius: 50%;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        }
+        .check-handler:before {
+            content: "ꓫ";
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        input[type=checkbox]:checked + .check-trail {
+            background: #16a085;
+        }
+        input[type=checkbox]:checked + .check-trail .check-handler {
+            margin-left: 35px;
+            background: #1abc9c;
+        }
+        input[type=checkbox]:checked + .check-trail .check-handler::before {
+            content: "✔";
         }
     </style>
 </head>
 <body>
-<h2>Toggle Switch</h2>
+<div style="position: absolute; height: 270px; width: 250px;top: 30%; left: 46%;">
+    <div style="position: absolute; top: 10px;">
+        <input id="chck1" type="checkbox" onclick="eventFast()">
+        <label for="chck1" class="check-trail">
+            <span class="check-handler"></span>
+        </label>
+        <br><br><br><br>
+        <input id="chck2" type="checkbox" onclick="eventGood()">
+        <label for="chck2" class="check-trail">
+            <span class="check-handler"></span>
+        </label>
+        <br><br><br><br>
+        <input id="chck3" type="checkbox" onclick="eventCheap()">
+        <label for="chck3" class="check-trail">
+            <span class="check-handler"></span>
+        </label>
+    </div>
+    <div style="position: absolute; top: 3px; left: 100px">
+        <span style="font-family: Calibri; font-size: 35px; font-weight: bold">FAST</span>
+        <br>
+        <span style="position: absolute; top: 102px; font-family: Calibri; font-size: 35px; font-weight: bold">GOOD</span>
+        <br>
+        <span style="position: absolute; top: 204px; font-family: Calibri; font-size: 35px; font-weight: bold">CHEAP</span>
+    </div>
+</div>
+<script>
+    function eventFast() {
+        let fast = document.getElementById("chck1").checked;
+        let good = document.getElementById("chck2").checked;
+        let cheap = document.getElementById("chck3").checked;
+        if(fast===true){
+            if(cheap===true && good===true){
+                let random = Math.floor(Math.random()*2)+1;
+                if(random===1){
+                    document.getElementById("chck1").checked = true;
+                    document.getElementById("chck2").checked = false;
+                }
+                else {
+                    document.getElementById("chck1").checked = true;
+                    document.getElementById("chck3").checked = false;
+                }
+            }
+        }
 
-<label class="switch">
-    <input type="checkbox">
-    <span class="slider"></span>
-</label>
-
-<label class="switch">
-    <input type="checkbox" checked>
-    <span class="slider"></span>
-</label><br><br>
-
-<label class="switch">
-    <input type="checkbox">
-    <span class="slider round"></span>
-</label>
-
-<label class="switch">
-    <input type="checkbox" checked>
-    <span class="slider round"></span>
-</label>
+        // console.log(""+fast+good+cheap);
+    }
+    function eventGood() {
+        let fast = document.getElementById("chck1").checked;
+        let good = document.getElementById("chck2").checked;
+        let cheap = document.getElementById("chck3").checked;
+        if(good===true){
+            if(cheap===true && fast===true){
+                let random = Math.floor(Math.random()*2)+1;
+                if(random===1){
+                    document.getElementById("chck3").checked = true;
+                    document.getElementById("chck1").checked = false;
+                }
+                else {
+                    document.getElementById("chck1").checked = true;
+                    document.getElementById("chck3").checked = false;
+                }
+            }
+        }
+    }
+    function eventCheap() {
+        let fast = document.getElementById("chck1").checked;
+        let good = document.getElementById("chck2").checked;
+        let cheap = document.getElementById("chck3").checked;
+        if(cheap===true){
+            if(good===true && fast===true){
+                let random = Math.floor(Math.random()*2)+1;
+                if(random===1){
+                    document.getElementById("chck3").checked = true;
+                    document.getElementById("chck1").checked = false;
+                }
+                else {
+                    document.getElementById("chck3").checked = true;
+                    document.getElementById("chck2").checked = false;
+                }
+            }
+        }
+    }
+</script>
 </body>
 </html>
