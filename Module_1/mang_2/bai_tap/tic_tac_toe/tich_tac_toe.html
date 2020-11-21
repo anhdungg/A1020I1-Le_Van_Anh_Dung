@@ -33,11 +33,12 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title" id="displayFinish" style="text-align: center; font-size: 30px"><b></b></h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadPage()">Chơi lại</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="butt01" style="width: 70px; text-align: center"></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="butt02" style="width: 70px; text-align: center"></button>
                     </div>
                 </div>
             </div>
@@ -48,6 +49,8 @@
         let status_X_O=true;
         // For create table
         function createTable() {
+            changeModal(true);
+            $("#myModal").modal();
             let maxHeight = screen.height, maxWidth=screen.width;
             let table = document.createElement("TABLE");
             let count = 0;
@@ -92,6 +95,7 @@
                 // console.log("X");
                 document.getElementById("displayFinish").style.color = "blue";
                 document.getElementById("displayFinish").innerHTML = "Chúc mừng bên xanh đã chiến thắng";
+                changeModal(false);
                 $("#myModal").modal();
                 offEvent();
             }
@@ -101,6 +105,7 @@
                     // console.log("O");
                     document.getElementById("displayFinish").style.color = "red";
                     document.getElementById("displayFinish").innerHTML = "Chúc mừng bên đỏ đã chiến thắng";
+                    changeModal(false);
                     $("#myModal").modal();
                     offEvent();
                 }
@@ -199,6 +204,31 @@
         // For reload page
         function reloadPage() {
             location.reload();
+        }
+        // For change modal
+        function changeModal(status) {
+            if(status){
+                document.getElementById("displayFinish").innerHTML = "Chọn bên nào chơi trước(mặc định bên xanh)?";
+                document.getElementById("butt01").style.color = "Blue";
+                document.getElementById("butt01").innerHTML = "Xanh";
+                document.getElementById("butt02").style.color = "red";
+                document.getElementById("butt02").innerHTML = "Đỏ";
+                document.getElementById("butt02").addEventListener("click", function () {
+                    status_X_O = false;
+                });
+            }
+            else {
+                document.getElementById("butt01").style.color = "black";
+                document.getElementById("butt01").innerHTML = "Chơi lại";
+                document.getElementById("butt02").style.color = "black";
+                document.getElementById("butt02").innerHTML = "Đóng";
+                document.getElementById("butt02").removeEventListener("click", function () {
+                    status_X_O = false;
+                });
+                document.getElementById("butt01").addEventListener("click", function () {
+                    reloadPage();
+                });
+            }
         }
     </script>
 </body>
