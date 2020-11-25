@@ -2,9 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Kiểm tra số nguyên tố</title>
 </head>
 <body>
-$END$
+<h1 style="text-align: center">Kiểm tra số nguyên tố</h1>
+<div style="position: relative; left: 37%">
+    <label for="input">Nhập số bất kì</label>
+    <input type="text" id="input">
+    <input type="button" value="Kiểm tra" onclick="kiemTra()">
+    <p id="output"></p>
+</div>
+<script>
+    function kiemTra() {
+        let input = document.getElementById("input").value;
+        let convert = parseInt(input);
+        let output="";
+        if(!isNaN(convert) && convert==input){
+            output = "Result: " + isPrime(convert);
+        }
+        else {
+            output = "Result: Error";
+        }
+        document.getElementById("output").innerHTML = output;
+    }
+    function isPrime(value) {
+        let statusError = false;
+        for (let i=2; i<value; i++){
+            if(value%i===0){
+                statusError = true;
+            }
+        }
+        if (statusError===false) return "số " + value + " là số nguyên tố";
+        else return "số " + value + " không phải là số nguyên tố";
+    }
+</script>
 </body>
 </html>
