@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Chèn dấu - giữa hai số chẵn</title>
 </head>
 <body>
-$END$
+<h1 style="text-align: center">Chèn dấu - vào giữa hai số chẵn</h1>
+<div style="left: 32%; position: absolute">
+    <form>
+        <label for="input" >Input:</label>
+        <input type="text" id="input">
+        <label for="output" >Output:</label>
+        <input type="text" id="output"><br><br>
+        <input type="button" value="Chèn" onclick="chenDau()" style="left: 45%; position: absolute">
+    </form>
+</div>
+<script>
+    function chenDau() {
+        let input = document.getElementById("input").value;
+        let output="", convert0=0, convert1=0, count=0;
+        let statusError=false;
+        if (input !== ""){
+            while(count<input.length){
+                // console.log(input.substring(i, i+1));
+                convert0 = parseInt(input.substring(count, count+1));
+                convert1 = parseInt(input.substring(count+1, count+2));
+                if(!isNaN(convert0) || !isNaN(convert1)){
+                    if (convert0%2===0){
+                        if (convert1%2===0){
+                            output+=convert0 + "-";
+                        }
+                        else output+=convert0;
+                    }
+                    else output+=convert0;
+                    count++;
+                }
+                else {
+                    statusError = true;
+                    break;
+                }
+            }
+            if (statusError===false){
+                document.getElementById("output").style.color = "black";
+                document.getElementById("output").value=output;
+            }
+            else {
+                document.getElementById("output").style.color = "red";
+                document.getElementById("output").value="Error";
+            }
+        }
+    }
+</script>
 </body>
 </html>

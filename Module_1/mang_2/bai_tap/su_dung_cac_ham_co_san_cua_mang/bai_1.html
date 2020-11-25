@@ -2,9 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Sử dụng hàm Concat</title>
+    <style>
+        h1, h2{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <h1>Sử dụng hàm Concat</h1>
+    <h2>myColor = ["Red", "Green", "White", "Black"];</h2>
+    <h2 id="output"></h2>
+    <script>
+        let myColor = ["Red", "Green", "White", "Black"];
+        let output=myColor[0];
+        for(let i=1; i<myColor.length; i++){
+            output = output.concat(myColor[i]);
+        }
+
+        document.getElementById("output").innerHTML = "output=\"" + output + "\"";
+    </script>
 </body>
 </html>

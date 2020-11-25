@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Chuyển kí tự</title>
 </head>
 <body>
-$END$
+<h1 style="text-align: center">Chuyển kí tự viết thường thành viết hoa và ngược lại</h1>
+<div style="left: 32%; position: absolute">
+    <form>
+        <label for="input" >Input:</label>
+        <input type="text" id="input">
+        <label for="output" >Output:</label>
+        <input type="text" id="output"><br><br>
+        <input type="button" value="Chuyển" onclick="chuyenKiTu()" style="left: 45%; position: absolute">
+    </form>
+</div>
+<script>
+    function chuyenKiTu() {
+        let input = document.getElementById("input").value;
+        let output="";
+        for (let i=0; i<input.length; i++){
+            let subString = input.substring(i, i+1);
+            let convertString = subString.charCodeAt(0);
+            if(convertString!==32){
+                if (convertString>=65 && convertString<=90){
+                    output += subString.toLowerCase();
+                }
+                else if (convertString>=97 && convertString<=122) {
+                    output += subString.toUpperCase();
+                }
+                else output+=subString;
+            }
+            else{
+                output+=" ";
+            }
+        }
+        document.getElementById("output").value = output;
+    }
+</script>
 </body>
 </html>
