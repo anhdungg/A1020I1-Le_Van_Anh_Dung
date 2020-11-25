@@ -2,9 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Chuyển đổi</title>
+    <style>
+        input{
+            width: 57px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-$END$
+<h1 style="text-align: center">Chuyển đồi giữa feet và meters</h1>
+<div style="position: relative; width: 160px; left: 500px;">
+    <select id="select1" onchange="chuyenDoi()">
+        <option value="m">Meters</option>
+        <option value="f">Feet</option>
+    </select>
+    <span>to</span>
+    <select id="select2" onchange="chuyenDoi()">
+        <option value="f">Feet</option>
+        <option value="m">Meters</option>
+    </select><br>
+    <div style="height: auto; width: auto; position: relative">
+        <input type="text" id="input1" oninput="chuyenDoi()">
+        <div style="width: 64px; height: 20px; border-radius: 1px; border: 1px solid #727272; position: absolute; top: 5px; left: 86px"><span id="output"></span></div>
+    </div>
+    <script>
+        count=0;
+        let delay;
+        function chuyenDoi() {
+            let input = document.getElementById("input1").value;
+            let convertInput = parseFloat(input);
+            let select01 = document.getElementById("select1").value;
+            let select02 = document.getElementById("select2").value;
+            let output=0;
+            if(count<10) {
+                clearInterval(delay);
+                count=0;
+                delay = setInterval(countDelay, 100);
+            }
+            else{
+                clearInterval(delay);
+                count=0;
+                if (isNaN(convertInput)){
+                    document.getElementById("output").innerHTML = "Error";
+                }
+                else{
+                    switch (select01) {
+                        case "m":
+                            switch (select02) {
+                                case "m":
+                                    output = convertInput;
+                                    break;
+                                case "f":
+                                    output = toFeet(convertInput);
+                                    break;
+                            }
+                            break;
+                        case "f":
+                            switch (select02) {
+                                case "m":
+                                    output = toMeters(convertInput);
+                                    break;
+                                case "f":
+                                    output = convertInput;
+                                    break;
+                            }
+                            break;
+                    }
+                    console.log(output);
+                    document.getElementById("output").innerHTML = output.toString();
+                }
+            }
+        }
+        function toMeters(value) {
+            return value*0.305;
+        }
+        function toFeet(value) {
+            return value*3.279;
+        }
+        function countDelay() {
+            console.log(count);
+            count++;
+            if (count>10) {
+                chuyenDoi();
+            }
+        }
+    </script>
+</div>
 </body>
 </html>
