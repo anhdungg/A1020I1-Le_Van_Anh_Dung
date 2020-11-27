@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Bài 5</title>
 </head>
-<body>
-$END$
+<body onload="timSao()">
+    <script>
+        function timSao() {
+            let input = prompt("Nhập tên chòm sao");
+            let foundNgoiSao = ngoiSao(input);
+            if(foundNgoiSao !== 7){
+                alert("Tên của ngôi sao " + input + " là: " + chomSao(foundNgoiSao));
+            }
+            else alert("Không tìm thấy ngôi sao bạn cần");
+        }
+        function ngoiSao(value) {
+            let ngoiSao = ["Polaris", "Aldebaran", "Deneb", "Vega", "Altair", "Dubhe", "Regulus"];
+            for (let i=0; i<ngoiSao.length; i++){
+                if (value === ngoiSao[i]){
+                    return i;
+                }
+            }
+            return 7;
+        }
+        function chomSao(value) {
+            let chomSao = ["Ursa Minor", "Tarurus", "Cygnus", "Lyra", "Aquila", "Ursa Major", "Leo"];
+            return chomSao[value];
+        }
+    </script>
 </body>
 </html>

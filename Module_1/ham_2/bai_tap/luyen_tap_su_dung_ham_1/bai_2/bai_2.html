@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Tạo hàm có giá trị trả về</title>
 </head>
-<body>
-$END$
+<body onload="alertMessage()">
+    <script>
+        function alertMessage() {
+            let input = prompt("Nhập số bất kì");
+            let convert = parseInt(input);
+            if(!isNaN(convert) && convert==input){
+                alert("Tăng giá trị lên 1 là: "+ hamTraVe(convert));
+            }
+            else alert("Bạn nhập sai");
+        }
+        
+        function hamTraVe(value) {
+            return value+1;
+        }
+    </script>
 </body>
 </html>

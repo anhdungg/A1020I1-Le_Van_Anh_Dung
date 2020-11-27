@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Hàm có 2 tham số</title>
 </head>
-<body>
-$END$
+<body onload="alertMessage()">
+    <script>
+        function alertMessage() {
+            let a = prompt("Nhập số thứ nhất");
+            let convertA = parseFloat(a);
+            let b = prompt("Nhập số thứ hai");
+            let convertB = parseFloat(b);
+            if (!isNaN(convertA) && !isNaN(convertB)){
+                if (soSanh(convertA, convertB) === "lớn hơn"){
+                    alert("Giá trị số thứ nhất lớn hơn số thứ hai")
+                }
+                else{
+                    alert("a+b= " + (convertA+convertB));
+                }
+            }
+            else alert("Bạn nhập lỗi");
+        }
+        function soSanh(a, b) {
+            if (a>b) return "lớn hơn";
+            else if(a===b) return "bằng nhau";
+            else return "bé hơn";
+        }
+    </script>
 </body>
 </html>
