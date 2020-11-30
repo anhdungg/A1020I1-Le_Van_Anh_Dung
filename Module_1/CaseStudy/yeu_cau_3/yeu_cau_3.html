@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tạo tài khoản</title>
+    <title>Kiểm tra thông tin</title>
     <style>
         td{
             height: 40px;
-            width: 150px;
+            width: 110px;
         }
         input{
             height: 19px;
@@ -20,23 +20,23 @@
     <h1 style="text-align: center; color: #555555">Tạo tài khoản</h1>
     <table id="tbl1" style="margin-left: auto; margin-right: auto">
         <tr>
-            <td><label for="name">Họ và Tên</label></td>
+            <td><label for="name">Họ và Tên:</label></td>
             <td><input id="name"></td>
         </tr>
         <tr>
-            <td><label for="cmnd">Số CMND</label></td>
-            <td><input id="cmnd"></td>
+            <td><label for="cmnd">Số CMND:</label></td>
+            <td><input type="number" id="cmnd"></td>
         </tr>
         <tr>
-            <td><label for="namSinh">Ngày sinh</label></td>
+            <td><label for="namSinh">Ngày sinh:</label></td>
             <td><input type="date" id="namSinh"></td>
         </tr>
         <tr>
-            <td><label for="email">Địa chỉ Email</label></td>
+            <td><label for="email">Địa chỉ Email:</label></td>
             <td><input id="email"></td>
         </tr>
         <tr>
-            <td><label for="rank">Mức hạng</label></td>
+            <td><label for="rank">Mức hạng:</label></td>
             <td>
                 <select id="rank">
                     <option value="member">Member</option>
@@ -48,19 +48,19 @@
             </td>
         </tr>
         <tr>
-            <td><label for="discount">Giảm giá</label></td>
-            <td><input type="number" id="discount"></td>
+            <td><label for="discount">Giảm giá:</label></td>
+            <td><input type="text" id="discount"></td>
         </tr>
         <tr>
-            <td><label for="amout">Số lượng đi kèm</label></td>
+            <td><label for="amout">Số người đi kèm:</label></td>
             <td><input type="number" id="amout"></td>
         </tr>
         <tr>
-            <td><label for="ngayThue">Số ngày thuê</label></td>
+            <td><label for="ngayThue">Số ngày thuê:</label></td>
             <td><input type="number" id="ngayThue"></td>
         </tr>
         <tr>
-            <td><label for="service">Loại dịch vụ</label></td>
+            <td><label for="service">Loại dịch vụ:</label></td>
             <td>
                 <select id="service" onchange="showBangGia()">
                     <option value="villa">Villa</option>
@@ -70,7 +70,7 @@
             </td>
         </tr>
         <tr>
-            <td><label for="rom">Loại phòng thuê</label></td>
+            <td><label for="rom">Loại phòng thuê:</label></td>
             <td>
                 <select id="rom">
                     <option value="vip">Vip</option>
@@ -80,7 +80,7 @@
             </td>
         </tr>
         <tr>
-            <td><label>Bảng giá</label></td>
+            <td><label>Bảng giá:</label></td>
             <td><div id="bangGia" style="border: 1px solid #7f7f7f; border-radius: 2px; height: 19px; width: 170px"></div></td>
         </tr>
         <tr>
@@ -124,9 +124,14 @@
                 document.getElementById("namSinh").style.borderRadius = "2px";
             }
             let email = document.getElementById("email").value;
+            if (email.indexOf("@") === -1 || email.lastIndexOf(".")<(email.length-4)) {
+                document.getElementById("email").style.border = "1px solid red";
+                document.getElementById("email").style.borderRadius = "2px";
+                email = "Error";
+            }
             let rank = document.getElementById("rank").value;
             let giamGia = document.getElementById("discount").value;
-            if (giamGia==="") giamGia="0";
+            if (giamGia ==="") giamGia="0";
             let soLuong = document.getElementById("amout").value;
             if (soLuong===""){
                 document.getElementById("amout").style.border = "1px solid red";
@@ -139,17 +144,17 @@
             }
             let dichVu = document.getElementById("service").value;
             let loaiPhong = document.getElementById("rom").value;
-            if(name!=="" && CMND!=="" && ngaySinh!=="" && soLuong!=="" && ngayThue!==""){
-                document.getElementById("row00cell01").innerHTML = name;
+            if(name!=="" && CMND!=="" && ngaySinh!=="" && soLuong!=="" && ngayThue!=="" && email!=="Error"){
+                document.getElementById("row00cell01").innerHTML = toUpperCaseName(name);
                 document.getElementById("row01cell01").innerHTML = CMND;
                 document.getElementById("row02cell01").innerHTML = ngaySinh;
-                document.getElementById("row03cell01").innerHTML = email;
-                document.getElementById("row04cell01").innerHTML = rank;
-                document.getElementById("row05cell01").innerHTML = giamGia+"%";
+                document.getElementById("row03cell01").innerHTML = checkEmail(email);
+                document.getElementById("row04cell01").innerHTML = toUpperCase1(rank);
+                document.getElementById("row05cell01").innerHTML = giamGia;
                 document.getElementById("row06cell01").innerHTML = soLuong;
                 document.getElementById("row07cell01").innerHTML = ngayThue;
-                document.getElementById("row08cell01").innerHTML = dichVu;
-                document.getElementById("row09cell01").innerHTML = loaiPhong;
+                document.getElementById("row08cell01").innerHTML = toUpperCase1(dichVu);
+                document.getElementById("row09cell01").innerHTML = toUpperCase1(loaiPhong);
                 document.getElementById("row010cell00").innerHTML = "Thành tiền";
                 switch (dichVu) {
                     case "villa":
@@ -162,6 +167,68 @@
                         document.getElementById("row010cell01").innerHTML = (100 * parseInt(ngayThue) * (1-parseInt(giamGia)/100)) + "$";
                 }
             }
+        }
+        function toUpperCase1(value) {
+            let input = value.split("");
+            let output = "";
+            for (let i=0 ;i<input.length; i++){
+                if (i===0){
+                    input[i] = input[i].toUpperCase();
+                }
+                output+=input[i];
+            }
+            return output;
+        }
+        function toUpperCaseName(value) {
+            let input = value.split("");
+            let output = "";
+            let i=0, count=0;
+            while (i<input.length){
+                if (i===0){
+                    output += input[i].toUpperCase();
+                    i++;
+                }
+                else if (input[i] === " "){
+                    output += input[i];
+                    count=i;
+                    while (true){
+                        if (input[count]===" "){
+                            count++;
+                        }
+                        else break;
+                    }
+                    output += input[count].toUpperCase();
+                    i=count+1;
+                }
+                else {
+                    output+=input[i];
+                    i++;
+                }
+            }
+            return output;
+        }
+        function checkEmail(value) {
+            let input = value.split("");
+            let output = "";
+            let i=0, count=0;
+            while (i<input.length){
+                if (input[i] === " "){
+                    count=i;
+                    while (true){
+                        if (input[count] === " "){
+                            count++;
+                        }
+                        else break;
+                    }
+                    output += input[count];
+                    i=count+1;
+                }
+                else {
+                    output+=input[i];
+                    i++;
+                }
+            }
+            return output;
         }
     </script>
 </body>

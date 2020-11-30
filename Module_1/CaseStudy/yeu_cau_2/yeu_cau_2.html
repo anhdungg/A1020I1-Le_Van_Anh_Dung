@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa thông tin cá nhân</title>
+    <style>
+        td{
+            height: 40px;
+            width: 110px;
+        }
+        input{
+            height: 19px;
+            width: 170px;
+            border: 1px solid #7F7F7F;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <table id="tbl1" style="margin-left: auto; margin-right: auto; display: none">
+        <tr>
+            <td style="font-weight: bold">Họ và Tên:</td>
+            <td>Anh Dũng</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Số CMND:</td>
+            <td>184209423</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Ngày sinh:</td>
+            <td>5-11-1997</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Địa chỉ Email:</td>
+            <td>ledung.ht17@gmail.com</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Mức hạng:</td>
+            <td>Diamond</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Giảm giá:</td>
+            <td>Đà Nẵng</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Số lượng đi kèm:</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Số ngày thuê:</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Loại dịch vụ:</td>
+            <td>Villa</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Loại phòng thuê:</td>
+            <td>Vip</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Thành tiền:</td>
+            <td>955$</td>
+        </tr>
+    </table>
+    <button id="showInfo" onclick="showInfo()" style="position: relative; left: 38.5%">Hiển thị thông tin</button>
+    <button id="editInfo" onclick="edit()" style="position: relative; left: 39%; display: none">Chỉnh sửa thông tin</button>
+    <button id="pay" onclick="tinhTien()" style="position: relative; left: 47%; display: none">Tính tiền</button>
+<script>
+    let statusHide = false;
+    let name = "Anh Dũng", CMND = "184209423", ngaySinh = "1997-11-05", email = "ledung.ht17@gmail.com", rank = "diamond", giamGia = "Đà Nẵng", soLuong = 2, ngayThue = 2, dichVu = "villa", loaiPhong = "vip";
+    function showInfo() {
+        if (statusHide){
+            document.getElementById("showInfo").innerHTML = "Hiển thị thông tin";
+            document.getElementById("editInfo").style.display = "none";
+            document.getElementById("tbl1").style.display = "none";
+            statusHide = !statusHide;
+        }
+        else{
+            document.getElementById("showInfo").innerHTML = "Ẩn thông tin";
+            document.getElementById("editInfo").style.display = "initial";
+            document.getElementById("tbl1").style.display = "table";
+            statusHide = !statusHide;
+        }
+    }
+    function edit() {
+        document.getElementById("showInfo").style.display="none";
+        document.getElementById("editInfo").style.display="none";
+        document.getElementById("pay").style.display = "initial";
+        let table = document.getElementById("tbl1");
+        for (let i=0; i<table.rows.length; i++){
+            for (let j=0; j<table.rows[i].cells.length; j++){
+                table.rows[i].cells[j].id = "row0" + i + "cell0" + j;
+                // console.log("row:" + i + ", cell:" + j);
+            }
+        }
+        document.getElementById("row00cell01").innerHTML = "<input id=\"name\">";
+        document.getElementById("row01cell01").innerHTML = "<input id=\"cmnd\">";
+        document.getElementById("row02cell01").innerHTML = "<input type=\"date\" id=\"namSinh\">";
+        document.getElementById("row03cell01").innerHTML = "<input id=\"email\">";
+        document.getElementById("row04cell01").innerHTML = "<select id=\"rank\">\n" +
+                                "<option value=\"member\">Member</option>\n" +
+                                "<option value=\"silver\">Silver</option>\n" +
+                                "<option value=\"gold\">Gold</option>\n" +
+                                "<option value=\"platinum\">Platinum</option>\n" +
+                                "<option value=\"diamond\">Diamond</option>\n" +
+                            "</select>";
+        document.getElementById("row05cell01").innerHTML = "<input id=\"discount\">";
+        document.getElementById("row06cell01").innerHTML = "<input type=\"number\" id=\"amout\">";
+        document.getElementById("row07cell01").innerHTML = "<input type=\"number\" id=\"ngayThue\">";
+        document.getElementById("row08cell01").innerHTML = "<select id=\"service\" onchange=\"showBangGia()\">\n" +
+                                "<option value=\"villa\">Villa</option>\n" +
+                                "<option value=\"house\">House</option>\n" +
+                                "<option value=\"room\">Room</option>\n" +
+                            "</select>";
+        document.getElementById("row09cell01").innerHTML = "<select id=\"rom\">\n" +
+                                "<option value=\"vip\">Vip</option>\n" +
+                                "<option value=\"business\">Business</option>\n" +
+                                "<option value=\"normal\">Normal</option>\n" +
+                            "</select>";
+        document.getElementById("row010cell01").innerHTML = "<div id=\"bangGia\" style=\"border: 1px solid #7f7f7f; border-radius: 2px; height: 19px; width: 170px\"></div>";
+        document.getElementById("name").value = name;
+        document.getElementById("cmnd").value = CMND;
+        document.getElementById("namSinh").value = ngaySinh;
+        document.getElementById("email").value = email;
+        document.getElementById("rank").value = rank;
+        document.getElementById("discount").value = giamGia;
+        document.getElementById("amout").value = soLuong;
+        document.getElementById("ngayThue").value = ngayThue;
+        document.getElementById("service").value = dichVu;
+        document.getElementById("rom").value = loaiPhong;
+        document.getElementById("bangGia").innerHTML = "- 500$ 1 ngày";
+    }
+    function showBangGia() {
+        let phong = document.getElementById("service").value;
+        switch (phong) {
+            case "villa":
+                document.getElementById("bangGia").innerHTML = "- Villa 500$ 1 ngày";
+                break;
+            case "house":
+                document.getElementById("bangGia").innerHTML = "- House 300$ 1 ngày";
+                break;
+            default:
+                document.getElementById("bangGia").innerHTML = "- Room 100$ 1 ngày";
+        }
+    }
+    function tinhTien() {
+        let money="";
+        let discount=0;
+        document.getElementById("showInfo").style.display="initial";
+        document.getElementById("editInfo").style.display="initial";
+        document.getElementById("pay").style.display = "none";
+        name = document.getElementById("name").value;
+        if (name===""){
+            document.getElementById("name").style.border = "1px solid red";
+            document.getElementById("name").style.borderRadius = "2px";
+        }
+        CMND = document.getElementById("cmnd").value;
+        if (CMND===""){
+            document.getElementById("cmnd").style.border = "1px solid red";
+            document.getElementById("cmnd").style.borderRadius = "2px";
+        }
+        ngaySinh = document.getElementById("namSinh").value;
+        if (ngaySinh===""){
+            document.getElementById("namSinh").style.border = "1px solid red";
+            document.getElementById("namSinh").style.borderRadius = "2px";
+        }
+        email = document.getElementById("email").value;
+        rank = document.getElementById("rank").value;
+        giamGia = document.getElementById("discount").value;
+        soLuong = document.getElementById("amout").value;
+        if (soLuong===""){
+            document.getElementById("amout").style.border = "1px solid red";
+            document.getElementById("amout").style.borderRadius = "2px";
+        }
+        ngayThue = document.getElementById("ngayThue").value;
+        if (ngayThue===""){
+            document.getElementById("ngayThue").style.border = "1px solid red";
+            document.getElementById("ngayThue").style.borderRadius = "2px";
+        }
+        dichVu = document.getElementById("service").value;
+        loaiPhong = document.getElementById("rom").value;
+        if(name!=="" && CMND!=="" && ngaySinh!=="" && soLuong!=="" && ngayThue!==""){
+            document.getElementById("row00cell01").innerHTML = name;
+            document.getElementById("row01cell01").innerHTML = CMND;
+            document.getElementById("row02cell01").innerHTML = ngaySinh;
+            document.getElementById("row03cell01").innerHTML = email;
+            document.getElementById("row04cell01").innerHTML = toUpperCase1(rank);
+            document.getElementById("row05cell01").innerHTML = giamGia;
+            document.getElementById("row06cell01").innerHTML = soLuong;
+            document.getElementById("row07cell01").innerHTML = ngayThue;
+            document.getElementById("row08cell01").innerHTML = toUpperCase1(dichVu);
+            document.getElementById("row09cell01").innerHTML = toUpperCase1(loaiPhong);
+            document.getElementById("row010cell00").innerHTML = "Thành tiền";
+            switch (giamGia) {
+                case "Đà Nẵng":
+                    switch (rank) {
+                        case "diamond":
+                            if (ngayThue>7) discount = 20+15+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount =  20+15+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 20+15+10;
+                            else discount = 20+15;
+                            break;
+                        case "platinum":
+                            if (ngayThue>7) discount = 20+10+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 20+10+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 20+10+10;
+                            else discount = 20+10;
+                            break;
+                        case "gold":
+                            if (ngayThue>7) discount = 20+5+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 20+5+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 20+5+10;
+                            else discount = 20+5;
+                            break;
+                        case "silver":
+                            if (ngayThue>7) discount = 20+2+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 20+2+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 20+2+10;
+                            else discount = 20+2;
+                            break;
+                        default:
+                            if (ngayThue>7) discount = 20+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 20+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 20+10;
+                            else discount = 20;
+                    }
+                    break;
+                case "Huế":
+                    switch (rank) {
+                        case "diamond":
+                            if (ngayThue>7) discount = 10+15+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount =  10+15+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10+15+10;
+                            else discount = 10+15;
+                            break;
+                        case "platinum":
+                            if (ngayThue>7) discount = 10+10+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 10+10+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10+10+10;
+                            else discount = 10+10;
+                            break;
+                        case "gold":
+                            if (ngayThue>7) discount = 10+5+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 10+5+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10+5+10;
+                            else discount = 10+5;
+                            break;
+                        case "silver":
+                            if (ngayThue>7) discount = 10+2+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 10+2+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10+2+10;
+                            else discount = 10+2;
+                            break;
+                        default:
+                            if (ngayThue>7) discount = 10+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 10+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10+10;
+                            else discount = 10;
+                    }
+                    break;
+                case "Quảng Nam":
+                    switch (rank) {
+                        case "diamond":
+                            if (ngayThue>7) discount = 5+15+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount =  5+15+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 5+15+10;
+                            else discount = 5+15;
+                            break;
+                        case "platinum":
+                            if (ngayThue>7) discount = 5+10+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 5+10+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 5+10+10;
+                            else discount = 5+10;
+                            break;
+                        case "gold":
+                            if (ngayThue>7) discount = 5+5+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 5+5+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 5+5+10;
+                            else discount = 5+5;
+                            break;
+                        case "silver":
+                            if (ngayThue>7) discount = 5+2+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 5+2+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 5+2+10;
+                            else discount = 5+2;
+                            break;
+                        default:
+                            if (ngayThue>7) discount = 5+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 5+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 5+10;
+                            else discount = 5;
+                    }
+                    break;
+                default:
+                    switch (rank) {
+                        case "diamond":
+                            if (ngayThue>7) discount = 15+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount =  15+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 15+10;
+                            else discount = 5+15;
+                            break;
+                        case "platinum":
+                            if (ngayThue>7) discount = 10+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 10+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10+10;
+                            else discount = 5+10;
+                            break;
+                        case "gold":
+                            if (ngayThue>7) discount = 5+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 5+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 5+10;
+                            else discount = 5+5;
+                            break;
+                        case "silver":
+                            if (ngayThue>7) discount = 2+30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 2+20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 2+10;
+                            else discount = 5+2;
+                            break;
+                        default:
+                            if (ngayThue>7) discount = 30;
+                            else if (ngayThue>=5 && ngayThue<=7) discount = 20;
+                            else if (ngayThue>=2 && ngayThue<=4) discount = 10;
+                            else discount = 5;
+                    }
+            }
+            switch (dichVu) {
+                case "villa":
+                    money = (500 * ngayThue - discount) + "$";
+                    break;
+                case "house":
+                    money = (300 * ngayThue - discount) + "$";
+                    break;
+                default:
+                    money = (100 * ngayThue - discount) + "$";
+            }
+            document.getElementById("row010cell01").innerHTML = money;
+        }
+    }
+    function toUpperCase1(value) {
+        let input = value.split("");
+        let output = "";
+        for (let i=0 ;i<input.length; i++){
+            if (i===0){
+                input[i] = input[i].toUpperCase();
+            }
+            output+=input[i];
+        }
+        return output;
+    }
+</script>
+</body>
+</html>

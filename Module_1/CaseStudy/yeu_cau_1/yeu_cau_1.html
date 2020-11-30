@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo tài khoản</title>
+    <style>
+        td{
+            height: 40px;
+            width: 110px;
+        }
+        input{
+            height: 19px;
+            width: 170px;
+            border: 1px solid #7F7F7F;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body onload="showBangGia()">
+    <h1 style="text-align: center; color: #555555">Tạo tài khoản</h1>
+    <table id="tbl1" style="margin-left: auto; margin-right: auto">
+        <tr>
+            <td><label for="name">Họ và Tên</label></td>
+            <td><input id="name"></td>
+        </tr>
+        <tr>
+            <td><label for="cmnd">Số CMND</label></td>
+            <td><input id="cmnd"></td>
+        </tr>
+        <tr>
+            <td><label for="namSinh">Ngày sinh</label></td>
+            <td><input type="date" id="namSinh"></td>
+        </tr>
+        <tr>
+            <td><label for="email">Địa chỉ Email</label></td>
+            <td><input id="email"></td>
+        </tr>
+        <tr>
+            <td><label for="rank">Mức hạng</label></td>
+            <td>
+                <select id="rank">
+                    <option value="member">Member</option>
+                    <option value="silver">Silver</option>
+                    <option value="gold">Gold</option>
+                    <option value="platinum">Platinum</option>
+                    <option value="diamond">Diamond</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="discount">Giảm giá</label></td>
+            <td><input type="number" id="discount"></td>
+        </tr>
+        <tr>
+            <td><label for="amout">Số lượng đi kèm</label></td>
+            <td><input type="number" id="amout"></td>
+        </tr>
+        <tr>
+            <td><label for="ngayThue">Số ngày thuê</label></td>
+            <td><input type="number" id="ngayThue"></td>
+        </tr>
+        <tr>
+            <td><label for="service">Loại dịch vụ</label></td>
+            <td>
+                <select id="service" onchange="showBangGia()">
+                    <option value="villa">Villa</option>
+                    <option value="house">House</option>
+                    <option value="room">Room</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="rom">Loại phòng thuê</label></td>
+            <td>
+                <select id="rom">
+                    <option value="vip">Vip</option>
+                    <option value="business">Business</option>
+                    <option value="normal">Normal</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Bảng giá</label></td>
+            <td><div id="bangGia" style="border: 1px solid #7f7f7f; border-radius: 2px; height: 19px; width: 170px"></div></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="tinhTien()" style="margin-left: 110px; margin-top: 40px">Tính tiền</button></td>
+        </tr>
+    </table>
+    <script>
+        function showBangGia() {
+            let phong = document.getElementById("service").value;
+            let table = document.getElementById("tbl1");
+            switch (phong) {
+                case "villa":
+                    document.getElementById("bangGia").innerHTML = "- Villa 500$ 1 ngày";
+                    break;
+                case "house":
+                    document.getElementById("bangGia").innerHTML = "- House 300$ 1 ngày";
+                    break;
+                default:
+                    document.getElementById("bangGia").innerHTML = "- Room 100$ 1 ngày";
+            }
+            for (let i=0; i<table.rows.length; i++){
+                for (let j=0; j<table.rows[i].cells.length; j++){
+                    table.rows[i].cells[j].id = "row0" + i + "cell0" + j;
+                }
+            }
+        }
+        function tinhTien() {
+            let name = document.getElementById("name").value;
+            if (name===""){
+                document.getElementById("name").style.border = "1px solid red";
+                document.getElementById("name").style.borderRadius = "2px";
+            }
+            let CMND = document.getElementById("cmnd").value;
+            if (CMND===""){
+                document.getElementById("cmnd").style.border = "1px solid red";
+                document.getElementById("cmnd").style.borderRadius = "2px";
+            }
+            let ngaySinh = document.getElementById("namSinh").value;
+            if (ngaySinh===""){
+                document.getElementById("namSinh").style.border = "1px solid red";
+                document.getElementById("namSinh").style.borderRadius = "2px";
+            }
+            let email = document.getElementById("email").value;
+            let rank = document.getElementById("rank").value;
+            let giamGia = document.getElementById("discount").value;
+            if (giamGia==="") giamGia="0";
+            let soLuong = document.getElementById("amout").value;
+            if (soLuong===""){
+                document.getElementById("amout").style.border = "1px solid red";
+                document.getElementById("amout").style.borderRadius = "2px";
+            }
+            let ngayThue = document.getElementById("ngayThue").value;
+            if (ngayThue===""){
+                document.getElementById("ngayThue").style.border = "1px solid red";
+                document.getElementById("ngayThue").style.borderRadius = "2px";
+            }
+            let dichVu = document.getElementById("service").value;
+            let loaiPhong = document.getElementById("rom").value;
+            if(name!=="" && CMND!=="" && ngaySinh!=="" && soLuong!=="" && ngayThue!==""){
+                document.getElementById("row00cell01").innerHTML = name;
+                document.getElementById("row01cell01").innerHTML = CMND;
+                document.getElementById("row02cell01").innerHTML = ngaySinh;
+                document.getElementById("row03cell01").innerHTML = email;
+                document.getElementById("row04cell01").innerHTML = toUpperCase1(rank);
+                document.getElementById("row05cell01").innerHTML = giamGia+"%";
+                document.getElementById("row06cell01").innerHTML = soLuong;
+                document.getElementById("row07cell01").innerHTML = ngayThue;
+                document.getElementById("row08cell01").innerHTML = toUpperCase1(dichVu);
+                document.getElementById("row09cell01").innerHTML = toUpperCase1(loaiPhong);
+                document.getElementById("row010cell00").innerHTML = "Thành tiền";
+                switch (dichVu) {
+                    case "villa":
+                        document.getElementById("row010cell01").innerHTML = (500 * parseInt(ngayThue) * (1-parseInt(giamGia)/100)) + "$";
+                        break;
+                    case "house":
+                        document.getElementById("row010cell01").innerHTML = (300 * parseInt(ngayThue) * (1-parseInt(giamGia)/100)) + "$";
+                        break;
+                    default:
+                        document.getElementById("row010cell01").innerHTML = (100 * parseInt(ngayThue) * (1-parseInt(giamGia)/100)) + "$";
+                }
+            }
+        }
+        function toUpperCase1(value) {
+            let input = value.split("");
+            let output = "";
+            for (let i=0 ;i<input.length; i++){
+                if (i===0){
+                    input[i] = input[i].toUpperCase();
+                }
+                output+=input[i];
+            }
+            return output;
+        }
+    </script>
+</body>
+</html>
