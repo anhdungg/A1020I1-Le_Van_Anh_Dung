@@ -2,9 +2,210 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Yêu cầu 4</title>
+    <script>
+        let customer = [[]];
+        let count = 0;
+    </script>
+    <style>
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        td{
+            height: 40px;
+            width: 110px;
+        }
+    </style>
 </head>
-<body>
+<body onload="showBangGia()">
+    <div>
+        <table id="tblAdd" style="display: none">
+            <tr>
+                <td><label for="add1">Họ và Tên:</label></td>
+                <td><input id="add1"></td>
+            </tr>
+            <tr>
+                <td><label for="add2">Số CMND:</label></td>
+                <td><input type="number" id="add2"></td>
+            </tr>
+            <tr>
+                <td><label for="add3">Ngày sinh:</label></td>
+                <td><input type="date" id="add3"></td>
+            </tr>
+            <tr>
+                <td><label for="add4">Địa chỉ Email:</label></td>
+                <td><input id="add4"></td>
+            </tr>
+            <tr>
+                <td><label for="add5">Mức hạng:</label></td>
+                <td>
+                    <select id="add5">
+                        <option value="member">Member</option>
+                        <option value="silver">Silver</option>
+                        <option value="gold">Gold</option>
+                        <option value="platinum">Platinum</option>
+                        <option value="diamond">Diamond</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="add6">Giảm giá:</label></td>
+                <td><input type="text" id="add6"></td>
+            </tr>
+            <tr>
+                <td><label for="add7">Số người đi kèm:</label></td>
+                <td><input type="number" id="add7"></td>
+            </tr>
+            <tr>
+                <td><label for="add8">Số ngày thuê:</label></td>
+                <td><input type="number" id="add8"></td>
+            </tr>
+            <tr>
+                <td><label for="add9">Loại dịch vụ:</label></td>
+                <td>
+                    <select id="add9" onchange="showBangGia()">
+                        <option value="villa">Villa</option>
+                        <option value="house">House</option>
+                        <option value="room">Room</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="add10">Loại phòng thuê:</label></td>
+                <td>
+                    <select id="add10">
+                        <option value="vip">Vip</option>
+                        <option value="business">Business</option>
+                        <option value="normal">Normal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Bảng giá:</label></td>
+                <td><div id="bangGia" style="border: 1px solid #7f7f7f; border-radius: 2px; height: 19px; width: 170px"></div></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button onclick="endAddCustomer()" style="margin-left: 110px; margin-top: 40px">Add</button></td>
+            </tr>
+        </table>
+        <table id="tblShow" style="display: none">
 
+        </table>
+    </div>
+    <div style="position: absolute; left: 43%">
+        <button id="butAdd" onclick="beginAddCustomer()" style="display: inline">Add Customer</button>
+        <button id="butShow" onclick="showCustomer()" style="display: inline">Show List Customer</button>
+    </div>
+    <script>
+        function showBangGia() {
+            let phong = document.getElementById("add9").value;
+            switch (phong) {
+                case "villa":
+                    document.getElementById("bangGia").innerHTML = "- Villa 500$ 1 ngày";
+                    break;
+                case "house":
+                    document.getElementById("bangGia").innerHTML = "- House 300$ 1 ngày";
+                    break;
+                default:
+                    document.getElementById("bangGia").innerHTML = "- Room 100$ 1 ngày";
+            }
+        }
+        function showCustomer() {
+            document.getElementById("butAdd").style.display = "none";
+            document.getElementById("butShow").style.display = "none";
+            document.getElementById("tblShow").style.display = "table";
+            let table = document.getElementById("tblShow");
+            let countRow = 0;
+            for (let i=0; i<count; i++){
+                let addRow = table.insertRow(0+countRow);
+                let addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Họ và tên:"
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][0];
+
+                addRow = table.insertRow(1+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Số CMND:";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][1];
+
+                addRow = table.insertRow(2+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Ngày sinh:";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][2];
+
+                addRow = table.insertRow(3+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Địa chỉ Email:";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][3];
+
+                addRow = table.insertRow(4+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Mức hạng";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][4];
+
+                addRow = table.insertRow(5+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Giảm giá:";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][5];
+
+                addRow = table.insertRow(6+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Số người đi kèm";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][6];
+
+                addRow = table.insertRow(7+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Số ngày thuê";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][7];
+
+                addRow = table.insertRow(8+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Loại dịch vụ";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][8];
+
+                addRow = table.insertRow(9+countRow);
+                addCell = addRow.insertCell(0);
+                addCell.innerHTML = "Loại phòng thuê";
+                addCell = addRow.insertCell(1);
+                addCell.innerHTML = customer[i][9];
+            }
+        }
+
+        function beginAddCustomer() {
+            document.getElementById("butAdd").style.display = "none";
+            document.getElementById("butShow").style.display = "none";
+            document.getElementById("tblAdd").style.display = "table";
+
+        }
+        function endAddCustomer() {
+            for (let i=0; i<=9; i++){
+                console.log(i);
+                customer[count][i] = document.getElementById("add"+(i+1)).value;
+                if (i===4 || i===8 || i===9){
+                    document.getElementById("add"+(i+1)).selectIndex = 0;
+                    continue;
+                }
+                // if (i===1 || i===6 || i===7){
+                //     document.getElementById("add"+(i+1)).value = 0;
+                //     continue;
+                // }
+                document.getElementById("add"+(i+1)).value = '';
+            }
+            count++;
+            document.getElementById("butAdd").style.display = "initial";
+            document.getElementById("butShow").style.display = "initial";
+            document.getElementById("tblAdd").style.display = "none";
+        }
+
+    </script>
 </body>
 </html>
