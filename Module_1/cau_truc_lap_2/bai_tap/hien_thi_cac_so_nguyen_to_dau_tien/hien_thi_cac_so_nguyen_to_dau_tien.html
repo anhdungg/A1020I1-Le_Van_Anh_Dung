@@ -33,8 +33,11 @@
 
         function soNguyenTo(max) {
             let table = document.getElementById("tbl1");
+            let maxRow=0;
+            if(max>100) maxRow = 20;
+            else  maxRow = 10;
             let countNguyenTo = 2;
-            let count=0, maxCount=20, countInsertCell=2, countIdRow=10;
+            let count=0, maxCount=maxRow*2, countInsertCell=2, countIdRow=maxRow;
             while (true){
                 let statusNguyenTo = true;
                 for (let i=1; i<=countNguyenTo;i++){
@@ -45,7 +48,7 @@
                     }
                 }
                 if (statusNguyenTo===true){
-                    if(count<=9) {
+                    if(count<=(maxRow-1)) {
                         let addRow = table.insertRow(count);
                         addRow.id = "row0" + count;
                         let addCell= addRow.insertCell(0);
@@ -62,9 +65,9 @@
                             addCell.innerHTML = countNguyenTo.toString();
                         }
                         else {
-                            maxCount+=10;
+                            maxCount+=maxRow;
                             countInsertCell+=2;
-                            countIdRow+=10;
+                            countIdRow+=maxRow;
                             let row = document.getElementById("row0"+(count-countIdRow));
                             let addCell = row.insertCell(countInsertCell);
                             addCell.innerHTML = (count+1).toString() + ".";
