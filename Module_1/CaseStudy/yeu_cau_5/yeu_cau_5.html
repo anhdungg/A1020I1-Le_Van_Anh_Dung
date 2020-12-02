@@ -2,9 +2,329 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Yêu cầu 5</title>
+    <style>
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        td{
+            height: 40px;
+            width: 110px;
+        }
+        .thShow{
+            border-collapse: collapse;
+            border: 1px solid black;
+            height: 20px;
+        }
+    </style>
 </head>
-<body>
-$END$
+<body onload="showBangGia()">
+<div>
+    <table id="tblAdd" style="display: none">
+        <tr>
+            <td><label for="add1">Họ và Tên:</label></td>
+            <td><input id="add1"></td>
+        </tr>
+        <tr>
+            <td><label for="add2">Số CMND:</label></td>
+            <td><input type="number" id="add2"></td>
+        </tr>
+        <tr>
+            <td><label for="add3">Ngày sinh:</label></td>
+            <td><input type="date" id="add3"></td>
+        </tr>
+        <tr>
+            <td><label for="add4">Địa chỉ Email:</label></td>
+            <td><input id="add4"></td>
+        </tr>
+        <tr>
+            <td><label for="add5">Mức hạng:</label></td>
+            <td>
+                <select id="add5">
+                    <option value="member">Member</option>
+                    <option value="silver">Silver</option>
+                    <option value="gold">Gold</option>
+                    <option value="platinum">Platinum</option>
+                    <option value="diamond">Diamond</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="add6">Giảm giá:</label></td>
+            <td><input type="text" id="add6"></td>
+        </tr>
+        <tr>
+            <td><label for="add7">Số người đi kèm:</label></td>
+            <td><input type="number" id="add7"></td>
+        </tr>
+        <tr>
+            <td><label for="add8">Số ngày thuê:</label></td>
+            <td><input type="number" id="add8"></td>
+        </tr>
+        <tr>
+            <td><label for="add9">Loại dịch vụ:</label></td>
+            <td>
+                <select id="add9" onchange="showBangGia()">
+                    <option value="villa">Villa</option>
+                    <option value="house">House</option>
+                    <option value="room">Room</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="add10">Loại phòng thuê:</label></td>
+            <td>
+                <select id="add10">
+                    <option value="vip">Vip</option>
+                    <option value="business">Business</option>
+                    <option value="normal">Normal</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Bảng giá:</label></td>
+            <td><div id="bangGia" style="border: 1px solid #7f7f7f; border-radius: 2px; height: 19px; width: 170px"></div></td>
+        </tr>
+        <!--            <tr>-->
+        <!--                <td colspan="2">-->
+        <!--                    -->
+        <!--                </td>-->
+        <!--            </tr>-->
+    </table>
+    <table id="tblShow" style="display: none; border-collapse: collapse; border: 1px solid black">
+        <tr>
+            <th class="thShow" style="width: 30px">Stt</th>
+            <th class="thShow" style="width: 200px">Họ và tên</th>
+            <th class="thShow" style="width: 200px">Số CMND</th>
+            <th class="thShow" style="width: 150px">Ngày sinh</th>
+            <th class="thShow" style="width: 200px">Địa chỉ Email</th>
+            <th class="thShow" style="width: 100px">Mức hạng</th>
+            <th class="thShow" style="width: 100px">Giảm giá</th>
+            <th class="thShow" style="width: 50px">Số người đi kèm</th>
+            <th class="thShow" style="width: 50px">Số ngày thuê</th>
+            <th class="thShow" style="width: 100px">Loại dịch vụ</th>
+            <th class="thShow" style="width: 100px">Loại phòng thuê</th>
+        </tr>
+    </table>
+</div>
+<div style="position: absolute; left: 43%; margin-top: 5%">
+    <button id="butAdd" onclick="beginAddCustomer()" style="display: inline">Add Customer</button>
+    <button id="butEndAdd" onclick="endAddCustomer()" style="display: none">Add</button>
+    <button id="butShow" onclick="showCustomer()" style="display: inline">Show List Customer</button>
+    <button id="butEdit" onclick="editCustomer()" style="display: none">Edit Customer</button>
+    <button id="butUpdate" onclick="updateCustomer()" style="display: none">Update</button>
+    <button id="butDelete" onclick="deleteCustomer()" style="display: none">Delete</button>
+    <button id="butExit" onclick="exitAdd()" style="display: none">Exit</button>
+</div>
+<script>
+    let customer = [[]];
+    let count = 0;
+    let locationEditCustomer = "notFound";
+    function showBangGia() {
+        let phong = document.getElementById("add9").value;
+        switch (phong) {
+            case "villa":
+                document.getElementById("bangGia").innerHTML = "- Villa 500$ 1 ngày";
+                break;
+            case "house":
+                document.getElementById("bangGia").innerHTML = "- House 300$ 1 ngày";
+                break;
+            default:
+                document.getElementById("bangGia").innerHTML = "- Room 100$ 1 ngày";
+        }
+    }
+    function showCustomer() {
+        document.getElementById("butAdd").style.display = "initial";
+        document.getElementById("butExit").style.display = "initial";
+        document.getElementById("butShow").style.display = "none";
+        document.getElementById("tblShow").style.display = "table";
+        document.getElementById("butDelete").style.display = "initial";
+        document.getElementById("butEdit").style.display = "initial";
+        let table = document.getElementById("tblShow");
+        if (count!==0){
+            let arrayName = [];
+            for (let i=0; i<customer.length; i++){
+                arrayName[i] = customer[i][0];
+            }
+            // console.log(arrayName);
+            arrayName.sort();
+            // console.log(arrayName);
+            let countRow = 0;
+            while (countRow<count){
+                let statusFound = false;
+                let i=0;
+                for (i=0; i<arrayName.length; i++){
+                    if (arrayName[countRow] === customer[i][0]){
+                        statusFound = true;
+                        break;
+                    }
+                }
+                if (statusFound===true) {
+                    let addRow = table.insertRow(countRow + 1);
+                    let addCell;
+                    for (let j = 0; j < 11; j++) {
+                        addCell = addRow.insertCell(j);
+                        addCell.style.textAlign = "center";
+                        addCell.style.border = "1px solid black";
+                        addCell.style.borderCollapse = "collapse";
+                        if (j === 0) addCell.innerHTML = "0" + (countRow + 1);
+                        else {
+                            if (j === 5 || j === 9 || j === 10) {
+                                addCell.innerHTML = toUpperCase1(customer[i][j - 1]);
+                                continue;
+                            }
+                            addCell.innerHTML = customer[i][j - 1];
+                        }
+                    }
+                    countRow++;
+                }
+            }
+        }
+    }
+
+    function deleteRowShow() {
+        let table = document.getElementById("tblShow");
+        // console.log(table.rows.length + "," + count);
+        if (table.rows.length > count) {
+            for (let i = count; i >= 1; i--) {
+                table.deleteRow(i);
+            }
+        }
+    }
+    function beginAddCustomer() {
+        document.getElementById("butAdd").style.display = "none";
+        document.getElementById("butShow").style.display = "none";
+        document.getElementById("butDelete").style.display = "none";
+        document.getElementById("butExit").style.display = "initial";
+        document.getElementById("butEndAdd").style.display = "initial";
+        document.getElementById("butEdit").style.display = "none";
+        document.getElementById("tblAdd").style.display = "table";
+        document.getElementById("tblShow").style.display = "none";
+        deleteRowShow();
+    }
+    function endAddCustomer() {
+        let array = new Array(10);
+        for (let i=0; i<=9; i++){
+            if (count===0) customer[0][i] = document.getElementById("add"+(i+1)).value;
+            else array[i] = document.getElementById("add"+(i+1)).value;
+            if (i===4 || i===8 || i===9){
+                document.getElementById("add"+(i+1)).selectedIndex = "0";
+                continue;
+            }
+            document.getElementById("add"+(i+1)).value = '';
+        }
+        if (count!==0) customer.push([array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9]]);
+        console.log(customer);
+        document.getElementById("butAdd").style.display = "initial";
+        document.getElementById("butShow").style.display = "initial";
+        document.getElementById("butEndAdd").style.display = "none";
+        document.getElementById("butDelete").style.display = "none";
+        document.getElementById("butExit").style.display = "none";
+        document.getElementById("butEdit").style.display = "none";
+        document.getElementById("tblAdd").style.display = "none";
+        showBangGia();
+        count++;
+    }
+
+    function exitAdd() {
+        document.getElementById("butAdd").style.display = "initial";
+        document.getElementById("butShow").style.display = "initial";
+        document.getElementById("butExit").style.display = "none";
+        document.getElementById("butDelete").style.display = "none";
+        document.getElementById("butEndAdd").style.display = "none";
+        document.getElementById("butEdit").style.display = "none";
+        document.getElementById("butUpdate").style.display = "none";
+        document.getElementById("tblAdd").style.display = "none";
+        document.getElementById("tblShow").style.display = "none";
+        for (let i=0; i<=9; i++){
+            if (i===4 || i===8 || i===9){
+                document.getElementById("add"+(i+1)).selectedIndex = "0";
+                continue;
+            }
+            document.getElementById("add"+(i+1)).value = '';
+        }
+        showBangGia();
+        deleteRowShow();
+    }
+    function toUpperCase1(value) {
+        let input = value.split("");
+        let output = "";
+        for (let i=0 ;i<input.length; i++){
+            if (i===0){
+                input[i] = input[i].toUpperCase();
+            }
+            output+=input[i];
+        }
+        return output;
+    }
+    function deleteCustomer() {
+        let input = prompt("Nhập tên Customer muốn xoá");
+        let locationName = findNameCustomer(input);
+        if(locationName==="notFound"){
+            alert("Không tìm thấy tên Customer");
+        }
+        else{
+            if(parseInt(locationName) === customer.length-1){
+                customer.pop();
+            }
+            else{
+                for (let i=parseInt(locationName)+1; i<customer.length; i++){
+                    for (let j=0; j<10; j++){
+                        customer[i-1][j] = customer[i][j];
+                    }
+                }
+                customer.pop();
+            }
+            deleteRowShow();
+            count--;
+            showCustomer();
+            // console.log(customer);
+            alert("Xoá thành công");
+        }
+    }
+    function editCustomer() {
+        let input = prompt("Nhập tên Customer muốn sửa");
+        let locationName = findNameCustomer(input);
+        if(locationName==="notFound"){
+            alert("Không tìm thấy tên Customer");
+        }
+        else{
+            locationEditCustomer = locationName;
+            for (let i=0; i<=9; i++){
+                document.getElementById("add"+(i+1)).value = customer[parseInt(locationName)][i];
+            }
+            showBangGia();
+            beginAddCustomer()
+            document.getElementById("butEndAdd").style.display = "none";
+            document.getElementById("butUpdate").style.display = "initial";
+        }
+    }
+    function updateCustomer() {
+        for (let i=0; i<=9; i++){
+            customer[parseInt(locationEditCustomer)][i] = document.getElementById("add"+(i+1)).value;
+            if (i===4 || i===8 || i===9){
+                document.getElementById("add"+(i+1)).selectedIndex = "0";
+                continue;
+            }
+            document.getElementById("add"+(i+1)).value = '';
+        }
+        console.log(customer);
+        deleteRowShow();
+        showCustomer();
+        document.getElementById("butUpdate").style.display = "none";
+        document.getElementById("tblAdd").style.display = "none";
+    }
+    function findNameCustomer(value) {
+        let statusFine = false;
+        for (let i=0; i<count; i++){
+            if (value=== customer[i][0]){
+                statusFine = true;
+                return ""+i;
+            }
+        }
+        return "notFound";
+    }
+</script>
 </body>
 </html>
