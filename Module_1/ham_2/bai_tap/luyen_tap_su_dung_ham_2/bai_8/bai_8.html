@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 8</title>
+</head>
+<body>
+    <script>
+        let arrayNumber = [];
+        let maxArray = parseInt(prompt("Số phần tử tối đa của mảng"));
+        for (let i=0; i<maxArray; i++) {
+            arrayNumber[i] = parseInt(prompt("Nhập số cho phần tử thứ " + (i + 1)));
+        }
+        alert("Mảng sau khi đảo ngược: " + reverseArrary(arrayNumber));
+        function reverseArrary(value) {
+            return value.reverse();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 5</title>
+</head>
+<body>
+    <script>
+        let arrayNumber = [];
+        for (let i=0; i<3; i++){
+            arrayNumber[i] = parseInt(prompt("Nhập số nguyên thứ " + (i+1)));
+        }
+        alert("Số nhỏ nhất trong 3 số vừa nhập là: " + numberMin(arrayNumber));
+        function numberMin(value) {
+            let min = value[0];
+            for (let i=0; i<value.length; i++){
+                if (min>value[i]){
+                    min = value[i];
+                }
+            }
+            return min;
+        }
+    </script>
+</body>
+</html>

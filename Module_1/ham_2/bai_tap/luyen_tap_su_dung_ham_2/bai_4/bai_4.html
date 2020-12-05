@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 4</title>
+</head>
+<body>
+    <script>
+        let input = prompt("Nhập kí tự");
+        if (checkNumber(input)){
+            alert("Kí tự là số");
+        }
+        else alert("Kí tự không phải số");
+        function checkNumber(value) {
+            let output = parseInt(value);
+            if (isNaN(output)) return false;
+            else return true;
+        }
+    </script>
+</body>
+</html>

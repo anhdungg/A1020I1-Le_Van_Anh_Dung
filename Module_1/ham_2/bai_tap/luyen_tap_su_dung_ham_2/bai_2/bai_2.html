@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 2</title>
+</head>
+<body>
+    <script>
+        let banKinh = parseInt(prompt("Nhập bán kính:"));
+
+        function dienTich(banKinh) {
+            return Math.PI*(banKinh*banKinh);
+        }
+
+        function chuVi(banKinh) {
+            return (2*banKinh)*Math.PI;
+        }
+        alert("Diện tích hình tròn: " + dienTich(banKinh) + "\n" + "Chu vi hình tròn: " + chuVi(banKinh));
+    </script>
+</body>
+</html>
