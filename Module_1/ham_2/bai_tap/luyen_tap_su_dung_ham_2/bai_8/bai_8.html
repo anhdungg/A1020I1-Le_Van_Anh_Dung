@@ -11,9 +11,12 @@
         for (let i=0; i<maxArray; i++) {
             arrayNumber[i] = parseInt(prompt("Nhập số cho phần tử thứ " + (i + 1)));
         }
-        alert("Mảng sau khi đảo ngược: " + reverseArrary(arrayNumber));
+        alert("Mảng trước khi đảo ngược: " + arrayNumber + "\nMảng sau khi đảo ngược: " + reverseArrary(arrayNumber));
         function reverseArrary(value) {
-            return value.reverse();
+            let outputString = "";
+            for (let i=0; i<value.length; i++) outputString+=value[i];
+            let outputArray = outputString.split("");
+            return outputArray.reverse();
         }
     </script>
 </body>
