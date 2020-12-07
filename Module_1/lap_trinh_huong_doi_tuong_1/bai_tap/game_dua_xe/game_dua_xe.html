@@ -5,9 +5,19 @@
     <title>Racing</title>
 </head>
 <body>
-    <canvas id="myCanvas" width="300px" style="border: 1px solid black; left: 40%;; position: absolute"></canvas>
+    <img src="car1.jpg" id="car1" alt="" style="display: none">
+    <img src="car2.jpg" id="car2" alt="" style="display: none">
+    <img src="car3.png" id="car3" alt="" style="display: none">
+    <img src="car4.png" id="car4" alt="" style="display: none">
+    <img src="car5.png" id="car5" alt="" style="display: none">
+    <img src="car_main.png" id="carMain" alt="" style="display: none; width: 70px">
+    <canvas id="myCanvas" width="335px" style="border: 1px solid black; left: 40%;; position: absolute"></canvas>
     <script>
+        window.addEventListener("keypress", ev => {
+            getKeyboard(ev);
+        });
         document.getElementById("myCanvas").height = screen.height-90;
+        let countLine=0, getKeyCode=0, posCarMain = 5;
         class createLine{
             constructor(x, y) {
                 this.x = x;
@@ -16,7 +26,7 @@
             setPosX(x){
                 this.x=x;
             }
-            setPosY(x){
+            setPosY(y){
                 this.y=y;
             }
             getPosX(){
@@ -32,17 +42,51 @@
                 return 40;
             }
         }
-        drawLine();
+        let timerDrawLine = setInterval(function () {
+            drawLine();
+        }, 1);
         function drawLine() {
-            let line1 = new createLine(50, 0);
+            let line1 = new createLine(0, 0);
+            let carMain = document.getElementById("carMain");
             let canvas = document.getElementById("myCanvas").getContext("2d");
-            while (true){
-                line1.setPosX()
-            }
             canvas.beginPath();
-            canvas.fillRect(line1.getPosX(), line1.getPosY(), line1.getDrawX(), line1.getDrawY());
-            canvas.fillStyle = "rgb(255,0, 0)";
+            canvas.fillStyle = "#FF0000";
+            for (let i = countLine; i <= 700; i+=50) {
+                for (let j=80; j<=250; j+=85){
+                    line1.setPosX(j);
+                    line1.setPosY(i);
+                    if (countLine<10) {
+                        canvas.fillRect(line1.getPosX(), line1.getPosY(), line1.getDrawX(), line1.getDrawY());
+                        canvas.clearRect(line1.getPosX(), line1.getPosY(), 5, 1);
+                    }
+                    else {
+                        canvas.fillRect(line1.getPosX(), line1.getPosY()-11, line1.getDrawX(), 1);
+                        canvas.fillRect(line1.getPosX(), line1.getPosY(), line1.getDrawX(), line1.getDrawY());
+                        canvas.clearRect(line1.getPosX(), line1.getPosY(), 5, 1);
+                    }
+                }
+            }
             canvas.stroke();
+            if (getKeyCode===100) {
+                canvas.clearRect(posCarMain, 535, 70, 140);
+                posCarMain+=85;
+                if (posCarMain>260) posCarMain=260;
+                getKeyCode=0;
+            }
+            else if (getKeyCode===97){
+                canvas.clearRect(posCarMain, 535, 70, 140);
+                posCarMain-=85;
+                if (posCarMain<5) posCarMain=5;
+                getKeyCode=0;
+            }
+            canvas.drawImage(carMain, posCarMain, 535, 70, 140);
+            countLine++;
+            if(countLine>50) {
+                countLine=0;
+            }
+        }
+        function getKeyboard(event) {
+            getKeyCode = event.keyCode;
         }
     </script>
 </body>
