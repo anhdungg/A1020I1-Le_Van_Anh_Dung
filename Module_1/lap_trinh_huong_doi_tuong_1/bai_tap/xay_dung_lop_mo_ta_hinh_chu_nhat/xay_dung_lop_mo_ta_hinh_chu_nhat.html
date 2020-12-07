@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mô tả hình chữ nhật</title>
+    <style>
+        input{
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+<div style="position: relative; left: 40%">
+    <label for="chieuDai">Chiều dài</label>
+    <input type="number" id="chieuDai" style="margin-right: 20px">
+    <label for="chieuRong">Chiều rộng</label>
+    <input type="number" id="chieuRong"><br><br>
+    <input type="button" value="Mô tả" onclick="" style="position: relative; left: 120px">
+
+</div>
+<canvas id="myCanvas" width="600px" height="400px" style="position: absolute; left: 30%; top:15%; border: 1px solid black"></canvas>
+<script>
+    function hinh(chieuDai, chieuRong) {
+        this.chieuDai = chieuDai;
+        this.chieuRong = chieuRong;
+    }
+
+    function createHinh() {
+        let canvas = document.getElementById("myCanvas").getContext("2d");
+    }
+</script>
+</body>
+</html>
