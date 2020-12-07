@@ -2,9 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Kiểm tra từ đối xứng</title>
 </head>
 <body>
-$END$
+    <script>
+        let input = prompt("Nhập chuỗi kí tự");
+        if(isPalindrome(input)) console.log(":))")
+        else console.log(":((");
+        //C1
+        // function isPalindrome(value) {
+        //     let copyInput = value.split("");
+        //     copyInput.reverse();
+        //     let output = "";
+        //     for (let i=0; i<copyInput.length; i++){
+        //         output+=copyInput[i];
+        //     }
+        //     if (output===value){
+        //         return true;
+        //     }
+        //     else {
+        //         return false;
+        //     }
+        // }
+        //C2
+        function isPalindrome(value) {
+            let copyInput = value.split("");
+            let lengthValue = copyInput.length;
+            if ((lengthValue%2) === 0){
+                for (let i=0; i<(lengthValue/2); i++){
+                    if (copyInput[i] !== copyInput[(lengthValue-1)-i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else {
+                for (let i=0; i<((lengthValue-1)/2); i++){
+                    // console.log(copyInput[i] + ":" + copyInput[(lengthValue-1)-i]);
+                    if (copyInput[i] !== copyInput[(lengthValue-1)-i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+    </script>
 </body>
 </html>
