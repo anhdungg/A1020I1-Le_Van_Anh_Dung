@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Racing</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="300px" style="border: 1px solid black; left: 40%;; position: absolute"></canvas>
+    <script>
+        document.getElementById("myCanvas").height = screen.height-90;
+        class createLine{
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+            setPosX(x){
+                this.x=x;
+            }
+            setPosY(x){
+                this.y=y;
+            }
+            getPosX(){
+                return this.x;
+            }
+            getPosY(){
+                return this.y;
+            }
+            getDrawX(){
+                return 5;
+            }
+            getDrawY(){
+                return 40;
+            }
+        }
+        drawLine();
+        function drawLine() {
+            let line1 = new createLine(50, 0);
+            let canvas = document.getElementById("myCanvas").getContext("2d");
+            while (true){
+                line1.setPosX()
+            }
+            canvas.beginPath();
+            canvas.fillRect(line1.getPosX(), line1.getPosY(), line1.getDrawX(), line1.getDrawY());
+            canvas.fillStyle = "rgb(255,0, 0)";
+            canvas.stroke();
+        }
+    </script>
+</body>
+</html>

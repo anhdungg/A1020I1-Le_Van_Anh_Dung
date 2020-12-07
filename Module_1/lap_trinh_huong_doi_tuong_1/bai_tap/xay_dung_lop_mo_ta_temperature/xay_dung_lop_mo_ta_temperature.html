@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mô tả Temperature</title>
+</head>
+<body>
+    <div style="position: relative; left: 45%; width: 200px">
+        <input type="number" id="doC" style="width: 50px">
+        <label for="doC">&degC</label>
+        <input type="button" value="Tính" onclick="tinh()" style="margin-left: 30px">
+    </div><br>
+    <div style="position: relative; left: 45%; width: 500px">
+        <input type="number" id="doF" oninput="this.value=''" style="width: 50px">
+        <label for="doF">&degF</label>
+        <input type="number" id="doK" oninput="this.value=''" style="width: 100px; margin-left: 30px">
+        <label for="doK">&degKenvin</label>
+    </div>
+    <script>
+        function temperature(doC) {
+            this.nhietDo = doC;
+            this.getDoF = function () {
+                return this.nhietDo*1.8+32;
+            };
+            this.getDoK = function () {
+                return this.nhietDo+273.15;
+            };
+        }
+
+        function tinh() {
+            let doC = new temperature(parseInt(document.getElementById("doC").value));
+            document.getElementById("doF").value = doC.getDoF();
+            document.getElementById("doK").value = doC.getDoK();
+        }
+    </script>
+</body>
+</html>
