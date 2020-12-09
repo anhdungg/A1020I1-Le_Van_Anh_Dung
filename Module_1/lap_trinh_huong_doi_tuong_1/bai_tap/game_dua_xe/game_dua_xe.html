@@ -17,8 +17,8 @@
             getKeyboard(ev);
         });
         document.getElementById("myCanvas").height = screen.height-90;
-        let countLine=0, getKeyCode=0, posCarMain = 5;
-        class createLine{
+        let countLine=0, getKeyCode=0;
+        class CreateLine{
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
@@ -42,26 +42,49 @@
                 return 40;
             }
         }
-        class createCar extends createLine{
+        class CreateCar extends CreateLine{
             constructor(x, y, idImage) {
                 super(x,y);
                 this.idImage = idImage;
             }
-            getImage(){
-                return document.getElementById("car" + (this.idImage));
+            getImage() {
+                return document.getElementById("car" + this.idImage);
             }
         }
-        let line1 = new createLine(0, 0);
-        let carArray = [], areaPosX = [5, 90, 175, 260];
-        for (let i=0; i<5; i++){
-            carArray[i] = new createCar(0,0, (i+1));
+        class CarMain{
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+            getImage(){
+                return document.getElementById("carMain");
+            }
+            getPosX(){
+                return this.x;
+            }
+            getPosY(){
+                return this.y;
+            }
+            carRight(){
+                this.x+=85;
+                if (this.x>260) this.x = 260;
+                return this.x;
+            }
+            carLeft(){
+                this.x-=85;
+                if (this.x<5) this.x = 5;
+                return this.x;
+            }
+
         }
+        let line1 = new CreateLine(0, 0);
+        let carUse = new CarMain(5, screen.height-190);
+        let carArray = [], areaPosX = [5, 90, 175, 260], displayCar = [];
         let timerDrawLine = setInterval(function () {
             drawLine();
         }, 1);
         drawRandomCar();
         function drawLine() {
-            let carMainImage = document.getElementById("carMain");
             let canvas = document.getElementById("myCanvas").getContext("2d");
             canvas.beginPath();
             canvas.fillStyle = "#FF0000";
@@ -81,19 +104,18 @@
                 }
             }
             canvas.stroke();
+            // animationCar();
             if (getKeyCode===100) {
-                canvas.clearRect(posCarMain, 575, 70, 100);
-                posCarMain+=85;
-                if (posCarMain>260) posCarMain=260;
-                getKeyCode=0;
+                canvas.clearRect(carUse.getPosX(), carUse.getPosY(), 70, 100);
+                carUse.carRight();
+                getKeyCode=0
             }
             else if (getKeyCode===97){
-                canvas.clearRect(posCarMain, 575, 70, 100);
-                posCarMain-=85;
-                if (posCarMain<5) posCarMain=5;
+                canvas.clearRect(carUse.getPosX(), carUse.getPosY(), 70, 100);
+                carUse.carLeft();
                 getKeyCode=0;
             }
-            canvas.drawImage(carMainImage, posCarMain, 575, 70, 100);
+            canvas.drawImage(carUse.getImage(), carUse.getPosX(), carUse.getPosY(), 70, 100);
             countLine++;
             if(countLine>50) {
                 countLine=0;
@@ -104,14 +126,43 @@
         }
         function drawRandomCar() {
             let canvas = document.getElementById("myCanvas").getContext("2d");
-            let randomFor = Math.floor(Math.random() * 4);
-            for (let i=randomFor; i<4; i++){
-                let randomCreateCar = Math.floor(Math.random() * 5);
-                let createPosX = Math.floor(Math.random() * 4);
-                carArray[randomCreateCar].setPosX(areaPosX[createPosX]);
-                carArray[randomCreateCar].setPosY(0);
-                canvas.drawImage(carArray[randomCreateCar].getImage(), carArray[randomCreateCar].getPosX(), carArray[randomCreateCar].getPosY(), 70, 100);
+            let randomFor = Math.floor(Math.random() * 3) +1;
+            console.log(randomFor);
+            let lastRandom = [], i=0;
+            while (i<randomFor){
+                let randomPosX = Math.floor(Math.random() * 4);
+                let statusCheck = false;
+                if(lastRandom.length===0){
+                    lastRandom[0] = randomPosX;
+                    i++;
+                }
+                else {
+                    for (let j = 0; j < lastRandom.length; j++) {
+                        if (randomPosX !== lastRandom[j]) {
+                            statusCheck = true;
+                        }
+                    }
+                    if (statusCheck)
+                    {
+                        console.log(randomPosX);
+                        let randomChoiceCar = Math.floor(Math.random() * 5);
+                        let randomPosY = Math.floor(Math.random() * -100);
+                        carArray[i] = new CreateCar(areaPosX[randomPosX], randomPosY, (randomChoiceCar + 1));
+                        canvas.drawImage(carArray[i].getImage(), carArray[i].getPosX(), carArray[i].getPosY(), 70, 100);
+                        lastRandom.push(randomPosX);
+                        i++;
+                    }
+                }
             }
+        }
+        function animationCar() {
+            let canvas = document.getElementById("myCanvas").getContext("2d");
+            for (let i=0; i<carArray.length; i++){
+                canvas.clearRect(carArray[i].getPosX(), carArray[i].getPosY(), 70, 100);
+                carArray[i].setPosY(carArray[i].getPosY()+1);
+                canvas.drawImage(carArray[i].getImage(), carArray[i].getPosX(), carArray[i].getPosY(), 70, 100);
+            }
+
         }
     </script>
 </body>
