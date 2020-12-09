@@ -5,8 +5,8 @@
     <title>Racing</title>
 </head>
 <body>
-    <img src="car1.jpg" id="car1" alt="" style="display: none">
-    <img src="car2.jpg" id="car2" alt="" style="display: none">
+    <img src="car1.png" id="car1" alt="" style="display: none">
+    <img src="car2.png" id="car2" alt="" style="display: none">
     <img src="car3.png" id="car3" alt="" style="display: none">
     <img src="car4.png" id="car4" alt="" style="display: none">
     <img src="car5.png" id="car5" alt="" style="display: none">
@@ -42,12 +42,26 @@
                 return 40;
             }
         }
+        class createCar extends createLine{
+            constructor(x, y, idImage) {
+                super(x,y);
+                this.idImage = idImage;
+            }
+            getImage(){
+                return document.getElementById("car" + (this.idImage));
+            }
+        }
+        let line1 = new createLine(0, 0);
+        let carArray = [], areaPosX = [5, 90, 175, 260];
+        for (let i=0; i<5; i++){
+            carArray[i] = new createCar(0,0, (i+1));
+        }
         let timerDrawLine = setInterval(function () {
             drawLine();
         }, 1);
+        drawRandomCar();
         function drawLine() {
-            let line1 = new createLine(0, 0);
-            let carMain = document.getElementById("carMain");
+            let carMainImage = document.getElementById("carMain");
             let canvas = document.getElementById("myCanvas").getContext("2d");
             canvas.beginPath();
             canvas.fillStyle = "#FF0000";
@@ -68,18 +82,18 @@
             }
             canvas.stroke();
             if (getKeyCode===100) {
-                canvas.clearRect(posCarMain, 535, 70, 140);
+                canvas.clearRect(posCarMain, 575, 70, 100);
                 posCarMain+=85;
                 if (posCarMain>260) posCarMain=260;
                 getKeyCode=0;
             }
             else if (getKeyCode===97){
-                canvas.clearRect(posCarMain, 535, 70, 140);
+                canvas.clearRect(posCarMain, 575, 70, 100);
                 posCarMain-=85;
                 if (posCarMain<5) posCarMain=5;
                 getKeyCode=0;
             }
-            canvas.drawImage(carMain, posCarMain, 535, 70, 140);
+            canvas.drawImage(carMainImage, posCarMain, 575, 70, 100);
             countLine++;
             if(countLine>50) {
                 countLine=0;
@@ -87,6 +101,17 @@
         }
         function getKeyboard(event) {
             getKeyCode = event.keyCode;
+        }
+        function drawRandomCar() {
+            let canvas = document.getElementById("myCanvas").getContext("2d");
+            let randomFor = Math.floor(Math.random() * 4);
+            for (let i=randomFor; i<4; i++){
+                let randomCreateCar = Math.floor(Math.random() * 5);
+                let createPosX = Math.floor(Math.random() * 4);
+                carArray[randomCreateCar].setPosX(areaPosX[createPosX]);
+                carArray[randomCreateCar].setPosY(0);
+                canvas.drawImage(carArray[randomCreateCar].getImage(), carArray[randomCreateCar].getPosX(), carArray[randomCreateCar].getPosY(), 70, 100);
+            }
         }
     </script>
 </body>
