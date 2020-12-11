@@ -89,9 +89,10 @@
         // }, 1);
         for (let i=0; i<100;  i++) drawLine();
         let timerDrawCar = setInterval(function () {
-            drawLine();
             animationCar();
-        }, 1);
+            drawLine();
+            checkCar();
+        }, 1);  
         function drawLine() {
             let canvas = document.getElementById("myCanvas").getContext("2d");
             canvas.beginPath();
@@ -164,7 +165,7 @@
             let canvas = document.getElementById("myCanvas").getContext("2d");
             let randomChoiceCar = Math.floor(Math.random() * 5);
             let randomPosY = Math.floor(Math.random() * -151);
-            carArray.push(new CreateCar(areaPosX[posX], -100, (randomChoiceCar + 1)));
+            carArray.push(new CreateCar(areaPosX[posX], randomPosY, (randomChoiceCar + 1)));
             canvas.drawImage(carArray[positionArray].getImage(), carArray[positionArray].getPosX(), carArray[positionArray].getPosY(), 70, 100);
 
         }
@@ -176,7 +177,9 @@
                 carArray[i].setPosY(carArray[i].getPosY()+1);
                 if (carArray[i].getPosY()>screen.height-190) {
                     let randomPosY = Math.floor(Math.random() * 101) * (-1);
+                    let randomPosX = Math.floor(Math.random() * 5);
                     let minAddPosY = carArray[i].getPosY();
+                    carArray[i].setPosX(areaPosX[randomPosX]);
                     for (let j=0; j<carArray.length; j++){
                         if (carArray[i].getPosX()=== carArray[j].getPosX()){
                             if (minAddPosY>carArray[j].getPosY()){
@@ -184,7 +187,7 @@
                             }
                         }
                     }
-                    if (randomPosY+100>minAddPosY) randomPosY -= 100;
+                    if (randomPosY+110>minAddPosY) randomPosY = minAddPosY-150;
                     let randomImage = Math.floor(Math.random() * 5)+1;
                     carArray[i].setPosY(randomPosY);
                     carArray[i].setImage(randomImage);
@@ -194,9 +197,19 @@
                     minPosY = carArray[i].getPosY();
                 }
             }
-            if (carArray.length<7){
-                if (minPosY>100){
+            if (carArray.length<6){
+                if (minPosY>150){
                     choiceRandomCar();
+                }
+            }
+        }
+
+        function checkCar() {
+            for (let i=0; i<carArray.length; i++){
+                if (carUse.getPosX() === carArray[i].getPosX()){
+                    if (carArray[i].getPosY()+95 >= carUse.getPosY()){
+                        clearInterval(timerDrawCar);
+                    }
                 }
             }
         }
