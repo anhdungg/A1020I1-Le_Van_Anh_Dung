@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remote và Tivi</title>
+</head>
+<body>
+    <script>
+        class Remote{
+            constructor(id) {
+                this.id = id;
+            }
+            chuyenKenh(kenh){
+                this.id.chuyenKenh(kenh);
+            }
+            tangAmLuong(){
+                this.id.tangAm();
+            }
+            giamAmLuong(){
+                this.id.giamAm();
+            }
+            batTivi(){
+                this.id.batTivi();
+            }
+            tatTivi(){
+                this.id.tatTivi();
+            }
+        }
+        class Tivi{
+            constructor() {
+                this.kenh = 0;
+                this.amLuong = 0;
+                this.status = false;
+            }
+            xemKenh(){
+                console.log("Kênh hiện tại là: " + this.kenh);
+            }
+            xemAmLuong(){
+                console.log("Âm lượng hiện tại là: " + this.amLuong);
+            }
+            xemTrangThai(){
+                if (this.status) console.log("Tivi đang bật");
+                else console.log("Tivi đang tắt");
+            }
+            chuyenKenh(kenh){
+                this.kenh = kenh;
+            }
+            tangAm(){
+                this.amLuong++;
+            }
+            giamAm(){
+                this.amLuong--;
+            }
+            batTivi(){
+                this.status = true;
+                console.log("Tivi đã bật");
+            }
+            tatTivi(){
+                this.status = false;
+                console.log("Tivi đã tắt");
+            }
+        }
+
+        let tivi = new Tivi();
+        let remote = new Remote(tivi);
+        remote.batTivi();
+        tivi.chuyenKenh(7);
+        tivi.xemKenh();
+        remote.chuyenKenh(3);
+        tivi.xemKenh();
+        for (let i=0; i<2; i++)remote.tangAmLuong();
+        tivi.xemAmLuong();
+        remote.tatTivi();
+    </script>
+</body>
+</html>

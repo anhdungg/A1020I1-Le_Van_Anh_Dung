@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+</head>
+<body>
+    <img id="image" src="maxresdefault.jpg" alt="" style="position: absolute; height: 50px; width: 50px">
+    <script>
+        function delay(milliseconds){
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+        class Image {
+            constructor(x, y, maxX, maxY, minX, minY, object) {
+                this.x = x;
+                this.y = y;
+                this.maxX = maxX;
+                this.maxY = maxY;
+                this.minX = minX;
+                this.minY = minY;
+                this.object = object;
+                this.object.style.top = this.y + "px";
+                this.object.style.left = this.x + "px";
+            }
+            turnLeft(step){
+                for (let i=0; i<step; i++){
+                    this.x--;
+                    if (this.x<this.minX) this.x = this.minX;
+                    this.object.style.left = this.x + "px";
+                    // delay(500);
+                }
+            }
+            turnRight(step){
+                for (let i=0; i<step; i++){
+                    this.x++;
+                    if (this.x>this.maxX) this.x = this.maxX;
+                    this.object.style.left = this.x + "px";
+                    // delay(500);
+                }
+            }
+            turnTop(step){
+                for (let i=0; i<step; i++){
+                    this.y--;
+                    if (this.y<this.minY) this.y = this.minY;
+                    this.object.style.top = this.y + "px";
+                    // this.delay(100);
+                }
+            }
+            turnBottom(step){
+                for (let i=0; i<step; i++){
+                    this.y++;
+                    if (this.y>this.maxY) this.y = this.maxY;
+                    this.object.style.top = this.y + "px";
+                    // this.delay(100);
+                }
+            }
+            delay(milliseconds){
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds);
+            }
+        }
+        let object = new Image(500, 250, screen.width, screen.height-100, 0, 0, document.getElementById("image"));
+
+        function animationImage() {
+            let randomMove = Math.floor(Math.random() * 4);
+            let stepMove = Math.floor(Math.random() * 200);
+            switch (randomMove) {
+                case 0:
+                    object.turnBottom(stepMove);
+                    break;
+                case 1:
+                    object.turnTop(stepMove);
+                    break;
+                case 2:
+                    object.turnLeft(stepMove);
+                    break;
+                case 3:
+                    object.turnRight(stepMove);
+                    break;
+            }
+        }
+        setInterval(animationImage, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cờ caro</title>
+    <link rel="icon" href="image/caro_icon.png" type="image/icon type">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./bootstrap.min.js"></script>
+    <style>
+        td{
+            height: 25px;
+            width: 25px;
+            background: #ffffff;
+            /*border: 1px groove #515151;*/
+            text-align: center;
+        }
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img{
+            vertical-align: center;
+            height: 24px;
+            width: 24px;
+        }
+    </style>
+</head>
+<body onload="createTable()">
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="displayFinish" style="text-align: center; font-size: 30px"><b></b></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="butt01" style="width: 70px; text-align: center"></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="butt02" style="width: 70px; text-align: center"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <img src="image/caro_X_icon.png" alt="">-->
+    <script>
+        let status_X_O=true;
+        // For create table
+        function createTable() {
+            changeModal(true);
+            $("#myModal").modal();
+            let maxHeight = screen.height, maxWidth=screen.width;
+            let table = document.createElement("TABLE");
+            let count = 0;
+            table.setAttribute("id", "tbl1");
+            document.body.appendChild(table);
+            table = document.getElementById("tbl1");
+            // table.classList.add("table");
+            table.classList.add("table-bordered");
+            for (let i=0; i<Math.trunc(maxHeight/20)-11; i++){
+                let addRow = table.insertRow(i);
+                for (let j=0; j<Math.trunc(maxWidth/20)-17; j++){
+                    let addCell = addRow.insertCell(j);
+                    addCell.id = "cell0" + count;
+                    count++;
+                    // console.log(count);
+                    addCell.addEventListener("mousedown", function() {
+                        onMouseDown(table, j, i);
+                    });
+                    addCell.addEventListener("mouseup", function() {
+                        onMouseUp(table, j, i);
+                    });
+                }
+            }
+        }
+        // For event
+        function onMouseDown(idTable, x, y) {
+            // idTable.rows[y].cells[x].style.background = "white";
+            if(idTable.rows[y].cells[x].innerHTML === ""){
+                if (status_X_O===true)idTable.rows[y].cells[x].innerHTML = "<img src=\"image/caro_X_icon.png\" alt=\"\">";
+                else idTable.rows[y].cells[x].innerHTML = "<img src=\"image/caro_O_icon.png\" alt=\"\">";
+                status_X_O = !status_X_O;
+            }
+        }
+
+        function onMouseUp(idTable, x, y) {
+            let count;
+            let modeCell = idTable.rows[y].cells[x].innerHTML;
+            modeCell = modeCell.substring(modeCell.indexOf("_")+1, modeCell.indexOf("_")+2);
+            // idTable.rows[y].cells[x].style.background = "black";
+            count = checkFinish(modeCell, "X", idTable, y, x);
+            if (count==="X"){
+                // console.log("X");
+                document.getElementById("displayFinish").style.color = "blue";
+                document.getElementById("displayFinish").innerHTML = "Chúc mừng bên xanh đã chiến thắng";
+                changeModal(false);
+                $("#myModal").modal();
+                offEvent();
+            }
+            else {
+                count = checkFinish(modeCell, "O", idTable, y, x);
+                if (count==="O"){
+                    // console.log("O");
+                    document.getElementById("displayFinish").style.color = "red";
+                    document.getElementById("displayFinish").innerHTML = "Chúc mừng bên đỏ đã chiến thắng";
+                    changeModal(false);
+                    $("#myModal").modal();
+                    offEvent();
+                }
+            }
+        }
+        // For check
+        function checkFinish(modeCell, mode, idTable, y, x) {
+            // Kiem tra hang doc
+            let count=0;
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y-i].cells[x].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y+i].cells[x].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            if(count===4){
+                if (modeCell === "X")return "X";
+                else return "O";
+            }
+            else count=0;
+            // Kiem tra hang ngang
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y].cells[x+i].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y].cells[x-i].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            if(count===4){
+                if (modeCell === "X")return "X";
+                else return "O";
+            }
+            else count=0;
+            // Kiem tra hang cheo phai
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y-i].cells[x+i].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y+i].cells[x-i].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            if(count===4){
+                if (modeCell === "X")return "X";
+                else return "O";
+            }
+            else count=0;
+            // Kiem tra hang cheo trai
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y-i].cells[x-i].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            for (let i=1; i<6; i++){
+                let countMode = idTable.rows[y+i].cells[x+i].innerHTML;
+                countMode = countMode.substring(countMode.indexOf("_")+1, countMode.indexOf("_")+2);
+                if (countMode === mode) count++;
+                else break;
+            }
+            if(count===4){
+                if (modeCell === "X")return "X";
+                else return "O";
+            }
+            else return "0";
+        }
+        // For remove event
+        function offEvent() {
+            let table = document.getElementById("tbl1");
+            for (let i=0; i<1377; i++){
+                // console.log(document.getElementById("cell0" + i).innerHTML);
+                document.getElementById("cell0" + i).removeEventListener("mousedown", function () {
+                    onMouseDown(table, 0, 0);
+                }, false);
+                document.getElementById("cell0" + i).removeEventListener("mouseup", function () {
+                    onMouseUp(table, 0, 0);
+                }, false );
+
+            }
+        }
+        // For reload page
+        function reloadPage() {
+            location.reload();
+        }
+        // For change modal
+        function changeModal(status) {
+            if(status){
+                document.getElementById("displayFinish").innerHTML = "Chọn bên nào chơi trước(mặc định bên xanh)?";
+                document.getElementById("butt01").style.color = "Blue";
+                document.getElementById("butt01").innerHTML = "Xanh";
+                document.getElementById("butt02").style.color = "red";
+                document.getElementById("butt02").innerHTML = "Đỏ";
+                document.getElementById("butt02").addEventListener("click", function () {
+                    status_X_O = false;
+                });
+            }
+            else {
+                document.getElementById("butt01").style.color = "black";
+                document.getElementById("butt01").innerHTML = "Chơi lại";
+                document.getElementById("butt02").style.color = "black";
+                document.getElementById("butt02").innerHTML = "Đóng";
+                document.getElementById("butt02").removeEventListener("click", function () {
+                    status_X_O = false;
+                });
+                document.getElementById("butt01").addEventListener("click", function () {
+                    reloadPage();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
