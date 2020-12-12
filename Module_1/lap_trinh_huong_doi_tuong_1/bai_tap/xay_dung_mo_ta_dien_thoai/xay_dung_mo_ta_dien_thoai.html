@@ -3,65 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Điện thoại</title>
-    <style>
-        /* The device with borders */
-        .smartphone {
-            position: relative;
-            width: 260px;
-            height: 500px;
-            margin: auto;
-            border: 16px black solid;
-            border-top-width: 60px;
-            border-bottom-width: 60px;
-            border-radius: 36px;
-        }
-
-        /* The horizontal line on the top of the device */
-        .smartphone:before {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 5px;
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #333;
-            border-radius: 10px;
-        }
-
-        /* The circle on the bottom of the device */
-        .smartphone:after {
-            content: '';
-            display: block;
-            width: 35px;
-            height: 35px;
-            position: absolute;
-            left: 50%;
-            bottom: -65px;
-            transform: translate(-50%, -50%);
-            background: #333;
-            border-radius: 50%;
-        }
-
-        /* The screen (or content) of the device */
-        .smartphone .content {
-            width: 260px;
-            height: 500px;
-            background: white;
-        }
-    </style>
 </head>
 <body>
-    <div class="smartphone" style="left: 10%; position: absolute; top: 0%">
-        <div class="content">
+    <script>
+        class SmartPhone {
+            constructor(battery, editMessage, message, sendMessage, status) {
+                this.battery = battery;
+                this.editMessage = editMessage;
+                this.message = message;
+                this.sendMessage = sendMessage;
+                this.status = status;
+            }
 
-        </div>
-    </div>
-    <div class="smartphone" style="left: 65%; position: absolute; top: 0%">
-        <div class="content">
-
-        </div>
-    </div>
+            checkBattery(){
+                if (this.status) {
+                    console.log(this.battery);
+                    this.countBattery();
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            switchPhone(status){
+                if (this.status) {
+                    if (status) console.log("Điện thoại đã bật");
+                    else console.log("Điện thoại đã tắt");
+                    this.countBattery();
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            chargingPhone(){
+                console.log("Đang sạc điện thoại...");
+                this.battery = 100;
+            }
+            textingPhone(message){
+                if (this.status) {
+                    this.editMessage = message;
+                    this.countBattery();
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            getMessage(message){
+                if (this.status) {
+                    this.message = message;
+                    this.countBattery();
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            sendText(){
+                if (this.status) {
+                    this.sendMessage = this.editMessage;
+                    this.countBattery();
+                    return this.editMessage;
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            viewMessage(){
+                if (this.status) {
+                    console.log(this.message);
+                    this.countBattery();
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            viewMessageSend(){
+                if (this.status) {
+                    console.log(this.sendMessage);
+                    this.countBattery();
+                }
+                else console.log("Điện thoại đang tắt");
+            }
+            countBattery(){
+                this.battery--;
+                if (this.battery<0){
+                    this.battery=0;
+                    this.status=0;
+                }
+            }
+        }
+        let nokia = new SmartPhone(100, "", "", "", 0);
+        let iphone = new SmartPhone(100, "", "", "", 1);
+        nokia.textingPhone("Hello");
+        iphone.getMessage(nokia.sendText());
+        iphone.viewMessage();
+        nokia.viewMessageSend();
+    </script>
 </body>
 </html>

@@ -12,6 +12,7 @@
     <img src="car5.png" id="car5" alt="" style="display: none">
     <img src="car_main.png" id="carMain" alt="" style="display: none; width: 70px">
     <canvas id="myCanvas" width="335px" style="border: 1px solid black; left: 40%;; position: absolute"></canvas>
+    <label id="point" style="position: absolute; top: 10px; left: 900px; font-size: 50px">Point:</label>
     <script>
         window.addEventListener("keypress", ev => {
             getKeyboard(ev);
@@ -83,11 +84,9 @@
         let line1 = new CreateLine(0, 0);
         let carUse = new CarMain(5, screen.height-190);
         let carArray = [], areaPosX = [5, 90, 175, 260];
+        let point=0;
         choiceRandomCar();
-        // let timerDrawLine = setInterval(function () {
-        //     drawLine();
-        // }, 1);
-        for (let i=0; i<100;  i++) drawLine();
+        // for (let i=0; i<100;  i++) drawLine();
         let timerDrawCar = setInterval(function () {
             animationCar();
             drawLine();
@@ -172,25 +171,33 @@
         function animationCar() {
             let canvas = document.getElementById("myCanvas").getContext("2d");
             let minPosY = carArray[0].getPosY();
+            let minAddPosY = carArray[0].getPosY();
+            for (let i=0; i<carArray.length; i++){
+                if (minAddPosY>carArray[i].getPosY()){
+                    minAddPosY = carArray[i].getPosY();
+                }
+            }
             for (let i=0; i<carArray.length; i++){
                 canvas.clearRect(carArray[i].getPosX(), carArray[i].getPosY(), 70, 100);
                 carArray[i].setPosY(carArray[i].getPosY()+1);
                 if (carArray[i].getPosY()>screen.height-190) {
                     let randomPosY = Math.floor(Math.random() * 101) * (-1);
                     let randomPosX = Math.floor(Math.random() * 5);
-                    let minAddPosY = carArray[i].getPosY();
-                    carArray[i].setPosX(areaPosX[randomPosX]);
-                    for (let j=0; j<carArray.length; j++){
-                        if (carArray[i].getPosX()=== carArray[j].getPosX()){
-                            if (minAddPosY>carArray[j].getPosY()){
-                                minAddPosY = carArray[j].getPosY();
-                            }
-                        }
-                    }
-                    if (randomPosY+110>minAddPosY) randomPosY = minAddPosY-150;
                     let randomImage = Math.floor(Math.random() * 5)+1;
+                    // let minAddPosY = carArray[i].getPosY();
+                    carArray[i].setPosX(areaPosX[randomPosX]);
+                    // for (let j=0; j<carArray.length; j++){
+                    //     if (carArray[i].getPosX()=== carArray[j].getPosX()){
+                    //         if (minAddPosY>carArray[j].getPosY()){
+                    //             minAddPosY = carArray[j].getPosY();
+                    //         }
+                    //     }
+                    // }
+                    // if (randomPosY+110>minAddPosY) randomPosY = minAddPosY-150;
+                    if (randomPosY+110>minAddPosY) randomPosY = minAddPosY-150;
                     carArray[i].setPosY(randomPosY);
                     carArray[i].setImage(randomImage);
+                    point++;
                 }
                 canvas.drawImage(carArray[i].getImage(), carArray[i].getPosX(), carArray[i].getPosY(), 70, 100);
                 if (minPosY>carArray[i].getPosY()) {
@@ -198,7 +205,7 @@
                 }
             }
             if (carArray.length<6){
-                if (minPosY>150){
+                if (minPosY>120){
                     choiceRandomCar();
                 }
             }
@@ -212,6 +219,7 @@
                     }
                 }
             }
+            document.getElementById("point").innerHTML = "Point: " + point;
         }
     </script>
 </body>
