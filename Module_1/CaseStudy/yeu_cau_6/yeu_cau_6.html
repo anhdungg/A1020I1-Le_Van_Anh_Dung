@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yêu cầu 6</title>
+    <style>
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        td{
+            height: 40px;
+            width: 110px;
+        }
+        .thShow{
+            border-collapse: collapse;
+            border: 1px solid black;
+            height: 20px;
+        }
+        #tblShow td:nth-child(n){
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body onload="showBangGia()">
+<div>
+    <table id="tblAdd" style="display: none">
+        <tr>
+            <td><label for="add1">Họ và Tên:</label></td>
+            <td><input id="add1"></td>
+        </tr>
+        <tr>
+            <td><label for="add2">Số CMND:</label></td>
+            <td><input type="number" id="add2"></td>
+        </tr>
+        <tr>
+            <td><label for="add3">Ngày sinh:</label></td>
+            <td><input type="date" id="add3"></td>
+        </tr>
+        <tr>
+            <td><label for="add4">Địa chỉ Email:</label></td>
+            <td><input id="add4"></td>
+        </tr>
+        <tr>
+            <td><label for="add5">Mức hạng:</label></td>
+            <td>
+                <select id="add5">
+                    <option value="member">Member</option>
+                    <option value="silver">Silver</option>
+                    <option value="gold">Gold</option>
+                    <option value="platinum">Platinum</option>
+                    <option value="diamond">Diamond</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="add6">Giảm giá:</label></td>
+            <td><input type="number" id="add6"></td>
+        </tr>
+        <tr>
+            <td><label for="add7">Số người đi kèm:</label></td>
+            <td><input type="number" id="add7"></td>
+        </tr>
+        <tr>
+            <td><label for="add8">Số ngày thuê:</label></td>
+            <td><input type="number" id="add8"></td>
+        </tr>
+        <tr>
+            <td><label for="add9">Loại dịch vụ:</label></td>
+            <td>
+                <select id="add9" onchange="showBangGia()">
+                    <option value="villa">Villa</option>
+                    <option value="house">House</option>
+                    <option value="room">Room</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="add10">Loại phòng thuê:</label></td>
+            <td>
+                <select id="add10">
+                    <option value="vip">Vip</option>
+                    <option value="business">Business</option>
+                    <option value="normal">Normal</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Bảng giá:</label></td>
+            <td><div id="bangGia" style="border: 1px solid #7f7f7f; border-radius: 2px; height: 19px; width: 170px"></div></td>
+        </tr>
+        <!--            <tr>-->
+        <!--                <td colspan="2">-->
+        <!--                    -->
+        <!--                </td>-->
+        <!--            </tr>-->
+    </table>
+    <table id="tblShow" style="display: none; border-collapse: collapse; border: 1px solid black">
+        <tr>
+            <th class="thShow" style="width: 30px">Stt</th>
+            <th class="thShow" style="width: 200px">Họ và tên</th>
+            <th class="thShow" style="width: 200px">Số CMND</th>
+            <th class="thShow" style="width: 150px">Ngày sinh</th>
+            <th class="thShow" style="width: 200px">Địa chỉ Email</th>
+            <th class="thShow" style="width: 100px">Mức hạng</th>
+            <th class="thShow" style="width: 100px">Giảm giá</th>
+            <th class="thShow" style="width: 50px">Số người đi kèm</th>
+            <th class="thShow" style="width: 50px">Số ngày thuê</th>
+            <th class="thShow" style="width: 100px">Loại dịch vụ</th>
+            <th class="thShow" style="width: 100px">Loại phòng thuê</th>
+            <th class="thShow" style="width: 100px">Tổng tiền</th>
+        </tr>
+    </table>
+</div>
+<div style="position: absolute; left: 43%; margin-top: 5%">
+    <button id="butAdd" onclick="beginAddCustomer()" style="display: inline">Add Customer</button>
+    <button id="butEndAdd" onclick="endAddCustomer()" style="display: none">Add</button>
+    <button id="butShow" onclick="showCustomer()" style="display: inline">Show List Customer</button>
+    <button id="butEdit" onclick="editCustomer()" style="display: none">Edit Customer</button>
+    <button id="butUpdate" onclick="updateCustomer()" style="display: none">Update</button>
+    <button id="butDelete" onclick="deleteCustomer()" style="display: none">Delete</button>
+    <button id="butExit" onclick="exitAdd()" style="display: none">Exit</button>
+</div>
+<script>
+    class Customer{
+        constructor(name, cmnd, dateOfBirth, email, rank, discount, numberHuman, numberDay, service, typeOfRoom) {
+            this.name = name;
+            this.cmnd = cmnd;
+            this.dateOfBirth = dateOfBirth;
+            this.email = email;
+            this.rank = rank;
+            this.discount = discount;
+            this.numberHuman = numberHuman;
+            this.numberDay = numberDay;
+            this.service = service;
+            this.typeOfRoom = typeOfRoom;
+        }
+        getName(){
+            return this.name;
+        }
+        getCmnd(){
+            return this.cmnd;
+        }
+        getDateOfBirth(){
+            return this.dateOfBirth;
+        }
+        getEmail(){
+            return this.email;
+        }
+        getRank(){
+            return this.rank;
+        }
+        getDiscount(){
+            return this.discount;
+        }
+        getNumberHuman(){
+            return this.numberHuman;
+        }
+        getNumberDay(){
+            return this.numberDay;
+        }
+        getService(){
+            return this.service;
+        }
+        getTypeOfRoom(){
+            return this.typeOfRoom;
+        }
+        getPrice(){
+            switch (this.service) {
+                case "villa":
+                    return 500*this.numberDay*(1-(this.discount/100));
+                case "house":
+                    return 300*this.numberDay*(1-(this.discount/100));
+                case "room":
+                    return 100*this.numberDay*(1-(this.discount/100));
+            }
+
+        }
+        setName(name){
+            this.name = name;
+        }
+        setCmnd(cmnd){
+            this.cmnd = cmnd;
+        }
+        setDateOfBirth(dateOfBirth){
+            this.dateOfBirth = dateOfBirth;
+        }
+        setEmail(email){
+            this.email = email;
+        }
+        setRank(rank){
+            this.rank = rank;
+        }
+        setDiscount(discount){
+            this.discount = discount;
+        }
+        setNumberHuman(human){
+            this.numberHuman = human;
+        }
+        setNumberDay(day){
+            this.numberDay = day;
+        }
+        setService(service){
+            this.service = service;
+        }
+        setTypeOfRoom(type){
+            this.typeOfRoom = type;
+        }
+    }
+    let listCustomer = [];
+    let count = 0;
+    let locationEditCustomer = "notFound";
+    function showBangGia() {
+        let phong = document.getElementById("add9").value;
+        switch (phong) {
+            case "villa":
+                document.getElementById("bangGia").innerHTML = "- Villa 500$ 1 ngày";
+                break;
+            case "house":
+                document.getElementById("bangGia").innerHTML = "- House 300$ 1 ngày";
+                break;
+            default:
+                document.getElementById("bangGia").innerHTML = "- Room 100$ 1 ngày";
+        }
+    }
+    function showCustomer() {
+        document.getElementById("butAdd").style.display = "initial";
+        document.getElementById("butExit").style.display = "initial";
+        document.getElementById("butShow").style.display = "none";
+        document.getElementById("tblShow").style.display = "table";
+        document.getElementById("butDelete").style.display = "initial";
+        document.getElementById("butEdit").style.display = "initial";
+        let table = document.getElementById("tblShow");
+        for (let i=0; i<count; i++){
+            let addRow = table.insertRow(i+1);
+            let addCell = addRow.insertCell(0);
+            addCell.innerText = "0" + (i+1);
+            addCell = addRow.insertCell(1);
+            addCell.innerText = listCustomer[i].getName();
+            addCell = addRow.insertCell(2);
+            addCell.innerText = listCustomer[i].getCmnd();
+            addCell = addRow.insertCell(3);
+            addCell.innerText = listCustomer[i].getDateOfBirth();
+            addCell = addRow.insertCell(4);
+            addCell.innerText = listCustomer[i].getEmail();
+            addCell = addRow.insertCell(5);
+            addCell.innerText = toUpperCase1(listCustomer[i].getRank());
+            addCell = addRow.insertCell(6);
+            addCell.innerText = listCustomer[i].getDiscount();
+            addCell = addRow.insertCell(7);
+            addCell.innerText = listCustomer[i].getNumberHuman();
+            addCell = addRow.insertCell(8);
+            addCell.innerText = listCustomer[i].getNumberDay();
+            addCell = addRow.insertCell(9);
+            addCell.innerText = toUpperCase1(listCustomer[i].getService());
+            addCell = addRow.insertCell(10);
+            addCell.innerText = toUpperCase1(listCustomer[i].getTypeOfRoom());
+            addCell = addRow.insertCell(11);
+            addCell.innerText = listCustomer[i].getPrice()+"$";
+        }
+    }
+
+    function deleteRowShow() {
+        let table = document.getElementById("tblShow");
+        // console.log(table.rows.length + "," + count);
+        if (table.rows.length > count) {
+            for (let i = count; i >= 1; i--) {
+                table.deleteRow(i);
+            }
+        }
+    }
+    function beginAddCustomer() {
+        document.getElementById("butAdd").style.display = "none";
+        document.getElementById("butShow").style.display = "none";
+        document.getElementById("butDelete").style.display = "none";
+        document.getElementById("butExit").style.display = "initial";
+        document.getElementById("butEndAdd").style.display = "initial";
+        document.getElementById("butEdit").style.display = "none";
+        document.getElementById("tblAdd").style.display = "table";
+        document.getElementById("tblShow").style.display = "none";
+        deleteRowShow();
+    }
+    function endAddCustomer() {
+        if(document.getElementById("add4").value.indexOf("@abc.com")===-1){
+            document.getElementById("add4").style.border = "1px solid red";
+            document.getElementById("add4").style.borderRadius = "2px";
+            return;
+        }
+        let array = new Array(10);
+        for (let i=0; i<=9; i++){
+            array[i] = document.getElementById("add"+(i+1)).value;
+            if (i===4 || i===8 || i===9){
+                document.getElementById("add"+(i+1)).selectedIndex = "0";
+                continue;
+            }
+            document.getElementById("add"+(i+1)).value = '';
+        }
+
+        listCustomer[count] = new Customer(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9]);
+        // console.log(listCustomer);
+        document.getElementById("butAdd").style.display = "initial";
+        document.getElementById("butShow").style.display = "initial";
+        document.getElementById("butEndAdd").style.display = "none";
+        document.getElementById("butDelete").style.display = "none";
+        document.getElementById("butExit").style.display = "none";
+        document.getElementById("butEdit").style.display = "none";
+        document.getElementById("tblAdd").style.display = "none";
+        showBangGia();
+        count++;
+    }
+
+    function exitAdd() {
+        document.getElementById("butAdd").style.display = "initial";
+        document.getElementById("butShow").style.display = "initial";
+        document.getElementById("butExit").style.display = "none";
+        document.getElementById("butDelete").style.display = "none";
+        document.getElementById("butEndAdd").style.display = "none";
+        document.getElementById("butEdit").style.display = "none";
+        document.getElementById("butUpdate").style.display = "none";
+        document.getElementById("tblAdd").style.display = "none";
+        document.getElementById("tblShow").style.display = "none";
+        for (let i=0; i<=9; i++){
+            if (i===4 || i===8 || i===9){
+                document.getElementById("add"+(i+1)).selectedIndex = "0";
+                continue;
+            }
+            document.getElementById("add"+(i+1)).value = '';
+        }
+        showBangGia();
+        deleteRowShow();
+    }
+    function toUpperCase1(value) {
+        let input = value.split("");
+        let output = "";
+        for (let i=0 ;i<input.length; i++){
+            if (i===0){
+                input[i] = input[i].toUpperCase();
+            }
+            output+=input[i];
+        }
+        return output;
+    }
+    function deleteCustomer() {
+        let input = prompt("Nhập tên Customer muốn xoá");
+        let locationName = findNameCustomer(input);
+        if(locationName==="notFound"){
+            alert("Không tìm thấy tên Customer");
+        }
+        else{
+            listCustomer.splice(parseInt(locationName), 1);
+            deleteRowShow();
+            count--;
+            showCustomer();
+            // console.log(customer);
+            alert("Xoá thành công");
+        }
+    }
+    function editCustomer() {
+        let input = prompt("Nhập tên Customer muốn sửa");
+        let locationName = findNameCustomer(input);
+        if(locationName==="notFound"){
+            alert("Không tìm thấy tên Customer");
+        }
+        else{
+            locationEditCustomer = locationName;
+            document.getElementById("add"+1).value = listCustomer[parseInt(locationName)].getName();
+            document.getElementById("add"+2).value = listCustomer[parseInt(locationName)].getCmnd();
+            document.getElementById("add"+3).value = listCustomer[parseInt(locationName)].getDateOfBirth();
+            document.getElementById("add"+4).value = listCustomer[parseInt(locationName)].getEmail();
+            document.getElementById("add"+5).value = listCustomer[parseInt(locationName)].getRank();
+            document.getElementById("add"+6).value = listCustomer[parseInt(locationName)].getDiscount();
+            document.getElementById("add"+7).value = listCustomer[parseInt(locationName)].getNumberHuman();
+            document.getElementById("add"+8).value = listCustomer[parseInt(locationName)].getNumberDay();
+            document.getElementById("add"+9).value = listCustomer[parseInt(locationName)].getService();
+            document.getElementById("add"+10).value = listCustomer[parseInt(locationName)].getTypeOfRoom();
+
+            showBangGia();
+            beginAddCustomer();
+            document.getElementById("butEndAdd").style.display = "none";
+            document.getElementById("butUpdate").style.display = "initial";
+        }
+    }
+    function updateCustomer() {
+        let array = new Array(10);
+        for (let i=0; i<=9; i++){
+            array[i] = document.getElementById("add"+(i+1)).value;
+            if (i===4 || i===8 || i===9){
+                document.getElementById("add"+(i+1)).selectedIndex = "0";
+                continue;
+            }
+            document.getElementById("add"+(i+1)).value = '';
+        }
+        listCustomer[parseInt(locationEditCustomer)].setName(array[0]);
+        listCustomer[parseInt(locationEditCustomer)].setCmnd(array[1]);
+        listCustomer[parseInt(locationEditCustomer)].setDateOfBirth(array[2]);
+        listCustomer[parseInt(locationEditCustomer)].setEmail(array[3]);
+        listCustomer[parseInt(locationEditCustomer)].setRank(array[4]);
+        listCustomer[parseInt(locationEditCustomer)].setDiscount(array[5]);
+        listCustomer[parseInt(locationEditCustomer)].setNumberHuman(array[6]);
+        listCustomer[parseInt(locationEditCustomer)].setNumberDay(array[7]);
+        listCustomer[parseInt(locationEditCustomer)].setService(array[8]);
+        listCustomer[parseInt(locationEditCustomer)].setTypeOfRoom(array[9]);
+        // console.log(listCustomer[parseInt(locationEditCustomer)]);
+        deleteRowShow();
+        showCustomer();
+        document.getElementById("butUpdate").style.display = "none";
+        document.getElementById("tblAdd").style.display = "none";
+    }
+    function findNameCustomer(value) {
+        for (let i=0; i<count; i++){
+            if (listCustomer[i].getName()===value){
+                return ""+i;
+            }
+        }
+        return "notFound";
+    }
+</script>
+</body>
+</html>
