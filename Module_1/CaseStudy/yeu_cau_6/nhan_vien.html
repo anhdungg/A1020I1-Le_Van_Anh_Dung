@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý nhân viên</title>
+    <style>
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        td{
+            height: 40px;
+            width: 110px;
+        }
+        label{
+            font-weight: bold;
+        }
+        #tblShow td:nth-child(n){
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        #tblShow th:nth-child(n){
+            border: 1px solid black;
+            border-collapse: collapse;
+            height: 20px;
+        }
+        #tblEmploye td:nth-child(n){
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <table id="tblEmploye" style="display: none">
+        <tr>
+            <td><label for="employee01">Họ và tên</label> </td>
+            <td><input type="text" id="employee01"></td>
+        </tr>
+        <tr>
+            <td><label for="employee02">Ngày sinh</label></td>
+            <td><input type="date" id="employee02"></td>
+        </tr>
+        <tr>
+            <td><label for="employee03">Số CMND</label> </td>
+            <td><input type="number" id="employee03"></td>
+        </tr>
+        <tr>
+            <td><label for="employee04">Số ĐT</label> </td>
+            <td><input type="number" id="employee04"></td>
+        </tr>
+        <tr>
+            <td><label for="employee05">Email</label> </td>
+            <td><input type="text" id="employee05"></td>
+        </tr>
+        <tr>
+            <td><label for="employee06">Trình độ</label></td>
+            <td>
+                <select id="employee06">
+                    <option value="trungCap">Trung cấp</option>
+                    <option value="caoDang">Cao đẳng</option>
+                    <option value="daiHoc">Đại học</option>
+                    <option value="sauDaiHoc">Sau đại học</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="employee07">Vị trí</label></td>
+            <td>
+                <select id="employee07">
+                    <option value="leTan">Lễ tân</option>
+                    <option value="phucVu">Phục vụ</option>
+                    <option value="chuyenVien">Chuyên viên</option>
+                    <option value="giamSat">Giám sát</option>
+                    <option value="quanLy">Quản lý</option>
+                    <option value="giamDoc">Giám đốc</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <table id="tblShow" style="display: none; border-collapse: collapse; border: 1px solid black">
+        <tr>
+            <th style="width: 30px">Stt</th>
+            <th style="width: 200px">Họ và tên</th>
+            <th style="width: 150px">Ngày sinh</th>
+            <th style="width: 200px">Số CMND</th>
+            <th style="width: 200px">SĐT</th>
+            <th style="width: 200px">Email</th>
+            <th style="width: 100px">Trình độ</th>
+            <th style="width: 100px">Vị trí</th>
+            <th style="width: 100px">Lương</th>
+        </tr>
+    </table>
+    <div style="position: absolute; left: 43%; margin-top: 5%">
+        <button id="butAdd" onclick="beginAddEmployee()" style="display: inline">Add Employee</button>
+        <button id="butEndAdd" onclick="endAddEmployee()" style="display: none">Add</button>
+        <button id="butShow" onclick="showEmployee()" style="display: inline">Show List Employee</button>
+        <button id="butEdit" onclick="editEmployee()" style="display: none">Edit Employee</button>
+        <button id="butUpdate" onclick="updateEmployee()" style="display: none">Update</button>
+        <button id="butDelete" onclick="deleteEmployee()" style="display: none">Delete</button>
+        <button id="butExit" onclick="exitAdd()" style="display: none">Exit</button>
+    </div>
+    <script>
+        class Employee{
+            constructor(name, dateOfBirth, cmnd, sdt, email, level, location) {
+                this.name = name;
+                this.cmnd = cmnd;
+                this.dateOfBirth = dateOfBirth;
+                this.email = email;
+                this.sdt = sdt;
+                this.level = level;
+                this.location = location;
+            }
+            getName(){
+                return this.name;
+            }
+            getCmnd(){
+                return this.cmnd;
+            }
+            getDateOfBirth(){
+                return this.dateOfBirth;
+            }
+            getEmail(){
+                return this.email;
+            }
+            getSdt(){
+                return this.sdt;
+            }
+            getLevel(){
+                return this.level;
+            }
+            getLocation(){
+                return this.location;
+            }
+            getLuong(){
+                return 500+"$";
+            }
+            setName(name){
+                this.name = name;
+            }
+            setCmnd(cmnd){
+                this.cmnd = cmnd;
+            }
+            setDateOfBirth(dateOfBirth){
+                this.dateOfBirth = dateOfBirth;
+            }
+            setEmail(email){
+                this.email = email;
+            }
+            setSdt(sdt){
+                this.sdt = sdt;
+            }
+            setLevel(level){
+                this.level = level;
+            }
+            setLocation(location){
+                this.location = location;
+            }
+        }
+        let listEmployee = [];
+        let count = 0;
+        let locationEditEmployee = "notFound";
+        function showEmployee() {
+            document.getElementById("butAdd").style.display = "initial";
+            document.getElementById("butExit").style.display = "initial";
+            document.getElementById("butShow").style.display = "none";
+            document.getElementById("tblShow").style.display = "table";
+            document.getElementById("butDelete").style.display = "initial";
+            document.getElementById("butEdit").style.display = "initial";
+            let table = document.getElementById("tblShow");
+            for (let i=0; i<count; i++){
+                let addRow = table.insertRow(i+1);
+                let addCell = addRow.insertCell(0);
+                addCell.innerText = "0" + (i+1);
+                addCell = addRow.insertCell(1);
+                addCell.innerText = listEmployee[i].getName();
+                addCell = addRow.insertCell(2);
+                addCell.innerText = listEmployee[i].getDateOfBirth();
+                addCell = addRow.insertCell(3);
+                addCell.innerText = listEmployee[i].getCmnd();
+                addCell = addRow.insertCell(4);
+                addCell.innerText = listEmployee[i].getSdt();
+                addCell = addRow.insertCell(5);
+                addCell.innerText = listEmployee[i].getEmail();
+                addCell = addRow.insertCell(6);
+                addCell.innerText = toUpperCase1(listEmployee[i].getLevel());
+                addCell = addRow.insertCell(7);
+                addCell.innerText = toUpperCase1(listEmployee[i].getLocation());
+                addCell = addRow.insertCell(8);
+                addCell.innerText = listEmployee[i].getLuong();
+            }
+        }
+
+        function deleteRowShow() {
+            let table = document.getElementById("tblShow");
+            // console.log(table.rows.length + "," + count);
+            if (table.rows.length > count) {
+                for (let i = count; i >= 1; i--) {
+                    table.deleteRow(i);
+                }
+            }
+        }
+        function beginAddEmployee() {
+            document.getElementById("butAdd").style.display = "none";
+            document.getElementById("butShow").style.display = "none";
+            document.getElementById("butDelete").style.display = "none";
+            document.getElementById("butExit").style.display = "initial";
+            document.getElementById("butEndAdd").style.display = "initial";
+            document.getElementById("butEdit").style.display = "none";
+            document.getElementById("tblEmploye").style.display = "table";
+            document.getElementById("tblShow").style.display = "none";
+            deleteRowShow();
+        }
+        function endAddEmployee() {
+            if(document.getElementById("employee05").value.indexOf("@abc.com")===-1){
+                document.getElementById("employee05").style.border = "1px solid red";
+                document.getElementById("employee05").style.borderRadius = "2px";
+                return;
+            }
+            let array = new Array(7);
+            for (let i=0; i<7; i++){
+                array[i] = document.getElementById("employee0"+(i+1)).value;
+                if (i===5 || i===6){
+                    document.getElementById("employee0"+(i+1)).selectedIndex = "0";
+                    continue;
+                }
+                document.getElementById("employee0"+(i+1)).value = '';
+            }
+
+            listEmployee[count] = new Employee(array[0], array[1], array[2], array[3], array[4], array[5], array[6]);
+            // console.log(listEmployee);
+            document.getElementById("butAdd").style.display = "initial";
+            document.getElementById("butShow").style.display = "initial";
+            document.getElementById("butEndAdd").style.display = "none";
+            document.getElementById("butDelete").style.display = "none";
+            document.getElementById("butExit").style.display = "none";
+            document.getElementById("butEdit").style.display = "none";
+            document.getElementById("tblEmploye").style.display = "none";
+            count++;
+        }
+
+        function exitAdd() {
+            document.getElementById("butAdd").style.display = "initial";
+            document.getElementById("butShow").style.display = "initial";
+            document.getElementById("butExit").style.display = "none";
+            document.getElementById("butDelete").style.display = "none";
+            document.getElementById("butEndAdd").style.display = "none";
+            document.getElementById("butEdit").style.display = "none";
+            document.getElementById("butUpdate").style.display = "none";
+            document.getElementById("tblEmploye").style.display = "none";
+            document.getElementById("tblShow").style.display = "none";
+            for (let i=0; i<7; i++){
+                if (i===5 || i===6){
+                    document.getElementById("employee0"+(i+1)).selectedIndex = "0";
+                    continue;
+                }
+                document.getElementById("employee0"+(i+1)).value = '';
+            }
+            deleteRowShow();
+        }
+        function toUpperCase1(value) {
+            let input = value.split("");
+            let output = "";
+            for (let i=0 ;i<input.length; i++){
+                if (i===0){
+                    input[i] = input[i].toUpperCase();
+                }
+                if(input[i].charCodeAt(0)>=65 && input[i].charCodeAt(0)<=90){
+                    input[i] = " " + input[i].toLowerCase();
+                }
+                output+=input[i];
+            }
+            return output;
+        }
+        function deleteEmployee() {
+            let input = prompt("Nhập tên Employee muốn xoá");
+            let locationName = findNameEmployee(input);
+            if(locationName==="notFound"){
+                alert("Không tìm thấy tên Employee");
+            }
+            else{
+                listEmployee.splice(parseInt(locationName), 1);
+                deleteRowShow();
+                count--;
+                showEmployee();
+                alert("Xoá thành công");
+            }
+        }
+        function editEmployee() {
+            let input = prompt("Nhập tên Employee muốn sửa");
+            let locationName = findNameEmployee(input);
+            if(locationName==="notFound"){
+                alert("Không tìm thấy tên Employee");
+            }
+            else{
+                locationEditEmployee = locationName;
+                document.getElementById("employee0"+1).value = listEmployee[parseInt(locationName)].getName();
+                document.getElementById("employee0"+2).value = listEmployee[parseInt(locationName)].getDateOfBirth();
+                document.getElementById("employee0"+3).value = listEmployee[parseInt(locationName)].getCmnd();
+                document.getElementById("employee0"+4).value = listEmployee[parseInt(locationName)].getSdt();
+                document.getElementById("employee0"+5).value = listEmployee[parseInt(locationName)].getEmail();
+                document.getElementById("employee0"+6).value = listEmployee[parseInt(locationName)].getLevel();
+                document.getElementById("employee0"+7).value = listEmployee[parseInt(locationName)].getLocation();
+                beginAddEmployee();
+                document.getElementById("butEndAdd").style.display = "none";
+                document.getElementById("butUpdate").style.display = "initial";
+            }
+        }
+        function updateEmployee() {
+            let array = new Array(7);
+            for (let i=0; i<7; i++){
+                array[i] = document.getElementById("employee0"+(i+1)).value;
+                if (i===5 || i===6){
+                    document.getElementById("employee0"+(i+1)).selectedIndex = "0";
+                    continue;
+                }
+                document.getElementById("employee0"+(i+1)).value = '';
+            }
+            listEmployee[parseInt(locationEditEmployee)].setName(array[0]);
+            listEmployee[parseInt(locationEditEmployee)].setDateOfBirth(array[1]);
+            listEmployee[parseInt(locationEditEmployee)].setCmnd(array[2]);
+            listEmployee[parseInt(locationEditEmployee)].setSdt(array[3]);
+            listEmployee[parseInt(locationEditEmployee)].setEmail(array[4]);
+            listEmployee[parseInt(locationEditEmployee)].setLevel(array[5]);
+            listEmployee[parseInt(locationEditEmployee)].setLocation(array[6]);
+            // console.log(listEmployee[parseInt(locationEditEmployee)]);
+            deleteRowShow();
+            showEmployee();
+            document.getElementById("butUpdate").style.display = "none";
+            document.getElementById("tblEmploye").style.display = "none";
+        }
+        function findNameEmployee(value) {
+            for (let i=0; i<count; i++){
+                if (listEmployee[i].getName()===value){
+                    return ""+i;
+                }
+            }
+            return "notFound";
+        }
+    </script>
+</body>
+</html>
