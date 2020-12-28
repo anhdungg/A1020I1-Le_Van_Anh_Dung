@@ -113,8 +113,8 @@
                 document.getElementById("name").style.border = "1px solid red";
                 document.getElementById("name").style.borderRadius = "2px";
             }
-            let CMND = document.getElementById("cmnd").value;
-            if (CMND===""){
+            let CMND = parseInt(document.getElementById("cmnd").value);
+            if (isNaN(CMND) || CMND<=0){
                 document.getElementById("cmnd").style.border = "1px solid red";
                 document.getElementById("cmnd").style.borderRadius = "2px";
             }
@@ -132,19 +132,19 @@
             let rank = document.getElementById("rank").value;
             let giamGia = document.getElementById("discount").value;
             if (giamGia ==="") giamGia="0";
-            let soLuong = document.getElementById("amout").value;
-            if (soLuong===""){
+            let soLuong = parseInt(document.getElementById("amout").value);
+            if (isNaN(soLuong) || soLuong<=0){
                 document.getElementById("amout").style.border = "1px solid red";
                 document.getElementById("amout").style.borderRadius = "2px";
             }
-            let ngayThue = document.getElementById("ngayThue").value;
-            if (ngayThue===""){
+            let ngayThue = parseInt(document.getElementById("ngayThue").value);
+            if (isNaN(ngayThue) || ngayThue<=0){
                 document.getElementById("ngayThue").style.border = "1px solid red";
                 document.getElementById("ngayThue").style.borderRadius = "2px";
             }
             let dichVu = document.getElementById("service").value;
             let loaiPhong = document.getElementById("rom").value;
-            if(name!=="" && CMND!=="" && ngaySinh!=="" && soLuong!=="" && ngayThue!=="" && email!=="Error"){
+            if(name!=="" && CMND>0 && ngaySinh!=="" && soLuong>0 && ngayThue>0 && email!=="Error"){
                 document.getElementById("row00cell01").innerHTML = toUpperCaseName(name);
                 document.getElementById("row01cell01").innerHTML = CMND;
                 document.getElementById("row02cell01").innerHTML = ngaySinh;
