@@ -79,7 +79,7 @@
     </table>
     <table id="tblShow" style="display: none; border-collapse: collapse; border: 1px solid black">
         <tr>
-            <th style="width: 30px">Stt</th>
+            <th style="width: 10px">Stt</th>
             <th style="width: 200px">Họ và tên</th>
             <th style="width: 150px">Ngày sinh</th>
             <th style="width: 200px">Số CMND</th>
@@ -87,7 +87,7 @@
             <th style="width: 200px">Email</th>
             <th style="width: 100px">Trình độ</th>
             <th style="width: 100px">Vị trí</th>
-            <th style="width: 100px">Lương</th>
+            <th style="width: 200px">Lương</th>
         </tr>
     </table>
     <div style="position: absolute; left: 43%; margin-top: 5%">
@@ -170,26 +170,45 @@
             for (let i=0; i<count; i++){
                 let addRow = table.insertRow(i+1);
                 let addCell = addRow.insertCell(0);
-                addCell.innerText = "0" + (i+1);
+                addCell.style.width = "10px";
+                if(i<9) addCell.innerText = "0" + (i+1);
+                else addCell.innerText = "" + (i+1);
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(1);
                 addCell.innerText = listEmployee[i].getName();
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(2);
                 addCell.innerText = listEmployee[i].getDateOfBirth();
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(3);
                 addCell.innerText = listEmployee[i].getCmnd();
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(4);
                 addCell.innerText = listEmployee[i].getSdt();
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(5);
                 addCell.innerText = listEmployee[i].getEmail();
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(6);
                 addCell.innerText = toUpperCase1(listEmployee[i].getLevel());
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(7);
                 addCell.innerText = toUpperCase1(listEmployee[i].getLocation());
+                addEventCell(addCell, i+1);
                 addCell = addRow.insertCell(8);
                 addCell.innerText = listEmployee[i].getLuong();
+                addEventCell(addCell, i+1);
             }
         }
 
+        function addEventCell(cell, i){
+            cell.addEventListener("mouseover", function () {
+                showButton(i);
+            });
+            cell.addEventListener("mouseleave", function () {
+                hideButton(i);
+            });
+        }
         function deleteRowShow() {
             let table = document.getElementById("tblShow");
             // console.log(table.rows.length + "," + count);
@@ -327,6 +346,22 @@
             showEmployee();
             document.getElementById("butUpdate").style.display = "none";
             document.getElementById("tblEmploye").style.display = "none";
+        }
+        function showButton(value){
+            let table = document.getElementById("tblShow");
+            let string = table.rows[value].cells[8].innerText + "";
+            table.rows[value].cells[8].innerHTML = string.substring(0, string.indexOf("$")+1);
+            console.log("show button");
+        }
+
+        function hideButton(value) {
+            let table = document.getElementById("tblShow");
+            let string = table.rows[value].cells[8].innerText + "";
+            table.rows[value].cells[8].innerHTML = string.substring(0, string.indexOf("$")+1);
+        }
+
+        function consoleTest() {
+            console.log("button");
         }
         function findNameEmployee(value) {
             for (let i=0; i<count; i++){
