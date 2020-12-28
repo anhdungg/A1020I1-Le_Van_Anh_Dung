@@ -228,9 +228,15 @@
             deleteRowShow();
         }
         function endAddEmployee() {
-            if(document.getElementById("employee05").value.indexOf("@abc.com")===-1){
-                document.getElementById("employee05").style.border = "1px solid red";
-                document.getElementById("employee05").style.borderRadius = "2px";
+            let checkMail = /\S+@\S+\.\S+/;
+            let checkNumber = /^[0-9]*$/;
+            if (!checkNumber.test(document.getElementById("employee03").value)){
+                return;
+            }
+            if (!checkNumber.test(document.getElementById("employee04").value)){
+                return;
+            }
+            if(!checkMail.test(document.getElementById("employee05").value)){
                 return;
             }
             let array = new Array(7);
