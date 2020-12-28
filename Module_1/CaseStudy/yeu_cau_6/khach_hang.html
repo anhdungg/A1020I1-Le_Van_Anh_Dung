@@ -125,9 +125,7 @@
     <button id="butAdd" onclick="beginAddCustomer()" style="display: inline">Add Customer</button>
     <button id="butEndAdd" onclick="endAddCustomer()" style="display: none">Add</button>
     <button id="butShow" onclick="showCustomer()" style="display: inline">Show List Customer</button>
-    <button id="butEdit" onclick="editCustomer()" style="display: none">Edit Customer</button>
     <button id="butUpdate" onclick="updateCustomer()" style="display: none">Update</button>
-    <button id="butDelete" onclick="deleteCustomer()" style="display: none">Delete</button>
     <button id="butExit" onclick="exitAdd()" style="display: none">Exit</button>
 </div>
 <script>
@@ -237,36 +235,57 @@
         document.getElementById("butExit").style.display = "initial";
         document.getElementById("butShow").style.display = "none";
         document.getElementById("tblShow").style.display = "table";
-        document.getElementById("butDelete").style.display = "initial";
-        document.getElementById("butEdit").style.display = "initial";
         let table = document.getElementById("tblShow");
         for (let i=0; i<count; i++){
             let addRow = table.insertRow(i+1);
             let addCell = addRow.insertCell(0);
-            addCell.innerText = "0" + (i+1);
+            addCell.style.width = "10px";
+            if(i<9) addCell.innerText = "0" + (i+1);
+            else addCell.innerText = "" + (i+1);
+            addEvent(addCell, i);
             addCell = addRow.insertCell(1);
             addCell.innerText = listCustomer[i].getName();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(2);
             addCell.innerText = listCustomer[i].getCmnd();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(3);
             addCell.innerText = listCustomer[i].getDateOfBirth();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(4);
             addCell.innerText = listCustomer[i].getEmail();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(5);
             addCell.innerText = toUpperCase1(listCustomer[i].getRank());
+            addEvent(addCell, i);
             addCell = addRow.insertCell(6);
             addCell.innerText = listCustomer[i].getDiscount();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(7);
             addCell.innerText = listCustomer[i].getNumberHuman();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(8);
             addCell.innerText = listCustomer[i].getNumberDay();
+            addEvent(addCell, i);
             addCell = addRow.insertCell(9);
             addCell.innerText = toUpperCase1(listCustomer[i].getService());
+            addEvent(addCell, i);
             addCell = addRow.insertCell(10);
             addCell.innerText = toUpperCase1(listCustomer[i].getTypeOfRoom());
+            addEvent(addCell, i);
             addCell = addRow.insertCell(11);
-            addCell.innerText = listCustomer[i].getPrice()+"$";
+            addCell.innerHTML = listCustomer[i].getPrice()+ "$" + "<span id=but0" + (i+1) + " style=\"display: none\"><button style=\"margin-left: 20px\" onclick=\"editCustomer(" + i + ")\">Edit</button><button onclick = \"deleteCustomer(" + i + ")\">Delete</button></span>";
+            addEvent(addCell, i);
         }
+    }
+
+    function addEvent(cell, loca) {
+        cell.addEventListener("mouseover", function () {
+            showButton(loca+1);
+        });
+        cell.addEventListener("mouseleave", function () {
+            hideButton(loca+1);
+        });
     }
 
     function deleteRowShow() {
@@ -281,10 +300,8 @@
     function beginAddCustomer() {
         document.getElementById("butAdd").style.display = "none";
         document.getElementById("butShow").style.display = "none";
-        document.getElementById("butDelete").style.display = "none";
         document.getElementById("butExit").style.display = "initial";
         document.getElementById("butEndAdd").style.display = "initial";
-        document.getElementById("butEdit").style.display = "none";
         document.getElementById("tblAdd").style.display = "table";
         document.getElementById("tblShow").style.display = "none";
         deleteRowShow();
@@ -310,9 +327,7 @@
         document.getElementById("butAdd").style.display = "initial";
         document.getElementById("butShow").style.display = "initial";
         document.getElementById("butEndAdd").style.display = "none";
-        document.getElementById("butDelete").style.display = "none";
         document.getElementById("butExit").style.display = "none";
-        document.getElementById("butEdit").style.display = "none";
         document.getElementById("tblAdd").style.display = "none";
         showBangGia();
         count++;
@@ -322,9 +337,7 @@
         document.getElementById("butAdd").style.display = "initial";
         document.getElementById("butShow").style.display = "initial";
         document.getElementById("butExit").style.display = "none";
-        document.getElementById("butDelete").style.display = "none";
         document.getElementById("butEndAdd").style.display = "none";
-        document.getElementById("butEdit").style.display = "none";
         document.getElementById("butUpdate").style.display = "none";
         document.getElementById("tblAdd").style.display = "none";
         document.getElementById("tblShow").style.display = "none";
@@ -349,45 +362,31 @@
         }
         return output;
     }
-    function deleteCustomer() {
-        let input = prompt("Nhập tên Customer muốn xoá");
-        let locationName = findNameCustomer(input);
-        if(locationName==="notFound"){
-            alert("Không tìm thấy tên Customer");
-        }
-        else{
-            listCustomer.splice(parseInt(locationName), 1);
-            deleteRowShow();
-            count--;
-            showCustomer();
-            // console.log(customer);
-            alert("Xoá thành công");
-        }
+    function deleteCustomer(locaCustomer) {
+        listCustomer.splice(locaCustomer, 1);
+        deleteRowShow();
+        count--;
+        showCustomer();
+        // console.log(customer);
+        alert("Xoá thành công");
     }
-    function editCustomer() {
-        let input = prompt("Nhập tên Customer muốn sửa");
-        let locationName = findNameCustomer(input);
-        if(locationName==="notFound"){
-            alert("Không tìm thấy tên Customer");
-        }
-        else{
-            locationEditCustomer = locationName;
-            document.getElementById("add"+1).value = listCustomer[parseInt(locationName)].getName();
-            document.getElementById("add"+2).value = listCustomer[parseInt(locationName)].getCmnd();
-            document.getElementById("add"+3).value = listCustomer[parseInt(locationName)].getDateOfBirth();
-            document.getElementById("add"+4).value = listCustomer[parseInt(locationName)].getEmail();
-            document.getElementById("add"+5).value = listCustomer[parseInt(locationName)].getRank();
-            document.getElementById("add"+6).value = listCustomer[parseInt(locationName)].getDiscount();
-            document.getElementById("add"+7).value = listCustomer[parseInt(locationName)].getNumberHuman();
-            document.getElementById("add"+8).value = listCustomer[parseInt(locationName)].getNumberDay();
-            document.getElementById("add"+9).value = listCustomer[parseInt(locationName)].getService();
-            document.getElementById("add"+10).value = listCustomer[parseInt(locationName)].getTypeOfRoom();
+    function editCustomer(locaCustomer) {
+            locationEditCustomer = locaCustomer;
+            document.getElementById("add"+1).value = listCustomer[parseInt(locaCustomer)].getName();
+            document.getElementById("add"+2).value = listCustomer[parseInt(locaCustomer)].getCmnd();
+            document.getElementById("add"+3).value = listCustomer[parseInt(locaCustomer)].getDateOfBirth();
+            document.getElementById("add"+4).value = listCustomer[parseInt(locaCustomer)].getEmail();
+            document.getElementById("add"+5).value = listCustomer[parseInt(locaCustomer)].getRank();
+            document.getElementById("add"+6).value = listCustomer[parseInt(locaCustomer)].getDiscount();
+            document.getElementById("add"+7).value = listCustomer[parseInt(locaCustomer)].getNumberHuman();
+            document.getElementById("add"+8).value = listCustomer[parseInt(locaCustomer)].getNumberDay();
+            document.getElementById("add"+9).value = listCustomer[parseInt(locaCustomer)].getService();
+            document.getElementById("add"+10).value = listCustomer[parseInt(locaCustomer)].getTypeOfRoom();
 
             showBangGia();
             beginAddCustomer();
             document.getElementById("butEndAdd").style.display = "none";
             document.getElementById("butUpdate").style.display = "initial";
-        }
     }
     function updateCustomer() {
         let array = new Array(10);
@@ -415,13 +414,14 @@
         document.getElementById("butUpdate").style.display = "none";
         document.getElementById("tblAdd").style.display = "none";
     }
-    function findNameCustomer(value) {
-        for (let i=0; i<count; i++){
-            if (listCustomer[i].getName()===value){
-                return ""+i;
-            }
-        }
-        return "notFound";
+    function showButton(value){
+        let but  = document.getElementById("but0" + value);
+        but.style.display = "initial";
+    }
+
+    function hideButton(value) {
+        let but  = document.getElementById("but0" + value);
+        but.style.display = "none";
     }
 </script>
 </body>
