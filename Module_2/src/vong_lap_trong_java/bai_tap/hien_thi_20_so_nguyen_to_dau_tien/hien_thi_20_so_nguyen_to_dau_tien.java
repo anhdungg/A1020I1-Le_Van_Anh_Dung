@@ -6,7 +6,7 @@ public class hien_thi_20_so_nguyen_to_dau_tien {
         int number=2;
         while (count<20){
             boolean check = true;
-            for (int i=2; i<number; i++){
+            for (int i=2; i<(int)Math.sqrt(number); i++){
                 if(number%i==0){
                     check = false;
                     break;
