@@ -1,27 +1,46 @@
 package introduction_to_java.bai_tap;
 
-import java.util.Scanner;
-import java.lang.*;
+//tạo interface có 4 phương thức
+interface A {
+    void a();
+    abstract void b();
+    public void c();
+    public abstract void d();
+}
 
+// tạo abstract class cung cấp cài đặt cho một phương thức của interface A
+abstract class B implements A {
+    public void c() {
+        System.out.println("I am C");
+    }
+}
+
+// tạo subclass của abstract class B, cung cấp cài đặt cho các phương thức còn lại
+class M extends B {
+    public void a() {
+        System.out.println("I am a");
+    }
+
+    public void b() {
+        System.out.println("I am b");
+    }
+
+    public void c() {
+        System.out.println("I am CC");
+    }
+
+    public void d() {
+        System.out.println("I am d");
+    }
+}
+
+// tạo lớp Test5 để gọi các phương thức của interface A
 public class test {
     public static void main(String[] args) {
-//        for(int i=5; i>=0; i--){
-//            for (int j=0; j<=i; j++){
-//                System.out.print("0");
-//            }
-//            for(int x=i-1; x<5; x++){
-//                System.out.print("*");
-//            }
-//            System.out.println();
-//        }
-        for(int i=5; i>=0; i--){
-            for (int j=0; j<i; j++){
-                System.out.print(" ");
-            }
-            for(int j=5; j>=i; j--){
-                System.out.print("*");
-            }System.out.println("");
-            int $a = 1;
-        }
+        A a = new M();
+        a.a();
+        a.b();
+        a.c();
+        a.d();
     }
 }
