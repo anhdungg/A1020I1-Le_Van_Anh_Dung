@@ -2,7 +2,7 @@ package danh_sach.thuc_hanh.trien_khai_lop_List_don_gian;
 
 public class MyListTest {
     public static void main(String[] args) {
-        MyClass<Integer> listInteger = new MyClass<Integer>();
+        MyClass<Integer> listInteger = new MyClass<>();
 
         listInteger.add(0);
         listInteger.add(1);
