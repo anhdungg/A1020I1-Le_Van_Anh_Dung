@@ -10,61 +10,87 @@ public class MyLinkedList<E> {
     public MyLinkedList(){
     }
 
-    public void add(int index, E element){
+    public void add(int index, E e){
         if(index<=this.numNode){
-
+            if(this.numNode==0){
+                this.beginAdd(e);
+            }else{
+                Node holderHead = this.head;
+                for (int i=0; i<index; i++){
+                    holderHead = holderHead.next;
+                }
+                Node temp = new Node(e);
+                temp.next = holderHead;
+                holderHead = this.head;
+                Node temp1 = null;
+                for (int i=0; i<index; i++){
+                    if(i==0){
+                        temp1 = new Node(holderHead.getData());
+                    }else {
+                        temp1.next = new Node(holderHead.getData());
+                        temp1 = temp1.next;
+                    }
+                    holderHead = holderHead.next;
+                }
+                temp1.next = temp;
+                this.printList(temp1);
+            }
+            this.numNode++;
         }else{
             throw new IndexOutOfBoundsException("Index: " + index + "Length: " + this.numNode);
         }
     }
 
     public void addFirst(E e){
-        Node temp = this.head;
-        this.head = new Node(e);
-        head.next = temp;
-//        System.out.print(this.head + "  ");
-//        System.out.println(this.head.next + "  ");
+        if(this.numNode==0){
+            this.beginAdd(e);
+        }else{
+            Node temp = this.head;
+            this.head = new Node(e);
+            head.next = temp;
+        }
         numNode++;
     }
 
     public void addLast(E e){
-        Node temp = this.head;
-        Node[] nodeArray = new Node[this.numNode+1];
-        for (int i=0; i<this.numNode; i++){
-            nodeArray[i] = temp;
-            temp = temp.next;
+        if(this.numNode==0){
+            this.beginAdd(e);
+        }else{
+            this.last.next = new Node(e);
+            this.last =  this.last.next;
         }
-        nodeArray[nodeArray.length-1] = new Node(e);
-//        System.out.println(Arrays.toString(nodeArray));
-        for (int i=nodeArray.length-1; i>=0; i--){
-            Node node = temp;
-            temp = nodeArray[i];
-            temp.next = node;
-        }
-        this.head = temp;
+//        Node temp = this.head;
+//        Node[] nodeArray = new Node[this.numNode+1];
+//        for (int i=0; i<this.numNode; i++){
+//            nodeArray[i] = temp;
+//            temp = temp.next;
+//        }
+//        nodeArray[nodeArray.length-1] = new Node(e);
+//        for (int i=nodeArray.length-1; i>=0; i--){
+//            Node node = temp;
+//            temp = nodeArray[i];
+//            temp.next = node;
+//        }
+//        this.head = temp;
         this.numNode++;
     }
 
-    @Override
-    public String toString() {
-        String string = "";
-        Node temp = head;
-        if(temp != null) {
-            for (int i = 0; i < this.numNode; i++) {
-                string+=temp.next;
-                if(i<this.numNode-1){
-                    string+=", ";
-                }
-            }
-        }
-        return string;
-    }
-
     public void printList(){
-        Node temp = head;
+        Node temp = this.head;
         while (temp != null) {
             System.out.println(temp.data);
             temp = temp.next;
         }
+    }
+
+    private void printList(Node node){
+        while (node != null) {
+            System.out.println(node.data);
+            node = node.next;
+        }
+    }
+    private void beginAdd(E e){
+        this.head = new Node(e);
+        this.last = this.head;
     }
 }
