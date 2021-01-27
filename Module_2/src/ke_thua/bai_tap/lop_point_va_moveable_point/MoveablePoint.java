@@ -53,9 +53,16 @@ public class MoveablePoint extends Point {
     }
 
     public static void main(String[] args) {
-        MoveablePoint point = new MoveablePoint(2,3);
-        System.out.println(point.toString());
-        MoveablePoint point1 = point.move();
-        System.out.println(point1.toString());
+//        MoveablePoint point = new MoveablePoint(2,3);
+//        System.out.println(point.toString());
+//        MoveablePoint point1 = point.move();
+//        System.out.println(point1.toString());
+        Point point1 = new MoveablePoint(3.0f,2.5f,1.0f,1.0f);
+        System.out.println(point1);
+        MoveablePoint point = new MoveablePoint();
+        MoveablePoint point2 = point.move();
+        point2.setSpeed(4.0f,4.0f);
+        System.out.println(point.move());
+        System.out.println(point2.move());
     }
 }

@@ -15,7 +15,19 @@ public class Main {
         list.addLast(6);
 
         list.add(2, 0);
-
-//        list.printList();
+        list.remove(6);
+        list.remove(5);
+        list.remove(0);
+        System.out.println("Get First: " + list.getFirst());
+        System.out.println("Get Last: " + list.getLast());
+        list.clear();
+        System.out.println("List: ");
+        list.printList();
+        System.out.println("List: ");
+        list.addLast(1);
+        list.add(1, 2);
+        list.addLast(3);
+        list.addFirst(4);
+        list.printList();
     }
 }

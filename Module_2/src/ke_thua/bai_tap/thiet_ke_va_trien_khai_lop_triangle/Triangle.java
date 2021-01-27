@@ -1,4 +1,6 @@
-package ke_thua.thuc_hanh.he_cac_doi_tuong_hinh_hoc;
+package ke_thua.bai_tap.thiet_ke_va_trien_khai_lop_triangle;
+
+import ke_thua.thuc_hanh.he_cac_doi_tuong_hinh_hoc.Shape;
 
 public class Triangle extends Shape {
     private double side1 = 1.0;
@@ -39,13 +41,15 @@ public class Triangle extends Shape {
     }
 
     public double getArea(){
-        System.out.println(this.getPerimeter());
-        double area = this.getPerimeter()*(this.getPerimeter()-this.side1)*(this.getPerimeter()-this.side2)*(this.getPerimeter()-this.side3);
+        double area = this.halfPerimeter()*(this.halfPerimeter()-this.side1)*(this.halfPerimeter()-this.side2)*(this.halfPerimeter()-this.side3);
         return Math.sqrt(area);
     }
 
+    private double halfPerimeter(){
+        return 0.5*this.getPerimeter();
+    }
     public double getPerimeter(){
-        return 0.5*(this.side1+this.side2+this.side3);
+        return this.side1+this.side2+this.side3;
     }
 
     public String toString(){
