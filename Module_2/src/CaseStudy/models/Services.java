@@ -1,4 +1,4 @@
-package CaseStudy.Task_1.models;
+package CaseStudy.models;
 
 abstract public class Services {
     private String nameService;

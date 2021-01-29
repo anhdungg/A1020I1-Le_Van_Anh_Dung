@@ -1,4 +1,4 @@
-package CaseStudy.Task_1.models;
+package CaseStudy.models;
 
 public class AccompanyingService {
     private String nameService;
@@ -36,8 +36,6 @@ public class AccompanyingService {
     }
 
     public String toString(){
-        return "Tên dịch vụ: " + this.nameService
-                + ", Đơn vị: " + this.unit
-                + ", Giá tiền: " + this.money;
+        return this.nameService + ", Số lượng: " + this.unit + ", Giá tiền: " + this.money;
     }
 }

@@ -1,4 +1,4 @@
-package CaseStudy.Task_1.models;
+package CaseStudy.models;
 
 public class Villa extends Services {
     private String rank;
@@ -52,16 +52,16 @@ public class Villa extends Services {
     }
 
     @Override
-    protected String showInfor() {
+    public String showInfor() {
         return "Id: " + this.getId()
-                +", Tên dịch vụ: " + this.getNameService()
-                +", Diện tích: " + this.getAreaUse()
-                +", Chi phí thuê: " + this.getRentalCosts()
-                +", Số người tối đa: " + this.getNumberMax()
-                +", Kiểu thuê: " + this.getTypeRental()
-                +", Tiêu chuẩn phòng: " + this.rank
-                +", Tiện nghi khác: " + this.description
-                +", Diện tích hồ bơi: " + this.areaPool
-                +", Số tầng: " + this.numberOfFloors;
+                +". Tên dịch vụ: " + this.getNameService()
+                +". Diện tích: " + this.getAreaUse()
+                +". Chi phí thuê: " + this.getRentalCosts()
+                +". Số người tối đa: " + this.getNumberMax()
+                +". Kiểu thuê: " + this.getTypeRental()
+                +". Tiêu chuẩn phòng: " + this.rank
+                +". Tiện nghi khác: " + this.description
+                +". Diện tích hồ bơi: " + this.areaPool
+                +". Số tầng: " + this.numberOfFloors;
     }
 }
