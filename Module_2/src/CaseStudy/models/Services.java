@@ -65,5 +65,5 @@ abstract public class Services {
         this.id = id;
     }
 
-    abstract String showInfor();
+    protected abstract String showInfor();
 }

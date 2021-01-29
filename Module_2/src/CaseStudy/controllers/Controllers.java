@@ -2,11 +2,14 @@ package CaseStudy.controllers;
 
 import CaseStudy.models.House;
 import CaseStudy.models.Room;
+import CaseStudy.models.Services;
 import CaseStudy.models.Villa;
 
 import java.util.Scanner;
 
 public class Controllers {
+
+    ReadWriteFile readWriteFile = new ReadWriteFile();
     public void displayMainMenu(Scanner input) {
         while (true) {
             System.out.println("1. Add New Services\n" +
@@ -95,7 +98,8 @@ public class Controllers {
                     System.out.print("Diện tích hồ bơi: ");
                     double areaPool = input.nextDouble();
                     Villa villa = new Villa(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, areaPool, numberOfFloors);
-                    System.out.println(villa.showInfor());
+                    readWriteFile.writeFile(villa);
+//                    System.out.println(villa.showInfor());
                     break;
                 }
                 House house = new House(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, numberOfFloors);

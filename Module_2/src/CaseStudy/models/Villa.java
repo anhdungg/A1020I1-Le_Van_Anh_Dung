@@ -51,6 +51,12 @@ public class Villa extends Services {
         this.numberOfFloors = numberOfFloors;
     }
 
+
+    public String writeFile() {
+        return this.getId() + "," + this.getAreaUse() + "," + this.getRentalCosts() + "," + this.getNumberMax() + ","
+                + this.getTypeRental() + "," + this.rank + "," + this.description + "," + this.areaPool + "," + this.numberOfFloors;
+    }
+
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
