@@ -98,7 +98,7 @@ public class Controllers {
                     System.out.print("Diện tích hồ bơi: ");
                     double areaPool = input.nextDouble();
                     Villa villa = new Villa(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, areaPool, numberOfFloors);
-                    readWriteFile.writeFile(villa);
+                    readWriteFile.writeFile("villa", villa.writeFile());
 //                    System.out.println(villa.showInfor());
                     break;
                 }
