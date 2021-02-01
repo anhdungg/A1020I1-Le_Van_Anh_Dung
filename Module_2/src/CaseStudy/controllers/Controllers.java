@@ -1,14 +1,9 @@
 package CaseStudy.controllers;
 
-import CaseStudy.models.House;
-import CaseStudy.models.Room;
-import CaseStudy.models.Services;
-import CaseStudy.models.Villa;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controllers {
-
     ReadWriteFile readWriteFile = new ReadWriteFile();
     public void displayMainMenu(Scanner input) {
         while (true) {
@@ -97,26 +92,34 @@ public class Controllers {
                 if(typeService.equals("villa")) {
                     System.out.print("Diện tích hồ bơi: ");
                     double areaPool = input.nextDouble();
-                    Villa villa = new Villa(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, areaPool, numberOfFloors);
-                    readWriteFile.writeFile("villa", villa.writeFile());
+//                    Villa villa = new Villa(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, areaPool, numberOfFloors);
+//                    readWriteFile.writeFile("villa", villa.writeFile());
 //                    System.out.println(villa.showInfor());
+                    readWriteFile.writeFile("villa", id+","+areaUse+","+rentalCosts+","+numberMax+","+typeRental
+                            +","+rank+","+description+","+areaPool+","+numberOfFloors);
                     break;
                 }
-                House house = new House(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, numberOfFloors);
-                System.out.println(house.showInfor());
+//                House house = new House(id, areaUse, rentalCosts, numberMax, typeRental, rank, description, numberOfFloors);
+//                System.out.println(house.showInfor());
+                readWriteFile.writeFile("house", id+","+areaUse+","+rentalCosts+","+numberMax+","+typeRental
+                        +","+rank+","+description+","+numberOfFloors);
                 break;
             case "room":
                 System.out.print("Dịch vụ miễn phí đi kèm: ");
                 String freeService = input.nextLine();
-                if (!freeService.equals("Không")){
+                int unit=0;
+                double money=0.0;
+                if (!freeService.equals("Không") && !freeService.equals("Khong") && !freeService.equals("No")){
                     System.out.print("Số lượng: ");
-                    int unit = input.nextInt();
+                     unit = input.nextInt();
                     input.nextLine();
                     System.out.print("Đơn giá: ");
-                    double money = input.nextDouble();
-                    Room room = new Room(id, areaUse, rentalCosts, numberMax, typeRental, freeService, money, unit);
-                    System.out.println(room.showInfor());
+                     money = input.nextDouble();
+//                    Room room = new Room(id, areaUse, rentalCosts, numberMax, typeRental, freeService, money, unit);
+//                    System.out.println(room.showInfor());
                 }
+                readWriteFile.writeFile("room", id+","+areaUse+","+rentalCosts+","+numberMax+","+typeRental
+                        +","+freeService+","+unit+","+money);
         }
     }
 
@@ -132,6 +135,12 @@ public class Controllers {
                     "8. Exit");
             int select = input.nextInt();
             switch (select){
+                case 1:
+                    System.out.println(showServices("villa"));
+                case 2:
+                    System.out.println(showServices("house"));
+                case 3:
+                    System.out.println(showServices("room"));
                 case 7:
                     return true;
                 case 8:
@@ -140,6 +149,96 @@ public class Controllers {
                     System.out.println("Nhập sai, xin hãy nhập lại.");
             }
         }
+    }
+
+    private String showServices(String typeService){
+        StringBuilder dataReturn = new StringBuilder();
+        String dataRead;
+        switch (typeService){
+            case "villa":
+                dataRead = readWriteFile.readFile("villa");
+                if(dataRead.length()>2) {
+                    boolean statusRead = false;
+                    ArrayList<ArrayList<String>> list = new ArrayList<>();
+                    for (int i = 0; i < dataRead.length(); i++) {
+                        if(statusRead){
+                            if((int)dataRead.charAt(i) == 10){
+                                list.add(this.splitString(dataReturn.toString()));
+                                dataReturn = new StringBuilder();
+                                continue;
+                            }
+                            dataReturn.append(dataRead.charAt(i));
+                        }
+                        if((int)dataRead.charAt(i) == 10 && !statusRead){
+                            statusRead = true;
+                        }
+                    }
+                    dataReturn.append(handlingData(list, "villa"));
+                }else dataReturn.append("Villa: No data");
+                break;
+            case "house":
+                dataRead = readWriteFile.readFile("house");
+                if(dataRead.length()>2){
+
+                }else {
+                    dataReturn.append("House: No Data");
+                }
+                break;
+            case "room":
+                dataRead = readWriteFile.readFile("room");
+                if(dataRead.length()>2){
+
+                }else {
+                    dataReturn.append("Room: No Data");
+                }
+                break;
+        }
+        return "";
+    }
+
+    private String handlingData(ArrayList<ArrayList<String>> list, String typeService){
+        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
+        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ", "Number of floors: "};
+        String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: "};
+        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: "};
+        StringBuilder dataReturn = new StringBuilder();
+        for (int i=0; i<list.size(); i++){
+            ArrayList<String> list1= list.get(i);
+            for (int j=0; j<list1.size(); j++){
+                if(j<header.length){
+                    dataReturn.append(header[j]);
+                }else {
+                    switch (typeService){
+                        case "villa":
+                            dataReturn.append(headerVilla[j-header.length]);
+                            break;
+                        case "house":
+                            dataReturn.append(headerHouse[j-header.length]);
+                            break;
+                        case "room":
+                            dataReturn.append(headerRoom[j-header.length]);
+                            break;
+                    }
+                }
+                dataReturn.append(list1.get(j) + ", ");
+            }
+            dataReturn.append("\n");
+        }
+        return dataReturn.toString();
+    }
+    private ArrayList<String> splitString(String value){
+        ArrayList<String> list = new ArrayList<>();
+        StringBuilder data = new StringBuilder();
+        for (int i=0; i<value.length(); i++){
+            if(value.charAt(i) == ','){
+                System.out.println(data);
+                list.add(data.toString());
+                data = new StringBuilder();
+//                continue;
+            }
+            data.append(value.charAt(i));
+        }
+        return list;
     }
 
     public static void main(String[] args) {

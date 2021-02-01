@@ -8,17 +8,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ReadWriteFile {
-    private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
+
+    private static final String LINK_FILE_VILLA = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Villa.csv";
+    private static final String LINK_FILE_HOUSE = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\House.csv";
+    private static final String LINK_FILE_ROOM = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Room.csv";
+
     private static final String HEADER_VILLA = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
             "Description of other amenities,Pool area, Number of floors";
-    private static final String HEADER_HOUSE = "Id, Diện tích, Chi phí, Số người tối đa, Kiểu thuê, Tiêu chuẩn phòng," +
-            "Mô tả tiện nghi khác, Số tầng";
-    private static final String HEADER_ROOM = "Id, Diện tích, Chi phí, Số người tối đa, Kiểu thuê, Tiêu chuẩn phòng," +
-            "Dịch vụ miễn phí đi kèm";
-    private final boolean STATUS_CHECK_NEW_FILE_VILLA = this.checkNewFile("villa");
-    private final boolean STATUS_CHECK_NEW_FILE_HOUSE = this.checkNewFile("house");
-    private final boolean STATUS_CHECK_NEW_FILE_ROOM = this.checkNewFile("room");
+    private static final String HEADER_HOUSE = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
+            "Description of other amenities, Number of floors";
+    private static final String HEADER_ROOM = "Id,Area used,Rental costs,Maximum people, Rent type, Free service included," +
+            "Unit,Money";
+
+    private boolean STATUS_CHECK_NEW_FILE_VILLA = this.checkNewFile("villa");
+    private boolean STATUS_CHECK_NEW_FILE_HOUSE = this.checkNewFile("house");
+    private boolean STATUS_CHECK_NEW_FILE_ROOM = this.checkNewFile("room");
 
     public void writeFile(String typeService, String data){
         try {
@@ -26,29 +31,29 @@ public class ReadWriteFile {
             switch (typeService){
                 case "villa":
                     if(STATUS_CHECK_NEW_FILE_VILLA){
-                        fileWriter = new FileWriter("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Villa.csv");
+                        fileWriter = new FileWriter(LINK_FILE_VILLA);
                         writeHeaderFile(fileWriter, "villa");
-//                        STATUS_CHECK_NEW_FILE_VILLA = false;
+                        STATUS_CHECK_NEW_FILE_VILLA = false;
                     }else {
-                        fileWriter = new FileWriter("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Villa.csv", true);
+                        fileWriter = new FileWriter(LINK_FILE_VILLA, true);
                     }
                     break;
                 case "house":
                     if(STATUS_CHECK_NEW_FILE_HOUSE){
-                        fileWriter = new FileWriter("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\House.csv");
+                        fileWriter = new FileWriter(LINK_FILE_HOUSE);
                         writeHeaderFile(fileWriter, "house");
-//                        STATUS_CHECK_NEW_FILE_HOUSE = false;
+                        STATUS_CHECK_NEW_FILE_HOUSE = false;
                     }else {
-                        fileWriter = new FileWriter("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\House.csv",true);
+                        fileWriter = new FileWriter(LINK_FILE_HOUSE,true);
                     }
                     break;
                 case "room":
                     if(STATUS_CHECK_NEW_FILE_ROOM){
-                        fileWriter = new FileWriter("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Room.csv");
+                        fileWriter = new FileWriter(LINK_FILE_ROOM);
                         writeHeaderFile(fileWriter, "room");
-//                        STATUS_CHECK_NEW_FILE_ROOM = false;
+                        STATUS_CHECK_NEW_FILE_ROOM = false;
                     }else {
-                        fileWriter = new FileWriter("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Room.csv", true);
+                        fileWriter = new FileWriter(LINK_FILE_ROOM, true);
                     }
 
                     break;
@@ -63,11 +68,28 @@ public class ReadWriteFile {
         }
     }
 
+    public String readFile(String typeService){
+        StringBuilder dataReturn = new  StringBuilder();
+        try {
+            FileReader fileReader = choiceFile(typeService);
+            int read;
+            if(fileReader!=null) {
+                while ((read = fileReader.read()) != -1) {
+                    dataReturn.append((char) read);
+                }
+            }
+        }catch (FileNotFoundException fe){
+            System.out.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return dataReturn.toString();
+    }
     private void writeHeaderFile(FileWriter fileWriter, String typeService){
         try{
             switch (typeService){
                 case "villa":
-                    System.out.println("Write header file");
                     fileWriter.write(HEADER_VILLA);
                     fileWriter.append(NEW_LINE_SEPARATOR);
                     break;
@@ -86,20 +108,9 @@ public class ReadWriteFile {
     }
 
     private boolean checkNewFile(String typeService) {
-        FileReader fileReader = null;
-        StringBuilder dataReturn = new StringBuilder("");
+        StringBuilder dataReturn = new StringBuilder();
         try {
-            switch (typeService) {
-                case "villa":
-                    fileReader = new FileReader("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Villa.csv");
-                    break;
-                case "house":
-                    fileReader = new FileReader("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\House.csv");
-                    break;
-                case "room":
-                    fileReader = new FileReader("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Room.csv");
-                    break;
-            }
+            FileReader fileReader = choiceFile(typeService);
             if(fileReader!=null){
                 int read;
                 while ((read = fileReader.read())!=-1){
@@ -117,9 +128,22 @@ public class ReadWriteFile {
         return dataReturn.toString().equals("");
     }
 
-    public static void main(String[] args) {
-        ReadWriteFile readWriteFile = new ReadWriteFile();
-//        System.out.println(readWriteFile.readFile("villa"));
-        readWriteFile.writeFile("villa","02,1234.0,2000.0,5,year,4 sao,PlayStation 5,23.0,3");
+    private FileReader choiceFile(String typeService) throws FileNotFoundException {
+        switch (typeService) {
+            case "villa":
+                return new FileReader(LINK_FILE_VILLA);
+            case "house":
+                return new FileReader(LINK_FILE_HOUSE);
+            case "room":
+                return new FileReader(LINK_FILE_ROOM);
+            default:
+                return null;
+        }
     }
+
+//    public static void main(String[] args) {
+//        ReadWriteFile readWriteFile = new ReadWriteFile();
+//        System.out.println(readWriteFile.readFile("room"));
+//        readWriteFile.writeFile("villa","02,1234.0,2000.0,5,year,4 sao,PlayStation 5,23.0,3");
+//    }
 }
