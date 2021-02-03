@@ -14,7 +14,7 @@ public class RegularExpressionTest {
         final String SO_TANG = "^[1-9][0-9]{0,}$";
         final String KIEU_THUE = "^[A-Z][a-z]{1,}$";
         final String NGAY_SINH = "\\d{2}[-|/]\\d{2}[-|/]\\d{4}";
-        Pattern pattern = Pattern.compile("(SV)(RO|VL|HO)[-]\\d{4}", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(MA_DICH_VU, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher("SVRO-0001");
         boolean matchFound = matcher.find();
         if(matchFound) {
