@@ -15,11 +15,11 @@ public class ReadWriteFile {
     private static final String LINK_FILE_ROOM = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Room.csv";
 
     private static final String HEADER_VILLA = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
-            "Description of other amenities,Pool area, Number of floors";
+            "Description of other amenities,Pool area,Number of floors,Accompanied service,Unit,Money";
     private static final String HEADER_HOUSE = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
-            "Description of other amenities, Number of floors";
-    private static final String HEADER_ROOM = "Id,Area used,Rental costs,Maximum people, Rent type, Free service included," +
-            "Unit,Money";
+            "Description of other amenities,Number of floors,Accompanied service,Unit,Money";
+    private static final String HEADER_ROOM = "Id,Area used,Rental costs,Maximum people,Rent type,Free service included," +
+            "Unit,Money,Accompanied service,Unit,Money";
 
     private boolean STATUS_CHECK_NEW_FILE_VILLA = this.checkNewFile("villa");
     private boolean STATUS_CHECK_NEW_FILE_HOUSE = this.checkNewFile("house");
@@ -141,7 +141,19 @@ public class ReadWriteFile {
         }
     }
 
-//    public static void main(String[] args) {
+    public static String getHeaderHouse() {
+        return HEADER_HOUSE;
+    }
+
+    public static String getHeaderVilla() {
+        return HEADER_VILLA;
+    }
+
+    public static String getHeaderRoom() {
+        return HEADER_ROOM;
+    }
+
+    //    public static void main(String[] args) {
 //        ReadWriteFile readWriteFile = new ReadWriteFile();
 //        System.out.println(readWriteFile.readFile("room"));
 //        readWriteFile.writeFile("villa","02,1234.0,2000.0,5,year,4 sao,PlayStation 5,23.0,3");

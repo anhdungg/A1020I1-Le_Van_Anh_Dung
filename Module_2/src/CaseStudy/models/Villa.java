@@ -1,14 +1,24 @@
 package CaseStudy.models;
 
+import java.util.ArrayList;
+
 public class Villa extends Services {
     private String rank;
     private String description;
     private double areaPool;
     private int numberOfFloors;
 
-//    public Villa(String id, String nameService, String areaUse, double rentalCosts, int numberMax, String typeRental) {
-//        super(id, nameService, areaUse, rentalCosts, numberMax, typeRental);
-//    }
+    ArrayList<AccompanyingService> list = new ArrayList<>();
+
+    public Villa(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
+                 String rank, String description, double areaPool, int numberOfFloors, String nameService, int unit, double money) {
+        super(id, "villa", areaUse, rentalCosts, numberMax, typeRental);
+        this.rank = rank;
+        this.description = description;
+        this.areaPool = areaPool;
+        this.numberOfFloors = numberOfFloors;
+        this.addAccompanyingService(nameService, unit, money);
+    }
 
     public Villa(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
                  String rank, String description, double areaPool, int numberOfFloors) {
@@ -18,6 +28,11 @@ public class Villa extends Services {
         this.areaPool = areaPool;
         this.numberOfFloors = numberOfFloors;
     }
+
+    public void addAccompanyingService(String nameService, int unit, double money){
+        list.add(new AccompanyingService(nameService, money, unit));
+    }
+
 
     public String getRank() {
         return rank;
@@ -52,11 +67,6 @@ public class Villa extends Services {
     }
 
 
-    public String writeFile() {
-        return this.getId() + "," + this.getAreaUse() + "," + this.getRentalCosts() + "," + this.getNumberMax() + ","
-                + this.getTypeRental() + "," + this.rank + "," + this.description + "," + this.areaPool + "," + this.numberOfFloors;
-    }
-
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
@@ -68,6 +78,7 @@ public class Villa extends Services {
                 +". Tiêu chuẩn phòng: " + this.rank
                 +". Tiện nghi khác: " + this.description
                 +". Diện tích hồ bơi: " + this.areaPool
-                +". Số tầng: " + this.numberOfFloors;
+                +". Số tầng: " + this.numberOfFloors
+                +". Dịch vụ đi kèm: " + this.printService(list);
     }
 }

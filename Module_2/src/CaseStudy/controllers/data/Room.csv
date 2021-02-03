@@ -1,3 +1,6 @@
-Id,Area used,Rental costs,Maximum people, Rent type, Free service included,Unit,Money
-03,50.0,100,2,House,No,0,0.0
-04,60.0,250,2,day,Karaoke,2,100.0
+Id,Area used,Rental costs,Maximum people,Rent type,Free service included,Unit,Money,Accompanied service,Unit,Money
+01,50.0,100,2,Hour,No,0,0.0,Thuc an cho chim,2,1000.0
+02,60.0,200,2,,No,0,0.0,No,0,0.0
+03,70.0,10,2,Hour,Nuoc,2,10.0,No,0,0.0
+04,20.0,5,2,day,No,0,0.0,No,0,0.0
+05,100.0,50,3,Hour,Nuoc loc,3,5.0,Thuc an cho chim,3,1000.0

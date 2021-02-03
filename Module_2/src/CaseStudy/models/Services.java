@@ -1,5 +1,7 @@
 package CaseStudy.models;
 
+import java.util.ArrayList;
+
 abstract public class Services {
     private String nameService;
     private double areaUse;
@@ -15,6 +17,17 @@ abstract public class Services {
         this.numberMax = numberMax;
         this.typeRental = typeRental;
         this.id = id;
+    }
+
+    public String printService(ArrayList<AccompanyingService> list){
+        StringBuilder string = new StringBuilder();
+        for (int i=0; i<list.size(); i++){
+            string.append(list.get(i).toString());
+            if(i<list.size()-1){
+                string.append(", ");
+            }
+        }
+        return string.toString();
     }
 
     public String getNameService() {
