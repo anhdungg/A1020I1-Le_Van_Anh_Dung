@@ -1,36 +1,23 @@
 package test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class TestReadFile {
     public static void main(String[] args) throws IOException
     {
-        // variable declaration
-        int ch;
-        StringBuilder dataRead = new StringBuilder();
-        // check if File exists or not
-        FileReader fr=null;
-        try
-        {
-            fr = new FileReader("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Villa.csv");
-        }
-        catch (FileNotFoundException fe)
-        {
-            System.out.println("File not found");
-        }
+        try {
+            File fileDir = new File("D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\House.csv");
 
-        // read from FileReader till the end of file
-        while ((ch=fr.read())!=10) {
+            Writer out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(fileDir), StandardCharsets.UTF_8));
 
-//            if (ch!=10 && ch!=13){
-//                System.out.print((char) ch);
-                dataRead.append(Character.toString((char) ch));
-//            }else break;
+            out.append("Id, Diện tích, Chi phí, Số người tối đa, Kiểu thuê, Tiêu chuẩn phòng,\\\" +\\n\" +\n" +
+                    "                    \"            \\\"Mô tả tiện nghi khác, Số tầng").append("\r\n");
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println(dataRead.toString());
-        // close the file
-        fr.close();
     }
 }
