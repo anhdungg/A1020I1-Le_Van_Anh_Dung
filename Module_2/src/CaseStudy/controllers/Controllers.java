@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 public class Controllers {
     ReadWriteFile readWriteFile = new ReadWriteFile();
+    final String CHECK_ID = "^(SV)(RO|VL|HO)[-]\\d{4}$";
+    final String DOUBLE = "^[1-9][0-9]*[.]?[0-9]+$";
+    final String INTEGER = "^[1-9][0-9]*$";
+    final String UPPER_FIRST = "^[A-Z|1-5][\\s]?[a-z]+$";
+    final String ACCOMPANIED_SERVICE = "^(Massage|Karaoke|Food|Drink|Car)$";
     public void displayMainMenu(Scanner input) {
         while (true) {
             System.out.println("1. Add New Services\n" +
@@ -66,73 +71,127 @@ public class Controllers {
 
     private void addNew(Scanner input, String typeService){
         input.nextLine();
-        System.out.print("Id: ");
-        String id = input.nextLine();
-        System.out.print("Diện tích sử dụng: ");
-        double areaUse = input.nextDouble();
-        input.nextLine();
-        System.out.print("Chi phí thuê: ");
-        int rentalCosts = input.nextInt();
-        input.nextLine();
-        System.out.print("Số người tối đa: ");
-        int numberMax = input.nextInt();
-        input.nextLine();
-        System.out.print("Kiểu thuê(năm, tháng, ngày giờ): ");
-        String typeRental = input.nextLine();
+        String id = inputData(input, "id");
+        String areaUse = inputData(input, "areaUse");
+        String rentalCosts = inputData(input, "rentalCosts");
+        String maxPeople = inputData(input, "maxPeople");
+        String typeRental = inputData(input, "typeRental");
         switch (typeService){
             case "house":
             case "villa":
-                System.out.print("Tiêu chuẩn phòng: ");
-                String rank = input.nextLine();
+                String rank = inputData(input, "rank");
                 System.out.print("Mô tả tiện nghi khác: ");
                 String description = input.nextLine();
-                System.out.print("Số tầng: ");
-                int numberOfFloors = input.nextInt();
-                input.nextLine();
+                String numberOfFloors = inputData(input, "numberOfFloors");
                 if(typeService.equals("villa")) {
-                    System.out.print("Diện tích hồ bơi: ");
-                    double areaPool = input.nextDouble();
-                    input.nextLine();
-                    readWriteFile.writeFile("villa", id+","+areaUse+","+rentalCosts+","+numberMax+","+typeRental
+                    String areaPool = inputData(input, "areaPool");
+                    readWriteFile.writeFile("villa", id+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
                             +","+rank+","+description+","+areaPool+","+numberOfFloors+","+inputAccompaniedService(input));
                     break;
                 }
-                readWriteFile.writeFile("house", id+","+areaUse+","+rentalCosts+","+numberMax+","+typeRental
+                readWriteFile.writeFile("house", id+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
                         +","+rank+","+description+","+numberOfFloors+","+inputAccompaniedService(input));
                 break;
             case "room":
                 System.out.print("Dịch vụ miễn phí đi kèm: ");
                 String freeService = input.nextLine();
-                int unit=0;
-                double money=0.0;
+                String unit="0";
+                String money="0.0";
                 if (!freeService.equals("No")){
-                    System.out.print("Số lượng: ");
-                    unit = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Đơn giá: ");
-                    money = input.nextDouble();
-                    input.nextLine();
+                    unit = inputData(input, "unit");
+                    money = inputData(input, "money");
                 }
-                readWriteFile.writeFile("room", id+","+areaUse+","+rentalCosts+","+numberMax+","+typeRental
+                readWriteFile.writeFile("room", id+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
                         +","+freeService+","+unit+","+money+","+inputAccompaniedService(input));
         }
     }
 
     private String inputAccompaniedService(Scanner input){
-        int unit=0;
-        double money = 0;
-        System.out.print("Dịch vụ đi kèm: ");
-        String accompaniedService = input.nextLine();
+        String unit="0";
+        String money = "0.0";
+        String accompaniedService = inputData(input, "accompaniedService");
         if(!accompaniedService.equals("No")){
-            System.out.print("Số luọng: ");
-            unit = input.nextInt();
-            input.nextLine();
-            System.out.print("Đơn giá: ");
-            money = input.nextDouble();
+            unit = inputData(input, "unit");
+            money = inputData(input, "money");
         }
         return accompaniedService + "," + unit+","+money;
     }
 
+    private String inputData(Scanner input, String type){
+        String data;
+        String regex = "";
+        boolean check = false;
+        do {
+            switch (type) {
+                case "id":
+                    System.out.print("Id: ");
+                    regex = CHECK_ID;
+                    break;
+                case "areaUse":
+                    System.out.print("Diện tích sử dụng: ");
+                    regex = DOUBLE;
+                    break;
+                case "areaPool":
+                    System.out.print("Diện tích hồ bơi: ");
+                    regex = DOUBLE;
+                    break;
+                case "rentalCosts":
+                    System.out.print("Chi phí thuê: ");
+                    regex = DOUBLE;
+                    break;
+                case "maxPeople":
+                    System.out.print("Số người tối đa: ");
+                    regex = INTEGER;
+                    break;
+                case "typeRental":
+                    System.out.print("Kiểu thuê: ");
+                    regex = UPPER_FIRST;
+                    break;
+                case "rank":
+                    System.out.print("Tiêu chuẩn: ");
+                    regex = UPPER_FIRST;
+                    break;
+                case "numberOfFloors":
+                    System.out.print("Số tầng: ");
+                    regex = INTEGER;
+                    break;
+                case "accompaniedService":
+                    System.out.print("Dịch vụ đi kèm: ");
+                    regex = ACCOMPANIED_SERVICE;
+                    break;
+                case "unit":
+                    System.out.print("Số luọng: ");
+                    regex = INTEGER;
+                    break;
+                case "money":
+                    System.out.print("Đơn giá: ");
+                    regex = DOUBLE;
+                    break;
+            }
+            data = input.nextLine();
+            if(data.matches(regex)){
+                switch (type){
+                    case "areaUse":
+                    case "areaPool":
+                        double area = Double.parseDouble(data);
+                        check = area < 30;
+                        break;
+                    case "maxPeople":
+                        int max = Integer.parseInt(data);
+                        check = max > 20;
+                        break;
+                    default:
+                        check = false;
+                }
+                if(check){
+                    System.out.println("Nhập sai hãy nhập lại.");
+                }
+            }else {
+                System.out.println("Nhập sai hãy nhập lại.");
+            }
+        }while (!data.matches(regex) || check);
+        return data;
+    }
     private boolean showServices(Scanner input){
         while(true) {
             System.out.println("1. Show all Villa\n" +

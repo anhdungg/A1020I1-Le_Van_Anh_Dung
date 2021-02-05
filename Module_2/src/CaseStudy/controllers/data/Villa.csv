@@ -1,3 +1,5 @@
 Id,Area used,Rental costs,Maximum people,Rent type,Standard room,Description of other amenities,Pool area,Number of floors,Accompanied service,Unit,Money
 1,123.4,1000,4,day,5 star,PlayStation 5,12,3,Massage,2,100
 02,1300.0,2000,4,year,5 star,No,50.0,3,No,0,0.0
+SVVL-0001,123.4,1000,3,Day,5 star,No,12,3,food,2,1000
+SVVL-0002,123,456.7,5,Day,5 star,No,31,3,Drink,2,1000
