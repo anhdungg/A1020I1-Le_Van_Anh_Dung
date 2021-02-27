@@ -55,9 +55,9 @@ public class Customer {
                 + ", Type customer: " +  this.typeCustomer + ", Address: " + this.address + "\nService: " + showService;
     }
 
-//    public static void main(String[] args) {
-//        Scanner input = new Scanner(System.in);
-//        Customer customer = new Customer();
-//        customer.addNewCustomer(input);
-//    }
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Customer customer = new Customer();
+        customer.addNewCustomer(input);
+    }
 }

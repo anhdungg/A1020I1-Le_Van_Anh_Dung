@@ -252,6 +252,15 @@ public class Controllers {
                     dataReturn.append("Room: No Data");
                 }
                 break;
+            case "customer":
+                dataRead = readWriteFile.readFile("customer");
+                if(dataRead.length()>=ReadWriteFile.getHeaderCustomer().length()+2){
+                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
+                    dataReturn.append(handlingData(list, "customer"));
+                }else {
+                    dataReturn.append("Customer: No Data");
+                }
+                break;
         }
         return dataReturn.toString();
     }
@@ -281,7 +290,10 @@ public class Controllers {
                 "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
         String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Number of floors: ",
                 "Accompanied service: ", "Unit: ", "Money: "};
-        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ", "Money: "};
+        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
+                "Money: "};
+        String[] headerCustomer = new String[]{"Name: ", "Day of birth: ", "Gender: ", "Id card: ", "Phone number: ",
+                "Email: ", "Type customer: ", "Address: "};
         StringBuilder dataReturn = new StringBuilder(typeService + ": \n");
         for (ArrayList<String> list1 : list) {
             for (int j = 0; j < list1.size(); j++) {
