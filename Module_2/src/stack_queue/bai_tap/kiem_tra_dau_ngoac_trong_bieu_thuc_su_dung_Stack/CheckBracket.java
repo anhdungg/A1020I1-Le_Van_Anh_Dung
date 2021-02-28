@@ -6,9 +6,27 @@ import java.util.Stack;
 public class CheckBracket {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Nhập biểu thức: ");
+        System.out.print("Nhập biểu thức: ");
         String expression = input.nextLine();
-        Stack<Integer> stack = new Stack<>();
-
+        Stack<Character> stack = new Stack<>();
+        boolean check;
+        for (int i=0; i<expression.length(); i++){
+            if(expression.charAt(i) == '('){
+                stack.push(expression.charAt(i));
+            }else if(expression.charAt(i) == ')'){
+                if(stack.isEmpty()){
+                    check = false;
+                    break;
+                }else {
+                    stack.pop();
+                }
+            }
+        }
+        check = stack.isEmpty();
+        if(check){
+            System.out.println("Well");
+        }else {
+            System.out.println("???");
+        }
     }
 }
