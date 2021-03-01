@@ -14,12 +14,12 @@ public class CountCharacter {
         TreeMap<Character, Integer> map = new TreeMap<>();
         for (int i=0; i<string.length(); i++){
             if(string.charAt(i) != ' ') {
-                if (map.containsKey(string.charAt(i))) {
-                    int temp = map.get(string.charAt(i));
-                    temp++;
-                    map.put(string.charAt(i), temp);
-                } else {
+                if (!map.containsKey(string.charAt(i))) {
                     map.put(string.charAt(i), 1);
+                } else {
+                    int value = map.get(string.charAt(i));
+                    value++;
+                    map.put(string.charAt(i), value);
                 }
             }
         }
