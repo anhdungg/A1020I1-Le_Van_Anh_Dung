@@ -1,6 +1,6 @@
 package stack_queue.bai_tap.to_chuc_du_lieu_hop_ly_Demerging_su_dung_Queue;
 
-public class Personnel {
+public class Personnel implements Comparable<Personnel> {
     private String name;
     private String gender;
     private String dayOfBirth;
@@ -35,6 +35,7 @@ public class Personnel {
         this.dayOfBirth = dayOfBirth;
     }
 
+
     public int getYearOfBirth(){
         StringBuilder year = new StringBuilder();
         for (int i=this.dayOfBirth.length()-4; i<this.dayOfBirth.length(); i++){
@@ -47,5 +48,16 @@ public class Personnel {
         return "name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dayOfBirth='" + dayOfBirth + '\'';
+    }
+
+    @Override
+    public int compareTo(Personnel o) {
+        if(this.getYearOfBirth()>o.getYearOfBirth()){
+            return 1;
+        }else if(this.getYearOfBirth()<o.getYearOfBirth()){
+            return -1;
+        }else{
+            return 0;
+        }
     }
 }

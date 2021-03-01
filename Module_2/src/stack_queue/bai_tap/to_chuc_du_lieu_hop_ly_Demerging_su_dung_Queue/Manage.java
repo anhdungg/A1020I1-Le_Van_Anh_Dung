@@ -21,11 +21,14 @@ public class Manage {
 
         for (Personnel value : person) {
             if (value.getGender().equals("Nam")) {
-                sortList(value, male);
+                male.add(value);
             } else if (value.getGender().equals("Nu")) {
-                sortList(value, female);
+                female.add(value);
             }
         }
+
+        Collections.sort(male);
+        Collections.sort(female);
 
         System.out.println("Dữ liệu nguyên bản: ");
         for (Personnel personnel : person){
