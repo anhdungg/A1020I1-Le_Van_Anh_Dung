@@ -4,11 +4,13 @@ public class Product implements Comparable<Product>{
     private int id;
     private String nameProduct;
     private double money;
+    public static boolean statusSort = true;
 
     public Product(int id, String nameProduct, double money) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.money = money;
+        Product.statusSort = true;
     }
 
     public int getId() {
@@ -46,6 +48,10 @@ public class Product implements Comparable<Product>{
 
     @Override
     public int compareTo(Product o) {
-        return Double.compare(this.money, o.getMoney());
+        if(Product.statusSort) {
+            return Double.compare(this.money, o.getMoney());
+        }else {
+            return Double.compare(o.getMoney(), this.money);
+        }
     }
 }
