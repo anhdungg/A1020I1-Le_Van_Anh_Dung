@@ -1,12 +1,12 @@
 package java_collection_framework.bai_tap.luyen_tap_su_dung_ArrayList_LinkedList_trong_java.su_dung_LisnkedList;
 
-import java_collection_framework.bai_tap.luyen_tap_su_dung_ArrayList_LinkedList_trong_java.su_dung_ArrayList.Product;
+import java_collection_framework.bai_tap.luyen_tap_su_dung_ArrayList_LinkedList_trong_java.Product;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class ManageProduct {
+public class ManageProductLinkedList {
     LinkedList<Product> products = new LinkedList<>();
 
     private void add(int id, String nameProduct, double money){
@@ -126,7 +126,7 @@ public class ManageProduct {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        ManageProduct manage = new ManageProduct();
+        ManageProductLinkedList manage = new ManageProductLinkedList();
         manage.add(1, "Thuoc", 10000);
         manage.add(5, "Nuoc loc", 15000);
         manage.add(4, "May tinh", 400000);

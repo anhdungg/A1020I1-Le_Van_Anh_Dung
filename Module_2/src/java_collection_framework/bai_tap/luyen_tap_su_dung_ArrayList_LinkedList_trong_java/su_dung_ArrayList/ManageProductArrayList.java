@@ -1,6 +1,6 @@
 package java_collection_framework.bai_tap.luyen_tap_su_dung_ArrayList_LinkedList_trong_java.su_dung_ArrayList;
 
-import java_collection_framework.bai_tap.luyen_tap_su_dung_ArrayList_LinkedList_trong_java.su_dung_ArrayList.Product;
+import java_collection_framework.bai_tap.luyen_tap_su_dung_ArrayList_LinkedList_trong_java.Product;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
