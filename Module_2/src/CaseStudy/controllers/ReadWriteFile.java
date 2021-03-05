@@ -10,10 +10,10 @@ import java.io.IOException;
 public class ReadWriteFile {
     private static final String NEW_LINE_SEPARATOR = "\n";
 
-    private static final String LINK_FILE_VILLA = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Villa.csv";
-    private static final String LINK_FILE_HOUSE = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\House.csv";
-    private static final String LINK_FILE_ROOM = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Room.csv";
-    private static final String LINK_FILE_CUSTOMER = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\controllers\\data\\Customer.csv";
+    private static final String LINK_FILE_VILLA = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Villa.csv";
+    private static final String LINK_FILE_HOUSE = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\House.csv";
+    private static final String LINK_FILE_ROOM = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Room.csv";
+    private static final String LINK_FILE_CUSTOMER = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Customer.csv";
 
     private static final String HEADER_VILLA = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
             "Description of other amenities,Pool area,Number of floors,Accompanied service,Unit,Money";
