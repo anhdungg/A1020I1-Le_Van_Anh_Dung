@@ -1,3 +1,7 @@
 Name,Day of birth,Gender,Id card,Phone number,Email,Type customer,Address
-Dung,12/12/2020,Man,194208423,094793727,ledung.ht17@gmail.com,VIP,55 hoang ke viem
-Linh,13/13/2020,Male,123456789,987654321,dieulinh@gmail.com,VIP,43 Ha Ton Muc
+Dung,12/12/2020,Male,194208423,094793727,ledung.ht17@gmail.com,VIP,55 hoang ke viem
+Linh,13/13/2020,Female,123456789,987654321,dieulinh@gmail.com,VIP,43 Ha Ton Muc
+Anh Dung,05/11/1997,Male,194 209 423,0947937297,ledung.ht17@gmail.com,VIP,55 hoang ke viem
+Dao,12/04/1972,Male,111 111 111,1234567890,ledao@gmail.com,VIP,43 Ha Ton Muc
+Dao,08/03/1969,Male,222 222 222,0987654321,ledao@gmail.com,VIP,43 Ha Ton Muc
+Thanh,07/03/1972,Female,444 444 444,123321,maithanh@gmail.com,VIP,43 Ha Ton Muc

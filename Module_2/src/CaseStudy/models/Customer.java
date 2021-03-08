@@ -1,5 +1,11 @@
 package CaseStudy.models;
 
+import CaseStudy.manage.SortCustomer;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Customer {
     private String name;
     private String gender;
@@ -15,7 +21,7 @@ public class Customer {
 
     }
 
-    public Customer(String name, String gender, String dayOfBirth, String idCard, String phoneNumber, String email,
+    public Customer(String name, String dayOfBirth, String gender, String idCard, String phoneNumber, String email,
                     String typeCustomer, String address) {
         this.name = name;
         this.gender = gender;
@@ -45,6 +51,11 @@ public class Customer {
 
     public String getDayOfBirth() {
         return dayOfBirth;
+    }
+
+    public int getYearOfBirth(){
+        String year = this.dayOfBirth.substring(this.dayOfBirth.lastIndexOf("/")+1);
+        return Integer.parseInt(year);
     }
 
     public void setDayOfBirth(String dayOfBirth) {
@@ -100,16 +111,60 @@ public class Customer {
     }
 
     public String showInfor(){
-        String showService;
-        if(service instanceof Villa){
-            showService = ((Villa) service).showInfor();
-        }else if(service instanceof House){
-            showService = ((House) service).showInfor();
-        }else {
-            showService = ((Room) service).showInfor();
-        }
+//        String showService;
+//        if(service instanceof Villa){
+//            showService = ((Villa) service).showInfor();
+//        }else if(service instanceof House){
+//            showService = ((House) service).showInfor();
+//        }else {
+//            showService = ((Room) service).showInfor();
+//        }
         return "Name: " + this.name + ", Gender: " + this.gender + ", Day of birth: " + this.dayOfBirth
                 +", Id card: " + this.idCard + ", Phone number: " + this.phoneNumber
-                + ", Type customer: " +  this.typeCustomer + ", Address: " + this.address + "\nService: " + showService;
+                + ", Type customer: " +  this.typeCustomer + ", Address: " + this.address;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dayOfBirth='" + dayOfBirth + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", typeCustomer='" + typeCustomer + '\'' +
+                ", address='" + address + '\'' +
+                ", service=" + service +
+                '}';
+    }
+
+//    public static void main(String[] args) {
+//        ArrayList<Customer> list = new ArrayList<>();
+//        SortCustomer sortCustomer = new SortCustomer();
+//        Customer customer = new Customer("Dung", "Male", "05/11/1997", "184209423", "0947937297", "ledung.ht17@gmail.com",
+//                "VIP", "55 hoang ke viem");
+//        list.add(customer);
+//        customer = new Customer("Linh", "Female", "14/05/1995", "184209423", "0947937297", "ledung.ht17@gmail.com",
+//                "VIP", "55 hoang ke viem");
+//        list.add(customer);
+//        customer = new Customer("Dung", "Female", "14/05/1995", "184209423", "0947937297", "ledung.ht17@gmail.com",
+//                "VIP", "55 hoang ke viem");
+//        list.add(customer);
+//        customer = new Customer("Dao", "Female", "14/05/1995", "184209423", "0947937297", "ledung.ht17@gmail.com",
+//                "VIP", "55 hoang ke viem");
+//        list.add(customer);
+//        customer = new Customer("Thanh", "Female", "14/05/1995", "184209423", "0947937297", "ledung.ht17@gmail.com",
+//                "VIP", "55 hoang ke viem");
+//        list.add(customer);
+//        System.out.println("Before: ");
+//        for (Customer customer1 : list){
+//            System.out.println(customer1);
+//        }
+//        list.sort(sortCustomer);
+//        System.out.println("After: ");
+//        for (Customer customer1 : list){
+//            System.out.println(customer1);
+//        }
+//    }
 }

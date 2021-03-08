@@ -2,7 +2,6 @@ package CaseStudy.manage;
 
 import CaseStudy.controllers.ReadWriteFile;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageService {
@@ -144,15 +143,17 @@ public class ManageService {
             case "villa":
                 dataRead = readWriteFile.readFile("villa");
                 if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
-                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-                    dataReturn.append(handlingData(list, "villa"));
+//                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
+//                    dataReturn.append(handlingData(list, "villa"));
+                    dataReturn.append(this.showService(dataRead, "villa"));
                 }else dataReturn.append("Villa: No data");
                 break;
             case "house":
                 dataRead = readWriteFile.readFile("house");
                 if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
-                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-                    dataReturn.append(handlingData(list, "house"));
+//                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
+//                    dataReturn.append(handlingData(list, "house"));
+                    dataReturn.append(this.showService(dataRead, "house"));
                 }else {
                     dataReturn.append("House: No Data");
                 }
@@ -160,46 +161,18 @@ public class ManageService {
             case "room":
                 dataRead = readWriteFile.readFile("room");
                 if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
-                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-                    dataReturn.append(handlingData(list, "room"));
+//                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
+//                    dataReturn.append(handlingData(list, "room"));
+                    dataReturn.append(this.showService(dataRead, "room"));
                 }else {
                     dataReturn.append("Room: No Data");
-                }
-                break;
-            case "customer":
-                dataRead = readWriteFile.readFile("customer");
-                if(dataRead.length()>=ReadWriteFile.getHeaderCustomer().length()+2){
-                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-                    dataReturn.append(handlingData(list, "customer"));
-                }else {
-                    dataReturn.append("Customer: No Data");
                 }
                 break;
         }
         return dataReturn.toString();
     }
 
-    private ArrayList<ArrayList<String>> handlingString(String data){
-        ArrayList<ArrayList<String>> list = new ArrayList<>();
-        boolean statusRead = false;
-        StringBuilder copyData = new StringBuilder();
-        for (int i = 0; i < data.length(); i++) {
-            if(statusRead){
-                if((int)data.charAt(i) == 10){
-                    list.add(this.splitString(copyData.toString()));
-                    copyData = new StringBuilder();
-                    continue;
-                }
-                copyData.append(data.charAt(i));
-            }
-            if((int)data.charAt(i) == 10 && !statusRead){
-                statusRead = true;
-            }
-        }
-        return list;
-    }
-
-    private String handlingData(ArrayList<ArrayList<String>> list, String typeService){
+    private String showService(String data, String typeService){
         String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
         String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",
                 "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
@@ -207,45 +180,126 @@ public class ManageService {
                 "Accompanied service: ", "Unit: ", "Money: "};
         String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
                 "Money: "};
-        StringBuilder dataReturn = new StringBuilder(typeService + ": \n");
-        for (ArrayList<String> list1 : list) {
-            for (int j = 0; j < list1.size(); j++) {
-                if (j < header.length) {
-                    dataReturn.append(header[j]);
-                } else {
-                    switch (typeService) {
-                        case "villa":
-                            dataReturn.append(headerVilla[j - header.length]);
-                            break;
-                        case "house":
-                            dataReturn.append(headerHouse[j - header.length]);
-                            break;
-                        case "room":
-                            dataReturn.append(headerRoom[j - header.length]);
-                            break;
+        StringBuilder dataReturn = new StringBuilder();
+        int count=0;
+        switch (typeService){
+            case "villa":
+                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2, data.length()-2);
+                break;
+            case "house":
+                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2, data.length()-2);
+                break;
+            case "room":
+                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2, data.length()-2);
+                break;
+        }
+        for (int i=0; i<data.length(); i++){
+            if(count<header.length){
+                if(i==0){
+                    dataReturn.append(header[count]);
+                    count++;
+                }else {
+                    if(data.charAt(i)==','){
+                        dataReturn.append(", ").append(header[count]);
+                        count++;
+                        continue;
                     }
                 }
-                dataReturn.append(list1.get(j));
-                if (j < list1.size() - 1) {
+            }else {
+                if (data.charAt(i) == ','){
                     dataReturn.append(", ");
+                    switch (typeService){
+                        case "villa":
+                            dataReturn.append(headerVilla[count-header.length]);
+                            break;
+                        case "house":
+                            dataReturn.append(headerHouse[count-header.length]);
+                            break;
+                        case "room":
+                            dataReturn.append(headerRoom[count-header.length]);
+                            break;
+                    }
+                    count++;
+                    continue;
+                }
+                if((int)data.charAt(i) == 10){
+                    count=0;
+                    dataReturn.append(data.charAt(i)).append(header[count]);
+                    count++;
+                    continue;
                 }
             }
-            dataReturn.append("\n");
+            dataReturn.append(data.charAt(i));
         }
         return dataReturn.toString();
     }
-    private ArrayList<String> splitString(String value){
-        ArrayList<String> list = new ArrayList<>();
-        StringBuilder data = new StringBuilder();
-        for (int i=0; i<value.length(); i++){
-            if(value.charAt(i) == ','){
-                list.add(data.toString());
-                data = new StringBuilder();
-                continue;
-            }
-            data.append(value.charAt(i));
-        }
-        list.add(data.toString());
-        return list;
-    }
+//    private ArrayList<ArrayList<String>> handlingString(String data){
+//        ArrayList<ArrayList<String>> list = new ArrayList<>();
+//        boolean statusRead = false;
+//        StringBuilder copyData = new StringBuilder();
+//        for (int i = 0; i < data.length(); i++) {
+//            if(statusRead){
+//                if((int)data.charAt(i) == 10){
+//                    list.add(this.splitString(copyData.toString()));
+//                    copyData = new StringBuilder();
+//                    continue;
+//                }
+//                copyData.append(data.charAt(i));
+//            }
+//            if((int)data.charAt(i) == 10 && !statusRead){
+//                statusRead = true;
+//            }
+//        }
+//        return list;
+//    }
+//
+//    private String handlingData(ArrayList<ArrayList<String>> list, String typeService){
+//        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
+//        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",
+//                "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
+//        String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Number of floors: ",
+//                "Accompanied service: ", "Unit: ", "Money: "};
+//        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
+//                "Money: "};
+//        StringBuilder dataReturn = new StringBuilder(typeService + ": \n");
+//        for (ArrayList<String> list1 : list) {
+//            for (int j = 0; j < list1.size(); j++) {
+//                if (j < header.length) {
+//                    dataReturn.append(header[j]);
+//                } else {
+//                    switch (typeService) {
+//                        case "villa":
+//                            dataReturn.append(headerVilla[j - header.length]);
+//                            break;
+//                        case "house":
+//                            dataReturn.append(headerHouse[j - header.length]);
+//                            break;
+//                        case "room":
+//                            dataReturn.append(headerRoom[j - header.length]);
+//                            break;
+//                    }
+//                }
+//                dataReturn.append(list1.get(j));
+//                if (j < list1.size() - 1) {
+//                    dataReturn.append(", ");
+//                }
+//            }
+//            dataReturn.append("\n");
+//        }
+//        return dataReturn.toString();
+//    }
+//    private ArrayList<String> splitString(String value){
+//        ArrayList<String> list = new ArrayList<>();
+//        StringBuilder data = new StringBuilder();
+//        for (int i=0; i<value.length(); i++){
+//            if(value.charAt(i) == ','){
+//                list.add(data.toString());
+//                data = new StringBuilder();
+//                continue;
+//            }
+//            data.append(value.charAt(i));
+//        }
+//        list.add(data.toString());
+//        return list;
+//    }
 }

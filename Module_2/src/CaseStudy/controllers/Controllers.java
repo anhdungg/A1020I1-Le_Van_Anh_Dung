@@ -14,6 +14,7 @@ public class Controllers {
                     "5. Add New Booking\n" +
                     "6. Show Information of Employee\n" +
                     "7. Exit");
+            System.out.print("Please select menu: ");
             int select = input.nextInt();
             switch (select) {
                 case 1:
@@ -43,6 +44,7 @@ public class Controllers {
                     "3. Add New Room\n" +
                     "4. Back to menu\n" +
                     "5. Exit");
+            System.out.print("Please select menu: ");
             int select = input.nextInt();
             switch (select){
                 case 1:
@@ -75,16 +77,17 @@ public class Controllers {
                     "6. Show All Name Room Not Duplicate\n" +
                     "7. Back to menu\n" +
                     "8. Exit");
+            System.out.print("Please select menu: ");
             int select = input.nextInt();
             switch (select){
                 case 1:
-                    System.out.println(manage.showServices("villa"));
+                    System.out.println("Villa: \n" + manage.showServices("villa") + "\n");
                     break;
                 case 2:
-                    System.out.println(manage.showServices("house"));
+                    System.out.println("House: \n" + manage.showServices("house") + "\n");
                     break;
                 case 3:
-                    System.out.println(manage.showServices("room"));
+                    System.out.println("Room: \n" + manage.showServices("room") + "\n");
                     break;
                 case 7:
                     return true;
