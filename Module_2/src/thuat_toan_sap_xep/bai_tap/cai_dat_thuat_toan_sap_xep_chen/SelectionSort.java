@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SelectionSort {
-    private static void sortArray(int[] array){
+    private static void selectionSort(int[] array){
         for (int i=1; i<array.length;i++){
             int index = i;
             while (array[index]<array[index-1]){
@@ -25,7 +25,7 @@ public class SelectionSort {
             array[i] = random.nextInt(MAX_ARRAY);
         }
         System.out.println(Arrays.toString(array));
-        sortArray(array);
+        selectionSort(array);
         System.out.println(Arrays.toString(array));
     }
 }
