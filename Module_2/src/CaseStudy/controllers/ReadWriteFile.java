@@ -14,6 +14,7 @@ public class ReadWriteFile {
     private static final String LINK_FILE_HOUSE = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\House.csv";
     private static final String LINK_FILE_ROOM = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Room.csv";
     private static final String LINK_FILE_CUSTOMER = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Customer.csv";
+    private static final String LINK_FILE_BOOKING = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Booking.csv";
 
     private static final String HEADER_VILLA = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
             "Description of other amenities,Pool area,Number of floors,Accompanied service,Unit,Money";
@@ -23,11 +24,13 @@ public class ReadWriteFile {
             "Unit,Money,Accompanied service,Unit,Money";
     private static final String HEADER_CUSTOMER = "Name,Day of birth,Gender,Id card,Phone number,Email,Type customer," +
             "Address";
+    private static final String HEADER_BOOKING = "Id Service,Id Customer";
 
     private boolean STATUS_CHECK_NEW_FILE_VILLA = this.checkNewFile("villa");
     private boolean STATUS_CHECK_NEW_FILE_HOUSE = this.checkNewFile("house");
     private boolean STATUS_CHECK_NEW_FILE_ROOM = this.checkNewFile("room");
     private boolean STATUS_CHECK_NEW_FILE_CUSTOMER = this.checkNewFile("customer");
+    private boolean STATUS_CHECK_NEW_FILE_BOOKING = this.checkNewFile("booking");
 
     public void writeFile(String typeService, String data){
         try {
@@ -67,6 +70,15 @@ public class ReadWriteFile {
                         STATUS_CHECK_NEW_FILE_CUSTOMER = false;
                     }else {
                         fileWriter = new FileWriter(LINK_FILE_CUSTOMER, true);
+                    }
+                    break;
+                case "booking":
+                    if(STATUS_CHECK_NEW_FILE_BOOKING){
+                        fileWriter = new FileWriter(LINK_FILE_BOOKING);
+                        writeHeaderFile(fileWriter, "booking");
+                        STATUS_CHECK_NEW_FILE_BOOKING = false;
+                    }else {
+                        fileWriter = new FileWriter(LINK_FILE_BOOKING, true);
                     }
                     break;
             }
@@ -116,6 +128,10 @@ public class ReadWriteFile {
                     fileWriter.write(HEADER_CUSTOMER);
                     fileWriter.append(NEW_LINE_SEPARATOR);
                     break;
+                case "booking":
+                    fileWriter.write(HEADER_BOOKING);
+                    fileWriter.append(NEW_LINE_SEPARATOR);
+                    break;
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -153,6 +169,8 @@ public class ReadWriteFile {
                 return new FileReader(LINK_FILE_ROOM);
             case "customer":
                 return new FileReader(LINK_FILE_CUSTOMER);
+            case "booking":
+                return new FileReader(LINK_FILE_BOOKING);
             default:
                 return null;
         }

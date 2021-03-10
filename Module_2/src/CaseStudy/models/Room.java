@@ -1,13 +1,11 @@
 package CaseStudy.models;
 
-import java.util.ArrayList;
-
 public class Room extends Services {
-    ArrayList<AccompanyingService> listServiceFree = new ArrayList<>();
-    ArrayList<AccompanyingService> listService = new ArrayList<>();
+    AccompanyingService freeService;
+    AccompanyingService accompanyingService;
 
     public Room(String id, double areaUse, double rentalCosts, int numberMax, String typeRental, String nameServiceFree,
-                double moneyFree, int unitFree, String nameService, int unit, double money) {
+                int unitFree, double moneyFree, String nameService, int unit, double money) {
         super(id, "room", areaUse, rentalCosts, numberMax, typeRental);
         this.addAccompanyingServiceFree(nameServiceFree, moneyFree, unitFree);
         this.addAccompanyingService(nameService, money, unit);
@@ -24,22 +22,21 @@ public class Room extends Services {
     }
 
     public void addAccompanyingServiceFree(String nameService, double money, int uint){
-        listServiceFree.add(new AccompanyingService(nameService, money, uint));
+        freeService = new AccompanyingService(nameService, money, uint);
     }
 
     public void addAccompanyingService(String nameService, double money, int uint){
-        listService.add(new AccompanyingService(nameService, money, uint));
+        accompanyingService = new AccompanyingService(nameService, money, uint);
     }
 
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
-                +". Tên dịch vụ: " + this.getNameService()
-                +". Diện tích: " + this.getAreaUse()
-                +". Chi phí thuê: " + this.getRentalCosts()
-                +". Số người tối đa: " + this.getNumberMax()
-                +". Kiểu thuê: " + this.getTypeRental()
-                +". Dịch vụ miễn phí đi kèm: " + this.printService(listServiceFree)
-                +". Dịch vụ đi kèm: " + this.printService(listService);
+                +", Area used: " + this.getAreaUse()
+                +", Rental costs: " + this.getRentalCosts()
+                +", Maximum people: " + this.getNumberMax()
+                +", Rent type: " + this.getTypeRental()
+                +", Dịch vụ miễn phí đi kèm: " + freeService.toString()
+                +", Dịch vụ đi kèm: " + accompanyingService.toString();
     }
 }

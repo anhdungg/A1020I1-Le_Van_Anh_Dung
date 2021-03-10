@@ -81,13 +81,13 @@ public class Controllers {
             int select = input.nextInt();
             switch (select){
                 case 1:
-                    System.out.println("Villa: \n" + manage.showServices("villa") + "\n");
+                    System.out.println(manage.showServices("villa"));
                     break;
                 case 2:
-                    System.out.println("House: \n" + manage.showServices("house") + "\n");
+                    System.out.println(manage.showServices("house"));
                     break;
                 case 3:
-                    System.out.println("Room: \n" + manage.showServices("room") + "\n");
+                    System.out.println(manage.showServices("room"));
                     break;
                 case 7:
                     return true;

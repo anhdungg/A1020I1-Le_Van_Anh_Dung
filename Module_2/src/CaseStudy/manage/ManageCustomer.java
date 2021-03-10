@@ -37,8 +37,12 @@ public class ManageCustomer {
         }
         System.out.print("Type customer: ");
         String typeCustomer = input.nextLine();
-        System.out.print("Address: ");
-        String address = input.nextLine();
+
+        String address = this.checkInputData(input, "address");
+        while (address.equals("error")){
+            System.out.println("Địa chỉ không chứa kí tự ','.");
+            address = this.checkInputData(input, "address");
+        }
         String data = name+","+dayOfBirth+","+gender+","+idCard+","+phoneNumber+","+email+","+typeCustomer+","+address;
         readWriteFile.writeFile("customer", data);
     }
@@ -48,7 +52,8 @@ public class ManageCustomer {
         String checkGender = "^(Male|Female|Unknow)$";
         String checkEmail = "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6})*$";
         String checkIdCard = "^[0-9]{3}[\\s][0-9]{3}[\\s][0-9]{3}";
-        String checkDayOfBirth = "^[0-3]\\d[\\/][0-1][0-9][\\/][0-9]{4}$";
+        String checkDayOfBirth = "^[0-3]\\d[/][0-1][0-9][/][0-9]{4}$";
+        String checkAddress = "^[0-9a-zA-Z\\s]*$";
         String regex = "";
         switch (typeData){
             case "name":
@@ -71,12 +76,17 @@ public class ManageCustomer {
                 System.out.print("Email: ");
                 regex = checkEmail;
                 break;
+            case "address":
+                System.out.print("Address: ");
+                regex = checkAddress;
+                break;
         }
         String data = input.nextLine();
         switch (typeData){
             case "name":
             case "email":
             case "id":
+            case "address":
                 if(data.matches(regex)){
                     return data;
                 }else {
@@ -143,6 +153,9 @@ public class ManageCustomer {
         String[] properties = new String[8];
         ArrayList<Customer> list = new ArrayList<>();
         String dataFile = readWriteFile.readFile("customer");
+        if (dataFile.length()<=ReadWriteFile.getHeaderCustomer().length()+2){
+            return "Customer: no data";
+        }
         dataFile = dataFile.substring(dataFile.indexOf("Address") + 8);
         int count = 0;
         StringBuilder data = new StringBuilder();
@@ -164,10 +177,15 @@ public class ManageCustomer {
             }
             data.append(dataFile.charAt(i));
         }
-        Collections.sort(list, sort);
+        list.sort(sort);
         data = new StringBuilder();
-        for (Customer customer : list){
-            data.append(customer.showInfor()).append("\n");
+        for (int i=0; i<list.size(); i++){
+            data.append(i+1).append(". ").append(list.get(i).showInfor());
+            if(i<list.size()-1){
+                data.append("\n");
+            }else {
+                data.insert(0, "Customer: " + (i+1) + " available\n");
+            }
         }
         return data.toString();
     }

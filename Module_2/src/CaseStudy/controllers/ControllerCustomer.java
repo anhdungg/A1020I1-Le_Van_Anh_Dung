@@ -21,7 +21,7 @@ public class ControllerCustomer {
                     manage.addNewCustomer(input);
                     break;
                 case 2:
-                    System.out.println(manage.showInformationCustomer());
+                    System.out.println(manage.showInformationCustomer() + "\n");
                     break;
                 case 3:
                     break;

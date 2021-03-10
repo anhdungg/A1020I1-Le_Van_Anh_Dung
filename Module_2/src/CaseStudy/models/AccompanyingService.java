@@ -36,6 +36,6 @@ public class AccompanyingService {
     }
 
     public String toString(){
-        return this.nameService + ", Số lượng: " + this.unit + ", Giá tiền: " + this.money;
+        return this.nameService + ", Unit: " + this.unit + ", Money: " + this.money;
     }
 }

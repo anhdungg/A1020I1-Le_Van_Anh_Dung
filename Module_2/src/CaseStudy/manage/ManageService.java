@@ -1,7 +1,11 @@
 package CaseStudy.manage;
 
 import CaseStudy.controllers.ReadWriteFile;
+import CaseStudy.models.House;
+import CaseStudy.models.Room;
+import CaseStudy.models.Villa;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageService {
@@ -143,16 +147,12 @@ public class ManageService {
             case "villa":
                 dataRead = readWriteFile.readFile("villa");
                 if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
-//                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-//                    dataReturn.append(handlingData(list, "villa"));
                     dataReturn.append(this.showService(dataRead, "villa"));
                 }else dataReturn.append("Villa: No data");
                 break;
             case "house":
                 dataRead = readWriteFile.readFile("house");
                 if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
-//                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-//                    dataReturn.append(handlingData(list, "house"));
                     dataReturn.append(this.showService(dataRead, "house"));
                 }else {
                     dataReturn.append("House: No Data");
@@ -161,8 +161,6 @@ public class ManageService {
             case "room":
                 dataRead = readWriteFile.readFile("room");
                 if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
-//                    ArrayList<ArrayList<String>> list = handlingString(dataRead);
-//                    dataReturn.append(handlingData(list, "room"));
                     dataReturn.append(this.showService(dataRead, "room"));
                 }else {
                     dataReturn.append("Room: No Data");
@@ -173,66 +171,156 @@ public class ManageService {
     }
 
     private String showService(String data, String typeService){
-        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
-        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",
-                "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
-        String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Number of floors: ",
-                "Accompanied service: ", "Unit: ", "Money: "};
-        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
-                "Money: "};
-        StringBuilder dataReturn = new StringBuilder();
+        String[] dataSave;
+        StringBuilder output = new StringBuilder();
+        ArrayList list;
         int count=0;
         switch (typeService){
             case "villa":
-                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2, data.length()-2);
+                dataSave = new String[12];
+                list = new ArrayList<Villa>();
+                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2);
                 break;
             case "house":
-                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2, data.length()-2);
+                dataSave = new String[11];
+                list = new ArrayList<House>();
+                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2);
                 break;
             case "room":
-                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2, data.length()-2);
+                dataSave = new String[11];
+                list = new ArrayList<Room>();
+                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2);
                 break;
+            default:
+                dataSave = new String[12];
+                list = new ArrayList<Villa>();
         }
         for (int i=0; i<data.length(); i++){
-            if(count<header.length){
-                if(i==0){
-                    dataReturn.append(header[count]);
-                    count++;
-                }else {
-                    if(data.charAt(i)==','){
-                        dataReturn.append(", ").append(header[count]);
-                        count++;
-                        continue;
-                    }
+            if(data.charAt(i) == ','){
+                dataSave[count] = output.toString();
+                count++;
+                output = new StringBuilder();
+                continue;
+            }else if((int)data.charAt(i) == 10){
+                dataSave[count] = output.toString();
+                switch (typeService){
+                    case "villa":
+                        list.add(new Villa(dataSave[0], Double.parseDouble(dataSave[1]), Double.parseDouble(dataSave[2]),
+                                Integer.parseInt(dataSave[3]), dataSave[4], dataSave[5], dataSave[6], Double.parseDouble(dataSave[7]),
+                                Integer.parseInt(dataSave[8]), dataSave[9], Integer.parseInt(dataSave[10]), Double.parseDouble(dataSave[11])));
+                        break;
+                    case "house":
+                        list.add(new House(dataSave[0], Double.parseDouble(dataSave[1]), Double.parseDouble(dataSave[2]),
+                                Integer.parseInt(dataSave[3]), dataSave[4], dataSave[5], dataSave[6], Integer.parseInt(dataSave[7]),
+                                dataSave[8], Integer.parseInt(dataSave[9]), Double.parseDouble(dataSave[10])));
+                        break;
+                    case "room":
+                        list.add(new Room(dataSave[0], Double.parseDouble(dataSave[1]), Double.parseDouble(dataSave[2]),
+                                Integer.parseInt(dataSave[3]), dataSave[4], dataSave[5], Integer.parseInt(dataSave[6]),
+                                Double.parseDouble(dataSave[7]), dataSave[8], Integer.parseInt(dataSave[9]),
+                                Double.parseDouble(dataSave[10])));
+                        break;
                 }
-            }else {
-                if (data.charAt(i) == ','){
-                    dataReturn.append(", ");
-                    switch (typeService){
-                        case "villa":
-                            dataReturn.append(headerVilla[count-header.length]);
-                            break;
-                        case "house":
-                            dataReturn.append(headerHouse[count-header.length]);
-                            break;
-                        case "room":
-                            dataReturn.append(headerRoom[count-header.length]);
-                            break;
-                    }
-                    count++;
-                    continue;
-                }
-                if((int)data.charAt(i) == 10){
-                    count=0;
-                    dataReturn.append(data.charAt(i)).append(header[count]);
-                    count++;
-                    continue;
-                }
+                count=0;
+                output = new StringBuilder();
+                continue;
+            }else if ((int)data.charAt(i) == 13){
+                continue;
             }
-            dataReturn.append(data.charAt(i));
+            output.append(data.charAt(i));
         }
-        return dataReturn.toString();
+        output = new StringBuilder();
+        for (int i=0; i<list.size(); i++){
+            output.append(i+1).append(". ");
+            if(list.get(i) instanceof Villa){
+                Villa villa = (Villa)list.get(i);
+                output.append(villa.showInfor());
+            }else if(list.get(i) instanceof House){
+                House house = (House)list.get(i);
+                output.append(house.showInfor());
+            }else {
+                Room room = (Room)list.get(i);
+                output.append(room.showInfor());
+            }
+            if(i<list.size()-1){
+                output.append("\n");
+            }
+        }
+        switch (typeService){
+            case "villa":
+                output.insert(0, "Villa: " + list.size() + " available \n");
+                break;
+            case "house":
+                output.insert(0, "House: " + list.size() + " available \n");
+                break;
+            case "room":
+                output.insert(0, "Room: " + list.size() + " available \n");
+                break;
+        }
+        return output.toString();
     }
+//    private String showService(String data, String typeService){
+//        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
+//        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",
+//                "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
+//        String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Number of floors: ",
+//                "Accompanied service: ", "Unit: ", "Money: "};
+//        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
+//                "Money: "};
+//        StringBuilder dataReturn = new StringBuilder();
+//        int count=0;
+//        switch (typeService){
+//            case "villa":
+//                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2, data.length()-2);
+//                break;
+//            case "house":
+//                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2, data.length()-2);
+//                break;
+//            case "room":
+//                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2, data.length()-2);
+//                break;
+//        }
+//        for (int i=0; i<data.length(); i++){
+//            if(count<header.length){
+//                if(i==0){
+//                    dataReturn.append(header[count]);
+//                    count++;
+//                }else {
+//                    if(data.charAt(i)==','){
+//                        dataReturn.append(", ").append(header[count]);
+//                        count++;
+//                        continue;
+//                    }
+//                }
+//            }else {
+//                if (data.charAt(i) == ','){
+//                    dataReturn.append(", ");
+//                    switch (typeService){
+//                        case "villa":
+//                            dataReturn.append(headerVilla[count-header.length]);
+//                            break;
+//                        case "house":
+//                            dataReturn.append(headerHouse[count-header.length]);
+//                            break;
+//                        case "room":
+//                            dataReturn.append(headerRoom[count-header.length]);
+//                            break;
+//                    }
+//                    count++;
+//                    continue;
+//                }
+//                if((int)data.charAt(i) == 10){
+//                    count=0;
+//                    dataReturn.append(data.charAt(i)).append(header[count]);
+//                    count++;
+//                    continue;
+//                }
+//            }
+//            dataReturn.append(data.charAt(i));
+//        }
+//        return dataReturn.toString();
+//    }
+
 //    private ArrayList<ArrayList<String>> handlingString(String data){
 //        ArrayList<ArrayList<String>> list = new ArrayList<>();
 //        boolean statusRead = false;

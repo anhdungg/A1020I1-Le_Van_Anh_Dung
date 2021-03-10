@@ -8,7 +8,7 @@ public class Villa extends Services {
     private double areaPool;
     private int numberOfFloors;
 
-    ArrayList<AccompanyingService> list = new ArrayList<>();
+    AccompanyingService accompanyingService;
 
     public Villa(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
                  String rank, String description, double areaPool, int numberOfFloors, String nameService, int unit, double money) {
@@ -30,7 +30,7 @@ public class Villa extends Services {
     }
 
     public void addAccompanyingService(String nameService, int unit, double money){
-        list.add(new AccompanyingService(nameService, money, unit));
+        accompanyingService = new AccompanyingService(nameService, money, unit);
     }
 
 
@@ -70,15 +70,14 @@ public class Villa extends Services {
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
-                +". Tên dịch vụ: " + this.getNameService()
-                +". Diện tích: " + this.getAreaUse()
-                +". Chi phí thuê: " + this.getRentalCosts()
-                +". Số người tối đa: " + this.getNumberMax()
-                +". Kiểu thuê: " + this.getTypeRental()
-                +". Tiêu chuẩn phòng: " + this.rank
-                +". Tiện nghi khác: " + this.description
-                +". Diện tích hồ bơi: " + this.areaPool
-                +". Số tầng: " + this.numberOfFloors
-                +". Dịch vụ đi kèm: " + this.printService(list);
+                +", Area used: " + this.getAreaUse()
+                +", Rental costs: " + this.getRentalCosts()
+                +", Maximum people: " + this.getNumberMax()
+                +", Rent type: " + this.getTypeRental()
+                +", Standard room: " + this.rank
+                +", Description of other amenities: " + this.description
+                +", Area pool: " + this.areaPool
+                +", Number of floors: " + this.numberOfFloors
+                +", Accompanied service: " + accompanyingService.toString();
     }
 }
