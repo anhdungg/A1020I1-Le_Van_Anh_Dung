@@ -48,8 +48,8 @@ public class ManageService {
                     unit = inputData(input, "unit");
                     money = inputData(input, "money");
                 }
-                readWriteFile.writeFile("room", id+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
-                        +","+freeService+","+unit+","+money+","+inputAccompaniedService(input));
+                System.out.println(readWriteFile.writeFile("room", id+","+areaUse+","+rentalCosts+","+
+                        maxPeople+","+typeRental +","+freeService+","+unit+","+money+","+inputAccompaniedService(input)));
         }
     }
 
@@ -146,7 +146,9 @@ public class ManageService {
         switch (typeService){
             case "villa":
                 dataRead = readWriteFile.readFile("villa");
-                if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
+                if (dataRead.equals("File cannot be read")){
+                    return dataRead;
+                }else if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
                     dataReturn.append(this.showService(dataRead, "villa"));
                 }else dataReturn.append("Villa: No data");
                 break;

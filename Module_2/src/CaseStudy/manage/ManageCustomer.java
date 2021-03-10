@@ -44,7 +44,7 @@ public class ManageCustomer {
             address = this.checkInputData(input, "address");
         }
         String data = name+","+dayOfBirth+","+gender+","+idCard+","+phoneNumber+","+email+","+typeCustomer+","+address;
-        readWriteFile.writeFile("customer", data);
+        System.out.println(readWriteFile.writeFile("customer", data));
     }
 
     private String checkInputData(Scanner input, String typeData){
@@ -153,10 +153,12 @@ public class ManageCustomer {
         String[] properties = new String[8];
         ArrayList<Customer> list = new ArrayList<>();
         String dataFile = readWriteFile.readFile("customer");
-        if (dataFile.length()<=ReadWriteFile.getHeaderCustomer().length()+2){
+        if(dataFile.equals("File cannot be read")){
+            return dataFile;
+        }else if (dataFile.length()<=ReadWriteFile.getHeaderCustomer().length()+2){
             return "Customer: no data";
         }
-        dataFile = dataFile.substring(dataFile.indexOf("Address") + 8);
+        dataFile = dataFile.substring(dataFile.indexOf("Address") + 9);
         int count = 0;
         StringBuilder data = new StringBuilder();
         for (int i=0; i<dataFile.length(); i++){
