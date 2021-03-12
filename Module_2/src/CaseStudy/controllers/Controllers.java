@@ -7,10 +7,11 @@ import CaseStudy.manage.ManageService;
 import java.util.Scanner;
 
 public class Controllers {
-    final static ManageService manageService = new ManageService();
-    final static ManageCustomer manageCustomer = new ManageCustomer();
-    final static ManageBooking manageBooking = new ManageBooking();
-    final static ManageEmployee manageEmployee = new ManageEmployee();
+    final private ManageService manageService = new ManageService();
+    final private ManageCustomer manageCustomer = new ManageCustomer();
+    final private ManageBooking manageBooking = new ManageBooking();
+    final private ManageEmployee manageEmployee = new ManageEmployee();
+
     public void displayMainMenu(Scanner input) {
         while (true) {
             System.out.println("1. Add New Services\n" +

@@ -156,20 +156,17 @@ public class ManageService {
             case "villa":
                 dataSave = new String[13];
                 list = new ArrayList<Villa>();
-                data = data.substring(ReadWriteFile.getHeaderVilla().length()+1);
+                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2);
                 break;
             case "house":
                 dataSave = new String[12];
                 list = new ArrayList<House>();
-                data = data.substring(ReadWriteFile.getHeaderHouse().length()+1);
-                break;
-            case "room":
-                dataSave = new String[12];
-                list = new ArrayList<Room>();
-                data = data.substring(ReadWriteFile.getHeaderRoom().length()+1);
+                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2);
                 break;
             default:
-                return null;
+                dataSave = new String[12];
+                list = new ArrayList<Room>();
+                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2);
         }
         for (int i=0; i<data.length(); i++){
             if(data.charAt(i) == ','){
@@ -238,14 +235,12 @@ public class ManageService {
                 }else {
                     return "House: No Data";
                 }
-            case "room":
+            default:
                 if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
                     return this.showService(dataRead, "room");
                 }else {
                     return "Room: No Data";
                 }
-            default:
-                return "Check your code";
         }
     }
 
@@ -344,10 +339,10 @@ public class ManageService {
         return output.toString().substring(0, output.length()-2);
     }
 
-    public static void main(String[] args) {
-        ManageService manage = new ManageService();
-        System.out.println(manage.showServiceNotDuplicate("villa"));
-    }
+//    public static void main(String[] args) {
+//        ManageService manage = new ManageService();
+//        System.out.println(manage.showServiceNotDuplicate("villa"));
+//    }
 //    private String showService(String data, String typeService){
 //        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
 //        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",

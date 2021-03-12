@@ -119,35 +119,6 @@ public class ManageCustomer {
         return "error";
     }
 
-//    public String showInformationCustomer(){
-//        String[] nameProperties = {"Name: ", "Day of birth: ", "Gender: ", "Id card: ", "Phone number: ", "Email: ",
-//                "Type customer: ", "Address: "};
-//        StringBuilder dataReturn = new StringBuilder();
-//        int count=0;
-//        String readFile = readWriteFile.readFile("customer");
-//        readFile = readFile.substring(readFile.indexOf("Address") + 9, readFile.length()-2);
-//        for (int i=0; i<readFile.length(); i++){
-//            if(i==0){
-//                dataReturn.append(nameProperties[count]);
-//                count++;
-//            }else {
-//                if(readFile.charAt(i)==','){
-//                    dataReturn.append(", ").append(nameProperties[count]);
-//                    count++;
-//                    continue;
-//                }
-//                if((int)readFile.charAt(i)==10){
-//                    count=0;
-//                    dataReturn.append(readFile.charAt(i)).append(nameProperties[count]);
-//                    count++;
-//                    continue;
-//                }
-//            }
-//            dataReturn.append(readFile.charAt(i));
-//        }
-//        return dataReturn.toString();
-//    }
-
     public String showInformationCustomer(){
         SortCustomer sort = new SortCustomer();
         String[] properties = new String[8];
@@ -179,7 +150,7 @@ public class ManageCustomer {
             }
             data.append(dataFile.charAt(i));
         }
-        list.sort(sort);
+        Collections.sort(list, new SortCustomer());
         data = new StringBuilder();
         for (int i=0; i<list.size(); i++){
             data.append(i+1).append(". ").append(list.get(i).showInfor());

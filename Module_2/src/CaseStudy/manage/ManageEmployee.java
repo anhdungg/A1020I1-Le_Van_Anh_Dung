@@ -58,8 +58,8 @@ public class ManageEmployee {
         return readWriteFile.readFile("employee").substring(ReadWriteFile.getHeaderEmployee().length()+1);
     }
 
-    public static void main(String[] args) {
-        ManageEmployee manage = new ManageEmployee();
-        System.out.println(manage.showInformationEmployee());
-    }
+//    public static void main(String[] args) {
+//        ManageEmployee manage = new ManageEmployee();
+//        System.out.println(manage.showInformationEmployee());
+//    }
 }
