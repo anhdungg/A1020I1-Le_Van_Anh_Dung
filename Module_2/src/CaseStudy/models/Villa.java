@@ -10,14 +10,14 @@ public class Villa extends Services {
 
     AccompanyingService accompanyingService;
 
-    public Villa(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
-                 String rank, String description, double areaPool, int numberOfFloors, String nameService, int unit, double money) {
-        super(id, "villa", areaUse, rentalCosts, numberMax, typeRental);
+    public Villa(String id, String nameService, double areaUse, double rentalCosts, int numberMax, String typeRental,
+                 String rank, String description, double areaPool, int numberOfFloors, String accompanyingService, int unit, double money) {
+        super(id, nameService, areaUse, rentalCosts, numberMax, typeRental);
         this.rank = rank;
         this.description = description;
         this.areaPool = areaPool;
         this.numberOfFloors = numberOfFloors;
-        this.addAccompanyingService(nameService, unit, money);
+        this.addAccompanyingService(accompanyingService, unit, money);
     }
 
     public Villa(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
@@ -70,6 +70,7 @@ public class Villa extends Services {
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
+                +", Name service: " + this.getNameService()
                 +", Area used: " + this.getAreaUse()
                 +", Rental costs: " + this.getRentalCosts()
                 +", Maximum people: " + this.getNumberMax()

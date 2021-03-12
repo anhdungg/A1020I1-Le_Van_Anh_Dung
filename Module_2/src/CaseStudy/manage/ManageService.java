@@ -7,18 +7,20 @@ import CaseStudy.models.Villa;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 public class ManageService {
     final static ReadWriteFile readWriteFile = new ReadWriteFile();
     final String CHECK_ID = "^(SV)(RO|VL|HO)[-]\\d{4}$";
-    final String DOUBLE = "^[1-9][0-9]*[.]?[0-9]+$";
+    final String DOUBLE = "^[1-9]*[0-9]*[.]?[0-9]+$";
     final String INTEGER = "^[1-9][0-9]*$";
-    final String UPPER_FIRST = "^[A-Z|1-5][\\s]?[a-z]+$";
+    final String UPPER_FIRST = "^[A-Z|1-5][\\sa-z]*$";
     final String ACCOMPANIED_SERVICE = "^(Massage|Karaoke|Food|Drink|Car)$";
 
     public void addNew(Scanner input, String typeService){
         input.nextLine();
         String id = inputData(input, "id");
+        String nameService = inputData(input, "nameService");
         String areaUse = inputData(input, "areaUse");
         String rentalCosts = inputData(input, "rentalCosts");
         String maxPeople = inputData(input, "maxPeople");
@@ -32,12 +34,12 @@ public class ManageService {
                 String numberOfFloors = inputData(input, "numberOfFloors");
                 if(typeService.equals("villa")) {
                     String areaPool = inputData(input, "areaPool");
-                    readWriteFile.writeFile("villa", id+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
-                            +","+rank+","+description+","+areaPool+","+numberOfFloors+","+inputAccompaniedService(input));
+                    System.out.println(readWriteFile.writeFile("villa", id+","+nameService+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
+                            +","+rank+","+description+","+areaPool+","+numberOfFloors+","+inputAccompaniedService(input)));
                     break;
                 }
-                readWriteFile.writeFile("house", id+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
-                        +","+rank+","+description+","+numberOfFloors+","+inputAccompaniedService(input));
+                System.out.println(readWriteFile.writeFile("house", id+","+nameService+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
+                        +","+rank+","+description+","+numberOfFloors+","+inputAccompaniedService(input)));
                 break;
             case "room":
                 System.out.print("Dịch vụ miễn phí đi kèm: ");
@@ -48,8 +50,9 @@ public class ManageService {
                     unit = inputData(input, "unit");
                     money = inputData(input, "money");
                 }
-                System.out.println(readWriteFile.writeFile("room", id+","+areaUse+","+rentalCosts+","+
+                System.out.println(readWriteFile.writeFile("room", id+","+nameService+","+areaUse+","+rentalCosts+","+
                         maxPeople+","+typeRental +","+freeService+","+unit+","+money+","+inputAccompaniedService(input)));
+                break;
         }
     }
 
@@ -73,6 +76,10 @@ public class ManageService {
                 case "id":
                     System.out.print("Id: ");
                     regex = CHECK_ID;
+                    break;
+                case "nameService":
+                    System.out.print("Tên dịch vụ: ");
+                    regex = UPPER_FIRST;
                     break;
                 case "areaUse":
                     System.out.print("Diện tích sử dụng: ");
@@ -140,62 +147,29 @@ public class ManageService {
         return data;
     }
 
-    public String showServices(String typeService){
-        StringBuilder dataReturn = new StringBuilder();
-        String dataRead;
-        switch (typeService){
-            case "villa":
-                dataRead = readWriteFile.readFile("villa");
-                if (dataRead.equals("File cannot be read")){
-                    return dataRead;
-                }else if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
-                    dataReturn.append(this.showService(dataRead, "villa"));
-                }else dataReturn.append("Villa: No data");
-                break;
-            case "house":
-                dataRead = readWriteFile.readFile("house");
-                if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
-                    dataReturn.append(this.showService(dataRead, "house"));
-                }else {
-                    dataReturn.append("House: No Data");
-                }
-                break;
-            case "room":
-                dataRead = readWriteFile.readFile("room");
-                if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
-                    dataReturn.append(this.showService(dataRead, "room"));
-                }else {
-                    dataReturn.append("Room: No Data");
-                }
-                break;
-        }
-        return dataReturn.toString();
-    }
-
-    private String showService(String data, String typeService){
+    public ArrayList getListService(String data, String typeService){
         String[] dataSave;
         StringBuilder output = new StringBuilder();
         ArrayList list;
         int count=0;
         switch (typeService){
             case "villa":
-                dataSave = new String[12];
+                dataSave = new String[13];
                 list = new ArrayList<Villa>();
-                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2);
+                data = data.substring(ReadWriteFile.getHeaderVilla().length()+1);
                 break;
             case "house":
-                dataSave = new String[11];
+                dataSave = new String[12];
                 list = new ArrayList<House>();
-                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2);
+                data = data.substring(ReadWriteFile.getHeaderHouse().length()+1);
                 break;
             case "room":
-                dataSave = new String[11];
+                dataSave = new String[12];
                 list = new ArrayList<Room>();
-                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2);
+                data = data.substring(ReadWriteFile.getHeaderRoom().length()+1);
                 break;
             default:
-                dataSave = new String[12];
-                list = new ArrayList<Villa>();
+                return null;
         }
         for (int i=0; i<data.length(); i++){
             if(data.charAt(i) == ','){
@@ -207,20 +181,32 @@ public class ManageService {
                 dataSave[count] = output.toString();
                 switch (typeService){
                     case "villa":
-                        list.add(new Villa(dataSave[0], Double.parseDouble(dataSave[1]), Double.parseDouble(dataSave[2]),
-                                Integer.parseInt(dataSave[3]), dataSave[4], dataSave[5], dataSave[6], Double.parseDouble(dataSave[7]),
-                                Integer.parseInt(dataSave[8]), dataSave[9], Integer.parseInt(dataSave[10]), Double.parseDouble(dataSave[11])));
+                        try {
+                            list.add(new Villa(dataSave[0], dataSave[1], Double.parseDouble(dataSave[2]), Double.parseDouble(dataSave[3]),
+                                    Integer.parseInt(dataSave[4]), dataSave[5], dataSave[6], dataSave[7], Double.parseDouble(dataSave[8]),
+                                    Integer.parseInt(dataSave[9]), dataSave[10], Integer.parseInt(dataSave[11]), Double.parseDouble(dataSave[12])));
+                        }catch (NullPointerException e){
+                            return null;
+                        }
                         break;
                     case "house":
-                        list.add(new House(dataSave[0], Double.parseDouble(dataSave[1]), Double.parseDouble(dataSave[2]),
-                                Integer.parseInt(dataSave[3]), dataSave[4], dataSave[5], dataSave[6], Integer.parseInt(dataSave[7]),
-                                dataSave[8], Integer.parseInt(dataSave[9]), Double.parseDouble(dataSave[10])));
+                        try {
+                            list.add(new House(dataSave[0], dataSave[1], Double.parseDouble(dataSave[2]), Double.parseDouble(dataSave[3]),
+                                    Integer.parseInt(dataSave[4]), dataSave[5], dataSave[6], dataSave[7], Integer.parseInt(dataSave[8]),
+                                    dataSave[9], Integer.parseInt(dataSave[10]), Double.parseDouble(dataSave[11])));
+                        }catch (NullPointerException e){
+                            return null;
+                        }
                         break;
                     case "room":
-                        list.add(new Room(dataSave[0], Double.parseDouble(dataSave[1]), Double.parseDouble(dataSave[2]),
-                                Integer.parseInt(dataSave[3]), dataSave[4], dataSave[5], Integer.parseInt(dataSave[6]),
-                                Double.parseDouble(dataSave[7]), dataSave[8], Integer.parseInt(dataSave[9]),
-                                Double.parseDouble(dataSave[10])));
+                        try {
+                            list.add(new Room(dataSave[0], dataSave[1], Double.parseDouble(dataSave[2]), Double.parseDouble(dataSave[3]),
+                                    Integer.parseInt(dataSave[4]), dataSave[5], dataSave[6], Integer.parseInt(dataSave[7]),
+                                    Double.parseDouble(dataSave[8]), dataSave[9], Integer.parseInt(dataSave[10]),
+                                    Double.parseDouble(dataSave[11])));
+                        }catch (NullPointerException e){
+                            return null;
+                        }
                         break;
                 }
                 count=0;
@@ -231,7 +217,44 @@ public class ManageService {
             }
             output.append(data.charAt(i));
         }
-        output = new StringBuilder();
+        return list;
+    }
+
+    public String showServices(String typeService){
+        String dataRead = readWriteFile.readFile(typeService);
+        if (dataRead.equals("File cannot be read")){
+            return dataRead;
+        }
+        switch (typeService){
+            case "villa":
+                if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
+                    return this.showService(dataRead, "villa");
+                }else {
+                    return "Villa: No data";
+                }
+            case "house":
+                if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
+                    return this.showService(dataRead, "house");
+                }else {
+                    return "House: No Data";
+                }
+            case "room":
+                if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
+                    return this.showService(dataRead, "room");
+                }else {
+                    return "Room: No Data";
+                }
+            default:
+                return "Check your code";
+        }
+    }
+
+    private String showService(String data, String typeService){
+        StringBuilder output = new StringBuilder();
+        ArrayList list = this.getListService(data, typeService);
+        if(list == null){
+            return "Check your code or header file!!!";
+        }
         for (int i=0; i<list.size(); i++){
             output.append(i+1).append(". ");
             if(list.get(i) instanceof Villa){
@@ -260,6 +283,70 @@ public class ManageService {
                 break;
         }
         return output.toString();
+    }
+
+    public String showServiceNotDuplicate(String typeService){
+        String dataRead = readWriteFile.readFile(typeService);
+        StringBuilder output = new StringBuilder();
+        ArrayList list = null;
+        TreeSet<String> set = new TreeSet<>();
+        if (dataRead.equals("File cannot be read")){
+            return dataRead;
+        }
+        switch (typeService){
+            case "villa":
+                if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
+                    list = getListService(dataRead, typeService);
+                    output.append("Villa: ");
+                }else {
+                    return "Villa: No data";
+                }
+                break;
+            case "house":
+                if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
+                    list = getListService(dataRead, typeService);
+                    output.append("House: ");
+                }else {
+                    return "House: No Data";
+                }
+                break;
+            case "room":
+                if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
+                    list = getListService(dataRead, typeService);
+                    output.append("Room: ");
+                }else {
+                    return "Room: No Data";
+                }
+                break;
+        }
+        if(list == null){
+            return "Check your code or header file!!!";
+        }
+
+        for (Object object : list){
+            if (object instanceof Villa){
+                Villa villa = (Villa) object;
+                set.add(villa.getNameService());
+            } else if (object instanceof House){
+                House house = (House) object;
+                set.add(house.getNameService());
+            } else {
+                Room room = (Room) object;
+                set.add(room.getNameService());
+            }
+        }
+        int count=1;
+        for (String str : set){
+            output.append(count).append(". ").append(str).append("\n");
+            count++;
+        }
+        output = new StringBuilder(output.insert(output.indexOf(":")+2, (count-1) + " available\n"));
+        return output.toString().substring(0, output.length()-2);
+    }
+
+    public static void main(String[] args) {
+        ManageService manage = new ManageService();
+        System.out.println(manage.showServiceNotDuplicate("villa"));
     }
 //    private String showService(String data, String typeService){
 //        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};

@@ -1,3 +1,5 @@
-Id,Area used,Rental costs,Maximum people,Rent type,Standard room,Description of other amenities,Number of floors,Accompanied service,Unit,Money
-01,1000.0,500,5,month,4 star,No,4,Karaoke,3,500.0
-01,500.0,100,3,day,3 star,No,2,No,0,0.0
+Id,Name service,Area used,Rental costs,Maximum people,Rent type,Standard room,Description of other amenities,Number of floors,Accompanied service,Unit,Money
+SVHO-0001,Sunny Ocean,100,1000,4,Month,3 star,No,2,Car,1,100
+SVHO-0002,Muong Thanh Luxury,150,1200,4,Month,5 star,No,2,Karaoke,5,400
+SVHO-0003,Royal Lotus,300,2000,3,Day,4 star,No,2,Drink,3,25
+SVHO-0004,Palazzo,100,500,2,Year,2 star,No,2,Food,2,50

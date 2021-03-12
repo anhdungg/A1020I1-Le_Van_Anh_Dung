@@ -4,11 +4,11 @@ public class Room extends Services {
     AccompanyingService freeService;
     AccompanyingService accompanyingService;
 
-    public Room(String id, double areaUse, double rentalCosts, int numberMax, String typeRental, String nameServiceFree,
-                int unitFree, double moneyFree, String nameService, int unit, double money) {
-        super(id, "room", areaUse, rentalCosts, numberMax, typeRental);
+    public Room(String id, String nameService, double areaUse, double rentalCosts, int numberMax, String typeRental, String nameServiceFree,
+                int unitFree, double moneyFree, String accompanyingService, int unit, double money) {
+        super(id, nameService, areaUse, rentalCosts, numberMax, typeRental);
         this.addAccompanyingServiceFree(nameServiceFree, moneyFree, unitFree);
-        this.addAccompanyingService(nameService, money, unit);
+        this.addAccompanyingService(accompanyingService, money, unit);
     }
 
     public Room(String id, double areaUse, double rentalCosts, int numberMax, String typeRental, String nameServiceFree,
@@ -32,6 +32,7 @@ public class Room extends Services {
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
+                +", Name service: " + this.getNameService()
                 +", Area used: " + this.getAreaUse()
                 +", Rental costs: " + this.getRentalCosts()
                 +", Maximum people: " + this.getNumberMax()

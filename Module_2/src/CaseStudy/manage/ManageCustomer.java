@@ -158,7 +158,7 @@ public class ManageCustomer {
         }else if (dataFile.length()<=ReadWriteFile.getHeaderCustomer().length()+2){
             return "Customer: no data";
         }
-        dataFile = dataFile.substring(dataFile.indexOf("Address") + 9);
+        dataFile = dataFile.substring(dataFile.indexOf("Address") + 8);
         int count = 0;
         StringBuilder data = new StringBuilder();
         for (int i=0; i<dataFile.length(); i++){

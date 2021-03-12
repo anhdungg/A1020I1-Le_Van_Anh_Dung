@@ -1,10 +1,16 @@
 package CaseStudy.controllers;
 
+import CaseStudy.manage.ManageBooking;
+import CaseStudy.manage.ManageCustomer;
+import CaseStudy.manage.ManageEmployee;
 import CaseStudy.manage.ManageService;
 import java.util.Scanner;
 
 public class Controllers {
-    final static ManageService manage = new ManageService();
+    final static ManageService manageService = new ManageService();
+    final static ManageCustomer manageCustomer = new ManageCustomer();
+    final static ManageBooking manageBooking = new ManageBooking();
+    final static ManageEmployee manageEmployee = new ManageEmployee();
     public void displayMainMenu(Scanner input) {
         while (true) {
             System.out.println("1. Add New Services\n" +
@@ -29,6 +35,21 @@ public class Controllers {
                     }else{
                         return;
                     }
+                case 3:
+                    manageCustomer.addNewCustomer(input);
+                    break;
+                case 4:
+                    System.out.println(manageCustomer.showInformationCustomer() + "\n");
+                    break;
+                case 5:
+                    if (this.addNewBooking(input)){
+                        break;
+                    }else {
+                        return;
+                    }
+                case 6:
+                    System.out.println(manageEmployee.showInformationEmployee() + "\n");
+                    break;
                 case 7:
                     return;
                 default:
@@ -48,13 +69,13 @@ public class Controllers {
             int select = input.nextInt();
             switch (select){
                 case 1:
-                    manage.addNew(input, "villa");
+                    manageService.addNew(input, "villa");
                     break;
                 case 2:
-                    manage.addNew(input, "house");
+                    manageService.addNew(input, "house");
                     break;
                 case 3:
-                    manage.addNew(input, "room");
+                    manageService.addNew(input, "room");
                     break;
                 case 4:
                     return true;
@@ -81,13 +102,22 @@ public class Controllers {
             int select = input.nextInt();
             switch (select){
                 case 1:
-                    System.out.println(manage.showServices("villa"));
+                    System.out.println(manageService.showServices("villa") + "\n");
                     break;
                 case 2:
-                    System.out.println(manage.showServices("house"));
+                    System.out.println(manageService.showServices("house") + "\n");
                     break;
                 case 3:
-                    System.out.println(manage.showServices("room"));
+                    System.out.println(manageService.showServices("room") + "\n");
+                    break;
+                case 4:
+                    System.out.println(manageService.showServiceNotDuplicate("villa") + "\n");
+                    break;
+                case 5:
+                    System.out.println(manageService.showServiceNotDuplicate("house") + "\n");
+                    break;
+                case 6:
+                    System.out.println(manageService.showServiceNotDuplicate("room") + "\n");
                     break;
                 case 7:
                     return true;
@@ -95,6 +125,37 @@ public class Controllers {
                     return false;
                 default:
                     System.out.println("Nhập sai, xin hãy nhập lại.");
+            }
+        }
+    }
+
+    public boolean addNewBooking(Scanner input){
+        int select;
+        while(true) {
+            System.out.print("1. Booking Villa. \n" +
+                    "2. Booking House. \n" +
+                    "3. Booking Room. \n" +
+                    "4. Back. \n" +
+                    "5. Exit. \n" +
+                    "Please select menu: ");
+            select = input.nextInt();
+            input.nextLine();
+            switch (select){
+                case 1:
+                    manageBooking.selectMenu(input, "villa");
+                    break;
+                case 2:
+                    manageBooking.selectMenu(input, "house");
+                    break;
+                case 3:
+                    manageBooking.selectMenu(input, "room");
+                    break;
+                case 4:
+                    return true;
+                case 5:
+                    return false;
+                default:
+                    System.out.println("Error. Please select menu");
             }
         }
     }

@@ -12,90 +12,88 @@ public class ReadWriteFile {
     private static final String LINK_FILE_ROOM = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Room.csv";
     private static final String LINK_FILE_CUSTOMER = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Customer.csv";
     private static final String LINK_FILE_BOOKING = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Booking.csv";
+    private static final String LINK_FILE_EMPLOYEE = "D:\\CodeGym\\Module_2\\src\\CaseStudy\\data\\Employee.csv";
 
-    private static final String HEADER_VILLA = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
+    private static final String HEADER_VILLA = "Id,Name service,Area used,Rental costs,Maximum people,Rent type,Standard room," +
             "Description of other amenities,Pool area,Number of floors,Accompanied service,Unit,Money";
-    private static final String HEADER_HOUSE = "Id,Area used,Rental costs,Maximum people,Rent type,Standard room," +
+    private static final String HEADER_HOUSE = "Id,Name service,Area used,Rental costs,Maximum people,Rent type,Standard room," +
             "Description of other amenities,Number of floors,Accompanied service,Unit,Money";
-    private static final String HEADER_ROOM = "Id,Area used,Rental costs,Maximum people,Rent type,Free service included," +
+    private static final String HEADER_ROOM = "Id,Name service,Area used,Rental costs,Maximum people,Rent type,Free service included," +
             "Unit,Money,Accompanied service,Unit,Money";
     private static final String HEADER_CUSTOMER = "Name,Day of birth,Gender,Id card,Phone number,Email,Type customer," +
             "Address";
     private static final String HEADER_BOOKING = "Id Service,Id Customer";
-
-    private String STATUS_CHECK_NEW_FILE_VILLA = this.checkNewFile("villa");
-    private String STATUS_CHECK_NEW_FILE_HOUSE = this.checkNewFile("house");
-    private String STATUS_CHECK_NEW_FILE_ROOM = this.checkNewFile("room");
-    private String STATUS_CHECK_NEW_FILE_CUSTOMER = this.checkNewFile("customer");
-    private String STATUS_CHECK_NEW_FILE_BOOKING = this.checkNewFile("booking");
+    private static final String HEADER_EMPLOYEE = "Name,Year old,Address";
 
     public String writeFile(String typeService, String data){
         try {
             FileWriter fileWriter = null;
             switch (typeService){
                 case "villa":
-                    switch (STATUS_CHECK_NEW_FILE_VILLA) {
+                    switch (this.checkNewFile("villa")) {
                         case "":
+                        case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_VILLA);
                             writeHeaderFile(fileWriter, "villa");
-                            STATUS_CHECK_NEW_FILE_VILLA = "header has been written";
                             break;
-                        case "File cannot be read":
-                            return "File cannot be write";
                         default:
                             fileWriter = new FileWriter(LINK_FILE_VILLA, true);
                             break;
                     }
                     break;
                 case "house":
-                    switch (STATUS_CHECK_NEW_FILE_HOUSE){
+                    switch (this.checkNewFile("house")){
                         case "":
+                        case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_HOUSE);
                             writeHeaderFile(fileWriter, "house");
-                            STATUS_CHECK_NEW_FILE_HOUSE = "header has been written";
                             break;
-                        case "File cannot be read":
-                            return "File cannot be write";
                         default:
                             fileWriter = new FileWriter(LINK_FILE_HOUSE,true);
                     }
                     break;
                 case "room":
-                    switch (STATUS_CHECK_NEW_FILE_ROOM){
+                    switch (this.checkNewFile("room")){
                         case "":
+                        case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_ROOM);
                             writeHeaderFile(fileWriter, "room");
-                            STATUS_CHECK_NEW_FILE_ROOM = "header has been written";
                             break;
-                        case "File cannot be read":
-                            return "File cannot be write";
                         default:
                             fileWriter = new FileWriter(LINK_FILE_ROOM, true);
                     }
                     break;
                 case "customer":
-                    switch (STATUS_CHECK_NEW_FILE_CUSTOMER){
+                    switch (this.checkNewFile("customer")){
                         case "":
+                        case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_CUSTOMER);
                             writeHeaderFile(fileWriter, "customer");
-                            STATUS_CHECK_NEW_FILE_CUSTOMER = "header has been written";
                             break;
-                        case "File cannot be read":
-                            return "File cannot be write";
                         default:
                             fileWriter = new FileWriter(LINK_FILE_CUSTOMER, true);
                     }
                     break;
                 case "booking":
-                    switch (STATUS_CHECK_NEW_FILE_BOOKING){
+                    switch (this.checkNewFile("booking")){
                         case "":
+                        case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_BOOKING);
                             writeHeaderFile(fileWriter, "booking");
-                            STATUS_CHECK_NEW_FILE_BOOKING = "header has been written";
-                        case "File cannot be read":
-                            return "File cannot be write";
+                            break;
                         default:
                             fileWriter = new FileWriter(LINK_FILE_BOOKING, true);
+                    }
+                    break;
+                case "employee":
+                    switch (this.checkNewFile("employee")){
+                        case "":
+                        case "File cannot be read":
+                            fileWriter = new FileWriter(LINK_FILE_EMPLOYEE);
+                            writeHeaderFile(fileWriter, "employee");
+                            break;
+                        default:
+                            fileWriter = new FileWriter(LINK_FILE_EMPLOYEE, true);
                     }
                     break;
             }
@@ -122,6 +120,8 @@ public class ReadWriteFile {
                     dataReturn.append((char) read);
                 }
             }
+            assert fileReader != null;
+            fileReader.close();
         }catch (IOException e) {
             return "File cannot be read";
         }
@@ -148,6 +148,10 @@ public class ReadWriteFile {
                 break;
             case "booking":
                 fileWriter.write(HEADER_BOOKING);
+                fileWriter.append(NEW_LINE_SEPARATOR);
+                break;
+            case "employee":
+                fileWriter.write(HEADER_EMPLOYEE);
                 fileWriter.append(NEW_LINE_SEPARATOR);
                 break;
         }
@@ -184,6 +188,8 @@ public class ReadWriteFile {
                 return new FileReader(LINK_FILE_CUSTOMER);
             case "booking":
                 return new FileReader(LINK_FILE_BOOKING);
+            case "employee":
+                return new FileReader(LINK_FILE_EMPLOYEE);
             default:
                 return null;
         }
@@ -205,9 +211,16 @@ public class ReadWriteFile {
         return HEADER_CUSTOMER;
     }
 
-        public static void main(String[] args) {
-        ReadWriteFile readWriteFile = new ReadWriteFile();
-        System.out.println(readWriteFile.readFile("customer"));
-//        readWriteFile.writeFile("villa","02,1234.0,2000.0,5,year,4 sao,PlayStation 5,23.0,3");
+    public static String getHeaderEmployee() {
+        return HEADER_EMPLOYEE;
+    }
+
+    public static void main(String[] args) {
+//        ReadWriteFile readWriteFile = new ReadWriteFile();
+//        System.out.println(readWriteFile.readFile("customer"));
+//        System.out.println(readWriteFile.writeFile("villa","SVVL-0006,Hanami,300,2500,5,Year,5 star,No,70,3,Car,2,1500"));
+//        System.out.println(readWriteFile.writeFile("room","SVVL-0003,Salmalia Boutique,50,500,2,Day,Nuoc loc,2,0,Drink,2,10"));
+//        System.out.println(readWriteFile.writeFile("room","SVVL-0004,Grand Tourane,32,150,2,Day,Nuoc loc,2,0,Car,2,200"));
+//        System.out.println(readWriteFile.writeFile("room","SVVL-0005,Sala Danang Beach,44,300,2,Hour,Nuoc loc,2,0,Karaoke,2,100"));
     }
 }

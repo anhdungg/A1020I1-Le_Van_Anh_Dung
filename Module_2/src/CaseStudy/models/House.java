@@ -6,13 +6,13 @@ public class House extends Services {
     private int numberOfFloors;
     private AccompanyingService accompanyingService;
 
-    public House(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
-                 String rank, String description, int numberOfFloors, String nameService, int unit, double money) {
-        super(id,"house", areaUse, rentalCosts, numberMax, typeRental);
+    public House(String id, String nameService, double areaUse, double rentalCosts, int numberMax, String typeRental,
+                 String rank, String description, int numberOfFloors, String accompanyingService, int unit, double money) {
+        super(id,nameService, areaUse, rentalCosts, numberMax, typeRental);
         this.rank = rank;
         this.description = description;
         this.numberOfFloors = numberOfFloors;
-        this.addAccompanyingService(nameService, unit, money);
+        this.addAccompanyingService(accompanyingService, unit, money);
     }
 
     public House(String id, double areaUse, double rentalCosts, int numberMax, String typeRental,
@@ -55,6 +55,7 @@ public class House extends Services {
     @Override
     public String showInfor() {
         return "Id: " + this.getId()
+                +", Name service: " + this.getNameService()
                 +", Area used: " + this.getAreaUse()
                 +", Rental costs: " + this.getRentalCosts()
                 +", Maximum people: " + this.getNumberMax()
