@@ -120,7 +120,6 @@ public class ManageCustomer {
     }
 
     public String showInformationCustomer(){
-        SortCustomer sort = new SortCustomer();
         String[] properties = new String[8];
         ArrayList<Customer> list = new ArrayList<>();
         String dataFile = readWriteFile.readFile("customer");

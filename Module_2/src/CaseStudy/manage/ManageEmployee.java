@@ -14,6 +14,9 @@ public class ManageEmployee {
         StringBuilder output = new StringBuilder();
         TreeMap<String, Employee> map = new TreeMap<>();
         ArrayList<Employee> list = this.getListEmployee();
+        if(list == null){
+            return "Employee: no data";
+        }
         for (int i=0; i<list.size(); i++){
             if(i+1<10){
                 map.put("00" + (i+1), list.get(i));
@@ -36,6 +39,9 @@ public class ManageEmployee {
     public ArrayList<Employee> getListEmployee(){
         ArrayList<Employee> list = new ArrayList<>();
         String dataRead = readWriteFile.readFile("employee");
+        if (dataRead.equals("") || dataRead.equals("File cannot be read")){
+            return null;
+        }
         String[] strData = new String[3];
         StringBuilder str = new StringBuilder();
         int count=0;

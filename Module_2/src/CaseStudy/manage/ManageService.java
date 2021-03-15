@@ -15,7 +15,7 @@ public class ManageService {
     final String DOUBLE = "^[1-9]*[0-9]*[.]?[0-9]+$";
     final String INTEGER = "^[1-9][0-9]*$";
     final String UPPER_FIRST = "^[A-Z|1-5][\\sa-z]*$";
-    final String ACCOMPANIED_SERVICE = "^(Massage|Karaoke|Food|Drink|Car)$";
+    final String ACCOMPANIED_SERVICE = "^(Massage|Karaoke|Food|Drink|Car|No)$";
 
     public void addNew(Scanner input, String typeService){
         input.nextLine();
