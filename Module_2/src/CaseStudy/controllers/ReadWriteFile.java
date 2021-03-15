@@ -1,5 +1,6 @@
 package CaseStudy.controllers;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class ReadWriteFile {
             FileWriter fileWriter = null;
             switch (typeService){
                 case "villa":
-                    switch (this.checkNewFile("villa")) {
+                    switch (this.readFile("villa")) {
                         case "":
                         case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_VILLA);
@@ -42,7 +43,7 @@ public class ReadWriteFile {
                     }
                     break;
                 case "house":
-                    switch (this.checkNewFile("house")){
+                    switch (this.readFile("house")){
                         case "":
                         case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_HOUSE);
@@ -53,7 +54,7 @@ public class ReadWriteFile {
                     }
                     break;
                 case "room":
-                    switch (this.checkNewFile("room")){
+                    switch (this.readFile("room")){
                         case "":
                         case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_ROOM);
@@ -64,7 +65,7 @@ public class ReadWriteFile {
                     }
                     break;
                 case "customer":
-                    switch (this.checkNewFile("customer")){
+                    switch (this.readFile("customer")){
                         case "":
                         case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_CUSTOMER);
@@ -75,7 +76,7 @@ public class ReadWriteFile {
                     }
                     break;
                 case "booking":
-                    switch (this.checkNewFile("booking")){
+                    switch (this.readFile("booking")){
                         case "":
                         case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_BOOKING);
@@ -86,7 +87,7 @@ public class ReadWriteFile {
                     }
                     break;
                 case "employee":
-                    switch (this.checkNewFile("employee")){
+                    switch (this.readFile("employee")){
                         case "":
                         case "File cannot be read":
                             fileWriter = new FileWriter(LINK_FILE_EMPLOYEE);
@@ -112,20 +113,25 @@ public class ReadWriteFile {
 
     public String readFile(String typeService){
         StringBuilder dataReturn = new StringBuilder();
+        String str;
+        boolean status=false;
         try {
             FileReader fileReader = choiceFile(typeService);
-            int read;
-            if(fileReader!=null) {
-                while ((read = fileReader.read()) != -1) {
-                    dataReturn.append((char) read);
-                }
+            if(fileReader == null){
+                return "File cannot be read";
             }
-            assert fileReader != null;
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while ((str = bufferedReader.readLine()) != null){
+                if(status) {
+                    dataReturn.append(str).append("\n");
+                }
+                status = true;
+            }
             fileReader.close();
+            return dataReturn.toString();
         }catch (IOException e) {
             return "File cannot be read";
         }
-        return dataReturn.toString();
     }
 
     private void writeHeaderFile(FileWriter fileWriter, String typeService) throws IOException{
@@ -157,24 +163,24 @@ public class ReadWriteFile {
         }
     }
 
-    private String checkNewFile(String typeService) {
-        StringBuilder dataReturn = new StringBuilder();
-        try {
-            FileReader fileReader = choiceFile(typeService);
-            if(fileReader!=null){
-                int read;
-                while ((read = fileReader.read())!=-1){
-                    if(read!=10 && read!=13) {
-                        dataReturn.append((char) read);
-                    }else break;
-                }
-                fileReader.close();
-            }
-        } catch (IOException e) {
-            return "File cannot be read";
-        }
-        return dataReturn.toString();
-    }
+//    private String checkNewFile(String typeService) {
+//        StringBuilder dataReturn = new StringBuilder();
+//        try {
+//            FileReader fileReader = choiceFile(typeService);
+//            if(fileReader!=null){
+//                int read;
+//                while ((read = fileReader.read())!=-1){
+//                    if(read!=10 && read!=13) {
+//                        dataReturn.append((char) read);
+//                    }else break;
+//                }
+//                fileReader.close();
+//            }
+//        } catch (IOException e) {
+//            return "File cannot be read";
+//        }
+//        return dataReturn.toString();
+//    }
 
     private FileReader choiceFile(String typeService) throws IOException {
         switch (typeService) {
@@ -194,27 +200,6 @@ public class ReadWriteFile {
                 return null;
         }
     }
-
-    public static String getHeaderHouse() {
-        return HEADER_HOUSE;
-    }
-
-    public static String getHeaderVilla() {
-        return HEADER_VILLA;
-    }
-
-    public static String getHeaderRoom() {
-        return HEADER_ROOM;
-    }
-
-    public static String getHeaderCustomer() {
-        return HEADER_CUSTOMER;
-    }
-
-    public static String getHeaderEmployee() {
-        return HEADER_EMPLOYEE;
-    }
-
     public static void main(String[] args) {
 //        ReadWriteFile readWriteFile = new ReadWriteFile();
 //        System.out.println(readWriteFile.readFile("customer"));
@@ -222,5 +207,6 @@ public class ReadWriteFile {
 //        System.out.println(readWriteFile.writeFile("room","SVVL-0003,Salmalia Boutique,50,500,2,Day,Nuoc loc,2,0,Drink,2,10"));
 //        System.out.println(readWriteFile.writeFile("room","SVVL-0004,Grand Tourane,32,150,2,Day,Nuoc loc,2,0,Car,2,200"));
 //        System.out.println(readWriteFile.writeFile("room","SVVL-0005,Sala Danang Beach,44,300,2,Hour,Nuoc loc,2,0,Karaoke,2,100"));
+//        System.out.println(readWriteFile.readFile("booking"));
     }
 }

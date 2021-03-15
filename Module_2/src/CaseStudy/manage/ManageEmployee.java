@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class ManageEmployee {
+    final private ReadWriteFile readWriteFile = new ReadWriteFile();
 
     public String showInformationEmployee(){
         StringBuilder output = new StringBuilder();
@@ -22,16 +23,19 @@ public class ManageEmployee {
                 map.put("" + (i+1), list.get(i));
             }
         }
+        output.append("Employee: ").append(list.size()).append(" available \n");
         Set<String> set = map.keySet();
+        int count=1;
         for (String key : set){
-            output.append("Id: ").append(key).append(", ").append(map.get(key).toString()).append("\n");
+            output.append(count).append(". ").append("Id: ").append(key).append(", ").append(map.get(key).toString()).append("\n");
+            count++;
         }
         return output.toString().substring(0, output.length()-2);
     }
 
     public ArrayList<Employee> getListEmployee(){
         ArrayList<Employee> list = new ArrayList<>();
-        String dataRead = this.getDataEmployee();
+        String dataRead = readWriteFile.readFile("employee");
         String[] strData = new String[3];
         StringBuilder str = new StringBuilder();
         int count=0;
@@ -53,10 +57,6 @@ public class ManageEmployee {
         return list;
     }
 
-    public String getDataEmployee(){
-        ReadWriteFile readWriteFile = new ReadWriteFile();
-        return readWriteFile.readFile("employee").substring(ReadWriteFile.getHeaderEmployee().length()+1);
-    }
 
 //    public static void main(String[] args) {
 //        ManageEmployee manage = new ManageEmployee();

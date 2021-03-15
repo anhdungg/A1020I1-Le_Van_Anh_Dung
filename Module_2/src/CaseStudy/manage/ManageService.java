@@ -150,23 +150,12 @@ public class ManageService {
     public ArrayList getListService(String data, String typeService){
         String[] dataSave;
         StringBuilder output = new StringBuilder();
-        ArrayList list;
+        ArrayList list = new ArrayList();
         int count=0;
-        switch (typeService){
-            case "villa":
-                dataSave = new String[13];
-                list = new ArrayList<Villa>();
-                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2);
-                break;
-            case "house":
-                dataSave = new String[12];
-                list = new ArrayList<House>();
-                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2);
-                break;
-            default:
-                dataSave = new String[12];
-                list = new ArrayList<Room>();
-                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2);
+        if ("villa".equals(typeService)) {
+            dataSave = new String[13];
+        } else {
+            dataSave = new String[12];
         }
         for (int i=0; i<data.length(); i++){
             if(data.charAt(i) == ','){
@@ -224,19 +213,19 @@ public class ManageService {
         }
         switch (typeService){
             case "villa":
-                if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
+                if(dataRead.length()>1) {
                     return this.showService(dataRead, "villa");
                 }else {
                     return "Villa: No data";
                 }
             case "house":
-                if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
+                if(dataRead.length()>1){
                     return this.showService(dataRead, "house");
                 }else {
                     return "House: No Data";
                 }
             default:
-                if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
+                if(dataRead.length()>1){
                     return this.showService(dataRead, "room");
                 }else {
                     return "Room: No Data";
@@ -290,7 +279,7 @@ public class ManageService {
         }
         switch (typeService){
             case "villa":
-                if(dataRead.length()>=ReadWriteFile.getHeaderVilla().length()+2) {
+                if(dataRead.length()>1) {
                     list = getListService(dataRead, typeService);
                     output.append("Villa: ");
                 }else {
@@ -298,7 +287,7 @@ public class ManageService {
                 }
                 break;
             case "house":
-                if(dataRead.length()>ReadWriteFile.getHeaderHouse().length()+2){
+                if(dataRead.length()>1){
                     list = getListService(dataRead, typeService);
                     output.append("House: ");
                 }else {
@@ -306,7 +295,7 @@ public class ManageService {
                 }
                 break;
             case "room":
-                if(dataRead.length()>=ReadWriteFile.getHeaderRoom().length()+2){
+                if(dataRead.length()>1){
                     list = getListService(dataRead, typeService);
                     output.append("Room: ");
                 }else {
@@ -338,140 +327,4 @@ public class ManageService {
         output = new StringBuilder(output.insert(output.indexOf(":")+2, (count-1) + " available\n"));
         return output.toString().substring(0, output.length()-2);
     }
-
-//    public static void main(String[] args) {
-//        ManageService manage = new ManageService();
-//        System.out.println(manage.showServiceNotDuplicate("villa"));
-//    }
-//    private String showService(String data, String typeService){
-//        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
-//        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",
-//                "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
-//        String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Number of floors: ",
-//                "Accompanied service: ", "Unit: ", "Money: "};
-//        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
-//                "Money: "};
-//        StringBuilder dataReturn = new StringBuilder();
-//        int count=0;
-//        switch (typeService){
-//            case "villa":
-//                data = data.substring(ReadWriteFile.getHeaderVilla().length()+2, data.length()-2);
-//                break;
-//            case "house":
-//                data = data.substring(ReadWriteFile.getHeaderHouse().length()+2, data.length()-2);
-//                break;
-//            case "room":
-//                data = data.substring(ReadWriteFile.getHeaderRoom().length()+2, data.length()-2);
-//                break;
-//        }
-//        for (int i=0; i<data.length(); i++){
-//            if(count<header.length){
-//                if(i==0){
-//                    dataReturn.append(header[count]);
-//                    count++;
-//                }else {
-//                    if(data.charAt(i)==','){
-//                        dataReturn.append(", ").append(header[count]);
-//                        count++;
-//                        continue;
-//                    }
-//                }
-//            }else {
-//                if (data.charAt(i) == ','){
-//                    dataReturn.append(", ");
-//                    switch (typeService){
-//                        case "villa":
-//                            dataReturn.append(headerVilla[count-header.length]);
-//                            break;
-//                        case "house":
-//                            dataReturn.append(headerHouse[count-header.length]);
-//                            break;
-//                        case "room":
-//                            dataReturn.append(headerRoom[count-header.length]);
-//                            break;
-//                    }
-//                    count++;
-//                    continue;
-//                }
-//                if((int)data.charAt(i) == 10){
-//                    count=0;
-//                    dataReturn.append(data.charAt(i)).append(header[count]);
-//                    count++;
-//                    continue;
-//                }
-//            }
-//            dataReturn.append(data.charAt(i));
-//        }
-//        return dataReturn.toString();
-//    }
-
-//    private ArrayList<ArrayList<String>> handlingString(String data){
-//        ArrayList<ArrayList<String>> list = new ArrayList<>();
-//        boolean statusRead = false;
-//        StringBuilder copyData = new StringBuilder();
-//        for (int i = 0; i < data.length(); i++) {
-//            if(statusRead){
-//                if((int)data.charAt(i) == 10){
-//                    list.add(this.splitString(copyData.toString()));
-//                    copyData = new StringBuilder();
-//                    continue;
-//                }
-//                copyData.append(data.charAt(i));
-//            }
-//            if((int)data.charAt(i) == 10 && !statusRead){
-//                statusRead = true;
-//            }
-//        }
-//        return list;
-//    }
-//
-//    private String handlingData(ArrayList<ArrayList<String>> list, String typeService){
-//        String[] header = new String[]{"Id: ", "Area used: ", "Rental costs: ", "Maximum people: ", "Rent type: "};
-//        String[] headerVilla = new String[]{"Standard room: ", "Description of other amenities: ", "Pool area: ",
-//                "Number of floors: ", "Accompanied service: ", "Unit: ", "Money: "};
-//        String[] headerHouse = new String[]{"Standard room: ", "Description of other amenities: ", "Number of floors: ",
-//                "Accompanied service: ", "Unit: ", "Money: "};
-//        String[] headerRoom = new String[]{"Free service included: ", "Unit: ", "Money: ", "Accompanied service: ", "Unit: ",
-//                "Money: "};
-//        StringBuilder dataReturn = new StringBuilder(typeService + ": \n");
-//        for (ArrayList<String> list1 : list) {
-//            for (int j = 0; j < list1.size(); j++) {
-//                if (j < header.length) {
-//                    dataReturn.append(header[j]);
-//                } else {
-//                    switch (typeService) {
-//                        case "villa":
-//                            dataReturn.append(headerVilla[j - header.length]);
-//                            break;
-//                        case "house":
-//                            dataReturn.append(headerHouse[j - header.length]);
-//                            break;
-//                        case "room":
-//                            dataReturn.append(headerRoom[j - header.length]);
-//                            break;
-//                    }
-//                }
-//                dataReturn.append(list1.get(j));
-//                if (j < list1.size() - 1) {
-//                    dataReturn.append(", ");
-//                }
-//            }
-//            dataReturn.append("\n");
-//        }
-//        return dataReturn.toString();
-//    }
-//    private ArrayList<String> splitString(String value){
-//        ArrayList<String> list = new ArrayList<>();
-//        StringBuilder data = new StringBuilder();
-//        for (int i=0; i<value.length(); i++){
-//            if(value.charAt(i) == ','){
-//                list.add(data.toString());
-//                data = new StringBuilder();
-//                continue;
-//            }
-//            data.append(value.charAt(i));
-//        }
-//        list.add(data.toString());
-//        return list;
-//    }
 }

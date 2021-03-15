@@ -126,10 +126,9 @@ public class ManageCustomer {
         String dataFile = readWriteFile.readFile("customer");
         if(dataFile.equals("File cannot be read")){
             return dataFile;
-        }else if (dataFile.length()<=ReadWriteFile.getHeaderCustomer().length()+2){
+        }else if (dataFile.length()<2){
             return "Customer: no data";
         }
-        dataFile = dataFile.substring(dataFile.indexOf("Address") + 8);
         int count = 0;
         StringBuilder data = new StringBuilder();
         for (int i=0; i<dataFile.length(); i++){
