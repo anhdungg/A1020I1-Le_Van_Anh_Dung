@@ -1,13 +1,13 @@
 package bai_tap_them.models;
 
-public class Study {
+public class Student {
     String id;
     String name;
     String dayOfBirth;
     String gender;
     String nameClass;
 
-    public Study(String id, String name, String gender, String dayOfBirth, String nameClass) {
+    public Student(String id, String name, String gender, String dayOfBirth, String nameClass) {
         this.id = id;
         this.name = name;
         this.dayOfBirth = dayOfBirth;

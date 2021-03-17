@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileStudy {
+public class FileStudent {
     private final String NEW_LINE = "\n";
     private final String LINK_SAVE_FILE = "src\\bai_tap_them\\data\\Study.csv";
     private final String HEADER_FILE = "Id,Name,Gender,Day of birth,Class";
@@ -46,8 +46,8 @@ public class FileStudy {
         return output.toString();
     }
 
-    private void writeHeaderFile(FileWriter fileWriter) throws IOException{
-        fileWriter.write(HEADER_FILE);
-        fileWriter.append(NEW_LINE);
-    }
+//    private void writeHeaderFile(FileWriter fileWriter) throws IOException{
+//        fileWriter.write(HEADER_FILE);
+//        fileWriter.append(NEW_LINE);
+//    }
 }
