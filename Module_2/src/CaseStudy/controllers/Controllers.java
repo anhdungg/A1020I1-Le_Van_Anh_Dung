@@ -22,39 +22,39 @@ public class Controllers {
                     "6. Show Information of Employee\n" +
                     "7. Exit");
             System.out.print("Please select menu: ");
-            int select = input.nextInt();
+            String select = input.nextLine();
             switch (select) {
-                case 1:
+                case "1":
                     if(this.addNewServices(input)){
                         break;
                     }else {
                         return;
                     }
-                case 2:
+                case "2":
                     if(this.showServices(input)){
                        break;
                     }else{
                         return;
                     }
-                case 3:
+                case "3":
                     manageCustomer.addNewCustomer(input);
                     break;
-                case 4:
+                case "4":
                     System.out.println(manageCustomer.showInformationCustomer() + "\n");
                     break;
-                case 5:
+                case "5":
                     if (this.addNewBooking(input)){
                         break;
                     }else {
                         return;
                     }
-                case 6:
+                case "6":
                     System.out.println(manageEmployee.showInformationEmployee() + "\n");
                     break;
-                case 7:
+                case "7":
                     return;
                 default:
-                    System.out.println("Nhập sai, xin hãy nhập lại.");
+                    System.out.println("Error. Please select menu.\n");
             }
         }
     }
@@ -67,23 +67,23 @@ public class Controllers {
                     "4. Back to menu\n" +
                     "5. Exit");
             System.out.print("Please select menu: ");
-            int select = input.nextInt();
+            String select = input.nextLine();
             switch (select){
-                case 1:
+                case "1":
                     manageService.addNew(input, "villa");
                     break;
-                case 2:
+                case "2":
                     manageService.addNew(input, "house");
                     break;
-                case 3:
+                case "3":
                     manageService.addNew(input, "room");
                     break;
-                case 4:
+                case "4":
                     return true;
-                case 5:
+                case "5":
                     return false;
                 default:
-                    System.out.println("Nhập sai, xin hãy nhập lại.");
+                    System.out.println("Error. Please select menu.\n");
             }
         }
     }
@@ -100,38 +100,37 @@ public class Controllers {
                     "7. Back to menu\n" +
                     "8. Exit");
             System.out.print("Please select menu: ");
-            int select = input.nextInt();
+            String select = input.nextLine();
             switch (select){
-                case 1:
+                case "1":
                     System.out.println(manageService.showServices("villa") + "\n");
                     break;
-                case 2:
+                case "2":
                     System.out.println(manageService.showServices("house") + "\n");
                     break;
-                case 3:
+                case "3":
                     System.out.println(manageService.showServices("room") + "\n");
                     break;
-                case 4:
+                case "4":
                     System.out.println(manageService.showServiceNotDuplicate("villa") + "\n");
                     break;
-                case 5:
+                case "5":
                     System.out.println(manageService.showServiceNotDuplicate("house") + "\n");
                     break;
-                case 6:
+                case "6":
                     System.out.println(manageService.showServiceNotDuplicate("room") + "\n");
                     break;
-                case 7:
+                case "7":
                     return true;
-                case 8:
+                case "8":
                     return false;
                 default:
-                    System.out.println("Nhập sai, xin hãy nhập lại.");
+                    System.out.println("Error. Please select menu.\n");
             }
         }
     }
 
     public boolean addNewBooking(Scanner input){
-        int select;
         while(true) {
             System.out.print("1. Booking Villa. \n" +
                     "2. Booking House. \n" +
@@ -139,24 +138,23 @@ public class Controllers {
                     "4. Back. \n" +
                     "5. Exit. \n" +
                     "Please select menu: ");
-            select = input.nextInt();
-            input.nextLine();
+            String select = input.nextLine();
             switch (select){
-                case 1:
+                case "1":
                     manageBooking.selectMenu(input, "villa");
                     break;
-                case 2:
+                case "2":
                     manageBooking.selectMenu(input, "house");
                     break;
-                case 3:
+                case "3":
                     manageBooking.selectMenu(input, "room");
                     break;
-                case 4:
+                case "4":
                     return true;
-                case 5:
+                case "5":
                     return false;
                 default:
-                    System.out.println("Error. Please select menu");
+                    System.out.println("Error. Please select menu.\n");
             }
         }
     }

@@ -2,6 +2,7 @@ package CaseStudy.manage;
 
 import CaseStudy.controllers.ReadWriteFile;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ManageBooking {
@@ -67,10 +68,14 @@ public class ManageBooking {
         int select;
         do {
             System.out.print(dataShow + "\n" + maxSelect + ". Back\n" + (maxSelect+1) + ". Exit\n" + "Please select menu:");
-            select = input.nextInt();
+            try {
+                select = input.nextInt();
+            }catch (InputMismatchException e){
+                select = 0;
+            }
             input.nextLine();
             if(select<=0 || select>maxSelect+1){
-                System.out.println("Error. Please select menu");
+                System.out.println("Error. Please select menu\n");
             }
         }while (select<=0 || select>maxSelect+1);
         if (select<maxSelect){

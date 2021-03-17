@@ -40,7 +40,7 @@ public class ManageCustomer {
 
         String address = this.checkInputData(input, "address");
         while (address.equals("error")){
-            System.out.println("Địa chỉ không chứa kí tự ','.");
+            System.out.println("Địa chỉ không chứa kí tự ',' và khoảng trắng sau cùng.");
             address = this.checkInputData(input, "address");
         }
         String data = name+","+dayOfBirth+","+gender+","+idCard+","+phoneNumber+","+email+","+typeCustomer+","+address;
@@ -53,7 +53,7 @@ public class ManageCustomer {
         String checkEmail = "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6})*$";
         String checkIdCard = "^[0-9]{3}[\\s][0-9]{3}[\\s][0-9]{3}";
         String checkDayOfBirth = "^[0-3]\\d[/][0-1][0-9][/][0-9]{4}$";
-        String checkAddress = "^[0-9a-zA-Z\\s]*$";
+        String checkAddress = "^[\\w]+([ ][\\w]+)*$";
         String regex = "";
         switch (typeData){
             case "name":

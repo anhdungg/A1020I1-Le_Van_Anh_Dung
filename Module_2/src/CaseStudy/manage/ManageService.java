@@ -12,8 +12,8 @@ import java.util.TreeSet;
 public class ManageService {
     final static ReadWriteFile readWriteFile = new ReadWriteFile();
     final String CHECK_ID = "^(SV)(RO|VL|HO)[-]\\d{4}$";
-    final String DOUBLE = "^[1-9]*[0-9]*[.]?[0-9]+$";
-    final String INTEGER = "^[1-9][0-9]*$";
+    final String DOUBLE = "^[\\d]+[.][\\d]+$";
+    final String INTEGER = "^[1-9][\\d]*$";
     final String UPPER_FIRST = "^[A-Z|1-5][\\sa-z]*$";
     final String ACCOMPANIED_SERVICE = "^(Massage|Karaoke|Food|Drink|Car|No)$";
 
@@ -171,7 +171,7 @@ public class ManageService {
                             list.add(new Villa(dataSave[0], dataSave[1], Double.parseDouble(dataSave[2]), Double.parseDouble(dataSave[3]),
                                     Integer.parseInt(dataSave[4]), dataSave[5], dataSave[6], dataSave[7], Double.parseDouble(dataSave[8]),
                                     Integer.parseInt(dataSave[9]), dataSave[10], Integer.parseInt(dataSave[11]), Double.parseDouble(dataSave[12])));
-                        }catch (NullPointerException e){
+                        } catch (Exception e){
                             return null;
                         }
                         break;
@@ -180,7 +180,7 @@ public class ManageService {
                             list.add(new House(dataSave[0], dataSave[1], Double.parseDouble(dataSave[2]), Double.parseDouble(dataSave[3]),
                                     Integer.parseInt(dataSave[4]), dataSave[5], dataSave[6], dataSave[7], Integer.parseInt(dataSave[8]),
                                     dataSave[9], Integer.parseInt(dataSave[10]), Double.parseDouble(dataSave[11])));
-                        }catch (NullPointerException e){
+                        }catch (Exception e){
                             return null;
                         }
                         break;
@@ -190,7 +190,7 @@ public class ManageService {
                                     Integer.parseInt(dataSave[4]), dataSave[5], dataSave[6], Integer.parseInt(dataSave[7]),
                                     Double.parseDouble(dataSave[8]), dataSave[9], Integer.parseInt(dataSave[10]),
                                     Double.parseDouble(dataSave[11])));
-                        }catch (NullPointerException e){
+                        }catch (Exception e){
                             return null;
                         }
                         break;
