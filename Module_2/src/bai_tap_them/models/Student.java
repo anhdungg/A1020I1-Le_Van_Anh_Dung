@@ -55,6 +55,9 @@ public class Student {
         this.nameClass = nameClass;
     }
 
+    public String getDataWriteFile(){
+        return this.id+","+this.name+","+this.gender+","+this.dayOfBirth+","+this.nameClass;
+    }
     @Override
     public String toString() {
         return "Id: " + this.id +
