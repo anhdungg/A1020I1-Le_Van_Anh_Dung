@@ -3,14 +3,18 @@ package bai_tap_them.models;
 public class Student {
     String id;
     String name;
-    String dayOfBirth;
+    String dateOfBirth;
     String gender;
     String nameClass;
 
-    public Student(String id, String name, String gender, String dayOfBirth, String nameClass) {
+    public Student(){
+
+    }
+
+    public Student(String id, String name, String gender, String dateOfBirth, String nameClass) {
         this.id = id;
         this.name = name;
-        this.dayOfBirth = dayOfBirth;
+        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.nameClass = nameClass;
     }
@@ -31,12 +35,24 @@ public class Student {
         this.name = name;
     }
 
-    public String getDayOfBirth() {
-        return dayOfBirth;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public String getYearOfBirth(){
+        return this.dateOfBirth.substring(this.dateOfBirth.length()-4);
+    }
+
+    public String getMonthOfBirth(){
+        return this.dateOfBirth.substring(this.dateOfBirth.indexOf("/")+1, this.dateOfBirth.lastIndexOf("/"));
+    }
+
+    public String getDayOfBirth(){
+        return this.dateOfBirth.substring(0, this.dateOfBirth.indexOf("/"));
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getGender() {
@@ -56,14 +72,14 @@ public class Student {
     }
 
     public String getDataWriteFile(){
-        return this.id+","+this.name+","+this.gender+","+this.dayOfBirth+","+this.nameClass;
+        return this.id+","+this.name+","+this.gender+","+this.dateOfBirth +","+this.nameClass;
     }
     @Override
     public String toString() {
         return "Id: " + this.id +
                 ", Name: " + this.name +
                 ", Gender: " + this.gender +
-                ", Day of birth: " + this.dayOfBirth +
+                ", Day of birth: " + this.dateOfBirth +
                 ", Class: " + this.nameClass;
     }
 }

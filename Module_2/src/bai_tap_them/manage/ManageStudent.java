@@ -8,34 +8,15 @@ import java.util.Scanner;
 
 public class ManageStudent {
     private final FileStudent fileStudent = new FileStudent();
+    private final ArrayList<Student> list = new ArrayList<>();
 
     public String addNewStudent(Scanner input){
+        this.updateListStudent();
         String id = this.checkInput(input, "id");
-//        while (id.equals("error")){
-//            System.out.println("Mã sinh viên phải là số nguyên có độ dài 5 kí tụ");
-//            id = this.checkInput(input, "id");
-//        }
         String name = this.checkInput(input, "name");
-//        while (name.equals("error")){
-//            System.out.println("Tên học sinh phải in hoa ký tự đầu tiên trong mỗi từ");
-//            name = this.checkInput(input, "name");
-//        }
         String gender = this.checkInput(input, "gender");
-//        while (gender.equals("error")){
-//            System.out.println("Giới tính phải là Male, Female, Unknow");
-//            gender = this.checkInput(input, "gender");
-//        }
         String dayOfBirth = this.checkInput(input, "dayOfBirth");
-//        while (dayOfBirth.equals("error")){
-//            System.out.println("Năm sinh phải đúng định dạng dd/mm/yyyy");
-//            dayOfBirth = this.checkInput(input, "dayOfBirth");
-//        }
         String nameClass = this.checkInput(input, "class");
-//        while (nameClass.equals("error")){
-//            System.out.println("Tên class phải bắt đầu bằng chữ hoa A hoặc C hoặc P, theo sau là 4 kí tự và kết thúc " +
-//                    "bằng những kí tự hoa sau: G, H, I, K, L, M");
-//            nameClass = this.checkInput(input, "class");
-//        }
         return fileStudent.writeFile(id+","+name+","+gender+","+dayOfBirth+","+nameClass, true);
     }
 
@@ -74,8 +55,8 @@ public class ManageStudent {
             String data = input.nextLine();
             if (data.matches(regex)) {
                 if (type.equals("id")){
-                    if (this.findId(data, this.getListStudent(fileStudent.readFile())) != -1){
-                        System.out.println("Mã học sinh đã tồn tại.");
+                    if (this.findId(data) != -1){
+                        System.out.println("Id học sinh đã tồn tại.");
                         continue;
                     }
                 }
@@ -83,7 +64,7 @@ public class ManageStudent {
             } else {
                 switch (type){
                     case "id":
-                        System.out.println("Mã sinh viên phải là số nguyên có độ dài 5 kí tụ");
+                        System.out.println("Mã sinh viên phải là số nguyên có độ dài 5 kí tự");
                         break;
                     case "name":
                         System.out.println("Tên học sinh phải in hoa ký tự đầu tiên trong mỗi từ");
@@ -107,14 +88,15 @@ public class ManageStudent {
     }
 
     public String showAllStudent(){
-        String dataStudent = fileStudent.readFile();
-        ArrayList<Student> list = this.getListStudent(dataStudent);
-        if (list.isEmpty()){
+        this.updateListStudent();
+        ArrayList<Student> cloneList = (ArrayList<Student>)this.list.clone();
+        cloneList.sort(new SortStudent(1));
+        if (cloneList.isEmpty()){
             return "Student: no data";
         }
-        StringBuilder output = new StringBuilder("Student: " + list.size() + " available\n");
-        for (int i=0; i<list.size(); i++){
-            output.append(i+1).append(". ").append(list.get(i)).append("\n");
+        StringBuilder output = new StringBuilder("Student: " + cloneList.size() + " available\n");
+        for (int i=0; i<cloneList.size(); i++){
+            output.append(i+1).append(". ").append(cloneList.get(i)).append("\n");
         }
         return output.substring(0, output.length()-1);
     }
@@ -122,42 +104,147 @@ public class ManageStudent {
     public String editStudent(Scanner input){
         System.out.print("Nhập id: ");
         String id = input.nextLine();
-        ArrayList<Student> list = this.getListStudent(fileStudent.readFile());
-        int localId = this.findId(id, list);
+        this.updateListStudent();
+        int localId = this.findId(id);
         if (localId==-1){
             return "Không tìm thấy Id học sinh.";
         }
+        this.list.get(localId).setName(this.checkInput(input, "name"));
+        this.list.get(localId).setGender(this.checkInput(input, "gender"));
+        this.list.get(localId).setDateOfBirth(this.checkInput(input, "dayOfBirth"));
+        this.list.get(localId).setNameClass(this.checkInput(input, "class"));
+        System.out.println(convertListToString());
+        return fileStudent.writeFile(convertListToString(), false);
+    }
 
-        list.get(localId).setName(this.checkInput(input, "name"));
-        list.get(localId).setGender(this.checkInput(input, "gender"));
-        list.get(localId).setDayOfBirth(this.checkInput(input, "dayOfBirth"));
-        list.get(localId).setNameClass(this.checkInput(input, "class"));
+    public String deleteStudent(Scanner input){
+        System.out.print("Nhập id: ");
+        String id = input.nextLine();
+        this.updateListStudent();
+        int localId = this.findId(id);
+        if (localId == -1){
+            return "Không tìm thấy Id học sinh.";
+        }
+        this.list.remove(localId);
+        System.out.println(convertListToString());
+        return fileStudent.writeFile(this.convertListToString(), false);
+    }
+
+    public String searchStudent(Scanner input, String typeSearch){
+        this.updateListStudent();
+        if (this.list.isEmpty()){
+            return "File rỗng. Kiểm tra lại file.";
+        }
+        switch (typeSearch){
+            case "1":
+                System.out.print("Nhập Id: ");
+                String id = input.nextLine();
+                return this.search(id, typeSearch);
+            case "2":
+                System.out.print("Nhập tên: ");
+                String name = input.nextLine();
+                return this.search(name, typeSearch);
+            case "3":
+                System.out.print("Nhập giới tính: ");
+                String gender = input.nextLine();
+                return this.search(gender, typeSearch);
+            case "4":
+                System.out.print("Nhập ngày tháng năm sinh: ");
+                String dayOfBirth = input.nextLine();
+                return this.search(dayOfBirth, typeSearch);
+            case "5":
+                System.out.print("Nhập tên lớp: ");
+                String nameClass = input.nextLine();
+                return this.search(nameClass, typeSearch);
+            default:
+                return "Kiểm tra lại code!!!";
+        }
+    }
+
+    private String search(String value, String typeSearch){
         StringBuilder output = new StringBuilder();
-        for (int i=0; i<list.size(); i++){
-            output.append(list.get(i).getDataWriteFile());
-            if (i<list.size()-1){
+        for (Student student : this.list){
+            switch (typeSearch){
+                case "1":
+                    if (student.getId().equalsIgnoreCase(value)){
+                        output.append(student.toString()).append("\n");
+                    }
+                    break;
+                case "2":
+                    if (student.getName().equalsIgnoreCase(value)){
+                        output.append(student.toString()).append("\n");
+                    }
+                    break;
+                case "3":
+                    if (student.getGender().equalsIgnoreCase(value)){
+                        output.append(student.toString()).append("\n");
+                    }
+                    break;
+                case "4":
+                    if (student.getDateOfBirth().equalsIgnoreCase(value)){
+                        output.append(student.toString()).append("\n");
+                    }
+                    break;
+                case "5":
+                    if (student.getNameClass().equalsIgnoreCase(value)){
+                        output.append(student.toString()).append("\n");
+                    }
+                    break;
+            }
+
+        }
+        if (output.length()<1){
+            return "Không tìm thấy";
+        }
+        return output.substring(0, output.length()-1);
+    }
+
+    public String sortStudent(String typeSort){
+        this.updateListStudent();
+        if (this.list.isEmpty()){
+            return "File rỗng. Kiểm tra lại file.";
+        }
+        ArrayList<Student> cloneList = (ArrayList<Student>) this.list.clone();
+        cloneList.sort(new SortStudent(Integer.parseInt(typeSort)));
+        StringBuilder output = new StringBuilder();
+        for (int i=0; i<cloneList.size(); i++){
+            output.append(i+1).append(" .").append(cloneList.get(i).toString());
+            if (i<cloneList.size()-1){
                 output.append("\n");
             }
         }
-        return fileStudent.writeFile(output.toString(), false);
+        return output.toString();
     }
 
-    private int findId(String id, ArrayList<Student> list){
-        if (list.isEmpty()){
+    private String convertListToString(){
+        StringBuilder output = new StringBuilder();
+        for (int i=0; i<this.list.size(); i++){
+            output.append(this.list.get(i).getDataWriteFile());
+            if (i<this.list.size()-1){
+                output.append("\n");
+            }
+        }
+        return output.toString();
+    }
+
+    private int findId(String id){
+        if (this.list.isEmpty()){
             return -1;
         }
-        for (int i=0; i<list.size(); i++){
-            if (list.get(i).getId().equals(id)){
+        for (int i=0; i<this.list.size(); i++){
+            if (this.list.get(i).getId().equals(id)){
                 return i;
             }
         }
         return -1;
     }
-    public ArrayList<Student> getListStudent(String dataStudent){
-        ArrayList<Student> list = new ArrayList<>();
+
+    private void updateListStudent(){
+        String dataStudent = fileStudent.readFile();
         StringBuilder str = new StringBuilder();
         String[] saveData = new String[5];
         int count=0;
+        this.list.clear();
         for (int i=0; i<dataStudent.length(); i++){
             if (dataStudent.charAt(i) == ','){
                 saveData[count] = str.toString();
@@ -168,7 +255,7 @@ public class ManageStudent {
                 saveData[count] = str.toString();
                 count=0;
                 str = new StringBuilder();
-                list.add(new Student(saveData[0], saveData[1], saveData[2], saveData[3], saveData[4]));
+                this.list.add(new Student(saveData[0], saveData[1], saveData[2], saveData[3], saveData[4]));
                 continue;
 
             }else if ((int)dataStudent.charAt(i) == 13){
@@ -176,12 +263,5 @@ public class ManageStudent {
             }
             str.append(dataStudent.charAt(i));
         }
-        return list;
-    }
-
-    public static void main(String[] args) {
-//        ManageStudent manage = new ManageStudent();
-//        Scanner input = new Scanner(System.in);
-//        System.out.println(manage.editStudent(input));
     }
 }
