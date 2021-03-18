@@ -208,7 +208,7 @@ public class ManageStudent {
         cloneList.sort(new SortStudent(Integer.parseInt(typeSort)));
         StringBuilder output = new StringBuilder();
         for (int i=0; i<cloneList.size(); i++){
-            output.append(i+1).append(" .").append(cloneList.get(i).toString());
+            output.append(i+1).append(". ").append(cloneList.get(i).toString());
             if (i<cloneList.size()-1){
                 output.append("\n");
             }
