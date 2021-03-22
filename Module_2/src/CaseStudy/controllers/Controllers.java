@@ -141,14 +141,23 @@ public class Controllers {
             String select = input.nextLine();
             switch (select){
                 case "1":
-                    manageBooking.selectMenu(input, "villa");
-                    break;
+                    if (manageBooking.selectMenu(input, "villa")) {
+                        break;
+                    }else {
+                        return false;
+                    }
                 case "2":
-                    manageBooking.selectMenu(input, "house");
-                    break;
+                    if (manageBooking.selectMenu(input, "house")) {
+                        break;
+                    }else {
+                        return false;
+                    }
                 case "3":
-                    manageBooking.selectMenu(input, "room");
-                    break;
+                    if (manageBooking.selectMenu(input, "room")) {
+                        break;
+                    }else {
+                        return false;
+                    }
                 case "4":
                     return true;
                 case "5":

@@ -11,7 +11,7 @@ public class ManageBooking {
     final private ReadWriteFile readWriteFile = new ReadWriteFile();
 
 
-    public void selectMenu(Scanner input, String type){
+    public boolean selectMenu(Scanner input, String type){
         String statusService = "";
         do {
             switch (type){
@@ -27,17 +27,18 @@ public class ManageBooking {
             }
 
             if (statusService.equals("-1")){
-                return;
+                return false;
             }else if (!statusService.equals("0")){
                 String statusCustomer = select(input, "customer");
                 if (statusCustomer.equals("-1")){
-                    return;
+                    return false;
                 }else if (!statusCustomer.equals("0")){
                     this.writeBooking(statusService, statusCustomer);
                     statusService = "0";
                 }
             }
         }while (!statusService.equals("0"));
+        return true;
     }
 
     private String select(Scanner input, String typeService){

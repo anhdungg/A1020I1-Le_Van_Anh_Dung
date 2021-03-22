@@ -325,6 +325,6 @@ public class ManageService {
             count++;
         }
         output = new StringBuilder(output.insert(output.indexOf(":")+2, (count-1) + " available\n"));
-        return output.toString().substring(0, output.length()-2);
+        return output.toString().substring(0, output.length()-1);
     }
 }
