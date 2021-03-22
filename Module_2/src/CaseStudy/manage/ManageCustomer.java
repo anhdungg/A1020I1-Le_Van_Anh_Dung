@@ -95,10 +95,7 @@ public class ManageCustomer {
             case "gender":
                 data = data.toLowerCase();
                 StringBuilder copyData = new StringBuilder();
-                copyData.append(Character.toUpperCase(data.charAt(0)));
-                for (int i=1; i<data.length(); i++){
-                    copyData.append(data.charAt(i));
-                }
+                copyData.append(Character.toUpperCase(data.charAt(0))).append(data.substring(1));
                 if(copyData.toString().matches(regex)){
                     return copyData.toString();
                 }else {
@@ -148,7 +145,7 @@ public class ManageCustomer {
             }
             data.append(dataFile.charAt(i));
         }
-        Collections.sort(list, new SortCustomer());
+        list.sort(new SortCustomer());
         data = new StringBuilder();
         for (int i=0; i<list.size(); i++){
             data.append(i+1).append(". ").append(list.get(i).showInfor());
