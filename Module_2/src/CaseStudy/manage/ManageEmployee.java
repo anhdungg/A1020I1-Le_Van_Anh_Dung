@@ -1,6 +1,6 @@
 package CaseStudy.manage;
 
-import CaseStudy.controllers.ReadWriteFile;
+import CaseStudy.common.ReadWriteFile;
 import CaseStudy.models.Employee;
 
 import java.util.ArrayList;

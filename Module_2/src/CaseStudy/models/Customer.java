@@ -111,14 +111,6 @@ public class Customer {
     }
 
     public String showInfor(){
-//        String showService;
-//        if(service instanceof Villa){
-//            showService = ((Villa) service).showInfor();
-//        }else if(service instanceof House){
-//            showService = ((House) service).showInfor();
-//        }else {
-//            showService = ((Room) service).showInfor();
-//        }
         return "Name: " + this.name + ", Gender: " + this.gender + ", Day of birth: " + this.dayOfBirth
                 +", Id card: " + this.idCard + ", Phone number: " + this.phoneNumber
                 + ", Type customer: " +  this.typeCustomer + ", Address: " + this.address;

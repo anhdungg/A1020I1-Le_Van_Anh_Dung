@@ -1,6 +1,6 @@
 package CaseStudy.manage;
 
-import CaseStudy.controllers.ReadWriteFile;
+import CaseStudy.common.ReadWriteFile;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

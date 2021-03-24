@@ -1,4 +1,4 @@
-package CaseStudy.controllers;
+package CaseStudy.common;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

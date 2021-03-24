@@ -1,6 +1,6 @@
 package CaseStudy.manage;
 
-import CaseStudy.controllers.ReadWriteFile;
+import CaseStudy.common.ReadWriteFile;
 import CaseStudy.models.Customer;
 
 import java.util.*;
@@ -9,37 +9,67 @@ public class ManageCustomer {
     final static ReadWriteFile readWriteFile = new ReadWriteFile();
     public void addNewCustomer(Scanner input){
         String name = this.checkInputData(input, "name");
-        while (name.equals("error")){
+        while (name.equals("error") || name.equals("exit")){
+            if (name.equals("exit")){
+                return;
+            }
             System.out.println("Tên Khách hàng phải in hoa ký tự đầu tiên trong mỗi từ");
             name = this.checkInputData(input, "name");
         }
+
         String dayOfBirth = this.checkInputData(input, "day of birth");
-        while (dayOfBirth.equals("error")){
+        while (dayOfBirth.equals("error") || dayOfBirth.equals("exit")){
+            if (dayOfBirth.equals("exit")){
+                return;
+            }
             System.out.println("Năm sinh phải >1900 và nhỏ hơn năm hiện tại 18 năm, đúng định dạng dd/mm/yyyy");
             dayOfBirth = this.checkInputData(input, "day of birth");
         }
+
         String gender = this.checkInputData(input, "gender");
-        while (gender.equals("error")){
+        while (gender.equals("error") || gender.equals("exit")){
+            if (gender.equals("exit")){
+                return;
+            }
             System.out.println("Giới tính phải là Male, Female, Unknow");
             gender = this.checkInputData(input, "gender");
         }
+
         String idCard = this.checkInputData(input, "id");
-        while (idCard.equals("error")){
+        while (idCard.equals("error") || idCard.equals("exit")){
+            if (idCard.equals("exit")){
+                return;
+            }
             System.out.println("Id Card phải có 9 chữ số và theo định dạng XXX XXX XXX");
             idCard = this.checkInputData(input, "id");
         }
+
         System.out.print("Phone number: ");
         String phoneNumber = input.nextLine();
+        if (phoneNumber.equals("exit")){
+            return;
+        }
+
         String email = this.checkInputData(input, "email");
-        while (email.equals("error")){
+        while (email.equals("error") || email.equals("exit")){
+            if (email.equals("exit")){
+                return;
+            }
             System.out.println("Email phải đúng định dạng abc@abc.abc");
             email = this.checkInputData(input, "email");
         }
+
         System.out.print("Type customer: ");
         String typeCustomer = input.nextLine();
+        if (typeCustomer.equals("exit")){
+            return;
+        }
 
         String address = this.checkInputData(input, "address");
-        while (address.equals("error")){
+        while (address.equals("error") || address.equals("exit")){
+            if (address.equals("exit")){
+                return;
+            }
             System.out.println("Địa chỉ không chứa kí tự ',' và khoảng trắng sau cùng.");
             address = this.checkInputData(input, "address");
         }
@@ -57,31 +87,34 @@ public class ManageCustomer {
         String regex = "";
         switch (typeData){
             case "name":
-                System.out.print("Name: ");
+                System.out.print("Name(nhập exit để thoát): ");
                 regex = checkName;
                 break;
             case "day of birth":
-                System.out.print("Day of birth: ");
+                System.out.print("Day of birth(nhập exit để thoát): ");
                 regex = checkDayOfBirth;
                 break;
             case "gender":
-                System.out.print("Gender: ");
+                System.out.print("Gender(nhập exit để thoát): ");
                 regex = checkGender;
                 break;
             case "id":
-                System.out.print("Id card: ");
+                System.out.print("Id card(nhập exit để thoát): ");
                 regex = checkIdCard;
                 break;
             case "email":
-                System.out.print("Email: ");
+                System.out.print("Email(nhập exit để thoát): ");
                 regex = checkEmail;
                 break;
             case "address":
-                System.out.print("Address: ");
+                System.out.print("Address(nhập exit để thoát): ");
                 regex = checkAddress;
                 break;
         }
         String data = input.nextLine();
+        if (data.equals("exit")){
+            return data;
+        }
         switch (typeData){
             case "name":
             case "email":
