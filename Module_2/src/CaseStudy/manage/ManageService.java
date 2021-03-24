@@ -18,40 +18,91 @@ public class ManageService {
     final String ACCOMPANIED_SERVICE = "^(Massage|Karaoke|Food|Drink|Car|No)$";
 
     public void addNew(Scanner input, String typeService){
-        input.nextLine();
+//        input.nextLine();
         String id = inputData(input, "id");
+        if (id.equals("exit")){
+            return;
+        }
         String nameService = inputData(input, "nameService");
+        if (nameService.equals("exit")){
+            return;
+        }
         String areaUse = inputData(input, "areaUse");
+        if (areaUse.equals("exit")){
+            return;
+        }
         String rentalCosts = inputData(input, "rentalCosts");
+        if (rentalCosts.equals("exit")){
+            return;
+        }
         String maxPeople = inputData(input, "maxPeople");
+        if (maxPeople.equals("exit")){
+            return;
+        }
         String typeRental = inputData(input, "typeRental");
+        if (typeRental.equals("exit")){
+            return;
+        }
         switch (typeService){
             case "house":
             case "villa":
                 String rank = inputData(input, "rank");
-                System.out.print("Mô tả tiện nghi khác: ");
+                if (rank.equals("exit")){
+                    return;
+                }
+                System.out.print("Mô tả tiện nghi khác(nhập exit để thoát): ");
                 String description = input.nextLine();
+                if (description.equals("exit")){
+                    return;
+                }
                 String numberOfFloors = inputData(input, "numberOfFloors");
+                if (numberOfFloors.equals("exit")){
+                    return;
+                }
                 if(typeService.equals("villa")) {
                     String areaPool = inputData(input, "areaPool");
+                    if (areaPool.equals("exit")){
+                        return;
+                    }
+                    String accompaniedService = inputAccompaniedService(input);
+                    if (accompaniedService.equals("exit")){
+                        return;
+                    }
                     System.out.println(readWriteFile.writeFile("villa", id+","+nameService+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
-                            +","+rank+","+description+","+areaPool+","+numberOfFloors+","+inputAccompaniedService(input)));
+                            +","+rank+","+description+","+areaPool+","+numberOfFloors+","+accompaniedService));
                     break;
+                }
+                String accompaniedService = inputAccompaniedService(input);
+                if (accompaniedService.equals("exit")){
+                    return;
                 }
                 System.out.println(readWriteFile.writeFile("house", id+","+nameService+","+areaUse+","+rentalCosts+","+maxPeople+","+typeRental
                         +","+rank+","+description+","+numberOfFloors+","+inputAccompaniedService(input)));
                 break;
             case "room":
-                System.out.print("Dịch vụ miễn phí đi kèm: ");
+                System.out.print("Dịch vụ miễn phí đi kèm(nhập exit để thoát): ");
                 String freeService = input.nextLine();
+                if (freeService.equals("exit")){
+                    return;
+                }
                 String unit="0";
                 String money="0.0";
                 if (!freeService.equals("No")){
                     unit = inputData(input, "unit");
+                    if (unit.equals("exit")){
+                        return;
+                    }
                     money = inputData(input, "money");
+                    if (money.equals("exit")){
+                        return;
+                    }
+                }
+                String accompaniedService1 = inputAccompaniedService(input);
+                if (accompaniedService1.equals("exit")){
+                    return;
                 }
                 System.out.println(readWriteFile.writeFile("room", id+","+nameService+","+areaUse+","+rentalCosts+","+
-                        maxPeople+","+typeRental +","+freeService+","+unit+","+money+","+inputAccompaniedService(input)));
+                        maxPeople+","+typeRental +","+freeService+","+unit+","+money+","+accompaniedService1));
                 break;
         }
     }
@@ -60,9 +111,18 @@ public class ManageService {
         String unit="0";
         String money = "0.0";
         String accompaniedService = inputData(input, "accompaniedService");
+        if (accompaniedService.equals("exit")){
+            return accompaniedService;
+        }
         if(!accompaniedService.equals("No")){
             unit = inputData(input, "unit");
+            if (unit.equals("exit")){
+                return unit;
+            }
             money = inputData(input, "money");
+            if (money.equals("exit")){
+                return money;
+            }
         }
         return accompaniedService + "," + unit+","+money;
     }
@@ -74,55 +134,58 @@ public class ManageService {
         do {
             switch (type) {
                 case "id":
-                    System.out.print("Id: ");
+                    System.out.print("Id(nhập exit để thoát): ");
                     regex = CHECK_ID;
                     break;
                 case "nameService":
-                    System.out.print("Tên dịch vụ: ");
+                    System.out.print("Tên dịch vụ(nhập exit để thoát): ");
                     regex = UPPER_FIRST;
                     break;
                 case "areaUse":
-                    System.out.print("Diện tích sử dụng: ");
+                    System.out.print("Diện tích sử dụng(nhập exit để thoát): ");
                     regex = DOUBLE;
                     break;
                 case "areaPool":
-                    System.out.print("Diện tích hồ bơi: ");
+                    System.out.print("Diện tích hồ bơi(nhập exit để thoát): ");
                     regex = DOUBLE;
                     break;
                 case "rentalCosts":
-                    System.out.print("Chi phí thuê: ");
+                    System.out.print("Chi phí thuê(nhập exit để thoát): ");
                     regex = DOUBLE;
                     break;
                 case "maxPeople":
-                    System.out.print("Số người tối đa: ");
+                    System.out.print("Số người tối đa(nhập exit để thoát): ");
                     regex = INTEGER;
                     break;
                 case "typeRental":
-                    System.out.print("Kiểu thuê: ");
+                    System.out.print("Kiểu thuê(nhập exit để thoát): ");
                     regex = UPPER_FIRST;
                     break;
                 case "rank":
-                    System.out.print("Tiêu chuẩn: ");
+                    System.out.print("Tiêu chuẩn(nhập exit để thoát): ");
                     regex = UPPER_FIRST;
                     break;
                 case "numberOfFloors":
-                    System.out.print("Số tầng: ");
+                    System.out.print("Số tầng(nhập exit để thoát): ");
                     regex = INTEGER;
                     break;
                 case "accompaniedService":
-                    System.out.print("Dịch vụ đi kèm: ");
+                    System.out.print("Dịch vụ đi kèm(nhập exit để thoát): ");
                     regex = ACCOMPANIED_SERVICE;
                     break;
                 case "unit":
-                    System.out.print("Số luọng: ");
+                    System.out.print("Số luọng(nhập exit để thoát): ");
                     regex = INTEGER;
                     break;
                 case "money":
-                    System.out.print("Đơn giá: ");
+                    System.out.print("Đơn giá(nhập exit để thoát): ");
                     regex = DOUBLE;
                     break;
             }
             data = input.nextLine();
+            if (data.equals("exit")){
+                return data;
+            }
             if(data.matches(regex)){
                 switch (type){
                     case "areaUse":
@@ -273,7 +336,7 @@ public class ManageService {
         String dataRead = readWriteFile.readFile(typeService);
         StringBuilder output = new StringBuilder();
         ArrayList list = null;
-        TreeSet<String> set = new TreeSet<>();
+        TreeSet treeSet = null;
         if (dataRead.equals("File cannot be read")){
             return dataRead;
         }
@@ -281,22 +344,29 @@ public class ManageService {
             case "villa":
                 if(dataRead.length()>1) {
                     list = getListService(dataRead, typeService);
+                    //Sử dụng Lambada
+                    treeSet = new TreeSet<Villa>((o1, o2) -> o1.getNameService().compareToIgnoreCase(o2.getNameService()));
+                    treeSet.addAll(list);
                     output.append("Villa: ");
+                    break;
                 }else {
                     return "Villa: No data";
                 }
-                break;
             case "house":
                 if(dataRead.length()>1){
                     list = getListService(dataRead, typeService);
+                    treeSet = new TreeSet<House>((o1, o2) -> o1.getNameService().compareToIgnoreCase(o2.getNameService()));
+                    treeSet.addAll(list);
                     output.append("House: ");
+                    break;
                 }else {
                     return "House: No Data";
                 }
-                break;
             case "room":
                 if(dataRead.length()>1){
                     list = getListService(dataRead, typeService);
+                    treeSet = new TreeSet<Room>((o1, o2) -> o1.getNameService().compareToIgnoreCase(o2.getNameService()));
+                    treeSet.addAll(list);
                     output.append("Room: ");
                 }else {
                     return "Room: No Data";
@@ -307,21 +377,18 @@ public class ManageService {
             return "Check your code or header file!!!";
         }
 
-        for (Object object : list){
+        int count=1;
+        for (Object object : treeSet){
             if (object instanceof Villa){
                 Villa villa = (Villa) object;
-                set.add(villa.getNameService());
-            } else if (object instanceof House){
+                output.append(count).append(". ").append(villa.showInfor()).append("\n");
+            }else if (object instanceof House){
                 House house = (House) object;
-                set.add(house.getNameService());
-            } else {
+                output.append(count).append(". ").append(house.showInfor()).append("\n");
+            }else {
                 Room room = (Room) object;
-                set.add(room.getNameService());
+                output.append(count).append(". ").append(room.showInfor()).append("\n");
             }
-        }
-        int count=1;
-        for (String str : set){
-            output.append(count).append(". ").append(str).append("\n");
             count++;
         }
         output = new StringBuilder(output.insert(output.indexOf(":")+2, (count-1) + " available\n"));
