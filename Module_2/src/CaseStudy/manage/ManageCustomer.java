@@ -87,19 +87,19 @@ public class ManageCustomer {
         String regex = "";
         switch (typeData){
             case "name":
-                System.out.print("Name(nhập exit để thoát): ");
+                System.out.print("Tên(nhập exit để thoát): ");
                 regex = checkName;
                 break;
             case "day of birth":
-                System.out.print("Day of birth(nhập exit để thoát): ");
+                System.out.print("Ngày tháng năm sinh(nhập exit để thoát): ");
                 regex = checkDayOfBirth;
                 break;
             case "gender":
-                System.out.print("Gender(nhập exit để thoát): ");
+                System.out.print("Giới tính(nhập exit để thoát): ");
                 regex = checkGender;
                 break;
             case "id":
-                System.out.print("Id card(nhập exit để thoát): ");
+                System.out.print("Số CMND(nhập exit để thoát): ");
                 regex = checkIdCard;
                 break;
             case "email":
@@ -107,7 +107,7 @@ public class ManageCustomer {
                 regex = checkEmail;
                 break;
             case "address":
-                System.out.print("Address(nhập exit để thoát): ");
+                System.out.print("Địa chỉ(nhập exit để thoát): ");
                 regex = checkAddress;
                 break;
         }
