@@ -210,10 +210,10 @@ public class ManageService {
         return data;
     }
 
-    public ArrayList getListService(String data, String typeService){
+    public ArrayList<Object> getListService(String data, String typeService){
         String[] dataSave;
         StringBuilder output = new StringBuilder();
-        ArrayList list = new ArrayList();
+        ArrayList<Object> list = new ArrayList<>();
         int count=0;
         if ("villa".equals(typeService)) {
             dataSave = new String[13];
@@ -298,7 +298,7 @@ public class ManageService {
 
     private String showService(String data, String typeService){
         StringBuilder output = new StringBuilder();
-        ArrayList list = this.getListService(data, typeService);
+        ArrayList<Object> list = this.getListService(data, typeService);
         if(list == null){
             return "Check your code or header file!!!";
         }
@@ -334,16 +334,18 @@ public class ManageService {
 
     public String showServiceNotDuplicate(String typeService){
         String dataRead = readWriteFile.readFile(typeService);
-        StringBuilder output = new StringBuilder();
-        ArrayList list = null;
-        TreeSet treeSet = null;
         if (dataRead.equals("File cannot be read")){
             return dataRead;
         }
+        ArrayList<Object> list = getListService(dataRead, typeService);
+        if(list == null){
+            return "Check your code or header file!!!";
+        }
+        StringBuilder output = new StringBuilder();
+        TreeSet treeSet = null;
         switch (typeService){
             case "villa":
                 if(dataRead.length()>1) {
-                    list = getListService(dataRead, typeService);
                     //Sử dụng Lambada
                     treeSet = new TreeSet<Villa>((o1, o2) -> o1.getNameService().compareToIgnoreCase(o2.getNameService()));
                     treeSet.addAll(list);
@@ -354,7 +356,6 @@ public class ManageService {
                 }
             case "house":
                 if(dataRead.length()>1){
-                    list = getListService(dataRead, typeService);
                     treeSet = new TreeSet<House>((o1, o2) -> o1.getNameService().compareToIgnoreCase(o2.getNameService()));
                     treeSet.addAll(list);
                     output.append("House: ");
@@ -364,7 +365,6 @@ public class ManageService {
                 }
             case "room":
                 if(dataRead.length()>1){
-                    list = getListService(dataRead, typeService);
                     treeSet = new TreeSet<Room>((o1, o2) -> o1.getNameService().compareToIgnoreCase(o2.getNameService()));
                     treeSet.addAll(list);
                     output.append("Room: ");
@@ -372,9 +372,6 @@ public class ManageService {
                     return "Room: No Data";
                 }
                 break;
-        }
-        if(list == null){
-            return "Check your code or header file!!!";
         }
 
         int count=1;
