@@ -38,7 +38,7 @@ create table nhan_vien(
 
 create table loai_khach_hang(
 	id_loai_khach_hang int primary key,
-    ten_khach_hang varchar(45) not null unique
+    loai_khach_hang varchar(45) not null unique
 );
 
 create table khach_hang(

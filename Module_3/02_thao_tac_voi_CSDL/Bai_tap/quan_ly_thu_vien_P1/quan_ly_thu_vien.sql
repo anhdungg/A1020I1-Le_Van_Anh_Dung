@@ -71,10 +71,8 @@ insert into phieu_muon value
     (5, 5, '2020/12/29', '2021/02/02');
     
 
-select hoc_sinh.ten_hoc_sinh, sach.ten_sach from phieu_muon
+select hoc_sinh.ten_hoc_sinh, sach.ten_sach, phieu_muon.ngay_muon, phieu_muon.ngay_tra from phieu_muon
 	inner join hoc_sinh on hoc_sinh.ma_hoc_sinh = phieu_muon.ma_hoc_sinh 
     inner join sach on sach.ma_sach = phieu_muon.ma_sach;
     
-select phan_loai_sach.loai_sach from phan_loai_sach
-	inner join sach on sach.ma_loai_sach = phan_loai_sach.ma_loai_sach;
     
