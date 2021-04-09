@@ -59,9 +59,9 @@ insert into sach value
 insert into hoc_sinh value
 	(1, 'Trần Thị Phương Anh', '1998/01/30', 'Triệu Tài, Triệu Phong, Quảng Trị', 'phuonganh@gmail.com', '0934472768', 'Image'),
     (2, 'Phạm Văn Hoàng Ân', '2000/07/15', 'Hải Châu II, Hải Châu, Đà Nẵng', 'hoangan@gmail.com', '0903586881', 'Image'),
-    (3, 'Lê Đăng Tú Anh', '1999/12/20', 'An Khê, Thanh Khê, Đà Nẵng', 'phuonganh@gmail.com', '0967341010', 'Image'),
-    (4, 'Mai Văn Kì Anh', '2000/06/22', 'Hải Ba, Hải Lăng, Quảng Trị', 'phuonganh@gmail.com', '0913117965', 'Image'),
-    (5, 'Nguyễn Xuân Bắc', '2000/07/20', 'Mân Thái, Sơn Trà, Đà Nẵng', 'phuonganh@gmail.com', '0798429841', 'Image');
+    (3, 'Lê Đăng Tú Anh', '1999/12/20', 'An Khê, Thanh Khê, Đà Nẵng', 'tuanh@gmail.com', '0967341010', 'Image'),
+    (4, 'Mai Văn Kì Anh', '2000/06/22', 'Hải Ba, Hải Lăng, Quảng Trị', 'kianh@gmail.com', '0913117965', 'Image'),
+    (5, 'Nguyễn Xuân Bắc', '2000/07/20', 'Mân Thái, Sơn Trà, Đà Nẵng', 'xuanbac@gmail.com', '0798429841', 'Image');
     
 insert into phieu_muon value
 	(1, 1, '2021/01/01', null),
@@ -71,8 +71,9 @@ insert into phieu_muon value
     (5, 5, '2020/12/29', '2021/02/02');
     
 
-select hoc_sinh.ten_hoc_sinh, sach.ten_sach, phieu_muon.ngay_muon, phieu_muon.ngay_tra from phieu_muon
+select hoc_sinh.ten_hoc_sinh, sach.ten_sach, phan_loai_sach.loai_sach, phieu_muon.ngay_muon, phieu_muon.ngay_tra from phieu_muon
 	inner join hoc_sinh on hoc_sinh.ma_hoc_sinh = phieu_muon.ma_hoc_sinh 
-    inner join sach on sach.ma_sach = phieu_muon.ma_sach;
+    inner join sach on sach.ma_sach = phieu_muon.ma_sach
+    inner join phan_loai_sach on phan_loai_sach.ma_loai_sach = sach.ma_loai_sach;
     
     

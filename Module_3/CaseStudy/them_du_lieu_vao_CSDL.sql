@@ -35,13 +35,14 @@ insert into nhan_vien value
     (10, 'Lê Đức Bình', 3, 4, 1, '1999/02/15', '197377672', '750', '0982414127', 'ducbinh@gmail.com', 'Triệu Đô, Triệu Phong, Quảng Trị');
     
 insert into khach_hang value
-	(1, 1,'Nguyễn Trần Bình', '2000/09/12', '206380833', '0934472768', 'tranbinh@gmail.com', 'Quế Trung, Nông Sơn, Quảng Nam'),
+-- id_khach_hang, id_loai_khach_hang, ho_ten, ngay_sinh, CMND, so_dien_thoai, email, dia_chi
+	(1, 1,'Nguyễn Trần Bình', '2000/09/12', '206380833', '0934472768', 'tranbinh@gmail.com', 'Nghi Phú, Tp.Vinh, Nghệ An'),
     (2, 1,'Nguyễn Văn Cảnh', '2000/07/02', '212388706', '0903586881', 'vancanh@gmail.com', 'Bình Đông, Bình Sơn, Quảng Ngãi'),
     (3, 2,'Bùi Văn Châu', '2000/07/26', '197404649', '0967341010', 'vanchau@gmail.com', 'Triệu Hoá, Triệu Phong, Quảng Trị'),
     (4, 3,'Đỗ Minh Châu', '2000/04/15', '212860203', '0913117965', 'minhchau@gmail.com', 'Bình Nguyên, Bình Sơn, Quảng Ngãi'),
     (5, 3,'Lưu Thị Tâm Châu', '2000/04/30', '201818758', '0798429841', 'tamchau@gmail.com', 'Thanh Khê Tây, Thanh Khê, Đà Nẵng'),
     (6, 2,'Châu Ngọc Chi', '2000/08/26', '2062288046', '0819634807', 'ngocchi@gmail.com', 'Tâm Xuân Li, Núi Thành, Quảng Nam'),
-    (7, 4,'Đặng Minh Chiến', '2000/06/26', '201796640', '0913464257', 'minhchien@gmail.com', 'An Khê, Thanh Khê, Đà Nẵng'),
+    (7, 4,'Đặng Quang Chiến', '2000/06/26', '201796640', '0913464257', 'minhchien@gmail.com', 'An Khê, Thanh Khê, Đà Nẵng'),
     (8, 4,'Đặng Quang Chiến', '2000/06/03', '194628460', '0965371515', 'quangchien@gmail.com', 'Đức Ninh, Đồng Hới, Quảng Bình'),
     (9, 5,'Võ Đức Chiến', '2000/01/18', '198451692', '0989506515', 'ducchien@gmail.com', 'Hải Thái, Gio Linh, Quảng Trị'),
     (10, 5,'Bùi Hữu Nhật Chinh', '2000/08/14', '206152106', '0396802226', 'nhatchinh@gmail.com', 'Tư, Đông Giang, Quảng Nam');
@@ -61,19 +62,22 @@ insert into dich_vu value
     
 insert into hop_dong value
 -- id_hop_dong, id_nhan_vien, id_khach_hang, id_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, tong_tien
-	(1, 2 , 1 , 2, '2021/01/01', '2021/01/01', 500000, 1000000),
+	(1, 2 , 1 , 2, '2019/01/01', '2019/01/01', 500000, 1000000),
     (2, 1 , 2 , 1, '2019/02/28', '2010/03/28', 5000000, 2000000),
-    (3, 3 , 4 , 5, '2019/07/01', '2019/08/01', 1000000, 7000000),
+    (3, 3 , 4 , 5, '2019/10/01', '2019/11/01', 1000000, 7000000),
     (4, 5 , 3 , 3, '2021/10/01', '2021/10/25', 200000, 500000),
-    (5, 5 , 1 , 8, '2021/09/14', '2021/09/14', 1000000, 20000000);
+    (5, 5 , 1 , 5, '2018/09/14', '2018/09/14', 1000000, 20000000),
+    (6, 8 , 7 , 6, '2019/01/01', '2019/01/10', 500000, 15000000);
     
 insert into hop_dong_chi_tiet value
 -- id_hop_dong_chi_tiet, id_hop_dong, id_dich_vu_di_kem, so_luong
 	(1, 1, 1, 2),
     (2, 2, 1, 1),
-    (3, 3, 1, 5),
+    (3, 3, 4, 5),
     (4, 4, 1, 4),
-    (5, 5, 1, 3);
+    (5, 4, 2, 4),
+    (6, 1, 3, 4),
+    (7, 5, 4, 3);
     
     
     
