@@ -42,14 +42,17 @@ select hop_dong.id_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thu
     
 -- Yêu cầu 8
 -- Cách 1
-select ho_ten from khach_hang group by ho_ten having count(ho_ten) = 1;
+select ho_ten from khach_hang 
+union 
+select ho_ten from khach_hang ;
 -- Cách 2
-select ho_ten from khach_hang where ho_ten in (select ho_ten from khach_hang group by ho_ten having count(ho_ten) = 1);
+select distinct ho_ten from khach_hang;
 -- Cách 3
-select ho_ten from khach_hang kh where not exists ( select 1 from khach_hang khh where khh.ho_ten = kh.ho_ten limit 1, 1);
+select ho_ten from khach_hang group by ho_ten;
 
 -- Yêu cầu 9
-select month(ngay_lam_hop_dong) as 'Tháng', count(month(ngay_lam_hop_dong)) as 'Số khách hàng đặt phòng' from hop_dong group by ngay_lam_hop_dong having year(ngay_lam_hop_dong) = 2019;
+select month(ngay_lam_hop_dong) as 'Tháng', count(month(ngay_lam_hop_dong)) as 'Số khách hàng đặt phòng' from hop_dong 
+	group by ngay_lam_hop_dong having year(ngay_lam_hop_dong) = 2019;
 
 -- Yêu cầu 10
 select hop_dong.id_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, count(hop_dong_chi_tiet.id_hop_dong) as so_luong_dich_vu_di_kem from hop_dong
@@ -57,11 +60,12 @@ select hop_dong.id_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, cou
     group by hop_dong_chi_tiet.id_hop_dong;
     
 -- Yêu cầu 11
-select khach_hang.ho_ten, dich_vu_di_kem.ten_dich_vu_di_kem from khach_hang
+select khach_hang.ho_ten, dich_vu_di_kem.ten_dich_vu_di_kem, loai_khach_hang.loai_khach_hang from khach_hang
 	inner join hop_dong  on hop_dong.id_khach_hang = khach_hang.id_khach_hang
     inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
     inner join dich_vu_di_kem on dich_vu_di_kem.id_dich_vu_di_kem = hop_dong_chi_tiet.id_dich_vu_di_kem
-    where (khach_hang.dia_chi like '%Vinh%') or (khach_hang.dia_chi like '%Quảng Ngãi%');
+    inner join loai_khach_hang on loai_khach_hang.id_loai_khach_hang = khach_hang.id_loai_khach_hang
+    where (loai_khach_hang.loai_khach_hang = 'Diamond') and ((khach_hang.dia_chi like '%Vinh%') or (khach_hang.dia_chi like '%Quảng Ngãi%'));
     
 -- Yêu cầu 12
 select hop_dong.id_hop_dong, nhan_vien.ho_ten, khach_hang.ho_ten, khach_hang.so_dien_thoai, dich_vu.ten_dich_vu, 
@@ -102,7 +106,21 @@ select nhan_vien.id_nhan_vien, nhan_vien.ho_ten, trinh_do.ten_trinh_do, bo_phan.
 				inner join hop_dong on hop_dong.id_nhan_vien = nhan_vien.id_nhan_vien
             ) as x
         );
+        
+-- Yêu cầu 17
+select khach_hang.ho_ten, loai_khach_hang.loai_khach_hang, hop_dong.ngay_lam_hop_dong, hop_dong.tong_tien from khach_hang
+	inner join loai_khach_hang on loai_khach_hang.id_loai_khach_hang = khach_hang.id_loai_khach_hang
+    inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+    where (loai_khach_hang.loai_khach_hang = 'Diamond') and (year(hop_dong.ngay_lam_hop_dong) = 2019) and (hop_dong.tong_tien > 10000000);
     
+update khach_hang
+	inner join loai_khach_hang on loai_khach_hang.id_loai_khach_hang = khach_hang.id_loai_khach_hang
+    inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+    set khach_hang.id_loai_khach_hang = 1
+    where (loai_khach_hang.loai_khach_hang = 'Platinium') and (year(hop_dong.ngay_lam_hop_dong) = 2019) and (hop_dong.tong_tien > 10000000);
+    
+-- Yêu cầu 18
+		
     
     
     
