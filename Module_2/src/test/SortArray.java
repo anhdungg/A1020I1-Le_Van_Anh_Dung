@@ -7,15 +7,15 @@ public class SortArray {
 
     final static private int MAX_ARRAY = 30;
     public static void main(String[] args) {
-        int[] array = new int[MAX_ARRAY];
-        Random random = new Random();
-        for (int i=0;i<array.length;i++){
-            array[i] = random.nextInt(MAX_ARRAY);
-        }
-        System.out.println(Arrays.toString(array));
-        SortArray sortArray = new SortArray();
-        sortArray.quickSort(array);
-        System.out.println(Arrays.toString(array));
+//        int[] array = new int[MAX_ARRAY];
+//        Random random = new Random();
+//        for (int i=0;i<array.length;i++){
+//            array[i] = random.nextInt(MAX_ARRAY);
+//        }
+//        System.out.println(Arrays.toString(array));
+//        SortArray sortArray = new SortArray();
+//        sortArray.quickSort(array);
+//        System.out.println(Arrays.toString(array));
     }
 
     private void quickSort(int[] array){

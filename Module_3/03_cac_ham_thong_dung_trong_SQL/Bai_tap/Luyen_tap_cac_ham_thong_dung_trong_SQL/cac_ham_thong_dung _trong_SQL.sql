@@ -28,3 +28,7 @@ select 'Huong' as 'Ten', sum(so_tien) as 'Tong tien' from hoc_vien where ten = '
 
 -- Viết câu lệnh lấy ra tên danh sách của tất cả học viên, không trùng lặp
 select * from hoc_vien group by hoc_vien.id having count(id) = 1;
+
+select * from hoc_vien where id in (select id from hoc_vien group by id having count(id) = 1);
+
+select * from hoc_vien hvv where not exists ( select 1 from hoc_vien hv where hv.id = hvv.id limit 1, 1)

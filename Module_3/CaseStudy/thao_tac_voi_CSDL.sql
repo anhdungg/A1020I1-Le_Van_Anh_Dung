@@ -120,7 +120,72 @@ update khach_hang
     where (loai_khach_hang.loai_khach_hang = 'Platinium') and (year(hop_dong.ngay_lam_hop_dong) = 2019) and (hop_dong.tong_tien > 10000000);
     
 -- Yêu cầu 18
-		
+select khach_hang.id_khach_hang, khach_hang.ho_ten from khach_hang
+-- 	inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+-- 	inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
+	where khach_hang.id_khach_hang in (
+		select * from (select khach_hang.id_khach_hang from khach_hang
+			inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+            inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
+            where year(ngay_lam_hop_dong) <= 2016
+            ) as X
+    );
+
+delete khach_hang from khach_hang 
+	inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+	inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
+	where khach_hang.id_khach_hang in (
+		select * from (select khach_hang.id_khach_hang from khach_hang
+			inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+            inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
+            where year(ngay_lam_hop_dong) <= 2016
+            ) as X
+    );
     
+-- Yêu cầu 19
+select dich_vu_di_kem.ten_dich_vu_di_kem, dich_vu_di_kem.gia, count(hop_dong_chi_tiet.id_dich_vu_di_kem) from dich_vu_di_kem
+	inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_dich_vu_di_kem = dich_vu_di_kem.id_dich_vu_di_kem
+    where dich_vu_di_kem.id_dich_vu_di_kem in (
+		select dich_vu_di_kem.id_dich_vu_di_kem from dich_vu_di_kem
+			inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_dich_vu_di_kem = dich_vu_di_kem.id_dich_vu_di_kem
+            group by dich_vu_di_kem.ten_dich_vu_di_kem having count(hop_dong_chi_tiet.id_dich_vu_di_kem) >=3
+        );
     
+update dich_vu_di_kem
+	-- inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_dich_vu_di_kem = dich_vu_di_kem.id_dich_vu_di_kem
+    set dich_vu_di_kem.gia = dich_vu_di_kem.gia *2 
+    where dich_vu_di_kem.id_dich_vu_di_kem in (
+		select * from (
+			select dich_vu_di_kem.id_dich_vu_di_kem from dich_vu_di_kem
+            inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_dich_vu_di_kem = dich_vu_di_kem.id_dich_vu_di_kem
+		) as x
+            group by ten_dich_vu_di_kem having count(id_dich_vu_di_kem) >=3
+	);
     
+-- Yêu cầu 20 
+select id_nhan_vien, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi, 'Nhân viên' as 'Phân loại' from nhan_vien
+union all
+select id_khach_hang, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi, 'Khách hàng' from khach_hang;
+
+-- Yêu cầu 21
+create view V_NHANVIEN as select nhan_vien.id_nhan_vien, ho_ten, vi_tri.ten_vi_tri, trinh_do.ten_trinh_do, bo_phan.ten_bo_phan,
+	ngay_sinh, CMND, luong, so_dien_thoai, email, dia_chi from nhan_vien
+	inner join hop_dong on hop_dong.id_nhan_vien = nhan_vien.id_nhan_vien
+    inner join vi_tri on vi_tri.id_vi_tri = nhan_vien.id_vi_tri
+    inner join trinh_do on trinh_do.id_trinh_do = nhan_vien.id_trinh_do
+    inner join bo_phan on bo_phan.id_bo_phan = nhan_vien.id_bo_phan
+    where (nhan_vien.dia_chi like '%Hải Châu%') and (hop_dong.ngay_lam_hop_dong = '2019/12/12');
+    
+select * from V_NHANVIEN;
+
+-- Yêu cầu 22
+select dia_chi from V_NHANVIEN;
+update V_NHANVIEN set dia_chi = 'Liên Chiểu, Đà Nẵng';
+
+-- Yêu cầu 23
+delimiter//
+create procedure Sp_1 (in id_khach_hang int)
+begin
+	delete khach_hang from khach_hang
+end
+//delimiter ;

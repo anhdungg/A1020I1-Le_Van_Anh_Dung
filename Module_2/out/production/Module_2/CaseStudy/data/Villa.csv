@@ -1,0 +1,7 @@
+Id,Name service,Area used,Rental costs,Maximum people,Rent type,Standard room,Description of other amenities,Pool area,Number of floors,Accompanied service,Unit,Money
+SVVL-0001,Hanami,200,1500,4,Day,4 star,No,50,2,Car,1,500
+SVVL-0002,Burger Bros,100,1000,4,Month,3 star,No,50,2,Car,1,100
+SVVL-0003,Holiday Beach,150,1200,4,Month,5 star,No,50,2,Karaoke,5,400
+SVVL-0004,Cicilia,300,2000,3,Day,4 star,No,40,2,Drink,3,25
+SVVL-0005,Grand Sunrise,100,500,2,Year,2 star,No,35,2,Food,2,50
+SVVL-0006,Hanami,300,2500,5,Year,5 star,No,70,3,Car,2,1500
