@@ -121,14 +121,17 @@ update khach_hang
     
 -- Yêu cầu 18
 select khach_hang.id_khach_hang, khach_hang.ho_ten from khach_hang
-	inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
-	inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
-	where year(hop_dong.ngay_lam_hop_dong) <= 2019 and (khach_hang.id_khach_hang = hop_dong.id_khach_hang);
-
+	where khach_hang.id_khach_hang  in(
+		select khach_hang.id_khach_hang from khach_hang
+			inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
+			inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
+            where year(hop_dong.ngay_lam_hop_dong) <= 2019 and (khach_hang.id_khach_hang = hop_dong.id_khach_hang)
+	);
+	
 delete khach_hang, hop_dong, hop_dong_chi_tiet from khach_hang
 	inner join hop_dong on hop_dong.id_khach_hang = khach_hang.id_khach_hang
 	inner join hop_dong_chi_tiet on hop_dong_chi_tiet.id_hop_dong = hop_dong.id_hop_dong
-	where year(hop_dong.ngay_lam_hop_dong) <= 2016 and (khach_hang.id_khach_hang = hop_dong.id_khach_hang);
+	where year(hop_dong.ngay_lam_hop_dong) <=2019;
     
 -- Yêu cầu 19
 select dich_vu_di_kem.ten_dich_vu_di_kem, dich_vu_di_kem.gia, count(hop_dong_chi_tiet.id_dich_vu_di_kem) from dich_vu_di_kem
@@ -173,6 +176,7 @@ update nhan_vien set dia_chi = 'Liên Chiểu, Đà Nẵng' where nhan_vien in (
 
 -- Yêu cầu 23
 delimiter //
+drop procedure if exists Sp_1;
 create procedure Sp_1 (in id_khach_hang int)
 begin
 	delete khach_hang from khach_hang
@@ -182,11 +186,17 @@ end;
 
 -- Yêu cầu 24
 delimiter //
+drop procedure if exists Sp_2 //
 create procedure Sp_2 (in id_hop_dong int, id_nhan_vien int, id_khach_hang int, id_dich_vu int, ngay_lam_hop_dong date
 	, ngay_ket_thuc_hop_dong date, tien_dat_coc int, tong_tien int)
 begin
-	insert into hop_dong value (id_hop_dong, id_nhan_vien, id_khach_hang, id_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc_hop_dong, tien_dat_coc, tong_tien)
-    select hop_dong.id_hop_dong from hop_dong
-    where id_hop_dong not in (select hop_dong.id_hop_dong from hop_dong);
+	set @temp = (select count(id_hop_dong) from hop_dong where hop_dong.id_hop_dong = id_hop_dong group by hop_dong.id_hop_dong);
+    if (@temp is null)  then 
+		insert into hop_dong value (id_hop_dong, id_nhan_vien, id_khach_hang, id_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc_hop_dong, tien_dat_coc, tong_tien);
+    else
+		signal sqlstate '45000' set message_text = 'Dữ liệu sai';
+	end if;
 end;
 // delimiter ;
+
+call Sp_2(8, 1, 1, 1, '10/10/2020', '2010/10/10', 123, 456);
