@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    let maxArray=0;
+    let array = [];
+    let sum=0;
+    do {
+        maxArray = parseInt(prompt("Nhập số phân tử cho mảng"));
+    }while (maxArray>20 || maxArray<=0 || isNaN(maxArray));
+    for (let i=0; i<maxArray; i++){
+        array[i] = parseInt(prompt("Nhập số nguyên cho phần tử thứ " + i + ": "));
+    }
+    console.log("Mảng bạn vừa nhập: " + array);
+    for(let i=0; i<array.length; i++){
+        if(array[i]%3===0 && array[i]%5===0){
+            sum+=array[i];
+        }
+    }
+    console.log("Tổng các số chia hết cho 3 và 5 là: " + sum);
+</script>
 </body>
 </html>

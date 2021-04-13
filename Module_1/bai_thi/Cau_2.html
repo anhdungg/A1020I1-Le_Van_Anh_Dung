@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+    <script>
+        let diem=0;
+        function lamTronDiem(diem) {
+            let sum=diem;
+            if(diem<50){
+                return diem;
+            }
+            else if(diem%10===0 && diem%5===0){
+                    return diem;
+            }
+            else{
+                for(let i=1; i<3; i++){
+                    if((diem+i)%5===0 || (diem+i)%10===0){
+                        sum = diem+i;
+                    }
+                }
+                return sum;
+            }
+        }
+        do {
+            diem = parseInt(prompt("Nhập điểm: "));
+        }while (isNaN(diem) || diem>100 || diem<0);
+        console.log("Điểm sau khi làm tròn: " + lamTronDiem(diem));
+    </script>
 </body>
 </html>

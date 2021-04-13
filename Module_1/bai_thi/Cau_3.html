@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    let maxArray = 0, count = 0, k=0;
+    let array = [];
+    do {
+        maxArray = parseInt(prompt("Nhập số phân tử cho mảng: "));
+    }while (maxArray>50 || maxArray<=0 || isNaN(maxArray));
+
+    while (true){
+        let number = parseInt(prompt("Nhập phần tử thứ " + count + " vào mảng:"));
+        if (number<0 || isNaN(number)){
+            alert("Phần tử phải là số nguyên dương");
+            continue;
+        }else if(!checkArray(number)){
+            alert("Phần tử đã tồn tại trong mảng");
+            continue;
+        }
+        else {
+            array.push(number);
+            count++;
+        }
+        if(count>=maxArray) break;
+    }
+
+    do {
+        k = parseInt(prompt("Nhập k: "));
+    }while (k>50 || k<=0 || isNaN(k));
+    console.log(array);
+    for(let i=0; i<array.length; i++){
+        for(let j=i+1; j<array.length; j++){
+            if((array[j] + array[i])%k===0){
+                console.log(array[i] + ":" + array[j]);
+            }
+        }
+    }
+    function checkArray(number) {
+        if(array.length===0) return true;
+        else {
+            for (let i=0; i<array.length; i++){
+                if(number === array[i]){
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+</script>
 </body>
 </html>

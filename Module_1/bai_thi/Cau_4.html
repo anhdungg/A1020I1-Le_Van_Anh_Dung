@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+    <script>
+        class KhachHang{
+            constructor(maKh, tenKh, soDt, diaChi, email) {
+                this.maKh = maKh;
+                this.tenKh = tenKh;
+                this.soDt = soDt;
+                this.diaChi = diaChi;
+                this.email = email;
+            }
+
+            getMaKh(){
+                return this.maKh;
+            }
+            getTenKh(){
+                return this.tenKh;
+            }
+            getSdt(){
+                return this.soDt;
+            }
+            getDiaChi(){
+                return this.diaChi;
+            }
+            getEmail(){
+                return this.email;
+            }
+        }
+        let khachHang = [];
+        for(let i=0; i<10; i++){
+            khachHang[i] = new KhachHang(123+i, "Dung"+i, 123123+i, "Hoàng Sỹ Khải"+i, "ledung.ht17@gmail.com"+i);
+        }
+        for(let i=0; i<10; i++){
+            console.log(khachHang[i].getTenKh());
+        }
+
+    </script>
 </body>
 </html>

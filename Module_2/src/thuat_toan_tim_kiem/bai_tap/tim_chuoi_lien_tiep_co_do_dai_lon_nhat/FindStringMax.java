@@ -19,6 +19,7 @@ public class FindStringMax {
             output.append(str.charAt(i));
         }
         list.add(output.toString());
+        System.out.println(list);
         int max = list.get(0).length();
         int indexMax=0;
         for (int i=0; i<list.size(); i++){

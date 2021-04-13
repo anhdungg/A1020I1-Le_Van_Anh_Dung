@@ -87,7 +87,7 @@ create table hop_dong(
     ngay_ket_thuc date not null,
     tien_dat_coc int not null,
     tong_tien int, 
-    foreign key(id_nhan_vien) references nhan_vien(id_nhan_vien),
+    foreign key(id_nhan_vien) references nhan_vien(id_nhan_vien) on delete cascade,
     foreign key(id_khach_hang) references khach_hang(id_khach_hang),
     foreign key(id_dich_vu) references dich_vu(id_dich_vu)
 );
@@ -105,6 +105,6 @@ create table hop_dong_chi_tiet(
     id_hop_dong int not null,
     id_dich_vu_di_kem int not null,
     so_luong int not null,
-    foreign key(id_hop_dong) references hop_dong(id_hop_dong),
+    foreign key(id_hop_dong) references hop_dong(id_hop_dong) on delete cascade,
     foreign key(id_dich_vu_di_kem) references dich_vu_di_kem(id_dich_vu_di_kem)
 );
