@@ -19,7 +19,6 @@
             background-color: #7e7e7e;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body onload="load()">
 <div>
@@ -27,9 +26,8 @@
         <h2 style="text-align: center; cursor: pointer; color: gray" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'gray')"
             onclick="showHideContents()">Mục lục</h2>
         <div id="muc_luc" style="display: none; background-color: #19a5ff; border-radius: 12px">
-            <p style="line-height: 1px"><br></p>
-            <p id="chapter1p1" style="cursor: pointer; margin-left: 20px" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'black')"
-               onclick = "selectChapter('chapter1h1')">Chương 01</p>
+            <p id="chapter1p1" style="cursor: pointer; margin-left: 20px; padding-top: 5px" onmouseover="changeColorText(this, 'blue')"
+               onmouseleave="changeColorText(this, 'black')" onclick = "selectChapter('chapter1h1')">Chương 01</p>
             <p id="chapter2p2" style="cursor: pointer; margin-left: 20px" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'black')"
                onclick = "selectChapter('chapter2h2')">Chương 02</p>
             <p id="chapter3p3" style="cursor: pointer; margin-left: 20px" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'black')"
@@ -46,7 +44,7 @@
                onclick = "selectChapter('chapter8h8')">Chương 08</p>
             <p id="chapter9p9" style="cursor: pointer; margin-left: 20px" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'black')"
                onclick = "selectChapter('chapter9h9')">Chương 09</p>
-            <p id="chapter10p10" style="cursor: pointer; margin-left: 20px; margin-right: 10px" onmouseover="changeColorText(this, 'blue')"
+            <p id="chapter10p10" style="cursor: pointer; margin-left: 20px; margin-right: 10px; padding-bottom: 5px" onmouseover="changeColorText(this, 'blue')"
                onclick = "selectChapter('chapter10h10')" onmouseleave="changeColorText(this, 'black')">Chương 10 End</p>
         </div>
     </div>
@@ -76,7 +74,7 @@
     </p>
 </div>
 <h2 style="text-align: center; margin-top: 2cm">Mục lục</h2>
-<div style="width: auto; margin-right: auto; margin-left: 15cm; line-height: 10px">
+<div style="margin-right: auto; margin-left: 45%; line-height: 10px; display: block">
     <p id="chapter1" style="cursor: pointer" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'black')"
         onclick = "selectChapter('chapter1h1')">Mắt biếc - Chương 01</p>
     <p id="chapter2" style="cursor: pointer" onmouseover="changeColorText(this, 'blue')" onmouseleave="changeColorText(this, 'black')"
@@ -3947,11 +3945,11 @@
 
     function selectChapter(chapter) {
         let temp = document.getElementById(chapter);
-        temp.scrollIntoView(true);
+        temp.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
     }
 
     function showHideContents() {
-        console.log(document.getElementById("muc_luc").style.display);
+        // console.log(document.getElementById("muc_luc").style.display);
         if (document.getElementById("muc_luc").style.display === "none"){
             document.getElementById("muc_luc").style.display = "block";
         }else {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tool</title>
+</head>
+<body>
+    <h1 style="text-align: center">Input</h1>
+    <textarea id="input" style="width: 90%; height: 200px; margin-left: auto; margin-right: auto; display: block"></textarea>
+    <h1 style="text-align: center">Output</h1>
+    <textarea id="output" style="width: 90%; height: 200px; margin-left: auto; margin-right: auto; display: block"></textarea>
+    <button style="margin-left: auto; margin-right: auto; margin-top: 20px; display: block" onclick="convert()">Output</button>
+    <script>
+        function convert() {
+            let input = document.getElementById("input").value;
+            let output = "";
+            for (let i=0; i<input.length; i++){
+                if (input.charAt(i) === "\n"){
+                    output+="<br>";
+                    output += input.charAt(i);
+                    continue;
+                }
+                output += input.charAt(i);
+            }
+            console.log(output);
+            document.getElementById("output").value = output;
+        }
+    </script>
+</body>
+</html>
