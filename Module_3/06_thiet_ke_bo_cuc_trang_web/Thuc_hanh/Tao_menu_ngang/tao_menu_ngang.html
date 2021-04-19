@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu ngang</title>
+    <style>
+        .dropDown{
+            position: relative;
+            display: block;
+            background-color: black;
+            float: left;
+            width: 100%;
+        }
+        p{
+            color: white;
+            margin: 0;
+            padding: 0 10px 0 10px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        p:hover{
+            background-color: red;
+        }
+        .div{
+            float: left;
+            width: 150px;
+        }
+        #content-sem1{
+            display: none;
+            background-color: black;
+            position: absolute;
+            left: 20px;
+            width: auto;
+        }
+        #content-sem2{
+            display: none;
+            background-color: black;
+            position: absolute;
+            left: 170px;
+            width: auto;
+        }
+        #sem1:hover #content-sem1{
+            display: block;
+        }
+        #sem2:hover #content-sem2{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="dropDown">
+        <div id="sem1" class="div">
+            <p style="text-align: center">Sem 1</p>
+            <div id="content-sem1">
+                <p>Computing Fundametal</p>
+                <p>C Programing</p>
+                <p>Building Dynamic Website</p>
+                <p>MS Transact-SQL</p>
+                <p>Project</p>
+            </div>
+        </div>
+        <div id="sem2"  class="div">
+            <p style="text-align: center">Sem 2</p>
+            <div id="content-sem2">
+                <p>Cloud Computing</p>
+                <p>APJ - I</p>
+                <p>APJ - II</p>
+                <p>APJ - III</p>
+                <p>eProject</p>
+            </div>
+        </div>
+        <div id="sem3"  class="div">
+            <p style="text-align: center">Sem 3</p>
+        </div>
+        <div id="sem4"  class="div">
+            <p style="text-align: center">Sem 4</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RWD</title>
+    <link rel="stylesheet" href="css/fontawesome-free-5.15.3-web/css/all.css">
+    <style>
+        .fixed-header{
+            display: block;
+            position: fixed;
+            float: left;
+            background-color: #444444;
+            width: 100%;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            height: 50px;
+        }
+        .content-header{
+            float: left;
+            width: 100px;
+            margin: 0;
+            padding: 0;
+            height: 50px;
+            cursor: pointer;
+        }
+        .content-project{
+            padding-top: 16px;
+            display: block;
+            height: 34px;
+            text-align: center;
+        }
+        .content-project:hover{
+            background-color: #292929;
+        }
+        .content-span{
+            font-family: Arial,serif;
+            color: #c3c3c3;
+        }
+        .content-p-login{
+            font-family: Arial,serif;
+            color: #c3c3c3;
+            margin-left: 5px;
+            float: left;
+        }
+        .content-icon-login{
+            color: #c3c3c3;
+            font-size: 20px;
+            float: left;
+            margin-left: 10px
+        }
+        .content-project-div{
+            display: none;
+            position: relative;
+            left: 10px;
+            top: 0
+        }
+        .content-header:hover .content-project-div{
+            display: block;
+            background-color: #292929;
+        }
+        .content-name-project-div{
+            background-color: #444444;
+            height: 30px;
+            text-align: center;
+            padding-top: 5px;
+        }
+        .content-project:hover .content-name-project-div{
+            background-color: #292929;
+        }
+        .content-name-project-div:hover{
+            background-color: #292929;
+        }
+        .content-name-project-text{
+            padding: 0;
+            color: #c3c3c3;
+            font-family: Arial,serif;
+        }
+
+        .main{
+            clear: both;
+            /*background-color: #19a5ff;*/
+            height: 700px;
+            margin: 50px 0 0 0;
+            left: 0;
+        }
+        .main-left{
+            position: fixed;
+            left: 0;
+            float: left;
+            background-color: #d0d0d0;
+            width: 20%;
+            height: 150%;
+        }
+        .main-center{
+            float: left;
+            background-color: white;
+            width: 57%;
+            padding-left: 10px;
+            margin-left: 20%;
+            height: 150%;
+        }
+        .main-right{
+            position: fixed;
+            float: right;
+            right: 0;
+            background-color: #d0d0d0;
+            width: 20%;
+            height: 150%;
+        }
+        a{
+            display: block;
+            text-align: center;
+            margin: 30px 0 30px 0;
+            font-family: Arial,serif;
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        h1{
+            font-family: Arial,serif;
+            font-size: 70px;
+            width: 50%;
+        }
+
+        .main-right-adss{
+            height: 100px;
+            width: 75%;
+            border: 2px solid #3a3a3a;
+            background-color: #e0e0e0;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+            /*text-align: center;*/
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+        .footer-text-div{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #6d6d6d;
+            height: 50px;
+            /*text-align: center;*/
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+        .footer-text-text{
+            font-family: Arial,serif;
+            color: white;
+            font-size: 20px;
+        }
+        @media screen and (max-width: 650px){
+            .content-header{
+                width: 15.3%;
+            }
+        }
+        @media screen and (max-width: 1000px){
+            .main-left{
+                display: none;
+            }
+            .main-right{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="fixed-header">
+    <div class="content-header">
+        <div class="content-project">
+            <span class="content-span" style="font-size: 20px; margin-top: 14px">Logo</span>
+        </div>
+    </div>
+    <div class="content-header">
+        <div class="content-project">
+            <span class="content-span">Home</span>
+        </div>
+    </div>
+    <div class="content-header">
+        <div class="content-project">
+            <span class="content-span">About</span>
+        </div>
+    </div>
+    <div class="content-header">
+        <div class="content-project">
+            <span class="content-span">Project</span>
+        </div>
+        <div class="content-project-div">
+            <div class="content-name-project-div">
+                <span class="content-name-project-text">Project 1</span>
+            </div>
+            <div class="content-name-project-div">
+                <span class="content-name-project-text">Project 2</span>
+            </div>
+            <div class="content-name-project-div">
+                <span class="content-name-project-text">Project 3</span>
+            </div>
+            <div class="content-name-project-div">
+                <span class="content-name-project-text">Project 4</span>
+            </div>
+        </div>
+    </div>
+    <div class="content-header">
+        <div class="content-project">
+            <span class="content-span">Contact</span>
+        </div>
+    </div>
+    <div class="content-header" style="float: right">
+        <div class="content-project">
+            <i class="fas fa-sign-in-alt content-icon-login"></i>
+            <span class="content-p-login">Login</span>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="main-left">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+    </div>
+    <div class="main-center">
+        <h1>Welcome</h1>
+    </div>
+    <div class="main-right">
+        <div class="main-right-adss">
+            <p style="font-family: Arial,serif">ADS</p>
+        </div>
+        <div class="main-right-adss">
+            <p style="font-family: Arial,serif">ADS</p>
+        </div>
+    </div>
+</div>
+<div class="footer-text-div">
+    <span class="footer-text-text">Footer Text</span>
+</div>
+</body>
+</html>

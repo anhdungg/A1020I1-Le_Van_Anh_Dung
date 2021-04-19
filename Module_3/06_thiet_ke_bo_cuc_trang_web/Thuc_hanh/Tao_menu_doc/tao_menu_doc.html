@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu dọc</title>
+    <style>
+        h1{
+            margin-left: 10px;
+        }
+        .dropDown{
+            position: relative;
+            background-color: black;
+            margin-left: 10px;
+            width: 150px
+        }
+        #content-sem1{
+            display: none;
+            background-color: black;
+            position: absolute;
+            left: 150px;
+            width: auto;
+            top: 0;
+        }
+        #content-sem2{
+            display: none;
+            background-color: black;
+            position: absolute;
+            left: 150px;
+            width: auto;
+            top: 30px;
+        }
+        p{
+            color: white;
+            margin: 0;
+            line-height: 30px;
+            cursor: pointer;
+            padding: 0 10px 0 10px;
+        }
+        p:hover{
+            background-color: red;
+        }
+        #sem1:hover #content-sem1{
+            display: block;
+        }
+        #sem2:hover #content-sem2{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>ACCP i10</h1>
+    <div class="dropDown">
+        <div id="sem1">
+            <p>Sem 1</p>
+            <div id="content-sem1">
+                <p>Computing</p>
+                <p>C</p>
+                <p>Building</p>
+                <p>MS Transact</p>
+                <p>Project</p>
+            </div>
+        </div>
+        <div id="sem2">
+            <p>Sem 2</p>
+            <div id="content-sem2">
+                <p>Cloud</p>
+                <p>APJ - I</p>
+                <p>APJ - II</p>
+                <p>APJ - III</p>
+                <p>eProject</p>
+            </div>
+        </div>
+        <p id="sem3">Sem 3</p>
+        <p id="sem4">Sem 4</p>
+    </div>
+</body>
+</html>

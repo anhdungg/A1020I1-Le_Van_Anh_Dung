@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facebook</title>
+    <link rel="icon" href="image/logo_facebook.jpg" type="image" style="border-radius: 50%">
+    <link rel="stylesheet" href="css/fontawesome-free-5.15.3-web/css/all.css">
+<!--    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">-->
+    <style>
+        body{
+            background-color: #171717;
+        }
+        .header{
+            position: fixed;
+            float: left;
+            background-color: #282828;
+            left: 0;
+            top: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 50px;
+        }
+        #icon-facebook{
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+        }
+        #display-icon-facebook{
+            float: left;
+            margin-bottom: auto;
+            margin-top: 5px;
+            display: block;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .div-search{
+            float: left;
+            margin-top: 5px;
+            display: block;
+            margin-left: 1%;
+            border-radius: 20px;
+            background-color: #3a3a3a;
+            height: 40px;
+            width: 230px;
+            cursor: pointer;
+        }
+        .input-search{
+            position: relative;
+            background-color: #3a3a3a;
+            height: 25px;
+            margin-left: 7px;
+            color: white;
+            border: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .display-icon{
+            float: left;
+            margin-top: 5px;
+            display: block;
+            margin-left: 1%;
+            border-radius: 50%;
+            background-color: #3a3a3a;
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+        }
+        .display-icon:hover{
+            background-color: #444444;
+        }
+        #display-icon-home{
+            float: left;
+            margin-top: 5px;
+            height: 40px;
+            display: block;
+            margin-left: 6%;
+            width: 7%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #display-icon-home:hover{
+            background-color: #444444;
+        }
+        .display-icon-watch{
+            float: left;
+            margin-top: 5px;
+            height: 40px;
+            display: block;
+            margin-left: 1%;
+            width: 7%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .display-icon-watch:hover{
+            background-color: #444444;
+        }
+        #display-image-avatar{
+            float: left;
+            margin-top: 10px;
+            display: block;
+            margin-left: 6%;
+            border-radius: 15px;
+            height: 30px;
+            width: 60px;
+            cursor: pointer;
+        }
+        #display-image-avatar:hover{
+            background-color: #444444;
+        }
+        #image-avatar{
+            border-radius: 50%;
+            height: 25px;
+            width: 25px;
+            margin-top: 3px;
+            margin-left: 2px;
+        }
+        .icon{
+            color: white;
+            text-align: center;
+            display:block;
+            margin-top: 12px
+        }
+        .menu-div{
+            clear: both;
+            height: 500px;
+            left: 5px;
+            position: fixed;
+            top: 50px;
+            width: auto;
+            padding-top: 20px;
+        }
+        .menu-div-content{
+            height: 50px;
+            width: 300px;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding-left: 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .menu-div-content:hover{
+            background-color: #3a3a3a;
+        }
+        .menu-img-avatar{
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            margin-top: 5px;
+            float: left;
+            cursor: pointer;
+        }
+        .menu-name-user{
+            float: left;
+            color: white;
+            font-family: Arial,serif;
+            font-weight: bold;
+            font-size: 15px;
+            padding-left: 10px;
+            margin: 15px auto 0 auto;
+        }
+        .menu-icon{
+            color: #19a5ff;
+            margin-top: 7px;
+            float: left;
+        }
+        .menu-hr{
+            margin-top: 20px;
+            border: 1px solid #404040;
+            width: 300px;
+        }
+        .main-div{
+            float: left;
+            padding: 30px 20px 0 20px;
+            width: 605px;
+            margin-left: 315px;
+            margin-top: 52px;
+            height: 1000px;
+        }
+        .main-story-div{
+            background-color: #19a5ff;
+            display: block;
+        }
+        .main-story-img{
+            width: 111px;
+            height: 198px;
+            border-radius: 15px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .main-story-img-div{
+            float: left;
+            width: 111px;
+            height: 198px;
+            border-radius: 15px;
+            margin-right: 10px;
+            background-color: #282828;
+        }
+        .main-story-div-user {
+            background-color: white;
+            height: 27px;
+            width: 30px;
+            border-radius: 44px;
+            margin-top: -30px;
+            margin-left: 37px;
+            border: 5px solid #282828;
+            display: inline-block;
+            padding-top: 1px;
+            cursor: pointer;
+        }
+        .main-story-p-name{
+            color: white;
+            padding: 0;
+            font-weight: bold;
+            font-family: Arial,serif;
+            margin-top: -36px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .main-status-div{
+            width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            background-color: #282828;
+            border-radius: 10px;
+            height: 120px
+        }
+        .main-status-input{
+            color: white;
+            font-family: Arial,serif;
+            padding-left: 17px;
+            margin: 10px 10px 0 10px;;
+            outline: none;
+            background-color: #444444;
+            border: 0;
+            border-radius: 20px;
+            height: 40px;
+            width: 452px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .main-status-input::placeholder{
+            color: #c0c0c0;
+        }
+        .main-status-icon{
+            float: left;
+            margin-left: 26px;
+            margin-top: 15px;
+        }
+        .main-status-icon-text{
+            float: left;
+            font-family: Arial,serif;
+            color: #c0c0c0;
+            margin-left: 7px;
+            margin-top: 22px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .main-meeting-div{
+            float: left;
+            height: 40px;
+            width: 210px;
+            border-radius: 20px;
+            border: 2px solid rgba(0,0,255,0.61);
+            margin-top: 10px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .main-meeting-span{
+            font-weight: bold;
+            font-size: 15px;
+            font-family: Arial,serif;
+            color: rgb(26, 69, 255);
+            margin-left: 17px;
+        }
+        .main-meeting-img{
+            height: 40px;
+            border-radius: 50%;
+            float: left;
+            margin-top: 13px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .message-main-div{
+            right: 5px;
+            position: fixed;
+            width: 452px;
+            padding-top: 30px;
+            top: 52px;
+            height: 500px;
+        }
+        .message-title-text{
+            font-family: Arial,serif;
+            font-weight: bold;
+            color: #c0c0c0;
+            font-size: 20px;
+            float: left;
+            margin: 0 0 0 100px
+        }
+        .message-title-icon{
+            color: #c0c0c0;
+            margin-left: 40px;
+            float: left;
+            font-size: 21px;
+            cursor: pointer;
+        }
+        .message-img-user{
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            float: left;
+        }
+        .message-name-user{
+            color: white;
+            font-weight: bold;
+            font-family: Arial,serif;
+            float: left;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .message-div-user{
+            margin-left: 100px;
+            display: block;
+            clear:both;
+            padding-top: 7px;
+            height: 48px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .message-div-user:hover{
+            background-color: #3a3a3a;;
+        }
+    </style>
+
+</head>
+<body>
+<header class="header">
+    <div id="display-icon-facebook">
+        <img id="icon-facebook" src="image/logo_facebook.jpg" alt="facebook">
+    </div>
+    <div class="div-search">
+        <i class="fa fa-search"  style="color: gray; margin-left: 12px; margin-top: 11px"></i>
+        <input class="input-search" type="text" id="searchSomething" name="searchSomething" placeholder="Tìm kiếm trên Facebook" step="0">
+    </div>
+    <div id="display-icon-home">
+        <i class="fa fa-home fa-2x icon" style="margin-top: 5px; color: gray"></i>
+    </div>
+    <div class="display-icon-watch">
+        <i class="fa fa-tv fa-2x icon" style="margin-top: 5px; color: gray"></i>
+    </div>
+    <div class="display-icon-watch">
+        <i class="fa fa-store fa-2x icon" style="margin-top: 5px; color: gray"></i>
+    </div>
+    <div class="display-icon-watch">
+        <i class="fas fa-users fa-2x icon" style="margin-top: 5px; color: gray"></i>
+    </div>
+    <div class="display-icon-watch">
+        <i class="fa fa-gamepad fa-2x icon" style="margin-top: 2px; color: gray"></i>
+    </div>
+    <div id="display-image-avatar">
+        <img id="image-avatar" src="image/IMG_1356.jpg" alt="avatar">
+        <span style="color: white; font-family: Arial,serif; font-weight: bold; font-size: 15px; top: -7px; left: 1px; position: relative">Lê</span>
+    </div>
+    <div class="display-icon">
+        <i class="fa fa-plus icon"></i>
+    </div>
+    <div class="display-icon">
+        <i class="fab fa-facebook-messenger icon"></i>
+    </div>
+    <div class="display-icon">
+        <i class="fa fa-bell icon"></i>
+    </div>
+    <div class="display-icon">
+        <i class="fa fa-sort-down fa-2x icon" style="margin-top: -2px"></i>
+    </div>
+</header>
+<div class="menu-div">
+    <div class="menu-div-content">
+        <img class="menu-img-avatar" src="image/IMG_1356.jpg" alt="facebook">
+        <p class="menu-name-user">Lê Dũng</p>
+    </div>
+    <div class="menu-div-content" style="clear:both;">
+        <i class="fa fa-user-friends fa-2x menu-icon"></i>
+        <p class="menu-name-user">Bạn bè</p>
+    </div>
+    <div class="menu-div-content">
+        <i class="fa fa-flag fa-2x menu-icon"></i>
+        <p class="menu-name-user">Trang</p>
+    </div>
+    <div class="menu-div-content">
+        <i class="fa fa-business-time fa-2x menu-icon"></i>
+        <p class="menu-name-user">Gần đây nhất</p>
+    </div>
+    <div class="menu-div-content">
+        <i class="fa fa-star fa-2x menu-icon" style="color: yellow"></i>
+        <p class="menu-name-user">Yêu thích</p>
+    </div>
+    <div class="menu-div-content">
+        <i class="fas fa-users fa-2x menu-icon" ></i>
+        <p class="menu-name-user">Nhóm</p>
+    </div>
+    <div class="menu-div-content">
+        <i class="fas fa-chevron-down fa-2x menu-icon" ></i>
+        <p class="menu-name-user">Xem thêm</p>
+    </div>
+    <hr class="menu-hr">
+    <p style="color: gray; font-family: Arial,serif; font-weight: bold; margin-left: 5px">Lối tắt của bạn</p>
+</div>
+<div class="main-div">
+    <div class="main-story-div">
+        <div class="main-story-img-div">
+            <img src="image/IMG_1356.jpg" alt="image" class = "main-story-img" style="border-radius: 15px 15px 0 0; height: 135px">
+            <div class="main-story-div-user">
+                <i class="fa fa-plus-circle fa-2x" style="color: #19a5ff; margin: -1px; display: block"></i>
+            </div>
+            <p class="main-story-p-name" style="margin-top: 7px;">Tạo tin</p>
+        </div>
+        <div class="main-story-img-div">
+            <img src="image/IMG_20210321_054431.jpg" alt="image" class = "main-story-img">
+            <p class="main-story-p-name">Phan Hoàng</p>
+        </div>
+        <div class="main-story-img-div">
+            <img src="image/IMG_20210321_070732.jpg" alt="image" class = "main-story-img">
+            <p class="main-story-p-name">Trần Cường</p>
+        </div>
+        <div class="main-story-img-div">
+            <img src="image/IMG_20210321_071424.jpg" alt="image" class = "main-story-img">
+            <p class="main-story-p-name">Huy Nguyễn</p>
+        </div>
+        <div class="main-story-img-div">
+            <img src="image/20210411_103731(1).jpg" alt="image" class = "main-story-img">
+            <p class="main-story-p-name">Pv Kiên</p>
+        </div>
+    </div>
+    <div style="clear: both; padding-top: 15px">
+        <div class="main-status-div">
+            <img class="menu-img-avatar" src="image/IMG_1356.jpg" alt="facebook" style="margin-top: 10px; margin-left: 15px">
+            <input class="main-status-input" type="text" placeholder="Lê ơi, bạn đang nghĩ gì thế?">
+            <hr style="margin: 10px 15px 0 15px; border: 1px solid #404040;">
+            <div>
+                <i class="fas fa-video fa-2x main-status-icon"  style="color: rgb(255,23,76)"></i>
+                <span class="main-status-icon-text">Video trực tiếp</span>
+                <i class="fas fa-images fa-2x main-status-icon" style="color: green"></i>
+                <span class="main-status-icon-text">Ảnh/Video</span>
+                <i class="far fa-laugh fa-2x main-status-icon" style="color: yellow"></i>
+                <span class="main-status-icon-text">Cảm xúc/Hoạt động</span>
+            </div>
+        </div>
+    </div>
+    <div class="main-status-div" style="height: 65px">
+        <div class="main-meeting-div">
+            <i class="fas fa-video fa-2x" style="color: #ca34c0; margin-left: 20px; margin-top: 10px; float: left; height: 1px;width: 1px; font-size: 20px"></i>
+            <i class="fas fa-plus" style="float: left; color: white; margin-left: 2px; margin-top: 14px; font-size: 10px"></i>
+            <div style="float: left; padding-top: 10px">
+                <span class="main-meeting-span">Tạo phòng họp mặt</span>
+            </div>
+        </div>
+        <img src="image/image-1.jpg" alt="image" class="main-meeting-img" style="margin-left: 20px">
+        <img src="image/image-2.jpg" alt="image" class="main-meeting-img">
+        <img src="image/image-3.jpg" alt="image" class="main-meeting-img">
+        <img src="image/image-4.jpg" alt="image" class="main-meeting-img">
+        <img src="image/image-5.jpg" alt="image" class="main-meeting-img">
+        <img src="image/image-6.jpg" alt="image" class="main-meeting-img">
+    </div>
+    <div class="main-status-div" style="height: 300px; padding-top: 20px">
+            <h1 style="color: white; font-family: Arial,serif; text-align: center">News Feed</h1>
+    </div>
+</div>
+<div class="message-main-div">
+    <p class="message-title-text">Người lên hệ</p>
+    <i class="fas fa-video message-title-icon" style="margin-left: 80px; height: 1px; width: 1px"></i>
+    <i class="fas fa-plus message-title-icon" style="color: black; margin-left: 3px; margin-top: 5px; font-size: 10px"></i>
+    <i class="fas fa-search message-title-icon"></i>
+    <i class="fas fa-ellipsis-h message-title-icon"></i>
+    <div style="clear: both; padding-top: 10px">
+        <div class="message-div-user">
+            <img src="image/image-1.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Ngọc Ánh</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-7.jpg" alt="image" class="message-img-user" >
+            <span class="message-name-user">Sơn Cọt</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-3.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Quỳnh Như</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-4.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user"><Minh></Minh> Thư</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-5.jpg" alt="image" class="message-img-user" >
+            <span class="message-name-user">Hoàng Mai Khánh Huyền</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-6.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Diễm Quỳnh</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-8.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Mai Thanh</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-9.jpg" alt="image" class="message-img-user" >
+            <span class="message-name-user">Diệu Linh</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-10.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Huy Nguyễn</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-11.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Pv Kiên</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-12.jpg" alt="image" class="message-img-user" >
+            <span class="message-name-user">Lã Trung Kiên</span>
+        </div>
+        <div class="message-div-user">
+            <img src="image/image-13.jpg" alt="image" class="message-img-user">
+            <span class="message-name-user">Hồng Ngọc</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fixed header</title>
+    <style>
+        .fixed-header{
+            display: block;
+            position: fixed;
+            float: left;
+            background-color: #444444;
+            width: 100%;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            height: 30px;
+        }
+        .content-header{
+            float: left;
+            width: 100px;
+            margin: 0;
+            padding: 0;
+            height: 30px;
+        }
+        .content-p{
+            display: block;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-top: 5px;
+        }
+        .content-header:hover{
+            background-color: #d3d3d3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="fixed-header">
+        <div class="content-header">
+            <p class="content-p">Home</p>
+        </div>
+        <div class="content-header">
+            <p class="content-p">News</p>
+        </div>
+        <div class="content-header">
+            <p class="content-p">Contact</p>
+        </div>
+        <div class="content-header">
+            <p class="content-p">About</p>
+        </div>
+    </div>
+    <div style="clear: left; height: 1000px; display: block">
+        <p style="font-size: 50px; font-weight: bold">Fixed Top Menu</p>
+        <p style="font-size: 25px; font-weight: bold">Scroll this page to see the effect</p>
+        <p  style="font-size: 25px; font-weight: bold">The navigation bar will stay at the top of the page whilescrolling</p>
+        <p>Some text some text some text some text..</p>
+        <p>Some text some text some text some text..</p>
+    </div>
+</body>
+</html>
