@@ -26,9 +26,15 @@
             float: left;
             padding: 10px;
         }
-        body{
+        body {
             margin: 0;
             padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:hover .image-poster-text{
+            color: yellow;
         }
         .img-logo{
             width: 250px;
@@ -84,6 +90,7 @@
             font-family: Arial, Helvetica, sans-serif;
             color: white;
             font-size: 17px;
+            text-decoration: none;
         }
         .navigation-bar-content-div:hover .navigation-bar-content-text{
             color: yellow;
@@ -107,52 +114,121 @@
             margin: 0 1% 0 1%;
             text-align: center;
         }
+        .image-poster-text{
+            font-family: Arial,serif;
+            color: white;
+        }
+
         .main-new-film-div{
             margin-top: 50px;
             align-items: center;
             justify-content: center;
             display: flex;
         }
+        .menu-bar-icon-div{
+            float: left;
+            padding: 9px
+        }
+        .menu-bar-icon-div:hover{
+            background-color: #6d6d6d;
+        }
+        .menu-bar-content-div{
+            display: none;
+            clear: both;
+            position: relative;
+            left: 10px;
+            top: 0;
+            background-color: #191919;
+            width: 200px;
+            padding: 1px 0 1px 0;
+        }
+        .menu-bar-div{
+            display: none;
+        }
+        .menu-bar-div:hover .menu-bar-content-div{
+            display: block;
+        }
+        .menu-bar-content-name-text{
+            display: block;
+            font-family: Arial,serif;
+            color: white;
+            margin: 0;
+            padding: 10px 0 10px 5px;
+            text-decoration: none;
+        }
+        .menu-bar-content-name-text:hover{
+            background-color: #6d6d6d;
+            color: yellow;
+        }
+        @media only screen and (max-width: 1090px) {
+            .menu-bar-div{
+                display: block;
+            }
+            .navigation-bar-content-div{
+                display: none;
+            }
+            .navigation-bar-main-div{
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
 <header class="header-div">
-    <img src="image/logo.png" alt="logo" class="img-logo">
+    <a href="phim_hoat_hinh.html" ><img src="image/logo.png" alt="logo" class="img-logo"></a>
     <div style="height: 80px; width: 40%; float: left">
         <input type="text" placeholder="Tìm kiếm" class="header-search-input">
         <i class="fas fa-search header-search-icon"></i>
     </div>
 </header>
 <div class="navigation-bar-main-div">
+    <div class="menu-bar-div">
+        <div class="menu-bar-icon-div">
+            <i class="fas fa-bars fa-2x" style="color: white; float: left"></i>
+        </div>
+        <div class="menu-bar-content-div">
+            <a href="#" class="menu-bar-content-name-text">Tom and Jerry</a>
+            <a href="#" class="menu-bar-content-name-text">Larva</a>
+            <a href="#" class="menu-bar-content-name-text">Doraemon</a>
+            <a href="#" class="menu-bar-content-name-text">Dragon Ball</a>
+            <a href="#" class="menu-bar-content-name-text">Conan</a>
+            <a href="#" class="menu-bar-content-name-text">One Piece</a>
+            <a href="#" class="menu-bar-content-name-text">Naruto</a>
+            <a href="#" class="menu-bar-content-name-text">One-Punch Man</a>
+            <a href="#" class="menu-bar-content-name-text">Pokémon</a>
+            <a href="#" class="menu-bar-content-name-text">Thuỷ thủ mặt trăng</a>
+        </div>
+    </div>
+
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Tom and Jerry</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Tom and Jerry</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Larva</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Larva</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Doraemon</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Doraemon</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Dragon Ball</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Dragon Ball</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Conan</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Conan</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">One Piece</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">One Piece</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Naruto</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Naruto</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">One-Punch Man</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">One-Punch Man</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Pokémon</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Pokémon</a>
     </div>
     <div class="navigation-bar-content-div">
-        <span class="navigation-bar-content-text">Thuỷ thủ mặt trăng</span>
+        <a href="tom_and_jerry.html" class="navigation-bar-content-text">Thuỷ thủ mặt trăng</a>
     </div>
 </div>
 <div class="main">
@@ -160,50 +236,66 @@
     <hr style="border: 0 inset #7e7e7e;border-top-width: 1px;border-bottom-width: 2px;">
     <div class="main-new-film-div">
             <div class="image-poster-div">
-<!--                https://www.youtube.com/watch?v=uTRz0BbxE9I&list=PLdhrcCVXurgLVZv5-jljhJfQREotkMVQJ-->
-                <img src="image/tom-and-jerry.jpg" alt="poster" class="image-poster">
-                <p>Tome and Jerry</p>
+                <a href="tom_and_jerry.html">
+                    <img src="image/tom-and-jerry.jpg" alt="poster" class="image-poster">
+                    <p class="image-poster-text">Tome and Jerry</p>
+                </a>
             </div>
             <div  class="image-poster-div">
-<!--                https://www.youtube.com/watch?v=Q8WYEEe90to&list=PLs_1bt5jjOQ8W7_O6YqbT6NP8wEEy-5aq-->
-                <img src="image/larva.jpg" alt="poster" class="image-poster">
-                <p>Larva</p>
+                <a href="larva.html">
+                    <img src="image/larva.jpg" alt="poster" class="image-poster">
+                    <p class="image-poster-text">Larva</p>
+                </a>
             </div>
             <div class="image-poster-div">
-                <img src="image/doraemon.jpg" alt="poster" class="image-poster">
-                <p>Doraemon</p>
+                <a href="doraemon.html">
+                    <img src="image/doraemon.jpg" alt="poster" class="image-poster">
+                    <p class="image-poster-text">Doraemon</p>
+                </a>
             </div>
             <div  class="image-poster-div">
-<!--                https://www.youtube.com/watch?v=I3qgJI85itQ&list=PLKvoOwlacRoIQuI4C3dRw5tCigHVjZkEr-->
-                <img src="image/dragon-ball.jpg" alt="poster" class="image-poster">
-                <p>Dragon Ball</p>
+                <a href="dragon_ball.html">
+                    <img src="image/dragon-ball.jpg" alt="poster" class="image-poster">
+                    <p class="image-poster-text">Dragon Ball</p>
+                </a>
             </div>
             <div  class="image-poster-div">
-                <img src="image/conan.jpg" alt="poster" class="image-poster">
-                <p>Conan</p>
+                <a href="conan.html">
+                    <img src="image/conan.jpg" alt="poster" class="image-poster">
+                    <p class="image-poster-text">Conan</p>
+                </a>
             </div>
     </div>
     <div class="main-new-film-div">
         <div  class="image-poster-div">
-<!--            https://www.youtube.com/watch?v=vUSunPAO-nw&list=PLKvoOwlacRoKMOz2B-E4l03pU9iwXl7KX-->
-            <img src="image/one-piece.jpg" alt="poster" class="image-poster">
-            <p>One Piece</p>
+            <a href="one-piece.html">
+                <img src="image/one-piece.jpg" alt="poster" class="image-poster">
+                <p class="image-poster-text">One Piece</p>
+            </a>
         </div>
         <div  class="image-poster-div">
-            <img src="image/naruto.jpg" alt="poster" class="image-poster">
-            <p>Naruto</p>
+            <a href="naruto.html">
+                <img src="image/naruto.jpg" alt="poster" class="image-poster">
+                <p class="image-poster-text">Naruto</p>
+            </a>
         </div>
         <div  class="image-poster-div">
-            <img src="image/one-punch-man.jpg" alt="poster" class="image-poster">
-            <p>One Punch Man</p>
+            <a href="one_punch_man.html">
+                <img src="image/one-punch-man.jpg" alt="poster" class="image-poster">
+                <p class="image-poster-text">One Punch Man</p>
+            </a>
         </div>
         <div  class="image-poster-div">
-            <img src="image/pokemon.jpg" alt="poster" class="image-poster">
-            <p>Pokémon</p>
+            <a href="pokemon.html">
+                <img src="image/pokemon.jpg" alt="poster" class="image-poster">
+                <p class="image-poster-text">Pokémon</p>
+            </a>
         </div>
         <div  class="image-poster-div">
-            <img src="image/thuy-thu-mat-trang.jpg" alt="poster" class="image-poster">
-            <p>Thuỷ thủ mặt trăng</p>
+            <a href="thuy_thu_mat_trang.html">
+                <img src="image/thuy-thu-mat-trang.jpg" alt="poster" class="image-poster">
+                <p class="image-poster-text">Thuỷ thủ mặt trăng</p>
+            </a>
         </div>
 
     </div>
