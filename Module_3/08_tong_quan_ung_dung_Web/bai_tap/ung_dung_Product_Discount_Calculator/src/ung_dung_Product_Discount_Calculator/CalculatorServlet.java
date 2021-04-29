@@ -14,12 +14,15 @@ public class CalculatorServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        float price = Float.parseFloat(request.getParameter("price"));
-        float discount = Float.parseFloat(request.getParameter("discount"));
-
-        double total = price * discount * 0.01;
-
-        request.setAttribute("total",total);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        double total=0;
+        try {
+            float price = Float.parseFloat(request.getParameter("price"));
+            float discount = Float.parseFloat(request.getParameter("discount"));
+            total = price * discount * 0.01;
+        }
+        finally {
+            request.setAttribute("total",total+"%");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
 }
