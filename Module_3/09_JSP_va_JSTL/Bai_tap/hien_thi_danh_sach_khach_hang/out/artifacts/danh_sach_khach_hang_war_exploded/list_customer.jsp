@@ -25,7 +25,7 @@
                 <td><c:out value="${customer.name}"/></td>
                 <td><c:out value="${customer.dayOfBirth}"/></td>
                 <td><c:out value="${customer.address}"/></td>
-                <td><img src="${pageContext.request.contextPath}${customer.image}" alt="image"/></td>
+                <td><img src="./img/img-1.jpg" alt="image" style="height: 50px"/></td>
             </tr>
         </c:forEach>
     </table>
