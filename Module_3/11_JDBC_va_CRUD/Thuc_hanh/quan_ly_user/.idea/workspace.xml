@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="manage_user:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d7bea2ae-c516-470b-89b5-8e4a46996499" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/artifacts/manage_user_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/libraries/jstl_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/libraries/mysql_connector_java_8_0_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/manage_user.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/config/CharsetFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/controller/UserServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/model/bean/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/repository/BaseRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/repository/UserRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/service/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/classes/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/lib/jstl-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/lib/mysql-connector-java-8.0.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/create.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/delete.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/edit.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/artifacts/manage_user_war_exploded/view.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/config/CharsetFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/controller/UserServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/model/bean/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/repository/BaseRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/repository/UserRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/service/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/out/production/manage_user/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/config/CharsetFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/controller/UserServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/model/bean/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/repository/BaseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/repository/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/src/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/web/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/web/create.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/web/delete.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/web/edit.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/web/list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap/web/view.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Ly_thuyet/BaseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Ly_thuyet/jdbc_1.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Ly_thuyet/jdbc_2.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Ly_thuyet/mysql-connector-java-8.0.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../M3-set-utf8-request-jsp-servlet/M3-set-utf8-request-jsp-servlet.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../M3-set-utf8-request-jsp-servlet/config/CharsetFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/manage_user_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/jstl_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/manage_user.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/controller/UserServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/model/bean/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/repository/BaseRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/repository/UserRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/service/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/classes/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/lib/jstl-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/lib/mysql-connector-java-8.0.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/manage_user_war_exploded/list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/manage_user/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/CharsetFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/UserServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/bean/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/BaseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/create.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/delete.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/edit.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/view.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../jstl-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/.idea/artifacts/Furama_Resort_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/Furama_Resort.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-grid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-grid.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-grid.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-reboot.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/css/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/index.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/bootstrap.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../CaseStudy_JSP_va_JSTL/web/js/jquery-3.6.0.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/CaseStudy/manage/ManageCustomer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/CaseStudy/manage/ManageCustomer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/CaseStudy/manage/ManageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/CaseStudy/manage/ManageService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/META-INF/Module_2.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/test/SortArray.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/test/SortArray.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/test/WomenDay.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/out/production/Module_2/test/WomenDay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/ChuNhat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/ChuNhat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/Hinh.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/Hinh.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/TamGiac.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/TamGiac.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/Tron.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Module_2/src/ke_thua/thuc_hanh/he_cac_doi_tuong_hinh_hoc/Tron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/Module_3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/Module_3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/jsLibraryMappings.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Jsp File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectId" id="1sR7pM7DjLyEpMFMny7pHB90PPq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Bai_tap/quan_ly_user_cap_nhap" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.21">
+    <configuration name="UserRepositoryImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="repository.impl.UserRepositoryImpl" />
+      <module name="manage_user" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repository.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 9.0.21" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.21" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment>
+        <artifact name="manage_user:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Tomcat_9_0_21_manage_user_2" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="52795" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="manage_user:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.UserRepositoryImpl" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.21" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.UserRepositoryImpl" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d7bea2ae-c516-470b-89b5-8e4a46996499" name="Default Changelist" comment="" />
+      <created>1620823729030</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620823729030</updated>
+      <workItem from="1620823731924" duration="7142000" />
+      <workItem from="1620871270725" duration="5905000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="41" y="225" key="#SQL_Dialects" timestamp="1620825868249">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state x="41" y="225" key="#SQL_Dialects/0.0.1304.768@0.0.1304.768" timestamp="1620825868249" />
+    <state x="106" y="39" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620823787938">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state x="106" y="39" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1304.768@0.0.1304.768" timestamp="1620823787938" />
+    <state x="457" y="90" key="#com.intellij.ide.util.MemberChooser" timestamp="1620829445497">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state x="457" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1304.768@0.0.1304.768" timestamp="1620829445497" />
+    <state x="358" y="125" key="FileChooserDialogImpl" timestamp="1620880005570">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state x="358" y="125" key="FileChooserDialogImpl/0.0.1304.768@0.0.1304.768" timestamp="1620880005570" />
+    <state width="862" height="192" key="GridCell.Tab.0.bottom" timestamp="1620880103236">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.0.bottom/0.0.1304.768@0.0.1304.768" timestamp="1620880103236" />
+    <state width="862" height="192" key="GridCell.Tab.0.center" timestamp="1620880103236">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.0.center/0.0.1304.768@0.0.1304.768" timestamp="1620880103236" />
+    <state width="862" height="192" key="GridCell.Tab.0.left" timestamp="1620880103236">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.0.left/0.0.1304.768@0.0.1304.768" timestamp="1620880103236" />
+    <state width="862" height="192" key="GridCell.Tab.0.right" timestamp="1620880103236">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.0.right/0.0.1304.768@0.0.1304.768" timestamp="1620880103236" />
+    <state width="862" height="192" key="GridCell.Tab.1.bottom" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.1.bottom/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state width="862" height="192" key="GridCell.Tab.1.center" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.1.center/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state width="862" height="192" key="GridCell.Tab.1.left" timestamp="1620880103236">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.1.left/0.0.1304.768@0.0.1304.768" timestamp="1620880103236" />
+    <state width="862" height="192" key="GridCell.Tab.1.right" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.1.right/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state width="862" height="192" key="GridCell.Tab.2.bottom" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.2.bottom/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state width="862" height="192" key="GridCell.Tab.2.center" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.2.center/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state width="862" height="192" key="GridCell.Tab.2.left" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.2.left/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state width="862" height="192" key="GridCell.Tab.2.right" timestamp="1620880103237">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state width="862" height="192" key="GridCell.Tab.2.right/0.0.1304.768@0.0.1304.768" timestamp="1620880103237" />
+    <state x="132" y="0" key="SettingsEditor" timestamp="1620823778956">
+      <screen x="0" y="0" width="1304" height="768" />
+    </state>
+    <state x="132" y="0" key="SettingsEditor/0.0.1304.768@0.0.1304.768" timestamp="1620823778956" />
+  </component>
+</project>
