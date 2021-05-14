@@ -125,17 +125,17 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             PreparedStatement preparedStatement = this.baseRepository.getConnection().prepareStatement(
                     "select * from user\n" +
-                            "where country = ?");
-            preparedStatement.setString(1, country);
-            User user = null;
+                            "where country like '%" + country + "%'");
+//            preparedStatement.setString(1, country);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setCountry(resultSet.getString("country"));
-                list.add(user);
+//                user = new User();
+//                user.setId(resultSet.getInt("id"));
+//                user.setName(resultSet.getString("name"));
+//                user.setEmail(resultSet.getString("email"));
+//                user.setCountry(resultSet.getString("country"));
+                list.add(new User(resultSet.getInt("id"), resultSet.getString("name"),
+                        resultSet.getString("email"), resultSet.getString("country")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
