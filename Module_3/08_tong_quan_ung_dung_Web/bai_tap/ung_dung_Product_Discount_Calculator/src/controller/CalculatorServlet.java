@@ -1,4 +1,4 @@
-package ung_dung_Product_Discount_Calculator;
+package controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
