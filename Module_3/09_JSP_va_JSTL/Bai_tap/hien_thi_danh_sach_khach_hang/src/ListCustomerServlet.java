@@ -20,7 +20,7 @@ public class ListCustomerServlet extends HttpServlet {
         list.add(new Customer("Nguyễn Thái Hoà", "1983-08-22", "Hà Nội", "img/img-3.jpg"));
         list.add(new Customer("Trần Đăng Khoa", "1983-08-17", "Hà Nội", "img/img-4.jpg"));
         list.add(new Customer("Nguyễn Đình Thi", "1983-08-19", "Hà Nội", "img/img-5.jpg"));
-        request.setAttribute("customer", list);
+        request.setAttribute("customers", list);
         request.getRequestDispatcher("list_customer.jsp").forward(request, response);
     }
 }

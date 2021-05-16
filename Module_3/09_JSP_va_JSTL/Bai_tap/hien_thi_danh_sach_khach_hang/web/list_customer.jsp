@@ -20,7 +20,7 @@
             <th>Địa chỉ</th>
             <th>Ảnh</th>
         </tr>
-        <c:forEach var="customer" items="${customer}">
+        <c:forEach var="customers" items="${customer}">
             <tr style="border-bottom: 1px solid black">
                 <td><c:out value="${customer.name}"/></td>
                 <td><c:out value="${customer.dayOfBirth}"/></td>
