@@ -8,6 +8,14 @@ import java.io.IOException;
 @WebServlet(name = "CalculatorServlet", urlPatterns = "/calculator")
 public class CalculatorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.calculator(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    private void calculator(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double first=0.0;
         double second=0.0;
         double result=0.0;
@@ -43,9 +51,5 @@ public class CalculatorServlet extends HttpServlet {
             request.setAttribute("result", resultString);
         }
         request.getRequestDispatcher("result.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
