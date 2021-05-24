@@ -5,9 +5,8 @@
 <head>
     <title>Customer</title>
     <link rel="icon" href="img/logo.png">
-<%--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--%>
     <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css" >
-<%--    <link rel="stylesheet" href="${contextPath}/datatables/css/dataTables.bootstrap4.min.css" >--%>
+    <link rel="stylesheet" href="${contextPath}/datatables/css/dataTables.bootstrap4.min.css" >
     <style>
         .display-5 {
             font-size: 2.5rem;
@@ -23,59 +22,6 @@
     </style>
 </head>
 <body>
-<%--<c:if test="${statusSave != null}">--%>
-<%--    <div class="modal fade" id="viewStatusSave">--%>
-<%--        <div class="modal-dialog modal-confirm">--%>
-<%--            <div class="modal-content">--%>
-<%--                <c:if test="${statusSave == 'success'}">--%>
-<%--                    <div class="modal-header">--%>
-<%--&lt;%&ndash;                        <div class="icon-box">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <i class="material-icons">&#xE876;</i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </div>&ndash;%&gt;--%>
-<%--                        <h2 class="modal-title w-100 text-center">Success!</h2>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-<%--                <c:if test="${statusSave == 'fail'}">--%>
-<%--                    <div class="modal-header">--%>
-<%--&lt;%&ndash;                        <div class="icon-box" style="background: red">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <i class="material-icons">&#xE888;</i>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </div>&ndash;%&gt;--%>
-<%--                        <h2 class="modal-title w-100 text-center">Fail!</h2>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-<%--&lt;%&ndash;                <div class="modal-body">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <c:if test="${action == 'create'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <c:if test="${statusSave == 'success'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <p class="text-center">New customer saved.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <c:if test="${statusSave == 'fail'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <p class="text-center">New customers are not saved.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <c:if test="${action == 'edit'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <c:if test="${statusSave == 'success'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <p class="text-center">Successful customer editing.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <c:if test="${statusSave == 'fail'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <p class="text-center">Failed customer editing.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <c:if test="${action == 'delete'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <c:if test="${statusSave == 'success'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <p class="text-center">Delete customer successfully.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <c:if test="${statusSave == 'fail'}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            <p class="text-center">Delete customer failed.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                </div>&ndash;%&gt;--%>
-<%--                <div class="modal-footer">--%>
-<%--                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</c:if>--%>
 <jsp:include page="header.jsp" />
 <div class="container-fluid">
     <div class="row">
@@ -89,10 +35,21 @@
                     <c:if test="${action == 'edit'}">
                         <h1 class="display-5 text-center">Edit customer</h1>
                     </c:if>
+                    <c:if test="${action == 'search'}">
+                        <c:if test="${listCustomer != null}">
+                            <h1 class="display-5 text-center">Search result for "${value}"</h1>
+                        </c:if>
+                        <c:if test="${listCustomer == null}">
+                            <h1 class="display-5 text-center">No results found for "${value}"</h1>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${action == 'delete'}">
+                        <h1 class="display-5 text-center">Are you sure?</h1>
+                    </c:if>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 pl-5 pr-5">
+                <div class="col-12 pl-0 pr-1">
                     <form action="" method="post">
                         <input type="hidden" name="type" value="customer">
                         <c:if test="${action == 'create'}">
@@ -139,7 +96,7 @@
                                 <input class="form-control" type="text" name="address" id="createAddress">
                             </div>
                         </c:if>
-                        <c:if test="${action == 'edit'}">
+                        <c:if test="${action == 'edit' || action == 'delete'}">
                             <input type="hidden" name="action" value="edit">
                             <div class="form-row">
                                 <div class="form-group col-6">
@@ -188,6 +145,65 @@
                                 <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}">
                             </div>
                         </c:if>
+                        <c:if test="${action == 'search'}">
+                            <c:if test="${listCustomer != null}">
+                                <table id="tableCustomer" class="table table-striped" style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Type Customer</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Day of birth</th>
+                                        <th scope="col">CMND</th>
+                                        <th scope="col">Phone number</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Address</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${listCustomer}" var="customer" varStatus="count">
+                                        <tr onmouseover="showButton(${count.index})" onmouseout="hideButton(${count.index})">
+                                            <td>${customer.getIdCustomer()}</td>
+                                            <c:choose>
+                                                <c:when test="${customer.getIdTypeCustomer() == 1}">
+                                                    <td>Diamond</td>
+                                                </c:when>
+                                                <c:when test="${customer.getIdTypeCustomer() == 2}">
+                                                    <td>Platinium</td>
+                                                </c:when>
+                                                <c:when test="${customer.getIdTypeCustomer() == 3}">
+                                                    <td>Gold</td>
+                                                </c:when>
+                                                <c:when test="${customer.getIdTypeCustomer() == 4}">
+                                                    <td>Silver</td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>Member</td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <td>${customer.getName()}</td>
+                                            <td>${customer.getDayOfBirth()}</td>
+                                            <td>${customer.getCMND()}</td>
+                                            <td>${customer.getPhoneNumber()}</td>
+                                            <td>${customer.getEmail()}</td>
+                                            <td class="position-relative">
+                                                    ${customer.getAddress()}
+                                                <div class="position-absolute" id="button${count.index}" style="right: 2%; top: 8%; display: none">
+                                                    <a href="?type=customer&action=edit&id=${customer.getIdCustomer()}">
+                                                        <button type="button" class="btn btn-warning p-1">Edit</button>
+                                                    </a>
+                                                    <a href="?type=customer&action=delete&id=${customer.getIdCustomer()}">
+                                                        <button type="button" class="btn btn-danger p-1">Delete</button>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:if>
+                        </c:if>
                         <div class="form-row">
                             <c:if test="${action == null}">
                                 <a href="?type=customer&action=list" class="ml-auto mr-auto">
@@ -195,10 +211,25 @@
                                 </a>
                             </c:if>
                             <c:if test="${action != null}">
-                                <a href="?type=customer&action=list" class="ml-auto mr-2">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </a>
-                                <button type="submit" class="btn btn-primary ml-2 mr-auto">Save</button>
+                                <c:choose>
+                                    <c:when test="${action == 'delete'}">
+                                        <a href="?type=customer&action=list" class="ml-auto mr-2">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </a>
+                                        <button type="submit" class="btn btn-danger ml-2 mr-auto">Yes</button>
+                                    </c:when>
+                                    <c:when test="${action == 'edit' || action == 'create'}">
+                                        <a href="?type=customer&action=list" class="ml-auto mr-2">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </a>
+                                        <button type="submit" class="btn btn-primary ml-2 mr-auto">Save</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="?type=customer&action=list" class="ml-auto mr-auto">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:if>
                         </div>
                     </form>
@@ -208,10 +239,19 @@
     </div>
 </div>
 <script src="${contextPath}/js/jquery-3.5.1.min.js"></script>
-<%--<script src="${contextPath}/datatables/js/jquery.dataTables.min.js"></script>--%>
-<%--<script src="${contextPath}/datatables/js/dataTables.bootstrap4.min.js"></script>--%>
+<script src="${contextPath}/datatables/js/jquery.dataTables.min.js"></script>
+<script src="${contextPath}/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js"></script>
 <script>
+    function showButton(index){
+        let button = document.getElementById("button" + index);
+        button.style.display = "block";
+    }
+
+    function hideButton(index){
+        let button = document.getElementById("button" + index);
+        button.style.display = "none";
+    }
     function editSelect(){
         <c:if test="${customer.getIdTypeCustomer() != null}">
             let id = ${customer.getIdTypeCustomer()};
@@ -236,9 +276,16 @@
             document.getElementById(str).selected = true;
         </c:if>
     }
+    $(document).ready(function () {
+        $('#tableCustomer').dataTable({
+            "dom": 'lrtip',
+            "lengthChange": false,
+            "pageLength": 10
+        });
+    });
     $(window).on('load', function() {
     //     if($('#viewStatusSave').length){
-            $('#viewStatusSave').modal('show');
+    //         $('#viewStatusSave').modal('show');
             editSelect();
     //     }
     });

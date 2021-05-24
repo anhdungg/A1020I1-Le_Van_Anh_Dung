@@ -11,4 +11,5 @@ public interface FuramaRepository {
     boolean editCustomer(Customer customer);
     boolean createCustomer(Customer customer);
     boolean deleteCustomer(int id);
+    List<Customer> findName(String name);
 }

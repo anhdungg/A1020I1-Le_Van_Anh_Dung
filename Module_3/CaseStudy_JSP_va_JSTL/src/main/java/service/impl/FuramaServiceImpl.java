@@ -44,4 +44,9 @@ public class FuramaServiceImpl implements FuramaService {
     public boolean deleteCustomer(int id) {
         return this.repository.deleteCustomer(id);
     }
+
+    @Override
+    public List<Customer> findName(String name) {
+        return this.repository.findName(name);
+    }
 }

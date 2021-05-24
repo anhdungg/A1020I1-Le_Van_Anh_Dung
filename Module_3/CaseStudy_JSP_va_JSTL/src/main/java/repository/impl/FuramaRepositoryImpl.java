@@ -4,10 +4,7 @@ import model.bean.Customer;
 import repository.BaseRepository;
 import repository.FuramaRepository;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,8 +108,25 @@ public class FuramaRepositoryImpl implements FuramaRepository {
         return false;
     }
 
-    //    public static void main(String[] args) {
-//        FuramaRepository furama = new FuramaRepositoryImpl();
-//        System.out.println(furama.createCustomer(new Customer(1,"Nguyễn Trần Bình", "2000/09/12", "206380834", "0934472768", "tranbinhh@gmail.com", "Nghi Phú, Tp.Vinh, Nghệ An")));
-//    }
+    @Override
+    public List<Customer> findName(String name) {
+        List<Customer> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = this.repository.getConnection().prepareStatement(
+                    "select * from khach_hang\n" +
+                            "where ho_ten like ?");
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                list.add(new Customer(resultSet.getInt("id_khach_hang"), resultSet.getInt("id_loai_khach_hang"),
+                        resultSet.getString("ho_ten"), resultSet.getString("ngay_sinh"),
+                        resultSet.getString("CMND"), resultSet.getString("so_dien_thoai"),
+                        resultSet.getString("email"), resultSet.getString("dia_chi")));
+            }
+            return list;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -12,4 +12,5 @@ public interface FuramaService {
     boolean createCustomer(String idType, String name, String dayOfBirth, String CMND, String phoneNumber,
                            String email, String address);
     boolean deleteCustomer(int id);
+    List<Customer> findName(String name);
 }

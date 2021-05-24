@@ -190,24 +190,6 @@
 <%--        </div>--%>
 <%--    </div>--%>
 <%--</div>--%>
-<c:if test="${action == 'delete'}">
-    <div class="modal fade" id="viewDelete">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title w-100 text-center">Are you sure?</h2>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <form action="" method="post" class="p-0 m-0">
-                        <input type="hidden" name="id" value="${id}">
-                        <button type="submit" class="btn btn-danger">Yes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:if>
 <jsp:include page="header.jsp" />
 <div class="container-fluid">
     <div class="row">
@@ -226,7 +208,7 @@
             </div>
             <div class="row">
                 <div class="col-12 pl-1 pr-1">
-                    <table id="tableCustomer" class="table table-striped table-dark" style="width: 100%">
+                    <table id="tableCustomer" class="table table-striped" style="width: 100%">
                         <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -250,10 +232,10 @@
                                         <c:when test="${customer.getIdTypeCustomer() == 2}">
                                             <td>Platinium</td>
                                         </c:when>
-                                        <c:when test="${customer.getIdTypeCustomer() == 2}">
+                                        <c:when test="${customer.getIdTypeCustomer() == 3}">
                                             <td>Gold</td>
                                         </c:when>
-                                        <c:when test="${customer.getIdTypeCustomer() == 2}">
+                                        <c:when test="${customer.getIdTypeCustomer() == 4}">
                                             <td>Silver</td>
                                         </c:when>
                                         <c:otherwise>
@@ -276,7 +258,6 @@
                                             </a>
                                         </div>
                                     </td>
-
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -311,10 +292,6 @@
             "lengthChange": false,
             "pageLength": 10
         });
-    });
-    $(window).on('load', function() {
-        // $('#editModal').modal('show');
-        $('#viewDelete').modal('show');
     });
     // $(window).on('load', function() {
     //     $('#viewStatusSave').modal('show');

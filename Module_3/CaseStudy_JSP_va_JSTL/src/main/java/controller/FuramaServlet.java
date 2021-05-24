@@ -3,6 +3,7 @@ package controller;
 import service.FuramaService;
 import service.impl.FuramaServiceImpl;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,6 +53,9 @@ public class FuramaServlet extends HttpServlet {
             action = "";
         }
         switch (action){
+            case "search":
+                this.viewResultSearch(request, response);
+                break;
             case "delete":
                 this.viewDeleteCustomer(request, response);
                 break;
@@ -87,6 +91,7 @@ public class FuramaServlet extends HttpServlet {
     }
 
     private void viewListCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("type", "customer");
         request.setAttribute("listCustomer", this.service.findAll());
         request.getRequestDispatcher("customer.jsp").forward(request, response);
     }
@@ -95,12 +100,11 @@ public class FuramaServlet extends HttpServlet {
         try{
             String id = request.getParameter("id");
             request.setAttribute("customer", this.service.findById(Integer.parseInt(id)));
-            request.setAttribute("action", "edit");
-
         } catch (NumberFormatException ex){
             ex.printStackTrace();
         }
-        request.getRequestDispatcher("edit_create_customer.jsp").forward(request, response);
+        request.setAttribute("type", "customer");
+        request.getRequestDispatcher("customer_jsp/edit.jsp").forward(request, response);
     }
 
     private void saveEditCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,13 +119,16 @@ public class FuramaServlet extends HttpServlet {
 
         boolean status = this.service.editCustomer(id, idType, name, dayOfBirth, CMND, phoneNumber, email, address);
         if (status){
-            request.setAttribute("statusSave", "success");
+            request.setAttribute("status", true);
         }else{
-            request.setAttribute("statusSave", "fail");
+            request.setAttribute("status", false);
         }
-        request.setAttribute("action", "edit");
+        request.setAttribute("type", "customer");
         request.setAttribute("customer", this.service.findById(Integer.parseInt(id)));
-        request.getRequestDispatcher("edit_create_customer.jsp").forward(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("customer_jsp/edit.jsp");
+
+        requestDispatcher.forward(request, response);
+//        request.getRequestDispatcher("customer_jsp/edit.jsp").forward(request, response);
     }
 
     private void viewCreateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -149,8 +156,9 @@ public class FuramaServlet extends HttpServlet {
         String id = request.getParameter("id");
         request.setAttribute("id", id);
         request.setAttribute("action", "delete");
-        request.setAttribute("listCustomer", this.service.findAll());
-        request.getRequestDispatcher("customer.jsp").forward(request, response);
+        request.setAttribute("customer", this.service.findById(Integer.parseInt(id)));
+        request.setAttribute("type", "customer");
+        request.getRequestDispatcher("customer_jsp.jsp").forward(request, response);
     }
 
     private void saveDeleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -162,9 +170,21 @@ public class FuramaServlet extends HttpServlet {
         } catch (NumberFormatException ex){
             ex.printStackTrace();
         }
+        request.setAttribute("type", "customer");
         request.setAttribute("listCustomer", this.service.findAll());
         request.getRequestDispatcher("customer.jsp").forward(request, response);
     }
+
+    private void viewResultSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("value");
+        request.setAttribute("action", "search");
+        request.setAttribute("type", "customer");
+        request.setAttribute("value", name);
+        request.setAttribute("listCustomer", this.service.findName(name));
+        request.getRequestDispatcher("edit_create_customer.jsp").forward(request, response);
+
+    }
+
     private void viewHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
