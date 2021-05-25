@@ -5,6 +5,7 @@
 <head>
     <title>Customer</title>
     <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css" >
     <link rel="stylesheet" href="${contextPath}/datatables/css/dataTables.bootstrap4.min.css" >
     <style>
@@ -19,207 +20,326 @@
         tr{
             text-align: center;
         }
+        .modal-confirm {
+            color: #636363;
+            width: 325px;
+            font-size: 14px;
+        }
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+        .modal-confirm .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+        .modal-confirm h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -15px;
+        }
+        .modal-confirm .form-control, .modal-confirm .btn {
+            min-height: 40px;
+            border-radius: 3px;
+        }
+        .modal-confirm .close {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+        .modal-confirm .modal-footer {
+            border: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        .modal-confirm .icon-box {
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: -70px;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            z-index: 9;
+            /*background: #82ce34;*/
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+        .modal-confirm .icon-box i {
+            font-size: 58px;
+            position: relative;
+            top: 3px;
+        }
+        .modal-confirm.modal-dialog {
+            margin-top: 80px;
+        }
+        .modal-confirm .btn {
+            color: #fff;
+            border-radius: 4px;
+            /*background: #82ce34;*/
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            border: none;
+        }
+        .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+            /*background: #6fb32b;*/
+            /*outline: none;*/
+        }
+        .trigger-btn {
+            display: inline-block;
+            margin: 100px auto;
+        }
     </style>
 </head>
 <body>
 <!-- Modal -->
-<%--<c:if test="${customer != null}">--%>
-<%--    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--%>
-<%--        <div class="modal-dialog" role="document">--%>
-<%--            <div class="modal-content">--%>
-<%--                <div class="modal-header">--%>
-<%--                    <h5 class="modal-title" id="exampleModalLabel">Edit customer</h5>--%>
-<%--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                        <span aria-hidden="true">&times;</span>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--                <form action="?type=customer&action=edit" method="post">--%>
-<%--                    <div class="modal-body">--%>
-<%--                        <div class="form-row">--%>
-<%--                            <div class="form-group col-6">--%>
-<%--                                <label for="id">ID</label><br>--%>
-<%--                                <input class="form-control" type="number" name="id" id="id" value="${customer.getIdCustomer()}" readonly>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group col-6">--%>
-<%--                                <label for="idTypeCustomer">ID type customer</label>--%>
-<%--                                <input class="form-control" type="number" name="idTypeCustomer" id="idTypeCustomer" value="${customer.getIdTypeCustomer()}">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-row">--%>
-<%--                            <div class="form-group col-6">--%>
-<%--                                <label for="name">Name</label>--%>
-<%--                                <input class="form-control" type="text" name="name" id="name" value="${customer.getName()}">--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group col-6">--%>
-<%--                                <label for="dayOfBirth">Day of birth:</label>--%>
-<%--                                <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${customer.getDayOfBirth()}">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-row">--%>
-<%--                            <div class="form-group col-6">--%>
-<%--                                <label for="CMND">CMND</label>--%>
-<%--                                <input class="form-control" type="text" name="CMND" id="CMND" value="${customer.getCMND()}">--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group col-6">--%>
-<%--                                <label for="phoneNumber">Phone number:</label>--%>
-<%--                                <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${customer.getPhoneNumber()}">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="email">Email</label>--%>
-<%--                            <input class="form-control" type="text" name="email" id="email" value="${customer.getEmail()}">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="address">Address</label>--%>
-<%--                            <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="modal-footer">--%>
-<%--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
-<%--                        <button type="submit" class="btn btn-primary">Save</button>--%>
-<%--                    </div>--%>
-<%--                </form>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</c:if>--%>
-<%--<c:if test="${statusSave != null}">--%>
-<%--    <div class="modal fade" id="viewStatusSave">--%>
-<%--        <div class="modal-dialog modal-confirm">--%>
-<%--            <div class="modal-content">--%>
-<%--                <c:if test="${statusSave == 'success'}">--%>
-<%--                    <div class="modal-header">--%>
-<%--                        <div class="icon-box">--%>
-<%--                            <i class="material-icons">&#xE876;</i>--%>
-<%--                        </div>--%>
-<%--                        <h2 class="modal-title w-100 text-center">Success!</h2>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-<%--                <c:if test="${statusSave == 'fail'}">--%>
-<%--                    <div class="modal-header">--%>
-<%--                        <div class="icon-box" style="background: red">--%>
-<%--                            <i class="material-icons">&#xE888;</i>--%>
-<%--                        </div>--%>
-<%--                        <h2 class="modal-title w-100 text-center">Fail!</h2>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-<%--                <div class="modal-body">--%>
-<%--                    <c:if test="${action == 'create'}">--%>
-<%--                        <c:if test="${statusSave == 'success'}">--%>
-<%--                            <p class="text-center">New customer saved.</p>--%>
-<%--                        </c:if>--%>
-<%--                        <c:if test="${statusSave == 'fail'}">--%>
-<%--                            <p class="text-center">New customers are not saved.</p>--%>
-<%--                        </c:if>--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${action == 'edit'}">--%>
-<%--                        <c:if test="${statusSave == 'success'}">--%>
-<%--                            <p class="text-center">Successful customer editing.</p>--%>
-<%--                        </c:if>--%>
-<%--                        <c:if test="${statusSave == 'fail'}">--%>
-<%--                            <p class="text-center">Failed customer editing.</p>--%>
-<%--                        </c:if>--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${action == 'delete'}">--%>
-<%--                        <c:if test="${statusSave == 'success'}">--%>
-<%--                            <p class="text-center">Delete customer successfully.</p>--%>
-<%--                        </c:if>--%>
-<%--                        <c:if test="${statusSave == 'fail'}">--%>
-<%--                            <p class="text-center">Delete customer failed.</p>--%>
-<%--                        </c:if>--%>
-<%--                    </c:if>--%>
-<%--                </div>--%>
-<%--                <div class="modal-footer">--%>
-<%--                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</c:if>--%>
-<%--<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--%>
-<%--    <div class="modal-dialog" role="document">--%>
-<%--        <div class="modal-content">--%>
-<%--            <div class="modal-header">--%>
-<%--                <h5 class="modal-title">Add new customer</h5>--%>
-<%--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                    <span aria-hidden="true">&times;</span>--%>
-<%--                </button>--%>
-<%--            </div>--%>
-<%--            <form action="?type=customer&action=create" method="post">--%>
-<%--                <div class="modal-body">--%>
-<%--                    <div class="form-row">--%>
-<%--                        <div class="form-group col-6">--%>
-<%--                            <label for="createName">Name</label>--%>
-<%--                            <input class="form-control" type="text" name="name" id="createName">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group col-6">--%>
-<%--                            <label for="createDayOfBirth">Day of birth:</label>--%>
-<%--                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-row">--%>
-<%--                        <div class="form-group col-6">--%>
-<%--                            <label for="createCMND">CMND</label>--%>
-<%--                            <input class="form-control" type="text" name="CMND" id="createCMND">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group col-6">--%>
-<%--                            <label for="createPhoneNumber">Phone number:</label>--%>
-<%--                            <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-row">--%>
-<%--                        <div class="form-group col-6">--%>
-<%--                            <label for="createIdTypeCustomer">ID type customer</label>--%>
-<%--                            <input class="form-control" type="number" name="idTypeCustomer" id="createIdTypeCustomer">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group col-6">--%>
-<%--                            <label for="createEmail">Email</label>--%>
-<%--                            <input class="form-control" type="text" name="email" id="createEmail">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-group">--%>
-<%--                        <label for="createAddress">Address</label>--%>
-<%--                        <input class="form-control" type="text" name="address" id="createAddress">--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="modal-footer">--%>
-<%--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
-<%--                    <button type="submit" class="btn btn-primary">Save</button>--%>
-<%--                </div>--%>
-<%--            </form>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
+<c:if test="${customer != null}">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="?type=customer&action=edit" method="post">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="id">ID</label><br>
+                                <input class="form-control" type="number" name="id" id="id" value="${customer.getIdCustomer()}" readonly>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="idTypeCustomer">Type customer</label>
+                                <select class="form-control" name="idTypeCustomer" id="idTypeCustomer" required>
+                                    <option value="1" id="Diamond">Diamond</option>
+                                    <option value="2" id="Platinium">Platinium</option>
+                                    <option value="3" id="Gold">Gold</option>
+                                    <option value="4" id="Silver">Silver</option>
+                                    <option value="5" id="Member">Member</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="name">Name</label>
+                                <input class="form-control" type="text" name="name" id="name" value="${customer.getName()}">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="dayOfBirth">Day of birth:</label>
+                                <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${customer.getDayOfBirth()}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="CMND">CMND</label>
+                                <input class="form-control" type="text" name="CMND" id="CMND" value="${customer.getCMND()}">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="phoneNumber">Phone number:</label>
+                                <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${customer.getPhoneNumber()}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="text" name="email" id="email" value="${customer.getEmail()}">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${statusSave != null}">
+    <div class="modal fade" id="viewStatusSave">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <c:if test="${statusSave == 'success'}">
+                    <div class="modal-header">
+                        <div class="icon-box" style="background: #82ce34;">
+                            <i class="material-icons">&#xE876;</i>
+                        </div>
+                        <h2 class="modal-title w-100 text-center">Success!</h2>
+                    </div>
+                </c:if>
+                <c:if test="${statusSave == 'fail'}">
+                    <div class="modal-header">
+                        <div class="icon-box" style="background: red">
+                            <i class="material-icons">&#xE888;</i>
+                        </div>
+                        <h2 class="modal-title w-100 text-center">Fail!</h2>
+                    </div>
+                </c:if>
+                <div class="modal-body">
+                    <c:if test="${action == 'create'}">
+                        <c:if test="${statusSave == 'success'}">
+                            <p class="text-center">New customer saved.</p>
+                        </c:if>
+                        <c:if test="${statusSave == 'fail'}">
+                            <p class="text-center">New customers are not saved.</p>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${action == 'edit'}">
+                        <c:if test="${statusSave == 'success'}">
+                            <p class="text-center">Successful customer editing.</p>
+                        </c:if>
+                        <c:if test="${statusSave == 'fail'}">
+                            <p class="text-center">Failed customer editing.</p>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${action == 'delete'}">
+                        <c:if test="${statusSave == 'success'}">
+                            <p class="text-center">Delete customer successfully.</p>
+                        </c:if>
+                        <c:if test="${statusSave == 'fail'}">
+                            <p class="text-center">Delete customer failed.</p>
+                        </c:if>
+                    </c:if>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${action == 'delete' && statusSave == null}">
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title w-100 text-center">Are you sure?</h2>
+                    </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary ml-auto mr-2" data-dismiss="modal">No</button>
+                    <form action="" method="post" class="m-0 ml-2 mr-auto">
+                        <input type="hidden" name="id" id="${id}">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="?type=customer&action=create" method="post">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="createName">Name</label>
+                            <input class="form-control" type="text" name="name" id="createName">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="createDayOfBirth">Day of birth:</label>
+                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="createCMND">CMND</label>
+                            <input class="form-control" type="text" name="CMND" id="createCMND">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="createPhoneNumber">Phone number:</label>
+                            <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="createIdTypeCustomer">ID type customer</label>
+                            <select class="form-control" name="idTypeCustomer" id="createIdTypeCustomer" required>
+                                <option value="">Please choose an option</option>
+                                <option value="1">Diamond</option>
+                                <option value="2">Platinium</option>
+                                <option value="3">Gold</option>
+                                <option value="4">Silver</option>
+                                <option value="5">Member</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="createEmail">Email</label>
+                            <input class="form-control" type="text" name="email" id="createEmail">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="createAddress">Address</label>
+                        <input class="form-control" type="text" name="address" id="createAddress">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <jsp:include page="header.jsp" />
 <div class="container-fluid">
     <div class="row">
-<%--        <jsp:include page="item.jsp" />--%>
         <div class="col-12">
             <div class="list-group list-group-horizontal">
                 <div class="list-group-item mr-auto ml-auto display-5 border-0">
-                    List Of Customer
+                    <c:choose>
+                        <c:when test="${action == 'search'}">
+                            <c:if test="${listCustomer == null}">
+                                No search results for "${value}"
+                            </c:if>
+                            <c:if test="${listCustomer != null}">
+                                Search results for "${value}"
+                            </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            List Of Customer
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="list-group-item mr-0 ml-auto p-0 border-0">
-                    <a href="?type=customer&action=create">
-<%--                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New customer</button>--%>
-                        <button type="button" class="btn btn-primary">New customer</button>
-                    </a>
+<%--                    <a href="?type=customer&action=create">--%>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New customer</button>
+<%--                        <button type="button" class="btn btn-primary">New customer</button>--%>
+<%--                    </a>--%>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 pl-1 pr-1">
                     <table id="tableCustomer" class="table table-striped" style="width: 100%">
                         <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Type Customer</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Day of birth</th>
-                                    <th scope="col">CMND</th>
-                                    <th scope="col">Phone number</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Address</th>
-                                </tr>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Type Customer</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Day of birth</th>
+                                <th scope="col">CMND</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${listCustomer}" var="customer" varStatus="count">
@@ -264,7 +384,16 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <c:if test="${action == 'search'}">
+                <div class="row">
+                    <div class="col-12 d-flex">
+                        <a href="?type=customer&action=list" class="mr-auto ml-auto">
+                            <button type="button" class="btn btn-secondary p-1">Close</button>
+                        </a>
+                    </div>
+                </div>
+            </c:if>
+            <div class="row mt-3">
                 <jsp:include page="footer.jsp"/>
             </div>
         </div>
@@ -286,6 +415,32 @@
         let button = document.getElementById("button" + index);
         button.style.display = "none";
     }
+
+    function editSelect(){
+        <c:if test="${customer.getIdTypeCustomer() != null}">
+        let id = ${customer.getIdTypeCustomer()};
+        let str = "";
+        switch (id) {
+            case 1:
+                str = "Diamond";
+                break;
+            case 2:
+                str = "Platinium";
+                break;
+            case 3:
+                str = "Gold";
+                break;
+            case 4:
+                str = "Silver";
+                break;
+            case 5:
+                str = "Member";
+                break;
+        }
+        document.getElementById(str).selected = true;
+        </c:if>
+    }
+
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
             "dom": 'lrtip',
@@ -293,9 +448,12 @@
             "pageLength": 10
         });
     });
-    // $(window).on('load', function() {
-    //     $('#viewStatusSave').modal('show');
-    // });
+    $(window).on('load', function() {
+        $('#viewStatusSave').modal('show');
+        $('#editModal').modal('show');
+        $('#deleteModal').modal('show');
+        editSelect();
+    });
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package service.impl;
 
 import model.bean.Customer;
+import model.bean.Employee;
 import repository.FuramaRepository;
 import repository.impl.FuramaRepositoryImpl;
 import service.FuramaService;
@@ -10,13 +11,13 @@ import java.util.List;
 public class FuramaServiceImpl implements FuramaService {
     private FuramaRepository repository = new FuramaRepositoryImpl();
     @Override
-    public List<Customer> findAll() {
-        return this.repository.findAll();
+    public List<Customer> findAllCustomer() {
+        return this.repository.findAllCustomer();
     }
 
     @Override
-    public Customer findById(int id) {
-        return repository.findById(id);
+    public Customer findByIdCustomer(int id) {
+        return repository.findByIdCustomer(id);
     }
 
     @Override
@@ -46,7 +47,41 @@ public class FuramaServiceImpl implements FuramaService {
     }
 
     @Override
-    public List<Customer> findName(String name) {
-        return this.repository.findName(name);
+    public List<Customer> findNameCustomer(String name) {
+        return this.repository.findNameCustomer(name);
+    }
+
+    @Override
+    public List<Employee> findAllEmployee() {
+        return this.repository.findAllEmployee();
+    }
+
+    @Override
+    public Employee findByIdEmployee(int id) {
+        return this.repository.findByIdEmployee(id);
+    }
+
+    @Override
+    public boolean editEmployee(String id, String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
+                                  String CMND, String salary, String phoneNumber, String email, String address) {
+        return this.repository.editEmployee(new Employee(Integer.parseInt(id), name, Integer.parseInt(idPosition), Integer.parseInt(idLevel),
+                Integer.parseInt(idDepartment), dayOfBirth, CMND, Double.parseDouble(salary), phoneNumber, email, address));
+    }
+
+    @Override
+    public boolean createEmployee(String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
+                                  String CMND, String salary, String phoneNumber, String email, String address) {
+        return this.repository.createEmployee(new Employee(name, Integer.parseInt(idPosition), Integer.parseInt(idLevel),
+                Integer.parseInt(idDepartment), dayOfBirth, CMND, Double.parseDouble(salary), phoneNumber, email, address));
+    }
+
+    @Override
+    public boolean deleteEmployee(int id) {
+        return this.repository.deleteEmployee(id);
+    }
+
+    @Override
+    public List<Employee> findNameEmployee(String name) {
+        return this.repository.findNameEmployee(name);
     }
 }

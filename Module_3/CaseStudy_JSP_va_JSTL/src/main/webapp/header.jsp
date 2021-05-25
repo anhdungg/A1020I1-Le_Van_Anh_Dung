@@ -16,7 +16,7 @@
         </ul>
         <ul class="navbar-nav ml-auto mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><span class="h6">Employee</span></a>
+                <a class="nav-link" href="?type=employee&action=list"><span class="h6">Employee</span></a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto mr-auto">

@@ -6,10 +6,16 @@ import model.bean.Employee;
 import java.util.List;
 
 public interface FuramaRepository {
-    List<Customer> findAll();
-    Customer findById(int id);
+    List<Customer> findAllCustomer();
+    Customer findByIdCustomer(int id);
     boolean editCustomer(Customer customer);
     boolean createCustomer(Customer customer);
     boolean deleteCustomer(int id);
-    List<Customer> findName(String name);
+    List<Customer> findNameCustomer(String name);
+    List<Employee> findAllEmployee();
+    Employee findByIdEmployee(int id);
+    boolean editEmployee(Employee employee);
+    boolean createEmployee(Employee employee);
+    boolean deleteEmployee(int id);
+    List<Employee> findNameEmployee(String name);
 }
