@@ -98,88 +98,88 @@
     </style>
 </head>
 <body>
-<c:if test="${employee != null}">
+<c:if test="${action == 'edit'}">
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit employee</h5>
+                    <div>
+                        <h5 class="modal-title">Edit employee</h5>
+                        <p class="m-0" style="color: red">${status}</p>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="?type=employee&action=edit" method="post">
                     <div class="modal-body">
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="id">ID</label><br>
-                                <input class="form-control" type="number" name="id" id="id" value="${employee.id}" readonly>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="name">Name</label>
-                                <input class="form-control" type="text" name="name" id="name" value="${employee.name}">
-                            </div>
+                        <div class="form-group">
+                            <label for="id">ID</label><br>
+                            <input class="form-control" type="number" name="id" id="id" value="${employee.id}${id}" readonly>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="idPosition">Position</label>
-                                <select class="form-control" name="idPosition" id="idPosition">
-                                    <option value="1" id="leTan">Lễ tân</option>
-                                    <option value="2" id="phucVu">Phục vụ</option>
-                                    <option value="3" id="chuyenVien">Chuyên viên</option>
-                                    <option value="4" id="giamSat">Giám sát</option>
-                                    <option value="5" id="quanLy">Quản lý</option>
-                                    <option value="6" id="giamDoc">Giám đốc</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="idLevel">Level</label>
-                                <select class="form-control" name="idLevel" id="idLevel">
-                                    <option value="1" id="trungCap">Trung cấp</option>
-                                    <option value="2" id="caoDang">Cao đẳng</option>
-                                    <option value="3" id="daiHoc">Đại học</option>
-                                    <option value="4" id="sauDaiHoc">Sau đại hoc</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" id="name" value="${employee.name}${name}">
+                            <span style="color: red">${validateName}</span>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="idDepartment">Department</label>
-                                <select class="form-control" name="idDepartment" id="idDepartment">
-                                    <option value="1" id="bpSaleMarketing">Sale-Marketing</option>
-                                    <option value="2" id="bpHanhChinh">Hành chính</option>
-                                    <option value="3" id="bpPhucVu">Phục vụ</option>
-                                    <option value="4" id="bpQuanLy">Quản lý</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="dayOfBirth">Day of birth</label>
-                                <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${employee.dayOfBirth}">
-                            </div>
+                        <div class="form-group">
+                            <label for="idPosition">Position</label>
+                            <select class="form-control" name="idPosition" id="idPosition">
+                                <option value="1" id="leTan">Lễ tân</option>
+                                <option value="2" id="phucVu">Phục vụ</option>
+                                <option value="3" id="chuyenVien">Chuyên viên</option>
+                                <option value="4" id="giamSat">Giám sát</option>
+                                <option value="5" id="quanLy">Quản lý</option>
+                                <option value="6" id="giamDoc">Giám đốc</option>
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="cmnd">CMND</label>
-                                <input class="form-control" type="number" name="cmnd" id="cmnd" value="${employee.CMND}">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="salary">Salary</label>
-                                <input class="form-control" type="number" name="salary" id="salary" value="${employee.salary}">
-                            </div>
+                        <div class="form-group">
+                            <label for="idLevel">Level</label>
+                            <select class="form-control" name="idLevel" id="idLevel">
+                                <option value="1" id="trungCap">Trung cấp</option>
+                                <option value="2" id="caoDang">Cao đẳng</option>
+                                <option value="3" id="daiHoc">Đại học</option>
+                                <option value="4" id="sauDaiHoc">Sau đại hoc</option>
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="phoneNumber">Phone number</label>
-                                <input class="form-control" type="number" name="phoneNumber" id="phoneNumber" value="${employee.phoneNumber}">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="email">Email</label>
-                                <input class="form-control" type="text" name="email" id="email" value="${employee.email}">
-                            </div>
+                        <div class="form-group">
+                            <label for="idDepartment">Department</label>
+                            <select class="form-control" name="idDepartment" id="idDepartment">
+                                <option value="1" id="bpSaleMarketing">Sale-Marketing</option>
+                                <option value="2" id="bpHanhChinh">Hành chính</option>
+                                <option value="3" id="bpPhucVu">Phục vụ</option>
+                                <option value="4" id="bpQuanLy">Quản lý</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dayOfBirth">Day of birth</label>
+                            <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${employee.dayOfBirth}${dayOfBirth}">
+                            <span style="color: red">${validateDateOfBirth}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="cmnd">CMND</label>
+                            <input class="form-control" type="number" name="cmnd" id="cmnd" value="${employee.CMND}${CMND}">
+                            <span style="color: red">${validateCMND}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Salary</label>
+                            <input class="form-control" type="text" name="salary" id="salary" value="${employee.salary}${salary}">
+                            <span style="color: red">${validateSalary}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone number</label>
+                            <input class="form-control" type="number" name="phoneNumber" id="phoneNumber" value="${employee.phoneNumber}${phoneNumber}">
+                            <span style="color: red">${validatePhoneNumber}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="text" name="email" id="email" value="${employee.email}${email}">
+                            <span style="color: red">${validateEmail}</span>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input class="form-control" type="text" name="address" id="address" value="${employee.getAddress()}">
+                            <input class="form-control" type="text" name="address" id="address" value="${employee.getAddress()}${address}">
+                            <span style="color: red">${validateAddress}</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -191,7 +191,120 @@
         </div>
     </div>
 </c:if>
-<c:if test="${statusSave != null}">
+<c:if test="${action == 'delete'}">
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title w-100 text-center">Are you sure?</h2>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Delete employee: <span style="color: red">${name}</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary ml-auto mr-2" data-dismiss="modal">No</button>
+                    <form action="" method="post" class="m-0 ml-2 mr-auto">
+                        <input type="hidden" name="id" id="${id}">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${action == 'create'}">
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title">Edit employee</h5>
+                    <p class="m-0" style="color: red">${status}</p>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="?type=employee&action=create" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="createName">Name</label>
+                        <input class="form-control" type="text" name="name" id="createName" value="${name}">
+                        <span style="color: red">${validateName}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="createIdPosition">Position</label>
+                        <select class="form-control" name="idPosition" id="createIdPosition" required>
+                            <option value="" id="choose1">Please choose an option</option>
+                            <option value="1" id="creLeTan">Lễ tân</option>
+                            <option value="2" id="crePhucVu">Phục vụ</option>
+                            <option value="3" id="creChuyenVien">Chuyên viên</option>
+                            <option value="4" id="creGiamSat">Giám sát</option>
+                            <option value="5" id="creQuanLy">Quản lý</option>
+                            <option value="6" id="creGiamDoc">Giám đốc</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="createIdLevel">Level</label>
+                        <select class="form-control" name="idLevel" id="createIdLevel" required>
+                            <option value="" id="choose2">Please choose an option</option>
+                            <option value="1" id="creTrungCap">Trung cấp</option>
+                            <option value="2" id="creCaoDang">Cao đẳng</option>
+                            <option value="3" id="creDaiHoc">Đại học</option>
+                            <option value="4" id="creSauDaiHoc">Sau đại hoc</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="createIdDepartment">Department</label>
+                        <select class="form-control" name="idDepartment" id="createIdDepartment" required>
+                            <option value="" id="choose3">Please choose an option</option>
+                            <option value="1" id="creBpSaleMarketing">Sale-Marketing</option>
+                            <option value="2" id="creBpHanhChinh">Hành chính</option>
+                            <option value="3" id="creBpPhucVu">Phục vụ</option>
+                            <option value="4" id="creBpQuanLy">Quản lý</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="createDayOfBirth">Day of birth</label>
+                        <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth" value="${dayOfBirth}">
+                        <span style="color: red">${validateDateOfBirth}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="createCmnd">CMND</label>
+                        <input class="form-control" type="number" name="cmnd" id="createCmnd" value="${CMND}">
+                        <span style="color: red">${validateCMND}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="createSalary">Salary</label>
+                        <input class="form-control" type="number" name="salary" id="createSalary" value="${salary}">
+                        <span style="color: red">${validateSalary}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="createPhoneNumber">Phone number</label>
+                        <input class="form-control" type="number" name="phoneNumber" id="createPhoneNumber" value="${phoneNumber}">
+                        <span style="color: red">${validatePhoneNumber}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="createEmail">Email</label>
+                        <input class="form-control" type="text" name="email" id="createEmail" value="${email}">
+                        <span style="color: red">${validateEmail}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="createAddress">Address</label>
+                        <input class="form-control" type="text" name="address" id="createAddress" value="${address}">
+                        <span style="color: red">${validateAddress}</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</c:if>
+<c:if test="${action == 'statusSave'}">
     <div class="modal fade" id="viewStatusSave">
         <div class="modal-dialog modal-confirm">
             <div class="modal-content">
@@ -212,23 +325,10 @@
                     </div>
                 </c:if>
                 <div class="modal-body">
-                    <c:if test="${action == 'create'}">
-                        <c:if test="${statusSave == 'success'}">
-                            <p class="text-center">New employee saved.</p>
-                        </c:if>
-                        <c:if test="${statusSave == 'fail'}">
-                            <p class="text-center">New employee are not saved.</p>
-                        </c:if>
+                    <c:if test="${action != 'delete' && status != null}">
+                        <p class="text-center">${status}</p>
                     </c:if>
-                    <c:if test="${action == 'edit'}">
-                        <c:if test="${statusSave == 'success'}">
-                            <p class="text-center">Successful employee editing.</p>
-                        </c:if>
-                        <c:if test="${statusSave == 'fail'}">
-                            <p class="text-center">Failed employee editing.</p>
-                        </c:if>
-                    </c:if>
-                    <c:if test="${action == 'delete'}">
+                    <c:if test="${status == null}">
                         <c:if test="${statusSave == 'success'}">
                             <p class="text-center">Delete employee successfully.</p>
                         </c:if>
@@ -244,114 +344,6 @@
         </div>
     </div>
 </c:if>
-<c:if test="${action == 'delete' && statusSave == null}">
-    <div class="modal fade" id="deleteModal">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title w-100 text-center">Are you sure?</h2>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary ml-auto mr-2" data-dismiss="modal">No</button>
-                    <form action="" method="post" class="m-0 ml-2 mr-auto">
-                        <input type="hidden" name="id" id="${id}">
-                        <button type="submit" class="btn btn-danger">Yes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:if>
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add new employee</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="?type=employee&action=create" method="post">
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createName">Name</label>
-                            <input class="form-control" type="text" name="name" id="createName">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createIdPosition">Position</label>
-                            <select class="form-control" name="idPosition" id="createIdPosition" required>
-                                <option value="">Please choose an option</option>
-                                <option value="1">Lễ tân</option>
-                                <option value="2">Phục vụ</option>
-                                <option value="3">Chuyên viên</option>
-                                <option value="4">Giám sát</option>
-                                <option value="5">Quản lý</option>
-                                <option value="6">Giám đốc</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createIdLevel">Level</label>
-                            <select class="form-control" name="idLevel" id="createIdLevel" required>
-                                <option value="">Please choose an option</option>
-                                <option value="1">Trung cấp</option>
-                                <option value="2">Cao đẳng</option>
-                                <option value="3">Đại học</option>
-                                <option value="4">Sau đại hoc</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createIdDepartment">Department</label>
-                            <select class="form-control" name="idDepartment" id="createIdDepartment" required>
-                                <option value="">Please choose an option</option>
-                                <option value="1">Sale-Marketing</option>
-                                <option value="2">Hành chính</option>
-                                <option value="3">Phục vụ</option>
-                                <option value="4">Quản lý</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createDayOfBirth">Day of birth</label>
-                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createCmnd">CMND</label>
-                            <input class="form-control" type="number" name="cmnd" id="createCmnd">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createSalary">Salary</label>
-                            <input class="form-control" type="number" name="salary" id="createSalary">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createPhoneNumber">Phone number</label>
-                            <input class="form-control" type="number" name="phoneNumber" id="createPhoneNumber">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="createEmail">Email</label>
-                        <input class="form-control" type="text" name="email" id="createEmail">
-                    </div>
-                    <div class="form-group">
-                        <label for="createAddress">Address</label>
-                        <input class="form-control" type="text" name="address" id="createAddress">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <jsp:include page="header.jsp" />
 <div class="container-fluid">
     <div class="row">
@@ -373,10 +365,10 @@
                     </c:choose>
                 </div>
                 <div class="list-group-item mr-0 ml-auto mb-1 p-0 border-0">
-                    <%--                    <a href="?type=customer&action=create">--%>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New employee</button>
-                    <%--                        <button type="button" class="btn btn-primary">New customer</button>--%>
-                    <%--                    </a>--%>
+                    <a href="?type=employee&action=create">
+<%--                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New employee</button>--%>
+                        <button type="button" class="btn btn-primary">New employee</button>
+                    </a>
                 </div>
             </div>
             <div class="row">
@@ -504,8 +496,14 @@
     }
 
     function editSelect(){
-        <c:if test="${employee.idPosition != null}">
-            let idPosition = ${employee.idPosition};
+        <c:if test="${action == 'edit'}">
+            let idPosition;
+            <c:if test="${employee.idPosition != null}">
+                idPosition = ${employee.idPosition};
+            </c:if>
+            <c:if test="${employee.idPosition == null}">
+                idPosition = ${idPosition};
+            </c:if>
             let str = "";
             switch (idPosition) {
                 case 1:
@@ -528,7 +526,13 @@
                     break;
             }
             document.getElementById(str).selected = true;
-            let idLevel = ${employee.idLevel};
+            let idLevel;
+            <c:if test="${employee.idLevel != null}">
+                idLevel = ${employee.idLevel};
+            </c:if>
+            <c:if test="${employee.idLevel == null}">
+                idLevel = ${idLevel};
+            </c:if>
             str = "";
             switch (idLevel) {
                 case 1:
@@ -545,7 +549,13 @@
                     break;
             }
             document.getElementById(str).selected = true;
-            let idDepartment = ${employee.idDepartment};
+            let idDepartment;
+            <c:if test="${employee.idDepartment != null}">
+                idDepartment = ${employee.idDepartment};
+            </c:if>
+            <c:if test="${employee.idDepartment == null}">
+                idDepartment = ${idDepartment};
+            </c:if>
             str = "";
             switch (idDepartment) {
                 case 1:
@@ -563,6 +573,71 @@
             }
             document.getElementById(str).selected = true;
         </c:if>
+        <c:if test="${action == 'create' && idPosition != null}">
+        idPosition = ${idPosition};
+        str = "";
+        switch (idPosition) {
+            case 1:
+                str = "creLeTan";
+                break;
+            case 2:
+                str = "crePhucVu";
+                break;
+            case 3:
+                str = "creChuyenVien";
+                break;
+            case 4:
+                str = "creGiamSat";
+                break;
+            case 5:
+                str = "creQuanLy";
+                break;
+            case 6:
+                str = "creGiamDoc";
+                break;
+            default:
+                str = "choose1";
+        }
+        document.getElementById(str).selected = true;
+        idLevel = ${idLevel};
+        str = "";
+        switch (idLevel) {
+            case 1:
+                str = "creTrungCap";
+                break;
+            case 2:
+                str = "creCaoDang";
+                break;
+            case 3:
+                str = "creDaiHoc";
+                break;
+            case 4:
+                str = "creSauDaiHoc";
+                break;
+            default:
+                str = "choose2";
+        }
+        document.getElementById(str).selected = true;
+        idDepartment = ${idDepartment};
+        str = "";
+        switch (idDepartment) {
+            case 1:
+                str = "creBpSaleMarketing";
+                break;
+            case 2:
+                str = "creBpHanhChinh";
+                break;
+            case 3:
+                str = "creBpPhucVu";
+                break;
+            case 4:
+                str = "creBpQuanLy";
+                break;
+            default:
+                str = "choose3";
+        }
+        document.getElementById(str).selected = true;
+        </c:if>
     }
 
     $(document).ready(function () {
@@ -576,6 +651,7 @@
         $('#viewStatusSave').modal('show');
         $('#editModal').modal('show');
         $('#deleteModal').modal('show');
+        $('#createModal').modal('show');
         editSelect();
     });
 </script>

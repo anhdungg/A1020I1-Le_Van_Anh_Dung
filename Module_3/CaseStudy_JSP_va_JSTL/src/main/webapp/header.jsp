@@ -3,7 +3,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <div class="container-fluid">
     <ul class="list-group list-group-horizontal">
-        <li class="list-group-item border-0"><a href="#"><img src="${contextPath}/img/logo.png" alt="logo" style="height: 90px"></a></li>
+        <li class="list-group-item border-0"><a href="#"><img src="img/logo.png" alt="logo" style="height: 90px"></a></li>
         <li class="list-group-item border-0 mr-0 ml-auto"><h1 class="display-5 mt-3">Anh Dũng</h1></li>
     </ul>
 </div>
@@ -26,12 +26,12 @@
         </ul>
         <ul class="navbar-nav ml-auto mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><span class="h6">Service</span></a>
+                <a class="nav-link" href="?type=service"><span class="h6">Service</span></a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><span class="h6">Contact</span></a>
+                <a class="nav-link" href="?type=contact"><span class="h6">Contact</span></a>
             </li>
         </ul>
         <form action="" class="form-inline my-2 my-lg-0 ml-auto mr-2">

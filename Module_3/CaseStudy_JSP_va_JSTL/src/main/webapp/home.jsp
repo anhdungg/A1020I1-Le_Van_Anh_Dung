@@ -45,7 +45,7 @@
       function stickyItem() {
         let sticky = document.getElementById("divItem");
         let navbar = document.getElementById("navbar");
-        console.log("div: " + sticky.offsetTop + " navbar: " + navbar.offsetTop + " page: " + window.pageYOffset);
+        // console.log("div: " + sticky.offsetTop + " navbar: " + navbar.offsetTop + " page: " + window.pageYOffset);
         if (window.pageYOffset>209){
           let top = window.pageYOffset-210;
           if (top<0){

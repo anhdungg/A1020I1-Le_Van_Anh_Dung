@@ -99,61 +99,67 @@
 </head>
 <body>
 <!-- Modal -->
-<c:if test="${customer != null}">
+<c:if test="${action == 'edit'}">
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit customer</h5>
+                    <div>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit customer</h5>
+                        <p style="color: red" class="m-0">${status}</p>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="?type=customer&action=edit" method="post">
                     <div class="modal-body">
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="id">ID</label><br>
-                                <input class="form-control" type="number" name="id" id="id" value="${customer.getIdCustomer()}" readonly>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="idTypeCustomer">Type customer</label>
-                                <select class="form-control" name="idTypeCustomer" id="idTypeCustomer" required>
-                                    <option value="1" id="Diamond">Diamond</option>
-                                    <option value="2" id="Platinium">Platinium</option>
-                                    <option value="3" id="Gold">Gold</option>
-                                    <option value="4" id="Silver">Silver</option>
-                                    <option value="5" id="Member">Member</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="id">ID</label><br>
+                            <input class="form-control" type="text" name="id" id="id" value="${customer.idCustomer}${id}">
+                            <span style="color: red">${validateId}</span>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="name">Name</label>
-                                <input class="form-control" type="text" name="name" id="name" value="${customer.getName()}">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="dayOfBirth">Day of birth:</label>
-                                <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${customer.getDayOfBirth()}">
-                            </div>
+                        <div class="form-group">
+                            <label for="idTypeCustomer">Type customer</label>
+                            <select class="form-control" name="idTypeCustomer" id="idTypeCustomer" required>
+                                <option value="" id="choose">Please choose an option</option>
+                                <option value="1" id="Diamond">Diamond</option>
+                                <option value="2" id="Platinium">Platinium</option>
+                                <option value="3" id="Gold">Gold</option>
+                                <option value="4" id="Silver">Silver</option>
+                                <option value="5" id="Member">Member</option>
+                            </select>
+                            <span style="color: red">${validateIdTypeCustomer}</span>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="CMND">CMND</label>
-                                <input class="form-control" type="text" name="CMND" id="CMND" value="${customer.getCMND()}">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="phoneNumber">Phone number:</label>
-                                <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${customer.getPhoneNumber()}">
-                            </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" id="name" value="${customer.getName()}${name}">
+                            <span style="color: red">${validateName}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="dayOfBirth">Day of birth:</label>
+                            <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${customer.getDayOfBirth()}${dayOfBirth}">
+                            <span style="color: red">${validateDateOfBirth}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="CMND">CMND</label>
+                            <input class="form-control" type="text" name="CMND" id="CMND" value="${customer.getCMND()}${CMND}">
+                            <span style="color: red">${validateCMND}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone number:</label>
+                            <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${customer.getPhoneNumber()}${phoneNumber}">
+                            <span style="color: red">${validatePhoneNumber}</span>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control" type="text" name="email" id="email" value="${customer.getEmail()}">
+                            <input class="form-control" type="email" name="email" id="email" value="${customer.getEmail()}${email}">
+                            <span style="color: red">${validateEmail}</span>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}">
+                            <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}${address}">
+                            <span style="color: red">${validateAddress}</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -165,7 +171,100 @@
         </div>
     </div>
 </c:if>
-<c:if test="${statusSave != null}">
+<c:if test="${action == 'create'}">
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title">Edit customer</h5>
+                        <p style="color: red" class="m-0">${status}</p>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="?type=customer&action=create" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="createId">ID</label><br>
+                            <input class="form-control" type="text" name="id" id="createId" value="${id}">
+                            <span style="color: red">${validateId}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createIdTypeCustomer">Type customer</label>
+                            <select class="form-control" name="idTypeCustomer" id="createIdTypeCustomer" required>
+                                <option value="">Please choose an option</option>
+                                <option value="1" id="createDiamond">Diamond</option>
+                                <option value="2" id="createPlatinium">Platinium</option>
+                                <option value="3" id="createGold">Gold</option>
+                                <option value="4" id="createSilver">Silver</option>
+                                <option value="5" id="createMember">Member</option>
+                            </select>
+                            <span style="color: red">${validateIdTypeCustomer}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createName">Name</label>
+                            <input class="form-control" type="text" name="name" id="createName" value="${name}">
+                            <span style="color: red">${validateName}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createDayOfBirth">Day of birth:</label>
+                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth" value="${dayOfBirth}">
+                            <span style="color: red">${validateDateOfBirth}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createCMND">CMND</label>
+                            <input class="form-control" type="text" name="CMND" id="createCMND" value="${CMND}">
+                            <span style="color: red">${validateCMND}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createPhoneNumber">Phone number:</label>
+                            <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber" value="${phoneNumber}">
+                            <span style="color: red">${validatePhoneNumber}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createEmail">Email</label>
+                            <input class="form-control" type="email" name="email" id="createEmail" value="${email}">
+                            <span style="color: red">${validateEmail}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createAddress">Address</label>
+                            <input class="form-control" type="text" name="address" id="createAddress" value="${address}">
+                            <span style="color: red">${validateAddress}</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${action == 'delete'}">
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title w-100 text-center">Are you sure?</h2>
+                    </div>
+                <div class="modal-body">
+                    <p class="text-center">Detele customer: <span style="color: red">${name}</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary ml-auto mr-2" data-dismiss="modal">No</button>
+                    <form action="" method="post" class="m-0 ml-2 mr-auto">
+                        <input type="hidden" name="id" id="${id}">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${action == 'statusSave'}">
     <div class="modal fade" id="viewStatusSave">
         <div class="modal-dialog modal-confirm">
             <div class="modal-content">
@@ -186,23 +285,10 @@
                     </div>
                 </c:if>
                 <div class="modal-body">
-                    <c:if test="${action == 'create'}">
-                        <c:if test="${statusSave == 'success'}">
-                            <p class="text-center">New customer saved.</p>
-                        </c:if>
-                        <c:if test="${statusSave == 'fail'}">
-                            <p class="text-center">New customers are not saved.</p>
-                        </c:if>
+                    <c:if test="${action != 'delete' && status != null}">
+                        <p class="text-center">${status}</p>
                     </c:if>
-                    <c:if test="${action == 'edit'}">
-                        <c:if test="${statusSave == 'success'}">
-                            <p class="text-center">Successful customer editing.</p>
-                        </c:if>
-                        <c:if test="${statusSave == 'fail'}">
-                            <p class="text-center">Failed customer editing.</p>
-                        </c:if>
-                    </c:if>
-                    <c:if test="${action == 'delete'}">
+                    <c:if test="${status == null}">
                         <c:if test="${statusSave == 'success'}">
                             <p class="text-center">Delete customer successfully.</p>
                         </c:if>
@@ -218,87 +304,7 @@
         </div>
     </div>
 </c:if>
-<c:if test="${action == 'delete' && statusSave == null}">
-    <div class="modal fade" id="deleteModal">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title w-100 text-center">Are you sure?</h2>
-                    </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary ml-auto mr-2" data-dismiss="modal">No</button>
-                    <form action="" method="post" class="m-0 ml-2 mr-auto">
-                        <input type="hidden" name="id" id="${id}">
-                        <button type="submit" class="btn btn-danger">Yes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:if>
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add new customer</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="?type=customer&action=create" method="post">
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createName">Name</label>
-                            <input class="form-control" type="text" name="name" id="createName">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createDayOfBirth">Day of birth:</label>
-                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createCMND">CMND</label>
-                            <input class="form-control" type="text" name="CMND" id="createCMND">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createPhoneNumber">Phone number:</label>
-                            <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="createIdTypeCustomer">ID type customer</label>
-                            <select class="form-control" name="idTypeCustomer" id="createIdTypeCustomer" required>
-                                <option value="">Please choose an option</option>
-                                <option value="1">Diamond</option>
-                                <option value="2">Platinium</option>
-                                <option value="3">Gold</option>
-                                <option value="4">Silver</option>
-                                <option value="5">Member</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="createEmail">Email</label>
-                            <input class="form-control" type="text" name="email" id="createEmail">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="createAddress">Address</label>
-                        <input class="form-control" type="text" name="address" id="createAddress">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 <jsp:include page="header.jsp" />
 <div class="container-fluid">
     <div class="row">
@@ -320,10 +326,10 @@
                     </c:choose>
                 </div>
                 <div class="list-group-item mr-0 ml-auto p-0 border-0">
-<%--                    <a href="?type=customer&action=create">--%>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New customer</button>
-<%--                        <button type="button" class="btn btn-primary">New customer</button>--%>
-<%--                    </a>--%>
+                    <a href="?type=customer&action=create">
+<%--                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New customer</button>--%>
+                        <button type="button" class="btn btn-primary">New customer</button>
+                    </a>
                 </div>
             </div>
             <div class="row">
@@ -418,27 +424,78 @@
 
     function editSelect(){
         <c:if test="${customer.getIdTypeCustomer() != null}">
-        let id = ${customer.getIdTypeCustomer()};
-        let str = "";
-        switch (id) {
+            let id = ${customer.getIdTypeCustomer()};
+            let str = "";
+            switch (id) {
+                case 1:
+                    str = "Diamond";
+                    break;
+                case 2:
+                    str = "Platinium";
+                    break;
+                case 3:
+                    str = "Gold";
+                    break;
+                case 4:
+                    str = "Silver";
+                    break;
+                case 5:
+                    str = "Member";
+                    break;
+                default:
+                    str = "choose";
+            }
+            document.getElementById(str).selected = true;
+        </c:if>
+        <c:if test="${customer.getIdTypeCustomer() == null && action == 'edit'}">
+            let idType = ${idType};
+            let strId = "";
+            switch (idType) {
+                case 1:
+                    strId = "Diamond";
+                    break;
+                case 2:
+                    strId = "Platinium";
+                    break;
+                case 3:
+                    strId = "Gold";
+                    break;
+                case 4:
+                    strId = "Silver";
+                    break;
+                case 5:
+                    strId = "Member";
+                    break;
+                default:
+                    strId = "choose";
+            }
+            document.getElementById(strId).selected = true;
+        </c:if>
+        <c:if test="${customer.getIdTypeCustomer() == null && action == 'create'}">
+        let idTypeCre = ${idType};
+        let strIdCre = "";
+        switch (idTypeCre) {
             case 1:
-                str = "Diamond";
+                strIdCre = "createDiamond";
                 break;
             case 2:
-                str = "Platinium";
+                strIdCre = "createPlatinium";
                 break;
             case 3:
-                str = "Gold";
+                strIdCre = "createGold";
                 break;
             case 4:
-                str = "Silver";
+                strIdCre = "createSilver";
                 break;
             case 5:
-                str = "Member";
+                strIdCre = "createMember";
                 break;
+            default:
+                strIdCre = "createchoose";
         }
-        document.getElementById(str).selected = true;
+        document.getElementById(strIdCre).selected = true;
         </c:if>
+
     }
 
     $(document).ready(function () {
@@ -452,6 +509,7 @@
         $('#viewStatusSave').modal('show');
         $('#editModal').modal('show');
         $('#deleteModal').modal('show');
+        $('#createModal').modal('show');
         editSelect();
     });
 </script>

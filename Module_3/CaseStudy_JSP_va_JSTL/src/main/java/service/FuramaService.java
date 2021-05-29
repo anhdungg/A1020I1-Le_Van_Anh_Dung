@@ -1,25 +1,35 @@
 package service;
 
-import model.bean.Customer;
-import model.bean.Employee;
+import model.bean.*;
 
 import java.util.List;
 
 public interface FuramaService {
     List<Customer> findAllCustomer();
-    Customer findByIdCustomer(int id);
-    boolean editCustomer(String id, String idType, String name, String dayOfBirth, String CMND, String phoneNumber,
+    Customer findByIdCustomer(String id);
+    String editCustomer(String id, String idType, String name, String dayOfBirth, String CMND, String phoneNumber,
                          String email, String address);
-    boolean createCustomer(String idType, String name, String dayOfBirth, String CMND, String phoneNumber,
+    String createCustomer(String id, String idType, String name, String dayOfBirth, String CMND, String phoneNumber,
                            String email, String address);
-    boolean deleteCustomer(int id);
+    boolean deleteCustomer(String id);
     List<Customer> findNameCustomer(String name);
     List<Employee> findAllEmployee();
     Employee findByIdEmployee(int id);
-    boolean editEmployee(String id, String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
+    String editEmployee(String id, String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
                            String CMND, String salary, String phoneNumber, String email, String address);
-    boolean createEmployee(String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth, String CMND,
+    String createEmployee(String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth, String CMND,
                            String salary, String phoneNumber, String email, String address);
     boolean deleteEmployee(int id);
     List<Employee> findNameEmployee(String name);
+    List<Service> findAllService();
+    List<Contact> findAllContact();
+    boolean createContact(String idEmployee, String idCustomer, String idService, String contactDate, String endDate,
+                          String depositMoney, String totalMoney);
+    List<ContactDetail> findAllContactDetail();
+    boolean createContactDetail(String idContact, String accompanyingServices, String amount);
+    List<AccompaniedService> findAllAccompaniedService();
+    List<RentalType> findAllRentalType();
+    List<ServiceType> findAllServiceType();
+    String createService(String id, String name, String area, String rentalCosts, String maximumNumberOfPeople, String idRentalType,
+                          String idServiceType, String standard, String description, String poolArea, String numberOfFloors);
 }

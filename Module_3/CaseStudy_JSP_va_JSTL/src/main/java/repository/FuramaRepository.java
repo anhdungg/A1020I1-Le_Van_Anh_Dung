@@ -1,16 +1,15 @@
 package repository;
 
-import model.bean.Customer;
-import model.bean.Employee;
+import model.bean.*;
 
 import java.util.List;
 
 public interface FuramaRepository {
     List<Customer> findAllCustomer();
-    Customer findByIdCustomer(int id);
+    Customer findByIdCustomer(String id);
     boolean editCustomer(Customer customer);
     boolean createCustomer(Customer customer);
-    boolean deleteCustomer(int id);
+    boolean deleteCustomer(String id);
     List<Customer> findNameCustomer(String name);
     List<Employee> findAllEmployee();
     Employee findByIdEmployee(int id);
@@ -18,4 +17,13 @@ public interface FuramaRepository {
     boolean createEmployee(Employee employee);
     boolean deleteEmployee(int id);
     List<Employee> findNameEmployee(String name);
+    List<Service> findAllService();
+    List<Contact> findAllContact();
+    boolean createContact(Contact contact);
+    List<ContactDetail> findAllContactDetail();
+    boolean createContactDetail(ContactDetail contactDetail);
+    List<AccompaniedService> findAllAccompaniedService();
+    List<RentalType> findAllRentalType();
+    List<ServiceType> findAllServiceType();
+    boolean createService(Service service);
 }

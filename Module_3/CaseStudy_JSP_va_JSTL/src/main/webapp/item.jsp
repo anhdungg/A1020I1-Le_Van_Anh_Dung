@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="col-2 overflow-auto p-0" id="divItem" style="height: 100%">
+<div class="col-2 overflow-auto p-0 border-right" id="divItem" style="height: 100%">
     <c:choose>
         <c:when test="${type == 'customer'}">
             <div class="list-group">
@@ -25,26 +25,30 @@
         <c:when test="${type == 'service'}">
             <ul class="list-group">
                 <li class="list-group-item border-0">
-                    <a href="#">New service</a>
+                    <a href="?type=service&action=create">
+<%--                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">New Service</button>--%>
+                        <button type="button" class="btn btn-primary">New Service</button>
+                    </a>
                 </li>
-                <li class="list-group-item border-0">
-                    <a href="#">Delete service</a>
-                </li>
-                <li class="list-group-item border-0">
-                    <a href="#">Edit service</a>
-                </li>
+<%--                <li class="list-group-item border-0">--%>
+<%--                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hoseModal">New Hose</button>--%>
+<%--                </li>--%>
+<%--                <li class="list-group-item border-0">--%>
+<%--                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomModal">New Room</button>--%>
+<%--                </li>--%>
             </ul>
         </c:when>
         <c:when test="${type == 'contact'}">
             <ul class="list-group">
                 <li class="list-group-item border-0">
-                    <a href="#">New contact</a>
+                    <a href="?type=contact&action=create">
+                        <button type="button" class="btn btn-primary">New contact</button>
+                    </a>
                 </li>
                 <li class="list-group-item border-0">
-                    <a href="#">Delete contact</a>
-                </li>
-                <li class="list-group-item border-0">
-                    <a href="#">Edit contact</a>
+                    <a href="?type=contact&action=createDetail">
+                        <button type="button" class="btn btn-primary">New contact detail</button>
+                    </a>
                 </li>
             </ul>
         </c:when>

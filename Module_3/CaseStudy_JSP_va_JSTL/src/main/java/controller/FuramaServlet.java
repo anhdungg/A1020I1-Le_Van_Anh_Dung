@@ -1,5 +1,8 @@
 package controller;
 
+import common.Validate;
+import model.bean.Customer;
+import model.bean.Employee;
 import service.FuramaService;
 import service.impl.FuramaServiceImpl;
 
@@ -21,6 +24,12 @@ public class FuramaServlet extends HttpServlet {
         }
 
         switch (type){
+            case "service":
+                this.servicePost(request, response);
+                break;
+            case "contact":
+                this.contactPost(request, response);
+                break;
             case "customer":
                 this.customerPost(request, response);
                 break;
@@ -30,7 +39,6 @@ public class FuramaServlet extends HttpServlet {
             default:
                 this.viewHome(request, response);
         }
-//        this.viewListCustomer(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,6 +48,12 @@ public class FuramaServlet extends HttpServlet {
         }
 
         switch (type){
+            case "service":
+                this.serviceGet(request, response);
+                break;
+            case "contact":
+                this.contactGet(request, response);
+                break;
             case "employee":
                 this.employeeGet(request, response);
                 break;
@@ -104,7 +118,8 @@ public class FuramaServlet extends HttpServlet {
     private void viewEditCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             String id = request.getParameter("id");
-            request.setAttribute("customer", this.service.findByIdCustomer(Integer.parseInt(id)));
+            request.setAttribute("customer", this.service.findByIdCustomer(id));
+            request.setAttribute("action", "edit");
         } catch (NumberFormatException ex){
             ex.printStackTrace();
         }
@@ -115,45 +130,140 @@ public class FuramaServlet extends HttpServlet {
 
     private void saveEditCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        String idType = request.getParameter("idTypeCustomer");
-        String name = request.getParameter("name");
-        String dayOfBirth = request.getParameter("dayOfBirth");
-        String CMND = request.getParameter("CMND");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String email = request.getParameter("email");
-        String address = request.getParameter("address");
+        String validateId = Validate.idCustomer(id);
 
-        boolean status = this.service.editCustomer(id, idType, name, dayOfBirth, CMND, phoneNumber, email, address);
-        if (status){
-            request.setAttribute("statusSave", "success");
-        }else{
-            request.setAttribute("statusSave", "fail");
+        String idType = request.getParameter("idTypeCustomer");
+        String validateIdTypeCustomer = Validate.idTypeCustomer(idType);
+
+        String name = request.getParameter("name");
+        String validateName = Validate.validateNull(name);
+
+        String dayOfBirth = request.getParameter("dayOfBirth");
+        String validateDateOfBirth = Validate.dateOfBirth(dayOfBirth);
+
+        String CMND = request.getParameter("CMND");
+        String validateCMND = Validate.CMND(CMND);
+
+        String phoneNumber = request.getParameter("phoneNumber");
+        String validatePhoneNumber = Validate.phoneNumber(phoneNumber);
+
+        String email = request.getParameter("email");
+        String validateEmail = Validate.email(email);
+
+        String address = request.getParameter("address");
+        String validateAddress = Validate.validateNull(address);
+
+        String status = "";
+        boolean check;
+        if (validateId == null && validateIdTypeCustomer == null && validateDateOfBirth == null && validateCMND == null &&
+                validatePhoneNumber == null && validateEmail == null && validateName == null && validateAddress == null){
+            status = this.service.editCustomer(id, idType, name, dayOfBirth, CMND, phoneNumber, email, address);
+            if (status.equals("Chinh sua thong tin khach hang thanh cong")){
+                check = true;
+                request.setAttribute("action", "statusSave");
+                request.setAttribute("status", status);
+                request.setAttribute("statusSave", "success");
+            }else{
+                check = false;
+            }
+        }else {
+            check = false;
         }
-        request.setAttribute("action", "edit");
+        if (!check){
+            request.setAttribute("action", "edit");
+            request.setAttribute("status", status);
+            request.setAttribute("id", id);
+            request.setAttribute("validateId", validateId);
+            request.setAttribute("idType", idType);
+            request.setAttribute("validateIdTypeCustomer", validateIdTypeCustomer);
+            request.setAttribute("name", name);
+            request.setAttribute("validateName", validateName);
+            request.setAttribute("dayOfBirth", dayOfBirth);
+            request.setAttribute("validateDateOfBirth", validateDateOfBirth);
+            request.setAttribute("CMND", CMND);
+            request.setAttribute("validateCMND", validateCMND);
+            request.setAttribute("phoneNumber", phoneNumber);
+            request.setAttribute("validatePhoneNumber", validatePhoneNumber);
+            request.setAttribute("email", email);
+            request.setAttribute("validateEmail", validateEmail);
+            request.setAttribute("address", address);
+            request.setAttribute("validateAddress", validateAddress);
+        }
         request.setAttribute("type", "customer");
         request.setAttribute("listCustomer", this.service.findAllCustomer());
         request.getRequestDispatcher("customer.jsp").forward(request, response);
     }
 
     private void viewCreateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("idType", 0);
         request.setAttribute("action", "create");
+        request.setAttribute("type", "customer");
+        request.setAttribute("listCustomer", this.service.findAllCustomer());
         request.getRequestDispatcher("customer.jsp").forward(request, response);
     }
 
     private void saveCreateCustomer (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        String validateId = Validate.idCustomer(id);
+
         String idType = request.getParameter("idTypeCustomer");
+        String validateIdTypeCustomer = Validate.idTypeCustomer(idType);
+
         String name = request.getParameter("name");
+        String validateName = Validate.validateNull(name);
+
         String dayOfBirth = request.getParameter("dayOfBirth");
+        String validateDateOfBirth = Validate.dateOfBirth(dayOfBirth);
+
         String CMND = request.getParameter("CMND");
+        String validateCMND = Validate.CMND(CMND);
+
         String phoneNumber = request.getParameter("phoneNumber");
+        String validatePhoneNumber = Validate.phoneNumber(phoneNumber);
+
         String email = request.getParameter("email");
+        String validateEmail = Validate.email(email);
+
         String address = request.getParameter("address");
-        if (this.service.createCustomer(idType, name, dayOfBirth, CMND, phoneNumber, email, address)){
-            request.setAttribute("statusSave", "success");
+        String validateAddress = Validate.validateNull(address);
+
+        String status = "";
+        boolean check;
+        if (validateId == null && validateIdTypeCustomer == null && validateDateOfBirth == null && validateCMND == null &&
+                validatePhoneNumber == null && validateEmail == null && validateName == null && validateAddress == null){
+            status = this.service.createCustomer(id, idType, name, dayOfBirth, CMND, phoneNumber, email, address);
+            if (status.equals("Tao moi khach hang thanh cong")){
+                check = true;
+                request.setAttribute("action", "statusSave");
+                request.setAttribute("status", status);
+                request.setAttribute("statusSave", "success");
+            }else {
+                check = false;
+            }
         }else {
-            request.setAttribute("statusSave", "fail");
+            check = false;
         }
-        request.setAttribute("action", "create");
+        if (!check){
+            request.setAttribute("action", "create");
+            request.setAttribute("status", status);
+            request.setAttribute("id", id);
+            request.setAttribute("validateId", validateId);
+            request.setAttribute("idType", idType);
+            request.setAttribute("validateIdTypeCustomer", validateIdTypeCustomer);
+            request.setAttribute("name", name);
+            request.setAttribute("validateName", validateName);
+            request.setAttribute("dayOfBirth", dayOfBirth);
+            request.setAttribute("validateDateOfBirth", validateDateOfBirth);
+            request.setAttribute("CMND", CMND);
+            request.setAttribute("validateCMND", validateCMND);
+            request.setAttribute("phoneNumber", phoneNumber);
+            request.setAttribute("validatePhoneNumber", validatePhoneNumber);
+            request.setAttribute("email", email);
+            request.setAttribute("validateEmail", validateEmail);
+            request.setAttribute("address", address);
+            request.setAttribute("validateAddress", validateAddress);
+        }
+
         request.setAttribute("type", "customer");
         request.setAttribute("listCustomer", this.service.findAllCustomer());
         request.getRequestDispatcher("customer.jsp").forward(request, response);
@@ -162,6 +272,8 @@ public class FuramaServlet extends HttpServlet {
     private void viewDeleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         request.setAttribute("id", id);
+        Customer customer = this.service.findByIdCustomer(id);
+        request.setAttribute("name", customer.getName());
         request.setAttribute("action", "delete");
         request.setAttribute("type", "customer");
         request.setAttribute("listCustomer", this.service.findAllCustomer());
@@ -171,7 +283,7 @@ public class FuramaServlet extends HttpServlet {
     private void saveDeleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             String id = request.getParameter("id");
-            if (this.service.deleteCustomer(Integer.parseInt(id))){
+            if (this.service.deleteCustomer(id)){
                 request.setAttribute("statusSave", "success");
             }else {
                 request.setAttribute("statusSave", "fail");
@@ -180,7 +292,7 @@ public class FuramaServlet extends HttpServlet {
             request.setAttribute("statusSave", "fail");
             ex.printStackTrace();
         }
-        request.setAttribute("action", "delete");
+        request.setAttribute("action", "statusSave");
         request.setAttribute("type", "customer");
         request.setAttribute("listCustomer", this.service.findAllCustomer());
         request.getRequestDispatcher("customer.jsp").forward(request, response);
@@ -193,7 +305,6 @@ public class FuramaServlet extends HttpServlet {
         request.setAttribute("value", name);
         request.setAttribute("listCustomer", this.service.findNameCustomer(name));
         request.getRequestDispatcher("customer.jsp").forward(request, response);
-
     }
 
     private void viewHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -253,6 +364,8 @@ public class FuramaServlet extends HttpServlet {
         try{
             String id = request.getParameter("id");
             request.setAttribute("employee", this.service.findByIdEmployee(Integer.parseInt(id)));
+            request.setAttribute("action", "edit");
+
         } catch (NumberFormatException ex){
             ex.printStackTrace();
         }
@@ -264,21 +377,68 @@ public class FuramaServlet extends HttpServlet {
     private void saveEditEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String id = request.getParameter("id");
         String name = request.getParameter("name");
+        String validateName = Validate.validateNull(name);
+
         String idPosition = request.getParameter("idPosition");
         String idLevel = request.getParameter("idLevel");
         String idDepartment = request.getParameter("idDepartment");
         String dayOfBirth = request.getParameter("dayOfBirth");
+        String validateDateOfBirth = Validate.dateOfBirth(dayOfBirth);
+
         String CMND = request.getParameter("cmnd");
+        String validateCMND = Validate.CMND(CMND);
+
         String salary = request.getParameter("salary");
+        String validateSalary = Validate.validateDouble(salary);
+
         String phoneNumber = request.getParameter("phoneNumber");
+        String validatePhoneNumber = Validate.phoneNumber(phoneNumber);
+
         String email = request.getParameter("email");
+        String validateEmail = Validate.email(email);
+
         String address = request.getParameter("address");
-        if (this.service.editEmployee(id, name, idPosition, idLevel, idDepartment, dayOfBirth, CMND, salary, phoneNumber, email, address)){
-            request.setAttribute("statusSave", "success");
-        }else {
-            request.setAttribute("statusSave", "fail");
+        String validateAddress = Validate.validateNull(address);
+
+        String status = "";
+        boolean check;
+        if (validateDateOfBirth == null && validateCMND == null && validateSalary == null && validatePhoneNumber == null &&
+                validateEmail == null && validateName == null && validateAddress == null){
+            status = this.service.editEmployee(id, name, idPosition, idLevel, idDepartment, dayOfBirth, CMND,
+                    salary, phoneNumber, email, address);
+            if (status.equals("Chinh sua thong tin nhan vien thanh cong")){
+                check = true;
+                request.setAttribute("action", "statusSave");
+                request.setAttribute("statusSave", "success");
+                request.setAttribute("status", status);
+            }else {
+                check = false;
+            }
+        } else {
+            check = false;
         }
-        request.setAttribute("action", "create");
+        if (!check){
+            request.setAttribute("action", "edit");
+            request.setAttribute("status", status);
+            request.setAttribute("id", id);
+            request.setAttribute("name", name);
+            request.setAttribute("validateName", validateName);
+            request.setAttribute("idPosition", idPosition);
+            request.setAttribute("idLevel", idLevel);
+            request.setAttribute("idDepartment", idDepartment);
+            request.setAttribute("dayOfBirth", dayOfBirth);
+            request.setAttribute("validateDateOfBirth", validateDateOfBirth);
+            request.setAttribute("CMND", CMND);
+            request.setAttribute("validateCMND", validateCMND);
+            request.setAttribute("salary", salary);
+            request.setAttribute("validateSalary", validateSalary);
+            request.setAttribute("phoneNumber", phoneNumber);
+            request.setAttribute("validatePhoneNumber", validatePhoneNumber);
+            request.setAttribute("email", email);
+            request.setAttribute("validateEmail", validateEmail);
+            request.setAttribute("address", address);
+            request.setAttribute("validateAddress", validateAddress);
+        }
         request.setAttribute("type", "employee");
         request.setAttribute("listEmployee", this.service.findAllEmployee());
         request.getRequestDispatcher("employee.jsp").forward(request, response);
@@ -287,26 +447,73 @@ public class FuramaServlet extends HttpServlet {
     private void viewCreateEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         request.setAttribute("action", "create");
         request.setAttribute("type", "employee");
+        request.setAttribute("listEmployee", this.service.findAllEmployee());
         request.getRequestDispatcher("employee.jsp").forward(request, response);
     }
 
     private void saveCreateEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String name = request.getParameter("name");
+        String validateName = Validate.validateNull(name);
+
         String idPosition = request.getParameter("idPosition");
         String idLevel = request.getParameter("idLevel");
         String idDepartment = request.getParameter("idDepartment");
         String dayOfBirth = request.getParameter("dayOfBirth");
+        String validateDateOfBirth = Validate.dateOfBirth(dayOfBirth);
+
         String CMND = request.getParameter("cmnd");
+        String validateCMND = Validate.CMND(CMND);
+
         String salary = request.getParameter("salary");
+        String validateSalary = Validate.validateDouble(salary);
+
         String phoneNumber = request.getParameter("phoneNumber");
+        String validatePhoneNumber = Validate.phoneNumber(phoneNumber);
+
         String email = request.getParameter("email");
+        String validateEmail = Validate.email(email);
+
         String address = request.getParameter("address");
-        if (this.service.createEmployee(name, idPosition, idLevel, idDepartment, dayOfBirth, CMND, salary, phoneNumber, email, address)){
-            request.setAttribute("statusSave", "success");
+        String validateAddress = Validate.validateNull(address);
+
+        String status = "";
+        boolean check;
+        if (validateDateOfBirth == null && validateCMND == null && validateSalary == null && validatePhoneNumber == null &&
+                validateEmail == null && validateName == null && validateAddress == null){
+            status = this.service.createEmployee(name, idPosition, idLevel, idDepartment, dayOfBirth, CMND, salary,
+                    phoneNumber, email, address);
+            if (status.equals("Tao moi nhan vien thanh cong")){
+                check = true;
+                request.setAttribute("action", "statusSave");
+                request.setAttribute("statusSave", "success");
+                request.setAttribute("status", status);
+            }else {
+                check = false;
+            }
         }else {
-            request.setAttribute("statusSave", "fail");
+            check = false;
         }
-        request.setAttribute("action", "create");
+        if (!check){
+            request.setAttribute("action", "create");
+            request.setAttribute("status", status);
+            request.setAttribute("name", name);
+            request.setAttribute("validateName", validateName);
+            request.setAttribute("idPosition", idPosition);
+            request.setAttribute("idLevel", idLevel);
+            request.setAttribute("idDepartment", idDepartment);
+            request.setAttribute("dayOfBirth", dayOfBirth);
+            request.setAttribute("validateDateOfBirth", validateDateOfBirth);
+            request.setAttribute("CMND", CMND);
+            request.setAttribute("validateCMND", validateCMND);
+            request.setAttribute("salary", salary);
+            request.setAttribute("validateSalary", validateSalary);
+            request.setAttribute("phoneNumber", phoneNumber);
+            request.setAttribute("validatePhoneNumber", validatePhoneNumber);
+            request.setAttribute("email", email);
+            request.setAttribute("validateEmail", validateEmail);
+            request.setAttribute("address", address);
+            request.setAttribute("validateAddress", validateAddress);
+        }
         request.setAttribute("type", "employee");
         request.setAttribute("listEmployee", this.service.findAllEmployee());
         request.getRequestDispatcher("employee.jsp").forward(request, response);
@@ -315,6 +522,8 @@ public class FuramaServlet extends HttpServlet {
     private void viewDeleteEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         request.setAttribute("id", id);
+        Employee employee = this.service.findByIdEmployee(Integer.parseInt(id));
+        request.setAttribute("name", employee.getName());
         request.setAttribute("action", "delete");
         request.setAttribute("type", "employee");
         request.setAttribute("listEmployee", this.service.findAllEmployee());
@@ -333,7 +542,7 @@ public class FuramaServlet extends HttpServlet {
             request.setAttribute("statusSave", "fail");
             ex.printStackTrace();
         }
-        request.setAttribute("action", "delete");
+        request.setAttribute("action", "statusSave");
         request.setAttribute("type", "employee");
         request.setAttribute("listEmployee", this.service.findAllEmployee());
         request.getRequestDispatcher("employee.jsp").forward(request, response);
@@ -347,5 +556,232 @@ public class FuramaServlet extends HttpServlet {
         request.setAttribute("listEmployee", this.service.findNameEmployee(name));
         request.getRequestDispatcher("employee.jsp").forward(request, response);
 
+    }
+
+    private void contactGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null){
+            action = "";
+        }
+
+        switch (action){
+            case "create":
+                this.viewCreateContact(request, response);
+                break;
+            case "createDetail":
+                this.viewCreateContactDetail(request, response);
+                break;
+            default:
+                this.viewListContact(request, response);
+        }
+    }
+
+    private void contactPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null){
+            action = "";
+        }
+
+        switch (action){
+            case "createDetail":
+                this.saveCreateContactDetail(request, response);
+                break;
+            case "create":
+                this.saveCreateContact(request, response);
+                break;
+        }
+    }
+
+    private void viewListContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("type", "contact");
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    }
+
+    private void viewCreateContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("type", "contact");
+        request.setAttribute("action", "create");
+        request.setAttribute("listEmployee", this.service.findAllEmployee());
+        request.setAttribute("listCustomer", this.service.findAllCustomer());
+        request.setAttribute("listService", this.service.findAllService());
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    }
+
+    private void saveCreateContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idEmployee = request.getParameter("idEmployee");
+        String idCustomer = request.getParameter("idCustomer");
+        String idService = request.getParameter("idService");
+        String contactDate = request.getParameter("contactDate");
+        String endDate = request.getParameter("endDate");
+        String depositMoney = request.getParameter("depositMoney");
+        String totalMoney = request.getParameter("totalMoney");
+        if (this.service.createContact(idEmployee, idCustomer, idService, contactDate, endDate, depositMoney, totalMoney)){
+            request.setAttribute("statusSave", "success");
+        }else {
+            request.setAttribute("statusSave", "fail");
+        }
+        request.setAttribute("action", "create");
+        request.setAttribute("type", "contact");
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    }
+
+    private void viewCreateContactDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("type", "contact");
+        request.setAttribute("action", "createDetail");
+        request.setAttribute("listContact", this.service.findAllContact());
+        request.setAttribute("listAccompaniedService", this.service.findAllAccompaniedService());
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    }
+
+    private void saveCreateContactDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idContact = request.getParameter("idContact");
+        String idAccompaniedService = request.getParameter("idAccompaniedService");
+        String amount = request.getParameter("amount");
+        if (this.service.createContactDetail(idContact, idAccompaniedService, amount)){
+            request.setAttribute("statusSave", "success");
+        }else {
+            request.setAttribute("statusSave", "fail");
+        }
+        request.setAttribute("action", "createdDetail");
+        request.setAttribute("type", "contact");
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    }
+
+    private void serviceGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null){
+            action = "";
+        }
+
+        switch (action){
+            case "create":
+                this.viewCreateService(request, response);
+                break;
+            default:
+                this.viewListService(request, response);
+        }
+    }
+
+    private void servicePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null){
+            action = "";
+        }
+
+        switch (action){
+            case "create":
+                this.saveCreateService(request, response);
+                break;
+        }
+    }
+
+    private void viewListService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("type", "service");
+        request.getRequestDispatcher("service.jsp").forward(request, response);
+    }
+
+    private void viewCreateService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("type", "service");
+        request.setAttribute("action", "create");
+        request.getRequestDispatcher("service.jsp").forward(request, response);
+    }
+
+    private void saveCreateService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        if (id==null){
+            id = "";
+        }
+        String validateId = Validate.idService(id);
+
+        String name = request.getParameter("name");
+        String validateName = Validate.validateNull(name);
+
+        String area = request.getParameter("area");
+        String validateArea = Validate.validateDouble(area);
+
+        String rentalCosts = request.getParameter("rentalCosts");
+        String validateRentalCosts = Validate.validateDouble(rentalCosts);
+
+        String maximumNumberOfPeople = request.getParameter("maximumNumberOfPeople");
+        String validateMaximumPeople = Validate.validateInteger(maximumNumberOfPeople);
+
+        String idRentalType = request.getParameter("idRentalType");
+        String idServiceType = request.getParameter("idServiceType");
+
+        String standard = request.getParameter("standard");
+        if (standard == null){
+            standard = "";
+        }
+        String validateStandard = null;
+
+        String description = request.getParameter("description");
+
+        String poolArea = request.getParameter("poolArea");
+        if (poolArea == null){
+            poolArea = "";
+        }
+        String validatePoolArea = null;
+
+        String numberOfFloors = request.getParameter("numberOfFloors");
+        if (numberOfFloors == null){
+            numberOfFloors = "";
+        }
+        String validateNumberOfFloors = null;
+
+        switch (idServiceType) {
+            case "1":
+                validateStandard = Validate.validateNull(standard);
+                validatePoolArea = Validate.validateDouble(poolArea);
+                validateNumberOfFloors = Validate.validateInteger(numberOfFloors);
+                break;
+            case "2":
+                poolArea = "0";
+                validateStandard = Validate.validateNull(standard);
+                validateNumberOfFloors = Validate.validateInteger(numberOfFloors);
+                break;
+            case "3":
+                poolArea = "0";
+                numberOfFloors = "0";
+                break;
+        }
+        String status = "";
+        boolean check;
+        if (validateId == null && validateName == null && validateArea == null && validateRentalCosts == null && validateMaximumPeople == null &&
+                validatePoolArea == null && validateNumberOfFloors == null && validateStandard == null){
+            status = this.service.createService(id, name, area, rentalCosts, maximumNumberOfPeople, idRentalType, idServiceType,
+                    standard, description, poolArea, numberOfFloors);
+            if (status.equals("Tao moi dich vu thanh cong")){
+                check = true;
+                request.setAttribute("action", "statusSave");
+            }else {
+                check = false;
+            }
+        }else {
+            check = false;
+        }
+        if (!check){
+            request.setAttribute("action", "create");
+            request.setAttribute("status", status);
+            request.setAttribute("id", id);
+            request.setAttribute("validateId", validateId);
+            request.setAttribute("name", name);
+            request.setAttribute("validateName", validateName);
+            request.setAttribute("area", area);
+            request.setAttribute("validateArea", validateArea);
+            request.setAttribute("rentalCosts", rentalCosts);
+            request.setAttribute("validateRentalCosts", validateRentalCosts);
+            request.setAttribute("maximumNumberOfPeople", maximumNumberOfPeople);
+            request.setAttribute("validateMaximumPeople", validateMaximumPeople);
+            request.setAttribute("idRentalType", idRentalType);
+            request.setAttribute("idServiceType", idServiceType);
+            request.setAttribute("standard", standard);
+            request.setAttribute("validateStandard", validateStandard);
+            request.setAttribute("description", description);
+            request.setAttribute("poolArea", poolArea);
+            request.setAttribute("validatePoolArea", validatePoolArea);
+            request.setAttribute("numberOfFloors", numberOfFloors);
+            request.setAttribute("validateNumberOfFloors", validateNumberOfFloors);
+        }
+        request.setAttribute("type", "service");
+        request.getRequestDispatcher("service.jsp").forward(request, response);
     }
 }
