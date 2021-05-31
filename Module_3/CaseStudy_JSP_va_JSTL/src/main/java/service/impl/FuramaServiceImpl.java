@@ -71,11 +71,11 @@ public class FuramaServiceImpl implements FuramaService {
     }
 
     @Override
-    public String editEmployee(String id, String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
-                                  String CMND, String salary, String phoneNumber, String email, String address) {
+    public String editEmployee(String id, String name, String idPosition, String idEducationDegree, String idDivision, String dayOfBirth,
+                               String CMND, String salary, String phoneNumber, String email, String address) {
         try {
-            if (this.repository.editEmployee(new Employee(Integer.parseInt(id), name, Integer.parseInt(idPosition), Integer.parseInt(idLevel),
-                    Integer.parseInt(idDepartment), dayOfBirth, CMND, Double.parseDouble(salary), phoneNumber, email, address))){
+            if (this.repository.editEmployee(new Employee(Integer.parseInt(id), name, Integer.parseInt(idPosition), Integer.parseInt(idEducationDegree),
+                    Integer.parseInt(idDivision), dayOfBirth, CMND, Double.parseDouble(salary), phoneNumber, email, address))){
                 return "Chinh sua thong tin nhan vien thanh cong";
             }else {
                 return "ID da ton tai";
@@ -86,11 +86,11 @@ public class FuramaServiceImpl implements FuramaService {
     }
 
     @Override
-    public String createEmployee(String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
-                                  String CMND, String salary, String phoneNumber, String email, String address) {
+    public String createEmployee(String name, String idPosition, String idEducationDegree, String idDivision, String dayOfBirth, String CMND,
+                                 String salary, String phoneNumber, String email, String address) {
         try {
-            if (this.repository.createEmployee(new Employee(name, Integer.parseInt(idPosition), Integer.parseInt(idLevel),
-                    Integer.parseInt(idDepartment), dayOfBirth, CMND, Double.parseDouble(salary), phoneNumber, email, address))) {
+            if (this.repository.createEmployee(new Employee(name, Integer.parseInt(idPosition), Integer.parseInt(idEducationDegree),
+                    Integer.parseInt(idDivision), dayOfBirth, CMND, Double.parseDouble(salary), phoneNumber, email, address))) {
                 return "Tao moi nhan vien thanh cong";
             } else {
                 return "ID da ton tai";
@@ -113,6 +113,11 @@ public class FuramaServiceImpl implements FuramaService {
     @Override
     public List<Contact> findAllContact() {
         return this.repository.findAllContact();
+    }
+
+    @Override
+    public List<ContactView> findAllContactView() {
+        return this.repository.findAllContactView();
     }
 
     @Override

@@ -123,11 +123,11 @@
                             <label for="idTypeCustomer">Type customer</label>
                             <select class="form-control" name="idTypeCustomer" id="idTypeCustomer" required>
                                 <option value="" id="choose">Please choose an option</option>
-                                <option value="1" id="Diamond">Diamond</option>
-                                <option value="2" id="Platinium">Platinium</option>
-                                <option value="3" id="Gold">Gold</option>
-                                <option value="4" id="Silver">Silver</option>
-                                <option value="5" id="Member">Member</option>
+                                <option value="1" id="idTypeCustomer1">Diamond</option>
+                                <option value="2" id="idTypeCustomer2">Platinium</option>
+                                <option value="3" id="idTypeCustomer3">Gold</option>
+                                <option value="4" id="idTypeCustomer4">Silver</option>
+                                <option value="5" id="idTypeCustomer5">Member</option>
                             </select>
                             <span style="color: red">${validateIdTypeCustomer}</span>
                         </div>
@@ -195,11 +195,11 @@
                             <label for="createIdTypeCustomer">Type customer</label>
                             <select class="form-control" name="idTypeCustomer" id="createIdTypeCustomer" required>
                                 <option value="">Please choose an option</option>
-                                <option value="1" id="createDiamond">Diamond</option>
-                                <option value="2" id="createPlatinium">Platinium</option>
-                                <option value="3" id="createGold">Gold</option>
-                                <option value="4" id="createSilver">Silver</option>
-                                <option value="5" id="createMember">Member</option>
+                                <option value="1" id="createIdTypeCustomer1">Diamond</option>
+                                <option value="2" id="createIdTypeCustomer2">Platinium</option>
+                                <option value="3" id="createIdTypeCustomer3">Gold</option>
+                                <option value="4" id="createIdTypeCustomer4">Silver</option>
+                                <option value="5" id="createIdTypeCustomer5">Member</option>
                             </select>
                             <span style="color: red">${validateIdTypeCustomer}</span>
                         </div>
@@ -304,7 +304,6 @@
         </div>
     </div>
 </c:if>
-
 <jsp:include page="header.jsp" />
 <div class="container-fluid">
     <div class="row">
@@ -411,91 +410,29 @@
 <script src="${contextPath}/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js"></script>
 <script>
-
     function showButton(index){
         let button = document.getElementById("button" + index);
         button.style.display = "block";
     }
-
     function hideButton(index){
         let button = document.getElementById("button" + index);
         button.style.display = "none";
     }
 
     function editSelect(){
-        <c:if test="${customer.getIdTypeCustomer() != null}">
-            let id = ${customer.getIdTypeCustomer()};
-            let str = "";
-            switch (id) {
-                case 1:
-                    str = "Diamond";
-                    break;
-                case 2:
-                    str = "Platinium";
-                    break;
-                case 3:
-                    str = "Gold";
-                    break;
-                case 4:
-                    str = "Silver";
-                    break;
-                case 5:
-                    str = "Member";
-                    break;
-                default:
-                    str = "choose";
-            }
-            document.getElementById(str).selected = true;
+        <c:if test = "${action == 'edit'}">
+            <c:if test="${customer.idTypeCustomer != null}">
+                document.getElementById("idTypeCustomer${customer.idTypeCustomer}").selected = true;
+            </c:if>
+            <c:if test="${idType != null}">
+                document.getElementById("idTypeCustomer${idType}").selected = true;
+            </c:if>
         </c:if>
-        <c:if test="${customer.getIdTypeCustomer() == null && action == 'edit'}">
-            let idType = ${idType};
-            let strId = "";
-            switch (idType) {
-                case 1:
-                    strId = "Diamond";
-                    break;
-                case 2:
-                    strId = "Platinium";
-                    break;
-                case 3:
-                    strId = "Gold";
-                    break;
-                case 4:
-                    strId = "Silver";
-                    break;
-                case 5:
-                    strId = "Member";
-                    break;
-                default:
-                    strId = "choose";
-            }
-            document.getElementById(strId).selected = true;
+        <c:if test="${action == 'create'}">
+            <c:if test="${idType != null}">
+                document.getElementById("createIdTypeCustomer${idType}").selected = true;
+            </c:if>
         </c:if>
-        <c:if test="${customer.getIdTypeCustomer() == null && action == 'create'}">
-        let idTypeCre = ${idType};
-        let strIdCre = "";
-        switch (idTypeCre) {
-            case 1:
-                strIdCre = "createDiamond";
-                break;
-            case 2:
-                strIdCre = "createPlatinium";
-                break;
-            case 3:
-                strIdCre = "createGold";
-                break;
-            case 4:
-                strIdCre = "createSilver";
-                break;
-            case 5:
-                strIdCre = "createMember";
-                break;
-            default:
-                strIdCre = "createchoose";
-        }
-        document.getElementById(strIdCre).selected = true;
-        </c:if>
-
     }
 
     $(document).ready(function () {

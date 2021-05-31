@@ -15,9 +15,9 @@ public interface FuramaService {
     List<Customer> findNameCustomer(String name);
     List<Employee> findAllEmployee();
     Employee findByIdEmployee(int id);
-    String editEmployee(String id, String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth,
+    String editEmployee(String id, String name, String idPosition, String idEducationDegree, String idDivision, String dayOfBirth,
                            String CMND, String salary, String phoneNumber, String email, String address);
-    String createEmployee(String name, String idPosition, String idLevel, String idDepartment, String dayOfBirth, String CMND,
+    String createEmployee(String name, String idPosition, String idEducationDegree, String idDivision, String dayOfBirth, String CMND,
                            String salary, String phoneNumber, String email, String address);
     boolean deleteEmployee(int id);
     List<Employee> findNameEmployee(String name);
@@ -32,4 +32,6 @@ public interface FuramaService {
     List<ServiceType> findAllServiceType();
     String createService(String id, String name, String area, String rentalCosts, String maximumNumberOfPeople, String idRentalType,
                           String idServiceType, String standard, String description, String poolArea, String numberOfFloors);
+
+    List<ContactView> findAllContactView();
 }

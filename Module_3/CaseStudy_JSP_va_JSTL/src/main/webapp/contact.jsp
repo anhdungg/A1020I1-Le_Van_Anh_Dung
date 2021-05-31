@@ -8,6 +8,7 @@
         <link rel="icon" href="img/logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="${contextPath}/datatables/css/dataTables.bootstrap4.min.css" >
         <style>
             .display-5 {
                 font-size: 2.5rem;
@@ -96,66 +97,67 @@
     </head>
 </head>
 <body>
-<c:if test="${action == 'create' && statusSave == null}">
+<c:if test="${action == 'create'}">
     <div class="modal fade" id="createContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add new contact</h5>
+                    <div>
+                        <h5 class="modal-title">Add new contact</h5>
+                        <p style="color: red" class="m-0">${status}</p>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="?type=contact&action=create" method="post">
                     <div class="modal-body">
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="createIdEmployee">Employee</label>
-                                <select name="idEmployee" id="createIdEmployee" class="form-control" required>
-                                    <option value="">Please choose employee</option>
-                                    <c:forEach items="${listEmployee}" var="employee">
-                                        <option value="${employee.id}">${employee.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="createIdCustomer">Customer</label>
-                                <select name="idCustomer" id="createIdCustomer" class="form-control" required>
-                                    <option value="">Please choose customer</option>
-                                    <c:forEach items="${listCustomer}" var="customer">
-                                        <option value="${customer.idCustomer}">${customer.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="createIdEmployee">Employee</label>
+                            <select name="idEmployee" id="createIdEmployee" class="form-control" required>
+                                <option value="">Please choose employee</option>
+                                <c:forEach items="${listEmployee}" var="employee">
+                                    <option value="${employee.id}" id="employee${employee.id}">${employee.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="createIdService">Service</label>
-                                <select name="idService" id="createIdService" class="form-control" required>
-                                    <option value="">Please choose service</option>
-                                    <c:forEach items="${listService}" var="service">
-                                        <option value="${service.id}">${service.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="createContactDate">Contact date</label>
-                                <input class="form-control" type="date" name="contactDate" id="createContactDate">
-                            </div>
+                        <div class="form-group">
+                            <label for="createIdCustomer">Customer</label>
+                            <select name="idCustomer" id="createIdCustomer" class="form-control" required>
+                                <option value="">Please choose customer</option>
+                                <c:forEach items="${listCustomer}" var="customer">
+                                    <option value="${customer.idCustomer}" id="customer${customer.idCustomer}">${customer.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-6">
-                                <label for="createEndDate">End date</label>
-                                <input class="form-control" type="date" name="endDate" id="createEndDate">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="createDepositMoney">Deposit money</label>
-                                <input class="form-control" type="number" name="depositMoney" id="createDepositMoney">
-                            </div>
+                        <div class="form-group">
+                            <label for="createIdService">Service</label>
+                            <select name="idService" id="createIdService" class="form-control" onclick="calculatorTotalMoney()" required>
+                                <option value="">Please choose service</option>
+                                <c:forEach items="${listService}" var="service">
+                                    <option value="${service.id}" id="service${service.id}">${service.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="createContactDate">Contact date</label>
+                            <input class="form-control" type="date" name="contactDate" id="createContactDate" value="${contactDate}" onchange="calculatorTotalMoney()">
+                            <span style="color: red">${validateContactDate}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createEndDate">End date</label>
+                            <input class="form-control" type="date" name="endDate" id="createEndDate" value="${endDate}" onchange="calculatorTotalMoney()">
+                            <span style="color: red" id="validateEndDate">${validateEndDate}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="createDepositMoney">Deposit money</label>
+                            <input class="form-control" type="number" name="depositMoney" id="createDepositMoney" value="${depositMoney}">
+                            <span style="color: red">${validateDepositMoney}</span>
                         </div>
                         <div class="form-group">
                             <label for="createTotalMoney">Total money</label>
-                            <input class="form-control" type="text" name="totalMoney" id="createTotalMoney">
+                            <input class="form-control" type="text" name="totalMoney" id="createTotalMoney" value="${totalMoney}" readonly>
+                            <span style="color: red">${validateTotalMoney}</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -167,41 +169,43 @@
         </div>
     </div>
 </c:if>
-<c:if test="${action == 'createDetail' && statusSave == null}">
+<c:if test="${action == 'createDetail'}">
     <div class="modal fade" id="createContactDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add new contact detail</h5>
+                    <div>
+                        <h5 class="modal-title">Add new contact detail</h5>
+                        <p style="color: red" class="m-0">${status}</p>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="?type=contact&action=createDetail" method="post">
                     <div class="modal-body">
-                        <div class="form-row">
-                            <div class="form-group col-6">
+                        <div class="form-group">
                                 <label for="idContact">Contact</label>
                                 <select name="idContact" id="idContact" class="form-control" required>
                                     <option value="">Please choose contact</option>
                                     <c:forEach items="${listContact}" var="contact">
-                                        <option value="${contact.id}">${contact.id}</option>
+                                        <option value="${contact.id}" id="contact${contact.id}">${contact.id}</option>
                                     </c:forEach>
                                 </select>
-                            </div>
-                            <div class="form-group col-6">
+                        </div>
+                        <div class="form-group">
                                 <label for="idAccompaniedService">Accompanied Service</label>
                                 <select name="idAccompaniedService" id="idAccompaniedService" class="form-control" required>
                                     <option value="">Please choose accompanied service</option>
                                     <c:forEach items="${listAccompaniedService}" var="accompaniedService">
-                                        <option value="${accompaniedService.id}">${accompaniedService.name}</option>
+                                        <option value="${accompaniedService.id}" id="accompaniedService${accompaniedService.id}">${accompaniedService.name}</option>
                                     </c:forEach>
                                 </select>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label for="amount">Amount</label>
-                            <input class="form-control" type="number" name="amount" id="amount">
+                            <input class="form-control" type="number" name="amount" id="amount" value="${amount}">
+                            <span style="color: red">${validateAmount}</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -213,43 +217,18 @@
         </div>
     </div>
 </c:if>
-<c:if test="${statusSave != null}">
+<c:if test="${action == 'statusSave'}">
     <div class="modal fade" id="viewStatusSave">
         <div class="modal-dialog modal-confirm">
             <div class="modal-content">
-                <c:if test="${statusSave == 'success'}">
-                    <div class="modal-header">
-                        <div class="icon-box" style="background: #82ce34;">
-                            <i class="material-icons">&#xE876;</i>
-                        </div>
-                        <h2 class="modal-title w-100 text-center">Success!</h2>
+                <div class="modal-header">
+                    <div class="icon-box" style="background: #82ce34;">
+                        <i class="material-icons">&#xE876;</i>
                     </div>
-                </c:if>
-                <c:if test="${statusSave == 'fail'}">
-                    <div class="modal-header">
-                        <div class="icon-box" style="background: red">
-                            <i class="material-icons">&#xE888;</i>
-                        </div>
-                        <h2 class="modal-title w-100 text-center">Fail!</h2>
-                    </div>
-                </c:if>
+                    <h2 class="modal-title w-100 text-center">Success!</h2>
+                </div>
                 <div class="modal-body">
-                    <c:if test="${action == 'create'}">
-                        <c:if test="${statusSave == 'success'}">
-                            <p class="text-center">New contact saved.</p>
-                        </c:if>
-                        <c:if test="${statusSave == 'fail'}">
-                            <p class="text-center">New contact are not saved.</p>
-                        </c:if>
-                    </c:if>
-                    <c:if test="${action == 'createDetail'}">
-                        <c:if test="${statusSave == 'success'}">
-                            <p class="text-center">New contact detail saved.</p>
-                        </c:if>
-                        <c:if test="${statusSave == 'fail'}">
-                            <p class="text-center">New contact detail are not saved.</p>
-                        </c:if>
-                    </c:if>
+                    <p class="text-center">${status}</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
@@ -264,23 +243,71 @@
         <jsp:include page="item.jsp"/>
         <div class="col-10" style="top: 0">
             <div class="row">
-                <div class="col-12" style="height: 1000px">
-                    <p class = "" style="text-align: center">Body</p>
+                <div class="col-12">
+                    <p class = "display-5" style="text-align: center">List contact</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 border-top">
-                    <p class="" style="text-align: center">Footer</p>
+                <div class="col-12 pl-1 pr-1">
+                    <table id="tableContact" class="table table-striped" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name customer</th>
+                            <th scope="col">Type customer</th>
+                            <th scope="col">Name service</th>
+                            <th scope="col">Type service</th>
+                            <th scope="col">Contact date</th>
+                            <th scope="col">End date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${listContactView}" var="contactView">
+                            <tr>
+                                <td>${contactView.nameCustomer}</td>
+                                <td>${contactView.typeCustomer}</td>
+                                <td>${contactView.nameService}</td>
+                                <td>${contactView.typeService}</td>
+                                <td>${contactView.contactDate}</td>
+                                <td>${contactView.endDate}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="${contextPath}/js/jquery-3.5.1.min.js"></script>
+<script src="${contextPath}/datatables/js/jquery.dataTables.min.js"></script>
+<script src="${contextPath}/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js"></script>
 <script>
-    window.onscroll = function() {stickyItem()};
+    class Service{
+        constructor(id, rentalCosts) {
+            this._id = id;
+            this._rentalCosts = rentalCosts;
+        }
 
+        get id() {
+            return this._id;
+        }
+
+        set id(value) {
+            this._id = value;
+        }
+
+        get rentalCosts() {
+            return this._rentalCosts;
+        }
+
+        set rentalCosts(value) {
+            this._rentalCosts = value;
+        }
+    }
+    let betweenDate = null;
+    let list = [];
+    window.onscroll = function() {stickyItem()};
     function stickyItem() {
         let sticky = document.getElementById("divItem");
         let navbar = document.getElementById("navbar");
@@ -295,11 +322,89 @@
             sticky.style.top = "0px";
         }
     }
+    function select(){
+        <c:if test="${action == 'create' && idEmployee != null && idCustomer != null && idService != null}">
+        document.getElementById("employee${idEmployee}").selected = true;
+        document.getElementById("customer${idCustomer}").selected = true;
+        document.getElementById("service${idService}").selected = true;
+        </c:if>
+        <c:if test="${action == 'createDetail' && idContact != null && idAccompaniedService != null}">
+        document.getElementById("contact${idContact}").selected = true;
+        document.getElementById("accompaniedService${idAccompaniedService}").selected = true;
+        </c:if>
+    }
+
+    function calculatorBetweenDate(){
+        <c:if test="${action == 'create' || action == 'createDetail'}">
+        let contactDate = document.getElementById("createContactDate").value;
+        let endDate = document.getElementById("createEndDate").value;
+        if (contactDate !== "" && endDate != ""){
+            let date1 = new Date(contactDate);
+            let date2 = new Date(endDate);
+            betweenDate = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24);
+            if (betweenDate === 0){
+                betweenDate = 1;
+            }
+            if (betweenDate < 0){
+                document.getElementById("validateEndDate").innerHTML = "Ngay ket thuc phai lon hon hoac bang ngay lam hop dong";
+            }else {
+                document.getElementById("validateEndDate").innerHTML = "";
+            }
+        }
+        </c:if>
+    }
+
+    function getService(){
+        <c:if test="${listService != null}">
+        <c:forEach items="${listService}" var="Service">
+            list.push(new Service("${Service.id}", ${Service.rentalCosts}))
+        </c:forEach>
+        </c:if>
+    }
+
+    function calculatorTotalMoney(){
+        calculatorBetweenDate();
+        let idServiceInput = document.getElementById("createIdService").value;
+        if (idServiceInput !== ""){
+            let index=0;
+            let status = false;
+            for (index=0; index<list.length; index++){
+                if (list[index].id ===  idServiceInput){
+                    status = true;
+                    break;
+                }
+            }
+            if (status){
+                if (betweenDate != null) {
+                    if (betweenDate >= 0) {
+                        let result = betweenDate * list[index].rentalCosts;
+                        document.getElementById("createTotalMoney").value = "" + result;
+                        console.log(result);
+                    } else {
+                        document.getElementById("createTotalMoney").value = "";
+                    }
+                }
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $('#tableContact').dataTable({
+            "dom": 'lrtip',
+            "lengthChange": false,
+            "pageLength": 5
+        });
+    });
 
     $(window).on('load', function() {
         $('#createContact').modal('show');
         $('#viewStatusSave').modal('show');
         $('#createContactDetail').modal('show');
+        select();
+        calculatorBetweenDate();
+        <c:if test="${listService != null}">
+            getService();
+        </c:if>
     });
 </script>
 </body>

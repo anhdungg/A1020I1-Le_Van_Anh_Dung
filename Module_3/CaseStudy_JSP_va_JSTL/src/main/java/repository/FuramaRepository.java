@@ -26,4 +26,6 @@ public interface FuramaRepository {
     List<RentalType> findAllRentalType();
     List<ServiceType> findAllServiceType();
     boolean createService(Service service);
+
+    List<ContactView> findAllContactView();
 }

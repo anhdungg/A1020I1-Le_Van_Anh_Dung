@@ -4,8 +4,8 @@ public class Employee {
     private int id;
     private String name;
     private int idPosition;
-    private int idLevel;
-    private int idDepartment;
+    private int idEducationDegree;
+    private int idDivision;
     private String dayOfBirth;
     private String CMND;
     private double salary;
@@ -13,12 +13,12 @@ public class Employee {
     private String email;
     private String address;
 
-    public Employee(String name, int idPosition, int idLevel, int idDepartment, String dayOfBirth, String CMND,
+    public Employee(String name, int idPosition, int idEducationDegree, int idDivision, String dayOfBirth, String CMND,
                     double salary, String phoneNumber, String email, String address) {
         this.name = name;
         this.idPosition = idPosition;
-        this.idLevel = idLevel;
-        this.idDepartment = idDepartment;
+        this.idEducationDegree = idEducationDegree;
+        this.idDivision = idDivision;
         this.dayOfBirth = dayOfBirth;
         this.CMND = CMND;
         this.salary = salary;
@@ -27,13 +27,13 @@ public class Employee {
         this.address = address;
     }
 
-    public Employee(int id, String name, int idPosition, int idLevel, int idDepartment, String dayOfBirth, String CMND,
+    public Employee(int id, String name, int idPosition, int idEducationDegree, int idDivision, String dayOfBirth, String CMND,
                     double salary, String phoneNumber, String email, String address) {
         this.id = id;
         this.name = name;
         this.idPosition = idPosition;
-        this.idLevel = idLevel;
-        this.idDepartment = idDepartment;
+        this.idEducationDegree = idEducationDegree;
+        this.idDivision = idDivision;
         this.dayOfBirth = dayOfBirth;
         this.CMND = CMND;
         this.salary = salary;
@@ -66,20 +66,20 @@ public class Employee {
         this.idPosition = idPosition;
     }
 
-    public int getIdLevel() {
-        return idLevel;
+    public int getIdEducationDegree() {
+        return idEducationDegree;
     }
 
-    public void setIdLevel(int idLevel) {
-        this.idLevel = idLevel;
+    public void setIdEducationDegree(int idEducationDegree) {
+        this.idEducationDegree = idEducationDegree;
     }
 
-    public int getIdDepartment() {
-        return idDepartment;
+    public int getIdDivision() {
+        return idDivision;
     }
 
-    public void setIdDepartment(int idDepartment) {
-        this.idDepartment = idDepartment;
+    public void setIdDivision(int idDivision) {
+        this.idDivision = idDivision;
     }
 
     public String getDayOfBirth() {

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <div class="container-fluid">
-    <ul class="list-group list-group-horizontal">
+    <ul class="list-group list-group-horizontal" style="flex-direction: row">
         <li class="list-group-item border-0"><a href="#"><img src="img/logo.png" alt="logo" style="height: 90px"></a></li>
         <li class="list-group-item border-0 mr-0 ml-auto"><h1 class="display-5 mt-3">Anh Dũng</h1></li>
     </ul>

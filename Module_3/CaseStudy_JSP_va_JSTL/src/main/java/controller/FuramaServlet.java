@@ -8,10 +8,13 @@ import service.impl.FuramaServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @WebServlet(name = "FuramaServlet", urlPatterns = {"/", "/home"})
 public class FuramaServlet extends HttpServlet {
@@ -36,8 +39,9 @@ public class FuramaServlet extends HttpServlet {
             case "employee":
                 this.employeePost(request, response);
                 break;
-            default:
-                this.viewHome(request, response);
+            case "login":
+                this.checkLogin(request, response);
+                break;
         }
     }
 
@@ -61,9 +65,36 @@ public class FuramaServlet extends HttpServlet {
                 this.customerGet(request, response);
                 break;
             default:
-                this.viewHome(request, response);
+                this.viewLogin(request, response);
         }
 
+    }
+
+    private void viewLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+    }
+
+    private void checkLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        String remember = request.getParameter("remember");
+
+        if (remember.equals("on")){
+
+        }
+        if (user.equals("Anh Dung") && pass.equals("123")){
+            this.viewHome(request, response);
+        }else {
+            request.setAttribute("user", user);
+            request.setAttribute("pass", pass);
+            request.setAttribute("error", "Sai ten dang nhap hoac mat khau");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+
+    }
+
+    private void viewHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     private void customerGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -307,10 +338,6 @@ public class FuramaServlet extends HttpServlet {
         request.getRequestDispatcher("customer.jsp").forward(request, response);
     }
 
-    private void viewHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("home.jsp").forward(request, response);
-    }
-
     private void employeeGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null){
@@ -380,8 +407,8 @@ public class FuramaServlet extends HttpServlet {
         String validateName = Validate.validateNull(name);
 
         String idPosition = request.getParameter("idPosition");
-        String idLevel = request.getParameter("idLevel");
-        String idDepartment = request.getParameter("idDepartment");
+        String idEducationDegree = request.getParameter("idEducationDegree");
+        String idDivision = request.getParameter("idDivision");
         String dayOfBirth = request.getParameter("dayOfBirth");
         String validateDateOfBirth = Validate.dateOfBirth(dayOfBirth);
 
@@ -404,7 +431,7 @@ public class FuramaServlet extends HttpServlet {
         boolean check;
         if (validateDateOfBirth == null && validateCMND == null && validateSalary == null && validatePhoneNumber == null &&
                 validateEmail == null && validateName == null && validateAddress == null){
-            status = this.service.editEmployee(id, name, idPosition, idLevel, idDepartment, dayOfBirth, CMND,
+            status = this.service.editEmployee(id, name, idPosition, idEducationDegree, idDivision, dayOfBirth, CMND,
                     salary, phoneNumber, email, address);
             if (status.equals("Chinh sua thong tin nhan vien thanh cong")){
                 check = true;
@@ -424,8 +451,8 @@ public class FuramaServlet extends HttpServlet {
             request.setAttribute("name", name);
             request.setAttribute("validateName", validateName);
             request.setAttribute("idPosition", idPosition);
-            request.setAttribute("idLevel", idLevel);
-            request.setAttribute("idDepartment", idDepartment);
+            request.setAttribute("idEducationDegree", idEducationDegree);
+            request.setAttribute("idDivision", idDivision);
             request.setAttribute("dayOfBirth", dayOfBirth);
             request.setAttribute("validateDateOfBirth", validateDateOfBirth);
             request.setAttribute("CMND", CMND);
@@ -456,8 +483,8 @@ public class FuramaServlet extends HttpServlet {
         String validateName = Validate.validateNull(name);
 
         String idPosition = request.getParameter("idPosition");
-        String idLevel = request.getParameter("idLevel");
-        String idDepartment = request.getParameter("idDepartment");
+        String idEducationDegree = request.getParameter("idEducationDegree");
+        String idDivision = request.getParameter("idDivision");
         String dayOfBirth = request.getParameter("dayOfBirth");
         String validateDateOfBirth = Validate.dateOfBirth(dayOfBirth);
 
@@ -480,7 +507,7 @@ public class FuramaServlet extends HttpServlet {
         boolean check;
         if (validateDateOfBirth == null && validateCMND == null && validateSalary == null && validatePhoneNumber == null &&
                 validateEmail == null && validateName == null && validateAddress == null){
-            status = this.service.createEmployee(name, idPosition, idLevel, idDepartment, dayOfBirth, CMND, salary,
+            status = this.service.createEmployee(name, idPosition, idEducationDegree, idDivision, dayOfBirth, CMND, salary,
                     phoneNumber, email, address);
             if (status.equals("Tao moi nhan vien thanh cong")){
                 check = true;
@@ -499,8 +526,8 @@ public class FuramaServlet extends HttpServlet {
             request.setAttribute("name", name);
             request.setAttribute("validateName", validateName);
             request.setAttribute("idPosition", idPosition);
-            request.setAttribute("idLevel", idLevel);
-            request.setAttribute("idDepartment", idDepartment);
+            request.setAttribute("idEducationDegree", idEducationDegree);
+            request.setAttribute("idDivision", idDivision);
             request.setAttribute("dayOfBirth", dayOfBirth);
             request.setAttribute("validateDateOfBirth", validateDateOfBirth);
             request.setAttribute("CMND", CMND);
@@ -594,6 +621,7 @@ public class FuramaServlet extends HttpServlet {
 
     private void viewListContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("type", "contact");
+        request.setAttribute("listContactView", this.service.findAllContactView());
         request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
@@ -603,6 +631,7 @@ public class FuramaServlet extends HttpServlet {
         request.setAttribute("listEmployee", this.service.findAllEmployee());
         request.setAttribute("listCustomer", this.service.findAllCustomer());
         request.setAttribute("listService", this.service.findAllService());
+        request.setAttribute("listContactView", this.service.findAllContactView());
         request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
@@ -611,16 +640,64 @@ public class FuramaServlet extends HttpServlet {
         String idCustomer = request.getParameter("idCustomer");
         String idService = request.getParameter("idService");
         String contactDate = request.getParameter("contactDate");
+        String validateContactDate = Validate.dayMonthYear(contactDate);
+
         String endDate = request.getParameter("endDate");
-        String depositMoney = request.getParameter("depositMoney");
-        String totalMoney = request.getParameter("totalMoney");
-        if (this.service.createContact(idEmployee, idCustomer, idService, contactDate, endDate, depositMoney, totalMoney)){
-            request.setAttribute("statusSave", "success");
-        }else {
-            request.setAttribute("statusSave", "fail");
+        String validateEndDate = Validate.dayMonthYear(endDate);
+        if (validateContactDate == null && validateEndDate == null){
+            LocalDate dateBefore = LocalDate.parse(contactDate);
+            LocalDate dateAfter = LocalDate.parse(endDate);
+            long dayBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
+            if (dayBetween<0){
+                validateEndDate = "Ngay ket thuc phai lon hon hoac bang ngay lam hop dong";
+            }
         }
-        request.setAttribute("action", "create");
+
+        String depositMoney = request.getParameter("depositMoney");
+        String validateDepositMoney = Validate.validateDouble(depositMoney);
+
+        String totalMoney = request.getParameter("totalMoney");
+        if (totalMoney == null){
+            totalMoney = "";
+        }
+        System.out.println(totalMoney);
+        String validateTotalMoney = Validate.validateDouble(totalMoney);
+
+        String status = "";
+        boolean check;
+        if (validateContactDate == null && validateEndDate == null && validateDepositMoney == null && validateTotalMoney == null){
+            if (this.service.createContact(idEmployee, idCustomer, idService, contactDate, endDate, depositMoney, totalMoney)){
+                check = true;
+                request.setAttribute("action", "statusSave");
+                request.setAttribute("status", "Tao moi hop dong thanh cong");
+            }else {
+                check = false;
+                status = "Loi co so du lieu";
+            }
+        }else{
+            check = false;
+        }
+
+        if (!check){
+            request.setAttribute("action", "create");
+            request.setAttribute("status", status);
+            request.setAttribute("idEmployee", idEmployee);
+            request.setAttribute("idCustomer", idCustomer);
+            request.setAttribute("idService", idService);
+            request.setAttribute("contactDate", contactDate);
+            request.setAttribute("validateContactDate", validateContactDate);
+            request.setAttribute("endDate", endDate);
+            request.setAttribute("validateEndDate", validateEndDate);
+            request.setAttribute("depositMoney", depositMoney);
+            request.setAttribute("validateDepositMoney", validateDepositMoney);
+            request.setAttribute("totalMoney", totalMoney);
+            request.setAttribute("validateTotalMoney", validateTotalMoney);
+            request.setAttribute("listEmployee", this.service.findAllEmployee());
+            request.setAttribute("listCustomer", this.service.findAllCustomer());
+            request.setAttribute("listService", this.service.findAllService());
+        }
         request.setAttribute("type", "contact");
+        request.setAttribute("listContactView", this.service.findAllContactView());
         request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
@@ -629,6 +706,7 @@ public class FuramaServlet extends HttpServlet {
         request.setAttribute("action", "createDetail");
         request.setAttribute("listContact", this.service.findAllContact());
         request.setAttribute("listAccompaniedService", this.service.findAllAccompaniedService());
+        request.setAttribute("listContactView", this.service.findAllContactView());
         request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 
@@ -636,13 +714,37 @@ public class FuramaServlet extends HttpServlet {
         String idContact = request.getParameter("idContact");
         String idAccompaniedService = request.getParameter("idAccompaniedService");
         String amount = request.getParameter("amount");
-        if (this.service.createContactDetail(idContact, idAccompaniedService, amount)){
-            request.setAttribute("statusSave", "success");
+        String validateAmount = Validate.validateInteger(amount);
+
+        String status = "";
+        boolean check;
+
+        if (validateAmount == null) {
+            if (this.service.createContactDetail(idContact, idAccompaniedService, amount)) {
+                check = true;
+                request.setAttribute("action", "statusSave");
+                request.setAttribute("status", "Tao moi hop dong chi tiet thanh cong");
+            } else {
+                check = false;
+                status = "Loi co so du lieu";
+            }
         }else {
-            request.setAttribute("statusSave", "fail");
+            check = false;
         }
-        request.setAttribute("action", "createdDetail");
+
+        if (!check){
+            request.setAttribute("action", "createDetail");
+            request.setAttribute("status", status);
+            request.setAttribute("idContact", idContact);
+            request.setAttribute("idAccompaniedService", idAccompaniedService);
+            request.setAttribute("idAccompaniedService", idAccompaniedService);
+            request.setAttribute("amount", amount);
+            request.setAttribute("validateAmount", validateAmount);
+            request.setAttribute("listContact", this.service.findAllContact());
+            request.setAttribute("listAccompaniedService", this.service.findAllAccompaniedService());
+        }
         request.setAttribute("type", "contact");
+        request.setAttribute("listContactView", this.service.findAllContactView());
         request.getRequestDispatcher("contact.jsp").forward(request, response);
     }
 

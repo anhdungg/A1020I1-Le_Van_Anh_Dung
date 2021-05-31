@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
@@ -125,30 +126,30 @@
                         <div class="form-group">
                             <label for="idPosition">Position</label>
                             <select class="form-control" name="idPosition" id="idPosition">
-                                <option value="1" id="leTan">Lễ tân</option>
-                                <option value="2" id="phucVu">Phục vụ</option>
-                                <option value="3" id="chuyenVien">Chuyên viên</option>
-                                <option value="4" id="giamSat">Giám sát</option>
-                                <option value="5" id="quanLy">Quản lý</option>
-                                <option value="6" id="giamDoc">Giám đốc</option>
+                                <option value="1" id="position1">Lễ tân</option>
+                                <option value="2" id="position2">Phục vụ</option>
+                                <option value="3" id="position3">Chuyên viên</option>
+                                <option value="4" id="position4">Giám sát</option>
+                                <option value="5" id="position5">Quản lý</option>
+                                <option value="6" id="position6">Giám đốc</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="idLevel">Level</label>
-                            <select class="form-control" name="idLevel" id="idLevel">
-                                <option value="1" id="trungCap">Trung cấp</option>
-                                <option value="2" id="caoDang">Cao đẳng</option>
-                                <option value="3" id="daiHoc">Đại học</option>
-                                <option value="4" id="sauDaiHoc">Sau đại hoc</option>
+                            <label for="idEducationDegree">Education degree</label>
+                            <select class="form-control" name="idEducationDegree" id="idEducationDegree">
+                                <option value="1" id="educationDegree1">Trung cấp</option>
+                                <option value="2" id="educationDegree2">Cao đẳng</option>
+                                <option value="3" id="educationDegree3">Đại học</option>
+                                <option value="4" id="educationDegree4">Sau đại hoc</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="idDepartment">Department</label>
-                            <select class="form-control" name="idDepartment" id="idDepartment">
-                                <option value="1" id="bpSaleMarketing">Sale-Marketing</option>
-                                <option value="2" id="bpHanhChinh">Hành chính</option>
-                                <option value="3" id="bpPhucVu">Phục vụ</option>
-                                <option value="4" id="bpQuanLy">Quản lý</option>
+                            <label for="idDivision">Division</label>
+                            <select class="form-control" name="idDivision" id="idDivision">
+                                <option value="1" id="division1">Sale-Marketing</option>
+                                <option value="2" id="division2">Hành chính</option>
+                                <option value="3" id="division3">Phục vụ</option>
+                                <option value="4" id="division4">Quản lý</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -235,33 +236,33 @@
                     <div class="form-group">
                         <label for="createIdPosition">Position</label>
                         <select class="form-control" name="idPosition" id="createIdPosition" required>
-                            <option value="" id="choose1">Please choose an option</option>
-                            <option value="1" id="creLeTan">Lễ tân</option>
-                            <option value="2" id="crePhucVu">Phục vụ</option>
-                            <option value="3" id="creChuyenVien">Chuyên viên</option>
-                            <option value="4" id="creGiamSat">Giám sát</option>
-                            <option value="5" id="creQuanLy">Quản lý</option>
-                            <option value="6" id="creGiamDoc">Giám đốc</option>
+                            <option value="" id="position">Please choose an option</option>
+                            <option value="1" id="crePosition1">Lễ tân</option>
+                            <option value="2" id="crePosition2">Phục vụ</option>
+                            <option value="3" id="crePosition3">Chuyên viên</option>
+                            <option value="4" id="crePosition4">Giám sát</option>
+                            <option value="5" id="crePosition5">Quản lý</option>
+                            <option value="6" id="crePosition6">Giám đốc</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="createIdLevel">Level</label>
-                        <select class="form-control" name="idLevel" id="createIdLevel" required>
-                            <option value="" id="choose2">Please choose an option</option>
-                            <option value="1" id="creTrungCap">Trung cấp</option>
-                            <option value="2" id="creCaoDang">Cao đẳng</option>
-                            <option value="3" id="creDaiHoc">Đại học</option>
-                            <option value="4" id="creSauDaiHoc">Sau đại hoc</option>
+                        <label for="createIdEducationDegree">Education degree</label>
+                        <select class="form-control" name="idEducationDegree" id="createIdEducationDegree" required>
+                            <option value="" id="creEducationDegree">Please choose an option</option>
+                            <option value="1" id="creEducationDegree1">Trung cấp</option>
+                            <option value="2" id="creEducationDegree2">Cao đẳng</option>
+                            <option value="3" id="creEducationDegree3">Đại học</option>
+                            <option value="4" id="creEducationDegree4">Sau đại hoc</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="createIdDepartment">Department</label>
-                        <select class="form-control" name="idDepartment" id="createIdDepartment" required>
-                            <option value="" id="choose3">Please choose an option</option>
-                            <option value="1" id="creBpSaleMarketing">Sale-Marketing</option>
-                            <option value="2" id="creBpHanhChinh">Hành chính</option>
-                            <option value="3" id="creBpPhucVu">Phục vụ</option>
-                            <option value="4" id="creBpQuanLy">Quản lý</option>
+                        <label for="createIdDivision">Division</label>
+                        <select class="form-control" name="idDivision" id="createIdDivision" required>
+                            <option value="" id="creDivision">Please choose an option</option>
+                            <option value="1" id="creDivision1">Sale-Marketing</option>
+                            <option value="2" id="creDivision2">Hành chính</option>
+                            <option value="3" id="creDivision3">Phục vụ</option>
+                            <option value="4" id="creDivision4">Quản lý</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -415,13 +416,13 @@
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
-                                    <c:when test="${employee.idLevel == 1}">
+                                    <c:when test="${employee.idEducationDegree == 1}">
                                         <td>Trung cấp</td>
                                     </c:when>
-                                    <c:when test="${employee.idLevel == 2}">
+                                    <c:when test="${employee.idEducationDegree == 2}">
                                         <td>Cao đẳng</td>
                                     </c:when>
-                                    <c:when test="${employee.idLevel == 3}">
+                                    <c:when test="${employee.idEducationDegree == 3}">
                                         <td>Đại học</td>
                                     </c:when>
                                     <c:otherwise>
@@ -429,13 +430,13 @@
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
-                                    <c:when test="${employee.idDepartment == 1}">
+                                    <c:when test="${employee.idDivision == 1}">
                                         <td>Sale-Marketing</td>
                                     </c:when>
-                                    <c:when test="${employee.idDepartment == 2}">
+                                    <c:when test="${employee.idDivision == 2}">
                                         <td>Hành chính</td>
                                     </c:when>
-                                    <c:when test="${employee.idDepartment == 3}">
+                                    <c:when test="${employee.idDivision == 3}">
                                         <td>Phục vụ</td>
                                     </c:when>
                                     <c:otherwise>
@@ -497,146 +498,21 @@
 
     function editSelect(){
         <c:if test="${action == 'edit'}">
-            let idPosition;
-            <c:if test="${employee.idPosition != null}">
-                idPosition = ${employee.idPosition};
-            </c:if>
-            <c:if test="${employee.idPosition == null}">
-                idPosition = ${idPosition};
-            </c:if>
-            let str = "";
-            switch (idPosition) {
-                case 1:
-                    str = "leTan";
-                    break;
-                case 2:
-                    str = "phucVu";
-                    break;
-                case 3:
-                    str = "chuyenVien";
-                    break;
-                case 4:
-                    str = "giamSat";
-                    break;
-                case 5:
-                    str = "quanLy";
-                    break;
-                case 6:
-                    str = "giamDoc";
-                    break;
-            }
-            document.getElementById(str).selected = true;
-            let idLevel;
-            <c:if test="${employee.idLevel != null}">
-                idLevel = ${employee.idLevel};
-            </c:if>
-            <c:if test="${employee.idLevel == null}">
-                idLevel = ${idLevel};
-            </c:if>
-            str = "";
-            switch (idLevel) {
-                case 1:
-                    str = "trungCap";
-                    break;
-                case 2:
-                    str = "caoDang";
-                    break;
-                case 3:
-                    str = "daiHoc";
-                    break;
-                case 4:
-                    str = "sauDaiHoc";
-                    break;
-            }
-            document.getElementById(str).selected = true;
-            let idDepartment;
-            <c:if test="${employee.idDepartment != null}">
-                idDepartment = ${employee.idDepartment};
-            </c:if>
-            <c:if test="${employee.idDepartment == null}">
-                idDepartment = ${idDepartment};
-            </c:if>
-            str = "";
-            switch (idDepartment) {
-                case 1:
-                    str = "bpSaleMarketing";
-                    break;
-                case 2:
-                    str = "bpHanhChinh";
-                    break;
-                case 3:
-                    str = "bpPhucVu";
-                    break;
-                case 4:
-                    str = "bpQuanLy";
-                    break;
-            }
-            document.getElementById(str).selected = true;
+            <d:if test="${employee.idPosition != null && employee.idEducationDegree != null && employee.idDivision != null}">
+                document.getElementById("position${employee.idPosition}").selected = true;
+                document.getElementById("educationDegree${employee.idEducationDegree}").selected = true;
+                document.getElementById("division${employee.idDivision}").selected = true;
+            </d:if>
+            <d:if test="${idPosition != null && idEducationDegree != null && idDivision != null}">
+                document.getElementById("position${idPosition}").selected = true;
+                document.getElementById("educationDegree${idEducationDegree}").selected = true;
+                document.getElementById("division${idDivision}").selected = true;
+            </d:if>
         </c:if>
-        <c:if test="${action == 'create' && idPosition != null}">
-        idPosition = ${idPosition};
-        str = "";
-        switch (idPosition) {
-            case 1:
-                str = "creLeTan";
-                break;
-            case 2:
-                str = "crePhucVu";
-                break;
-            case 3:
-                str = "creChuyenVien";
-                break;
-            case 4:
-                str = "creGiamSat";
-                break;
-            case 5:
-                str = "creQuanLy";
-                break;
-            case 6:
-                str = "creGiamDoc";
-                break;
-            default:
-                str = "choose1";
-        }
-        document.getElementById(str).selected = true;
-        idLevel = ${idLevel};
-        str = "";
-        switch (idLevel) {
-            case 1:
-                str = "creTrungCap";
-                break;
-            case 2:
-                str = "creCaoDang";
-                break;
-            case 3:
-                str = "creDaiHoc";
-                break;
-            case 4:
-                str = "creSauDaiHoc";
-                break;
-            default:
-                str = "choose2";
-        }
-        document.getElementById(str).selected = true;
-        idDepartment = ${idDepartment};
-        str = "";
-        switch (idDepartment) {
-            case 1:
-                str = "creBpSaleMarketing";
-                break;
-            case 2:
-                str = "creBpHanhChinh";
-                break;
-            case 3:
-                str = "creBpPhucVu";
-                break;
-            case 4:
-                str = "creBpQuanLy";
-                break;
-            default:
-                str = "choose3";
-        }
-        document.getElementById(str).selected = true;
+        <c:if test="${action == 'create' && idPosition != null && idEducationDegree != null && idDivision != null}">
+            document.getElementById("crePosition${idPosition}").selected = true;
+            document.getElementById("creEducationDegree${idEducationDegree}").selected = true;
+            document.getElementById("creDivision${idDivision}").selected = true;
         </c:if>
     }
 

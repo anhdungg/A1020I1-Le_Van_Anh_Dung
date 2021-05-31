@@ -189,8 +189,8 @@ public class FuramaRepositoryImpl implements FuramaRepository {
                     "CMND = ?, luong = ?, so_dien_thoai = ?, email = ?, dia_chi = ? where id_nhan_vien = ?");
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setInt(2, employee.getIdPosition());
-            preparedStatement.setInt(3, employee.getIdLevel());
-            preparedStatement.setInt(4, employee.getIdDepartment());
+            preparedStatement.setInt(3, employee.getIdEducationDegree());
+            preparedStatement.setInt(4, employee.getIdDivision());
             preparedStatement.setString(5, employee.getDayOfBirth());
             preparedStatement.setString(6, employee.getCMND());
             preparedStatement.setDouble(7, employee.getSalary());
@@ -217,8 +217,8 @@ public class FuramaRepositoryImpl implements FuramaRepository {
 
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setInt(2, employee.getIdPosition());
-            preparedStatement.setInt(3, employee.getIdLevel());
-            preparedStatement.setInt(4, employee.getIdDepartment());
+            preparedStatement.setInt(3, employee.getIdEducationDegree());
+            preparedStatement.setInt(4, employee.getIdDivision());
             preparedStatement.setString(5, employee.getDayOfBirth());
             preparedStatement.setString(6, employee.getCMND());
             preparedStatement.setDouble(7, employee.getSalary());
@@ -309,6 +309,31 @@ public class FuramaRepositoryImpl implements FuramaRepository {
                         resultSet.getString("id_khach_hang"), resultSet.getString("id_dich_vu"),
                         resultSet.getString("ngay_lam_hop_dong"), resultSet.getString("ngay_ket_thuc"),
                         resultSet.getDouble("tien_dat_coc"), resultSet.getDouble("tong_tien")));
+            }
+            return list;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<ContactView> findAllContactView() {
+        List<ContactView> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = this.repository.getConnection().prepareStatement("" +
+                    "select khach_hang.ho_ten, loai_khach_hang.loai_khach_hang, dich_vu.ten_dich_vu, loai_dich_vu.ten_loai_dich_vu,\n" +
+                    "\thop_dong.ngay_lam_hop_dong, hop_dong.ngay_ket_thuc from hop_dong\n" +
+                    "\tinner join khach_hang on khach_hang.id_khach_hang = hop_dong.id_khach_hang\n" +
+                    "\tinner join dich_vu on dich_vu.id_dich_vu = hop_dong.id_dich_vu\n" +
+                    "\tinner join loai_khach_hang on loai_khach_hang.id_loai_khach_hang = khach_hang.id_loai_khach_hang\n" +
+                    "\tinner join loai_dich_vu on loai_dich_vu.id_loai_dich_vu = dich_vu.id_loai_dich_vu;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                list.add(new ContactView(resultSet.getString("khach_hang.ho_ten"),
+                        resultSet.getString("loai_khach_hang.loai_khach_hang"), resultSet.getString("dich_vu.ten_dich_vu"),
+                        resultSet.getString("loai_dich_vu.ten_loai_dich_vu"),
+                        resultSet.getString("hop_dong.ngay_lam_hop_dong"), resultSet.getString("hop_dong.ngay_ket_thuc")));
             }
             return list;
         } catch (SQLException throwables) {
