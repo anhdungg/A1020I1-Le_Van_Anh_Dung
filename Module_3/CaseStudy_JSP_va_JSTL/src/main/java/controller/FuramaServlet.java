@@ -77,16 +77,18 @@ public class FuramaServlet extends HttpServlet {
     private void checkLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
+        String validatePass = Validate.pass(pass);
         String remember = request.getParameter("remember");
 
-        if (remember.equals("on")){
+        if (remember != null && remember.equals("on")){
 
         }
-        if (user.equals("Anh Dung") && pass.equals("123")){
+        if ((user.equals("Anh Dung") && pass.equals("Anhdung123") || validatePass == null)){
             this.viewHome(request, response);
         }else {
             request.setAttribute("user", user);
             request.setAttribute("pass", pass);
+            request.setAttribute("validatePass", validatePass);
             request.setAttribute("error", "Sai ten dang nhap hoac mat khau");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }

@@ -116,7 +116,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="id">ID</label><br>
-                            <input class="form-control" type="text" name="id" id="id" value="${customer.idCustomer}${id}">
+                            <input class="form-control" type="text" name="id" id="id" value="${customer.idCustomer}${id}" required>
                             <span style="color: red">${validateId}</span>
                         </div>
                         <div class="form-group">
@@ -133,32 +133,32 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input class="form-control" type="text" name="name" id="name" value="${customer.getName()}${name}">
+                            <input class="form-control" type="text" name="name" id="name" value="${customer.getName()}${name}" required>
                             <span style="color: red">${validateName}</span>
                         </div>
                         <div class="form-group">
                             <label for="dayOfBirth">Day of birth:</label>
-                            <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${customer.getDayOfBirth()}${dayOfBirth}">
+                            <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${customer.getDayOfBirth()}${dayOfBirth}" required>
                             <span style="color: red">${validateDateOfBirth}</span>
                         </div>
                         <div class="form-group">
                             <label for="CMND">CMND</label>
-                            <input class="form-control" type="text" name="CMND" id="CMND" value="${customer.getCMND()}${CMND}">
+                            <input class="form-control" type="text" name="CMND" id="CMND" value="${customer.getCMND()}${CMND}" required>
                             <span style="color: red">${validateCMND}</span>
                         </div>
                         <div class="form-group">
                             <label for="phoneNumber">Phone number:</label>
-                            <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${customer.getPhoneNumber()}${phoneNumber}">
+                            <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${customer.getPhoneNumber()}${phoneNumber}" required>
                             <span style="color: red">${validatePhoneNumber}</span>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control" type="email" name="email" id="email" value="${customer.getEmail()}${email}">
+                            <input class="form-control" type="email" name="email" id="email" value="${customer.getEmail()}${email}" required>
                             <span style="color: red">${validateEmail}</span>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}${address}">
+                            <input class="form-control" type="text" name="address" id="address" value="${customer.getAddress()}${address}" required>
                             <span style="color: red">${validateAddress}</span>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="createId">ID</label><br>
-                            <input class="form-control" type="text" name="id" id="createId" value="${id}">
+                            <input class="form-control" type="text" name="id" id="createId" value="${id}" required>
                             <span style="color: red">${validateId}</span>
                         </div>
                         <div class="form-group">
@@ -205,32 +205,32 @@
                         </div>
                         <div class="form-group">
                             <label for="createName">Name</label>
-                            <input class="form-control" type="text" name="name" id="createName" value="${name}">
+                            <input class="form-control" type="text" name="name" id="createName" value="${name}" required>
                             <span style="color: red">${validateName}</span>
                         </div>
                         <div class="form-group">
                             <label for="createDayOfBirth">Day of birth:</label>
-                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth" value="${dayOfBirth}">
+                            <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth" value="${dayOfBirth}" required>
                             <span style="color: red">${validateDateOfBirth}</span>
                         </div>
                         <div class="form-group">
                             <label for="createCMND">CMND</label>
-                            <input class="form-control" type="text" name="CMND" id="createCMND" value="${CMND}">
+                            <input class="form-control" type="text" name="CMND" id="createCMND" value="${CMND}" required>
                             <span style="color: red">${validateCMND}</span>
                         </div>
                         <div class="form-group">
                             <label for="createPhoneNumber">Phone number:</label>
-                            <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber" value="${phoneNumber}">
+                            <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber" value="${phoneNumber}" required>
                             <span style="color: red">${validatePhoneNumber}</span>
                         </div>
                         <div class="form-group">
                             <label for="createEmail">Email</label>
-                            <input class="form-control" type="email" name="email" id="createEmail" value="${email}">
+                            <input class="form-control" type="email" name="email" id="createEmail" value="${email}" required>
                             <span style="color: red">${validateEmail}</span>
                         </div>
                         <div class="form-group">
                             <label for="createAddress">Address</label>
-                            <input class="form-control" type="text" name="address" id="createAddress" value="${address}">
+                            <input class="form-control" type="text" name="address" id="createAddress" value="${address}" required>
                             <span style="color: red">${validateAddress}</span>
                         </div>
                     </div>

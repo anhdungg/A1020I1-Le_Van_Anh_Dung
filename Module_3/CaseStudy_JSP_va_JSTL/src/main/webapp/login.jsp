@@ -27,9 +27,13 @@
                     <span style="color: red">${error}</span>
                     <form action="" method="post">
                         <input type="hidden" name="type" value="login">
-                        <input type="text" name="user" id="userName" class="form-control input-sm chat-input" value="${user}" placeholder=" username"/>
+                        <input type="text" name="user" id="userName" class="form-control input-sm chat-input"
+                               value="${user}" placeholder=" username" required/>
                         <br><br>
-                        <input type="password" name="pass" id="userPassword" class="form-control input-sm chat-input" value="${pass}" placeholder=" password"/>
+                        <input type="password" name="pass" id="userPassword" class="form-control input-sm chat-input"
+                               value="${pass}" placeholder=" password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+                                title="Mat khau chua ki tu so va viet hoa ki tu dau tien" required/>
+                        <span style="color: red">${validatePass}</span>
                         <br>
                         <input type="checkbox" id="remember" name="remember" >
                         <label for="remember">Remember me</label>
@@ -50,7 +54,16 @@
         </div>
         <!--//footer-->
     </div>
-<script src="${contextPath}/js/jquery-3.5.1.min.js"></script>
-<script src="${contextPath}/js/bootstrap.min.js"></script>
+    <script src="${contextPath}/js/jquery-3.5.1.min.js"></script>
+    <script src="${contextPath}/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            let user = document.getElementById("userName").value;
+            let pass = document.getElementById("userPassword").value;
+            if (!user.match("")){
+
+            }
+        }
+    </script>
 </body>
 </html>

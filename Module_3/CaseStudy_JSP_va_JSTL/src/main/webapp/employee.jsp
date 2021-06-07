@@ -120,12 +120,12 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input class="form-control" type="text" name="name" id="name" value="${employee.name}${name}">
+                            <input class="form-control" type="text" name="name" id="name" value="${employee.name}${name}" required>
                             <span style="color: red">${validateName}</span>
                         </div>
                         <div class="form-group">
                             <label for="idPosition">Position</label>
-                            <select class="form-control" name="idPosition" id="idPosition">
+                            <select class="form-control" name="idPosition" id="idPosition" required>
                                 <option value="1" id="position1">Lễ tân</option>
                                 <option value="2" id="position2">Phục vụ</option>
                                 <option value="3" id="position3">Chuyên viên</option>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="form-group">
                             <label for="idEducationDegree">Education degree</label>
-                            <select class="form-control" name="idEducationDegree" id="idEducationDegree">
+                            <select class="form-control" name="idEducationDegree" id="idEducationDegree" required>
                                 <option value="1" id="educationDegree1">Trung cấp</option>
                                 <option value="2" id="educationDegree2">Cao đẳng</option>
                                 <option value="3" id="educationDegree3">Đại học</option>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="form-group">
                             <label for="idDivision">Division</label>
-                            <select class="form-control" name="idDivision" id="idDivision">
+                            <select class="form-control" name="idDivision" id="idDivision" required>
                                 <option value="1" id="division1">Sale-Marketing</option>
                                 <option value="2" id="division2">Hành chính</option>
                                 <option value="3" id="division3">Phục vụ</option>
@@ -154,32 +154,32 @@
                         </div>
                         <div class="form-group">
                             <label for="dayOfBirth">Day of birth</label>
-                            <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${employee.dayOfBirth}${dayOfBirth}">
+                            <input class="form-control" type="date" name="dayOfBirth" id="dayOfBirth" value="${employee.dayOfBirth}${dayOfBirth}" required>
                             <span style="color: red">${validateDateOfBirth}</span>
                         </div>
                         <div class="form-group">
                             <label for="cmnd">CMND</label>
-                            <input class="form-control" type="number" name="cmnd" id="cmnd" value="${employee.CMND}${CMND}">
+                            <input class="form-control" type="number" name="cmnd" id="cmnd" value="${employee.CMND}${CMND}" required>
                             <span style="color: red">${validateCMND}</span>
                         </div>
                         <div class="form-group">
                             <label for="salary">Salary</label>
-                            <input class="form-control" type="text" name="salary" id="salary" value="${employee.salary}${salary}">
+                            <input class="form-control" type="text" name="salary" id="salary" value="${employee.salary}${salary}" required>
                             <span style="color: red">${validateSalary}</span>
                         </div>
                         <div class="form-group">
                             <label for="phoneNumber">Phone number</label>
-                            <input class="form-control" type="number" name="phoneNumber" id="phoneNumber" value="${employee.phoneNumber}${phoneNumber}">
+                            <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${employee.phoneNumber}${phoneNumber}" required>
                             <span style="color: red">${validatePhoneNumber}</span>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control" type="text" name="email" id="email" value="${employee.email}${email}">
+                            <input class="form-control" type="text" name="email" id="email" value="${employee.email}${email}" required>
                             <span style="color: red">${validateEmail}</span>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input class="form-control" type="text" name="address" id="address" value="${employee.getAddress()}${address}">
+                            <input class="form-control" type="text" name="address" id="address" value="${employee.getAddress()}${address}" required>
                             <span style="color: red">${validateAddress}</span>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="createName">Name</label>
-                        <input class="form-control" type="text" name="name" id="createName" value="${name}">
+                        <input class="form-control" type="text" name="name" id="createName" value="${name}" required>
                         <span style="color: red">${validateName}</span>
                     </div>
                     <div class="form-group">
@@ -267,32 +267,32 @@
                     </div>
                     <div class="form-group">
                         <label for="createDayOfBirth">Day of birth</label>
-                        <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth" value="${dayOfBirth}">
+                        <input class="form-control" type="date" name="dayOfBirth" id="createDayOfBirth" value="${dayOfBirth}" required>
                         <span style="color: red">${validateDateOfBirth}</span>
                     </div>
                     <div class="form-group">
                         <label for="createCmnd">CMND</label>
-                        <input class="form-control" type="number" name="cmnd" id="createCmnd" value="${CMND}">
+                        <input class="form-control" type="number" name="cmnd" id="createCmnd" value="${CMND}" required>
                         <span style="color: red">${validateCMND}</span>
                     </div>
                     <div class="form-group">
                         <label for="createSalary">Salary</label>
-                        <input class="form-control" type="number" name="salary" id="createSalary" value="${salary}">
+                        <input class="form-control" type="number" name="salary" id="createSalary" value="${salary}" required>
                         <span style="color: red">${validateSalary}</span>
                     </div>
                     <div class="form-group">
                         <label for="createPhoneNumber">Phone number</label>
-                        <input class="form-control" type="number" name="phoneNumber" id="createPhoneNumber" value="${phoneNumber}">
+                        <input class="form-control" type="text" name="phoneNumber" id="createPhoneNumber" value="${phoneNumber}" required>
                         <span style="color: red">${validatePhoneNumber}</span>
                     </div>
                     <div class="form-group">
                         <label for="createEmail">Email</label>
-                        <input class="form-control" type="text" name="email" id="createEmail" value="${email}">
+                        <input class="form-control" type="text" name="email" id="createEmail" value="${email}" required>
                         <span style="color: red">${validateEmail}</span>
                     </div>
                     <div class="form-group">
                         <label for="createAddress">Address</label>
-                        <input class="form-control" type="text" name="address" id="createAddress" value="${address}">
+                        <input class="form-control" type="text" name="address" id="createAddress" value="${address}" required>
                         <span style="color: red">${validateAddress}</span>
                     </div>
                 </div>

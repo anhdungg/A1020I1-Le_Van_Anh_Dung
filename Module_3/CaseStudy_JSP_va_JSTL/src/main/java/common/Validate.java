@@ -105,4 +105,12 @@ public class Validate {
             return null;
         }
     }
+
+    public static String pass(String input){
+        if (input.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")){
+            return null;
+        }else {
+            return "Mat khau chua ki tu so va viet hoa ki tu dau tien";
+        }
+    }
 }

@@ -33,10 +33,11 @@ public class FuramaRepositoryImpl implements FuramaRepository {
     public Customer findByIdCustomer(String id) {
         Customer customer = null;
         try {
-            CallableStatement callableStatement = this.repository.getConnection().prepareCall("CALL find_customer_by_id(?)");
-            callableStatement.setString(1, id);
+            PreparedStatement preparedStatement = this.repository.getConnection().prepareStatement("" +
+                    "select * from khach_hang where id_khach_hang = ?");
+            preparedStatement.setString(1, id);
 
-            ResultSet result = callableStatement.executeQuery();
+            ResultSet result = preparedStatement.executeQuery();
 
             while (result.next()){
                 customer = new Customer(result.getString("id_khach_hang"), result.getInt("id_loai_khach_hang"),
