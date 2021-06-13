@@ -25,14 +25,12 @@ public class MyFileUploadController {
         }
     }
 
-    // GET: Hiển thị trang form upload
     @GetMapping(value = "/uploadOneFile")
     public String uploadOneFileHandler(Model model) {
         model.addAttribute("myUploadForm", new MyUploadForm());
         return "uploadOneFile";
     }
 
-    // POST: Xử lý Upload
     @PostMapping(value = "/uploadOneFile")
     public String uploadOneFileHandlerPOST(HttpServletRequest request, Model model,
                                            @ModelAttribute("myUploadForm") MyUploadForm myUploadForm) {
@@ -42,7 +40,6 @@ public class MyFileUploadController {
         return "uploadResult";
     }
 
-    // GET: Hiển thị trang form upload
     @RequestMapping(value = "/uploadMultiFile", method = RequestMethod.GET)
     public String uploadMultiFileHandler(Model model) {
         MyUploadForm myUploadForm = new MyUploadForm();
@@ -52,7 +49,6 @@ public class MyFileUploadController {
 
     }
 
-    // POST: Xử lý Upload
 
     @RequestMapping(value = "/uploadMultiFile", method = RequestMethod.POST)
 
