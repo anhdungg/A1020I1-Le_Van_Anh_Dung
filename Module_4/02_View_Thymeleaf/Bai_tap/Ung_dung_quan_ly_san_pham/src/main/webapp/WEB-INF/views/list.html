@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product | List</title>
+</head>
+<body>
+<p th:if="${statusCreate}" th:text="${statusCreate}" style="text-align: center; color: green">
+</p>
+    <div style="display: flex">
+        <div style="margin: 20px auto 0 auto">
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Mô tả</th>
+                    <th colspan="2">Hành động</th>
+                </tr>
+                <tr th:each="product,index : ${listProduct}">
+                    <td th:text="${product.getId()}"></td>
+                    <td th:text="${product.getName()}"></td>
+                    <td th:text="${product.getUnit()}"></td>
+                    <td th:text="${product.getPrice()}"></td>
+                    <td th:text="${product.getDescription()}"></td>
+                    <td>
+                        <a th:href="@{/edit(id=${index.index})}"><button>Sửa</button></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/delete(id=${index.index})}"><button>Xoá</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="display: flex">
+        <a th:href="@{/create}" style="margin: 50px auto 0 auto"><button>New Product</button></a>
+    </div>
+
+</body>
+</html>

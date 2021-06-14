@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product | Edit</title>
+    <style>
+        th{
+            text-align: left;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div style="display: flex">
+    <form th:action="@{/edit}" th:object="${product}" method="post" style="margin: 20px auto 0 auto">
+        <input type="hidden" name="idSP" th:value="${idSP}">
+        <table>
+            <tr>
+                <th>ID</th>
+                <td><input th:field="*{id}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td th:if="${#fields.hasErrors('id')}" style="color: red">ID phải là số nguyên và lớn hơn 0</td>
+            </tr>
+            <tr>
+                <th>Tên</th>
+                <td><input th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td th:if="${#fields.hasErrors('name')}" style="color: red">Không được để trống</td>
+            </tr>
+            <tr>
+                <th>Số lượng</th>
+                <td><input th:field="*{unit}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td th:if="${#fields.hasErrors('unit')}" style="color: red">Số lượng phải là số nguyên và lớn hơn 0</td>
+            </tr>
+            <tr>
+                <th>Đơn giá</th>
+                <td><input th:field="*{price}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td th:if="${#fields.hasErrors('price')}" style="color: red">Đơn giá phải là số nguyên và lớn hơn 0</td>
+            </tr>
+            <tr>
+                <th>Mô tả</th>
+                <td><input th:field="*{description}"></td>
+            </tr>
+        </table>
+        <div style="display: flex">
+            <input type="submit" value="Update" style="margin: 30px 10px 0 auto">
+            <a th:href="@{/}" style="margin: 30px auto 0 10px"><button>Back</button></a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
