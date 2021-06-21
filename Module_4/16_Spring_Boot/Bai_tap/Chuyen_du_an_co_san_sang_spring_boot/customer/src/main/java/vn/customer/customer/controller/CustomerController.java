@@ -1,7 +1,7 @@
-package cg.wbd.grandemonstration.controller;
+package vn.customer.customer.controller;
 
-import cg.wbd.grandemonstration.model.Customer;
-import cg.wbd.grandemonstration.service.CustomerService;
+import vn.customer.customer.model.Customer;
+import vn.customer.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

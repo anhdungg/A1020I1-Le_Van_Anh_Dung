@@ -1,7 +1,7 @@
-package cg.wbd.grandemonstration.validator;
+package vn.customer.customer.validator;
 
-import cg.wbd.grandemonstration.model.Customer;
-import cg.wbd.grandemonstration.service.CustomerService;
+import vn.customer.customer.model.Customer;
+import vn.customer.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;

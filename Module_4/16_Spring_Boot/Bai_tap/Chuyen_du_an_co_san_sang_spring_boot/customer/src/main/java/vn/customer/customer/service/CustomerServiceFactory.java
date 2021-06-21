@@ -1,6 +1,6 @@
-package cg.wbd.grandemonstration.service;
+package vn.customer.customer.service;
 
-import cg.wbd.grandemonstration.service.impl.SimpleCustomerServiceImpl;
+import vn.customer.customer.service.impl.SimpleCustomerServiceImpl;
 
 public class CustomerServiceFactory {
     private static CustomerService singleton;

@@ -1,6 +1,6 @@
-package cg.wbd.grandemonstration.service;
+package vn.customer.customer.service;
 
-import cg.wbd.grandemonstration.model.Customer;
+import vn.customer.customer.model.Customer;
 
 import java.util.List;
 

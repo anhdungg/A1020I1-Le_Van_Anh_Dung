@@ -1,7 +1,8 @@
-package cg.wbd.grandemonstration.service.impl;
+package vn.customer.customer.service.impl;
 
-import cg.wbd.grandemonstration.model.Customer;
-import cg.wbd.grandemonstration.service.CustomerService;
+import org.springframework.stereotype.Service;
+import vn.customer.customer.model.Customer;
+import vn.customer.customer.service.CustomerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
+@Service
 public class SimpleCustomerServiceImpl implements CustomerService {
     private static List<Customer> customers;
     private static long autoIncreaseId = 0;

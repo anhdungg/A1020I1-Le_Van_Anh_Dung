@@ -1,4 +1,4 @@
-package cg.wbd.grandemonstration.validator;
+package vn.customer.customer.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

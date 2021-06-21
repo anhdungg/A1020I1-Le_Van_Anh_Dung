@@ -1,6 +1,6 @@
-package cg.wbd.grandemonstration.model;
+package vn.customer.customer.model;
 
-import cg.wbd.grandemonstration.validator.UniqueEmail;
+import vn.customer.customer.validator.UniqueEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
