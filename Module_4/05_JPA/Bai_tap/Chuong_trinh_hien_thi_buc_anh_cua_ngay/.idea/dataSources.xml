@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="META-INF:hibernate.conf.xml/Hibernate" uuid="2cd6ee1e-c910-4698-b97b-95942477a101">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+D:/CodeGym/Module_4/04_Thao_tac_CSDL_va_ORM/Bai_tap/Chuong_trinh_hien_thi_buc_anh_cua_ngay/src/main/resources/META-INF/hibernate.conf.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/picture_of_the_day</jdbc-url>
+    </data-source>
+  </component>
+</project>

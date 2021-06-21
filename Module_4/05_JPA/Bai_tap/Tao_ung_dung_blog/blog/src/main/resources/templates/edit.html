@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="~{layout :: navbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <form th:action="@{/edit}" method="post" th:object="${blog}">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="title">Tiêu đề</label>
+                    <input th:field="*{title}" class="form-control" type="text" id="title">
+                    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red">Không được để trống và tối đa 255 kí tự</span>
+                </div>
+                <div class="form-group">
+                    <label for="content">Nội dung</label>
+                    <textarea th:field="*{content}" class="form-control" id="content"  rows="15"></textarea>
+                    <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color: red">Không được để trống</span>
+                </div>
+                <div class="d-flex">
+                    <input type="submit" class="btn btn-primary ml-auto mr-2" value="Cập nhập">
+                    <a th:href="@{/}" class="mr-auto ml-2">
+                        <button type="button" class="btn btn-secondary">Trở lại</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{js/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>
