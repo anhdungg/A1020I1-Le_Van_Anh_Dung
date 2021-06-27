@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+    <link rel="stylesheet" th:href="@{../../static/css/bootstrap.min.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        pre{
+            font-family: Arial,serif;
+            font-size: 17px;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            /*white-space: -pre-wrap;      !* Opera 4-6 *!*/
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{/layout :: navbar}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 position-relative">
+            <a th:href="@{/static}" class="ml-0 position-absolute" style="top: 5px; left: -5.5%">
+                <i class='fas fa-arrow-left' style='font-size:24px;'></i>
+                <p class="position-relative" style="top: -7px; left: -10px; font-size: 13px">Quay lại</p>
+            </a>
+            <h2 class="text-center ml-auto mr-auto">Tiêu đề</h2>
+            <pre th:text="${blog.getTitle()}"></pre>
+            <h2 class="text-center">Nội dung</h2>
+            <pre th:text="${blog.getContent()}"></pre>
+        </div>
+    </div>
+</div>
+<script th:src="@{../../static/js/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{../../static/js/bootstrap.min.js}"></script>
+</body>
+</html>

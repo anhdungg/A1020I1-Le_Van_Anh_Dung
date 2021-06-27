@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo mới danh mục - EasyCode</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form th:action="@{/create-category}" method="post" th:object="${category}">
+                <div class="form-group">
+                    <label for="name">Tên danh mục</label>
+                    <input th:field="*{name}" class="form-control" type="text" id="name" >
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Không được để trống và tối đa 255 kí tự</span>
+                </div>
+                <div class="d-flex">
+                    <input type="submit" class="btn btn-primary ml-auto mr-2" th:value="Lưu">
+                    <a th:href="@{/list-category}" class="mr-auto ml-2">
+                        <button type="button" class="btn btn-secondary">Trở lại</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{js/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+</body>
+</html>
