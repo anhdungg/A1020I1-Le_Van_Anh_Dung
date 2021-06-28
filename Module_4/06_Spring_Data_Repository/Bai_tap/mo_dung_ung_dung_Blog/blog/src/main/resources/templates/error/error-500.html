@@ -3,21 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>500 - EasyCode</title>
-    <link rel="icon" th:href="@{../../image/code-solid.svg}" type="image/x-icon">
-    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <style>
-        .back-to-top {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            display: none;
-        }
-        .display-6{
-            font-size: 1.0rem;
-            font-weight: 300;
-            line-height: 1.2;
-        }
         h2{
             font-family: "Montserrat", sans-serif;
             font-size: 200px;
@@ -44,26 +34,9 @@
 </div>
 <div th:replace="~{/fragments/layout :: footer}"></div>
 <a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
-<script th:src="@{../../js/jquery.min.js}"></script>
-<script th:src="@{../../js/bootstrap.min.js}"></script>
-<script>
-    $(document).ready(function(){
 
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                $('#back-to-top').fadeIn();
-            } else {
-                $('#back-to-top').fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $('#back-to-top').click(function () {
-            $('body,html').animate({
-                scrollTop: 0
-            }, 400);
-            return false;
-        });
-    });
-</script>
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
 </body>
 </html>

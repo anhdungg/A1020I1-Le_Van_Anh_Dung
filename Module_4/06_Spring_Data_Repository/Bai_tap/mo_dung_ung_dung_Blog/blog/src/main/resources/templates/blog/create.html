@@ -5,6 +5,7 @@
     <title>Tạo mới bài viết  - EasyCode</title>
     <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
@@ -50,7 +51,12 @@
         </div>
     </div>
 </div>
-<script th:src="@{/../static/js/jquery-3.5.1.slim.min.js}"></script>
-<script th:src="@{/../static/js/bootstrap.min.js}"></script>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{/../../js/jquery.min.js}"></script>
+<script th:src="@{/../../js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
 </body>
 </html>

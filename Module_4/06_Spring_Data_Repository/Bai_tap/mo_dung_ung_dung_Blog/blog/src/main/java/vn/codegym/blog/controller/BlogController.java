@@ -108,7 +108,7 @@ public class BlogController {
     }
 
     @GetMapping(value = "/about")
-    public String viewAbout(){
-        return "blog/about";
+    public ModelAndView viewAbout(){
+        return new ModelAndView("blog/about", "about", true);
     }
 }

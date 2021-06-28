@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My Blog</title>
+    <title>Chỉnh sửa bài viết - My Blog</title>
     <link rel="icon" th:href="@{../../image/code-solid.svg}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{../../css/css.css}">
@@ -54,7 +54,12 @@
         </div>
     </div>
 </div>
-<script th:src="@{../js/jquery-3.5.1.slim.min.js}"></script>
-<script th:src="@{../js/bootstrap.min.js}"></script>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{/../../js/jquery.min.js}"></script>
+<script th:src="@{/../../js/bootstrap.min.js}"></script>
+<script th:src="@{/../../js/scroll-to-top.js}"></script>
 </body>
 </html>

@@ -178,35 +178,21 @@
                     <p class="position-relative text-center w-100" style="top: 50%">285x500</p>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-<div th:replace="/fragments/layout :: footer"></div>
-<a href="" th:replace="/fragments/layout :: scrollToTop"></a>
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
 
 <script th:src="@{./js/jquery.min.js}"></script>
 <script th:src="@{./js/bootstrap.min.js}"></script>
 <script th:src="@{./js/scroll-to-top.js}"></script>
-<script th:src="@{js/jquery.simplePagination.js}"></script>
 <script>
     function deleteBlog(id){
         document.getElementById("id").value = id;
         $("#deleteModal").modal('show');
     }
-
-    // function paging(number, total){
-    //     $("#test2").pagination({
-    //         items: 12,
-    //         // itemsOnPage: 5,
-    //         displayedPages: 3,
-    //         edges: 1,
-    //         currentPage:,
-    //         hrefTextPrefix: "?page="
-    //         // cssStyle: 'light-theme'
-    //     });
-    // }
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EasyCode</title>
+    <title th:text="${blog.title} + ' - EasyCode'"></title>
     <link rel="icon" th:href="@{../../image/code-solid.svg}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{../../css/css.css}">
