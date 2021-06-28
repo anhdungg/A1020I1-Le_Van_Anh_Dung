@@ -6,7 +6,6 @@
     <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{./css/css.css}">
-    <link rel="stylesheet" th:href="@{./css/simplePagination.css}">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <style>
         .display-5{
@@ -100,7 +99,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 <form action="/delete-blog">
                     <input type="hidden" name="id" id="id">
-                    <input type="hidden" name="location" value="home">
                     <input type="submit" class="btn btn-danger" value="Xoá">
                 </form>
             </div>
@@ -114,16 +112,16 @@
         <a th:href="@{/create-blog}" class="mr-3 ml-auto mt-3 mb-3">
             <button type="button" class="btn btn-primary">Bài viết mới</button>
         </a>
-        <a th:href="@{/create-category}" class="mr-3 mt-3 mb-3">
-            <button type="button" class="btn btn-primary">Danh mục mới</button>
-        </a>
+<!--        <a th:href="@{/create-category}" class="mr-3 mt-3 mb-3">-->
+<!--            <button type="button" class="btn btn-primary">Danh mục mới</button>-->
+<!--        </a>-->
     </div>
 </div>
 <div class="container pb-3">
     <div class="row">
         <div class="col-9 pr-xl-5 pl-0">
             <div th:each="blog, i : ${listPost}">
-                <div class="row shadow rounded-lg p-3 card mb-5"  th:classappend="${i.index} ? mt-5">
+                <div class="row shadow rounded-lg p-3 card mb-4" th:classappend="${i.index} ? mt-4">
                     <div class="col-12 d-flex p-0">
                         <div th:switch="${blog.category.name}">
                             <img src="./image/java.png" alt="image" class="mr-3" style="height: 180px; width: 180px;" th:case="'Java Core'">
@@ -133,67 +131,26 @@
                             <img src="./image/tips.jpg" alt="image" class="mr-3" style="height: 180px; width: 180px;" th:case="'Mẹo vặt'">
                             <img src="./image/kid-1241817_1920.jpg" alt="image" class="mr-3" style="height: 180px; width: 180px;" th:case="*">
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <ul class="list-group h-100">
-                                    <li class="d-flex" th:switch="${blog.category.name}">
-                                        <a th:href="@{/java-core}" class="category-a d-block" th:case="'Java Core'" th:text="${blog.category.name}"></a>
-                                        <a th:href="@{/spring-core}" class="category-a d-block" th:case="'Spring Core'" th:text="${blog.category.name}"></a>
-                                        <a th:href="@{/spring-boot}" class="category-a d-block" th:case="'Spring Boot'" th:text="${blog.category.name}"></a>
-                                        <a th:href="@{/mysql}" class="category-a d-block" th:case="'MySQL'" th:text="${blog.category.name}"></a>
-                                        <a th:href="@{/tips}" class="category-a d-block" th:case="'Mẹo vặt'" th:text="${blog.category.name}"></a>
-                                    </li>
-                                    <li class="d-flex" th:switch="${blog.category.name}">
-                                        <a th:href="@{/java-core/view/__${blog.id}__}" class="title-a d-block" th:case="'Java Core'" th:text="${blog.title}"></a>
-                                        <a th:href="@{/spring-core/view/__${blog.id}__}" class="title-a d-block" th:case="'Spring Core'" th:text="${blog.title}"></a>
-                                        <a th:href="@{/spring-boot/view/__${blog.id}__}" class="title-a d-block" th:case="'Spring Boot'" th:text="${blog.title}"></a>
-                                        <a th:href="@{/mysql/view/__${blog.id}__}" class="title-a d-block" th:case="'MySQL'" th:text="${blog.title}"></a>
-                                        <a th:href="@{/tips/view/__${blog.id}__}" class="title-a d-block" th:case="'Mẹo vặt'" th:text="${blog.title}"></a>
-                                    </li>
-                                    <li class="d-flex">
-                                        <div class="datetime-p" th:text="${blog.getDate()}"></div>
-                                    </li>
-                                    <li class="">
-                                        <span class="m-0 p-0 text-break text-secondary content-span" th:text="${blog.content}">
-
-                                        </span>
-                                    </li>
-                                    <li class="mb-0 mt-auto d-flex" th:switch="${blog.category.name}">
-                                        <a th:href="@{/java-core/view/__${blog.id}__}" th:case="'Java Core'" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
-                                        <a th:href="@{/spring-core/view/__${blog.id}__}" th:case="'Spring Core'" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
-                                        <a th:href="@{/spring-boot/view/__${blog.id}__}" th:case="'Spring Boot'" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
-                                        <a th:href="@{/mysql/view/__${blog.id}__}" th:case="'MySQL'" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
-                                        <a th:href="@{/tips/view/__${blog.id}__}" th:case="'Mẹo vặt'" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
-                                        <a th:href="@{/edit-blog/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>
-                                        <button class="btn btn-danger pt-1 pb-1 ml-1 mr-0" th:onclick="'javascript:deleteBlog(' + ${blog.id} + ');'">Xoá</button>
-<!--                                        <div class="d-flex" th:case="'Java Core'">-->
-<!--                                            <a th:href="@{/java-core/view/__${blog.id}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>-->
-<!--                                            <a th:href="@{/java-core/edit/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>-->
-<!--                                            <a th:href="@{/java-core/edit/__${blog.id}__}" class="btn btn-danger pt-1 pb-1 ml-1 mr-0">Xoá</a>-->
-<!--                                        </div>-->
-<!--                                        <div class="d-flex" th:case="'Spring Core'">-->
-<!--                                            <a th:href="@{/spring-core/view/__${blog.id}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>-->
-<!--                                            <a th:href="@{/spring-core/edit/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>-->
-<!--                                            <a th:href="@{/spring-core/edit/__${blog.id}__}" class="btn btn-danger pt-1 pb-1 ml-1 mr-0">Xoá</a>-->
-<!--                                        </div>-->
-<!--                                        <div class="d-flex" th:case="'Spring Boot'">-->
-<!--                                            <a th:href="@{/spring-boot/view/__${blog.id}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>-->
-<!--                                            <a th:href="@{/spring-boot/edit/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>-->
-<!--                                            <a th:href="@{/spring-boot/edit/__${blog.id}__}" class="btn btn-danger pt-1 pb-1 ml-1 mr-0">Xoá</a>-->
-<!--                                        </div>-->
-<!--                                        <div class="d-flex" th:case="'MySQL'">-->
-<!--                                            <a th:href="@{/mysql/view/__${blog.id}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>-->
-<!--                                            <a th:href="@{/mysql/edit/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>-->
-<!--                                            <a th:href="@{/mysql/edit/__${blog.id}__}" class="btn btn-danger pt-1 pb-1 ml-1 mr-0">Xoá</a>-->
-<!--                                        </div>-->
-<!--                                        <div class="d-flex" th:case="'Mẹo vặt'">-->
-<!--                                            <a th:href="@{/tips/view/__${blog.id}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>-->
-<!--                                            <a th:href="@{/tips/edit/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>-->
-<!--                                            <a th:href="@{/tips/edit/__${blog.id}__}" class="btn btn-danger pt-1 pb-1 ml-1 mr-0">Xoá</a>-->
-<!--                                        </div>-->
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="w-100">
+                            <ul class="list-group h-100">
+                                <li class="d-flex">
+                                    <a th:href="@{/__${blog.category.URLName}__}" class="category-a d-block" th:text="${blog.category.name}"></a>
+                                </li>
+                                <li class="d-flex">
+                                    <a th:href="@{/__${blog.category.URLName}__/__${blog.URLTitle}__}" class="title-a d-block" th:text="${blog.title}"></a>
+                                </li>
+                                <li class="d-flex">
+                                    <div class="datetime-p" th:text="${blog.getDate()}"></div>
+                                </li>
+                                <li class="">
+                                    <span class="m-0 p-0 text-break text-secondary content-span" th:text="${blog.content}"></span>
+                                </li>
+                                <li class="mb-0 mt-auto d-flex">
+                                    <a th:href="@{/__${blog.category.URLName}__/__${blog.URLTitle}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
+                                    <a th:href="@{/edit-blog/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1">Chỉnh sửa</a>
+                                    <button class="btn btn-danger pt-1 pb-1 ml-1 mr-0" th:onclick="'javascript:deleteBlog(' + ${blog.id} + ');'">Xoá</button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -201,7 +158,7 @@
                     <div class="progress-bar" role="progressbar" style="width: 100%; background-color: #eee" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
-            <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example" th:if="${!listPost.empty}">
                 <ul id="test2" class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${!listPost.hasPrevious()} ? disabled">
                         <a class="page-link" th:href="@{/(page=${listPost.number - 1})}">Previous</a>
@@ -226,11 +183,6 @@
     </div>
 </div>
 
-<!--<div>-->
-<!--    <a th:href="@{'/customers'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}">Previous</a>-->
-<!--    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>-->
-<!--    <a th:href="@{'/customers'(page=${customers.number + 1})}" th:if="${customers.hasNext()}">Next</a>-->
-<!--</div>-->
 <div th:replace="/fragments/layout :: footer"></div>
 <a href="" th:replace="/fragments/layout :: scrollToTop"></a>
 

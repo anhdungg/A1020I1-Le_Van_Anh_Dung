@@ -7,6 +7,8 @@ import java.util.List;
 public interface CategoryService {
     List<Category> findAll();
     Category findById(Integer id);
-    boolean save(Category category);
+    void save(Category category);
     boolean delete(Integer id);
+    boolean existsByURLName(String URLName);
+    List<Category> findByURLName(String URLName);
 }

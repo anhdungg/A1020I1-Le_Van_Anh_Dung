@@ -14,22 +14,28 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotBlank(message = "Không được để trống")
-    @Size(max = 50, message = "Tối đa 255 kí tự")
+    @Size(max = 50, message = "Tối đa 50 kí tự")
     private String name;
+    @NotBlank(message = "Không được để trống")
+    @Size(max = 50, message = "Tối đa 50 kí tự")
+    @Column(unique = true)
+    private String URLName;
     @OneToMany(mappedBy = "category")
     private List<Blog> blogs;
 
     public Category() {
     }
 
-    public Category(String name, List<Blog> blogs) {
+    public Category(String name, String URLName, List<Blog> blogs) {
         this.name = name;
+        this.URLName = URLName;
         this.blogs = blogs;
     }
 
-    public Category(Integer id, String name, List<Blog> blogs) {
+    public Category(Integer id, String name, String URLName, List<Blog> blogs) {
         this.id = id;
         this.name = name;
+        this.URLName = URLName;
         this.blogs = blogs;
     }
 
@@ -57,12 +63,12 @@ public class Category {
         this.blogs = blogs;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", blogs=" + blogs +
-                '}';
+    public String getURLName() {
+        return URLName;
     }
+
+    public void setURLName(String URLName) {
+        this.URLName = URLName;
+    }
+
 }

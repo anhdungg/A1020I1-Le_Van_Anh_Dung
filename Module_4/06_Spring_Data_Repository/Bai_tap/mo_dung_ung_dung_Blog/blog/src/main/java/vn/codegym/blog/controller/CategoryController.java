@@ -34,13 +34,18 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/create-category")
-    public String saveCreate(@ModelAttribute Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String saveCreate(@ModelAttribute Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if (bindingResult.hasErrors()){
             return "category/createCategory";
         }else {
-            redirectAttributes.addFlashAttribute("status", "Bài viết đã được lưu");
-            categoryService.save(category);
-            return "redirect:/list-category";
+            if (categoryService.existsByURLName(category.getURLName())){
+                model.addAttribute("statusURLName", "URL danh mục đã tồn tại");
+                return "category/createCategory";
+            }else {
+                redirectAttributes.addFlashAttribute("status", "Bài viết đã được lưu");
+                categoryService.save(category);
+                return "redirect:/list-category";
+            }
         }
     }
 
@@ -53,13 +58,25 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/edit-category")
-    public String saveEdit(@Valid @ModelAttribute Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String saveEdit(@Valid @ModelAttribute Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if (bindingResult.hasErrors()){
             return "category/editCategory";
         }else {
-            redirectAttributes.addFlashAttribute("status", "Bài viết đã được cập nhập");
-            categoryService.save(category);
-            return "redirect:/list-category";
+            if (categoryService.findById(category.getId()).getURLName().equals(category.getURLName())){
+                redirectAttributes.addFlashAttribute("status", "Bài viết đã được cập nhập");
+                categoryService.save(category);
+                return "redirect:/list-category";
+            }else {
+                if (categoryService.existsByURLName(category.getURLName())){
+                    model.addAttribute("statusURLName", "URL danh mục đã tồn tại");
+                    model.addAttribute("category", category);
+                    return "category/editCategory";
+                }else {
+                    redirectAttributes.addFlashAttribute("status", "Bài viết đã được cập nhập");
+                    categoryService.save(category);
+                    return "redirect:/list-category";
+                }
+            }
         }
     }
 

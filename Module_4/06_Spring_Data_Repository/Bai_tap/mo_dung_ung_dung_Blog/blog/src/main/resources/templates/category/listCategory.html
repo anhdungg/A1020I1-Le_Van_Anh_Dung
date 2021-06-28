@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Danh sách danh mục - EasyCode</title>
     <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
-    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
@@ -52,6 +53,8 @@
 </div>
 
 <div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+
 <div class="container">
     <div class="row d-flex">
         <a th:href="@{/create-blog}" class="mr-3 ml-auto mt-3 mb-3">
@@ -67,7 +70,7 @@
                 <thead>
                 <tr>
                     <th class="pl-1 pr-1 text-center" style="width: 5%">STT</th>
-                    <th scope="col" class="text-center" style="width: 80%">Danh mục</th>
+                    <th scope="col" class="text-center" style="width: 80%">Tên danh mục</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -87,8 +90,13 @@
         </div>
     </div>
 </div>
-<script th:src="@{js/jquery-3.5.1.slim.min.js}"></script>
-<script th:src="@{js/bootstrap.min.js}"></script>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
 <script>
     function deleteBlog(id){
         document.getElementById("id").value = id;

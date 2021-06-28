@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import vn.codegym.blog.model.Blog;
 import vn.codegym.blog.repository.BlogRepository;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -18,26 +17,35 @@ public class BlogServiceImpl implements BlogService{
 
     @Override
     public List<Blog> findAll() {
-        return (List<Blog>) blogRepository.findAll();
+        return blogRepository.findAll();
     }
 
     @Override
     public Blog findById(Integer id) {
-        return blogRepository.findById(id).get();
+        return blogRepository.findById(id).orElse(null);
     }
 
     @Override
-    public boolean save(Blog blog) {
+    public void save(Blog blog) {
         Date now = new Date();
         blog.setDate(now);
         blogRepository.save(blog);
-        return true;
     }
 
     @Override
     public boolean delete(Integer id) {
         blogRepository.deleteById(id);
         return false;
+    }
+
+    @Override
+    public boolean existsByURLTitle(String URLTitle) {
+        return blogRepository.existsByURLTitle(URLTitle);
+    }
+
+    @Override
+    public Blog findByURLTitle(String URLTitle) {
+        return blogRepository.findByURLTitle(URLTitle);
     }
 
     @Override

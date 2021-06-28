@@ -11,11 +11,12 @@
 <body>
 <div th:replace="~{/fragments/layout :: header}"></div>
 <div th:replace="~{/fragments/layout :: navbar}"></div>
-<div class="container-fluid">
+<div class="container-fluid pt-3 pb-4">
     <div class="row">
         <div class="col-12">
             <form th:action="@{/edit-blog}" method="post" th:object="${blog}">
                 <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:if="${idIP != null}" th:value="${idIP}" name="id">
                 <div class="form-row">
                     <div class="form-group col-9">
                         <label for="title">Tiêu đề</label>
@@ -28,6 +29,14 @@
                             <option value="">--Lựa chọn--</option>
                             <option th:each="ob : ${listCategory}" th:value="${ob.id}" th:text="${ob.name}"></option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-9">
+                        <label for="URLTitle">URL tiêu đề</label>
+                        <input th:field="*{URLTitle}" class="form-control" type="text" id="URLTitle">
+                        <span th:if="${#fields.hasErrors('URLTitle')}" th:errors="*{URLTitle}" style="color: red">Không được để trống và tối đa 255 kí tự</span>
+                        <span th:if="${statusURLTitle != null}" th:text="${statusURLTitle}" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -45,7 +54,7 @@
         </div>
     </div>
 </div>
-<script th:src="@{../../js/jquery-3.5.1.slim.min.js}"></script>
-<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../js/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{../js/bootstrap.min.js}"></script>
 </body>
 </html>

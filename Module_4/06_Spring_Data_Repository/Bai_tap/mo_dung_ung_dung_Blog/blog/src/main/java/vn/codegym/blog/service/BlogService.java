@@ -10,8 +10,10 @@ import java.util.Optional;
 public interface BlogService {
     List<Blog> findAll();
     Blog findById(Integer id);
-    boolean save(Blog blog);
+    void save(Blog blog);
     boolean delete(Integer id);
+    boolean existsByURLTitle(String URLTitle);
+    Blog findByURLTitle(String URLTitle);
     Page<Blog> findAll(Pageable pageable);
     Page<Blog> findAllByTitleContaining(String value, Pageable pageable);
     Page<Blog> findAllByCategory_Name(String category, Pageable pageable);

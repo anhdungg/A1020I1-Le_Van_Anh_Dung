@@ -14,23 +14,32 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Category> findAll() {
-        return (List<Category>) categoryRepository.findAll();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category findById(Integer id) {
-        return categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).orElse(null);
     }
 
     @Override
-    public boolean save(Category category) {
+    public void save(Category category) {
         categoryRepository.save(category);
-        return false;
     }
 
     @Override
     public boolean delete(Integer id) {
         categoryRepository.deleteById(id);
         return false;
+    }
+
+    @Override
+    public boolean existsByURLName(String URLName) {
+        return categoryRepository.existsByURLName(URLName);
+    }
+
+    @Override
+    public List<Category> findByURLName(String URLName) {
+        return categoryRepository.findByURLName(URLName);
     }
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,12 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.codegym.blog.model.Blog;
 import vn.codegym.blog.model.Category;
-import vn.codegym.blog.repository.CategoryRepository;
 import vn.codegym.blog.service.BlogService;
 import vn.codegym.blog.service.CategoryService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -50,13 +47,18 @@ public class BlogController {
     }
 
     @PostMapping(value = "/create-blog")
-    public String saveCreate(@Valid @ModelAttribute Blog blog, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String saveCreate(@Valid @ModelAttribute Blog blog, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if (bindingResult.hasErrors()){
             return "blog/create";
         }else {
-            redirectAttributes.addFlashAttribute("status", "Bài viết đã được lưu");
-            service.save(blog);
-            return "redirect:/";
+            if (service.existsByURLTitle(blog.getURLTitle())){
+                model.addAttribute("statusURLTitle", "URL tiêu đề đã tồn tại");
+                return "blog/create";
+            }else {
+                redirectAttributes.addFlashAttribute("status", "Bài viết đã được lưu");
+                service.save(blog);
+                return "redirect:/";
+            }
         }
     }
 
@@ -66,29 +68,34 @@ public class BlogController {
     }
 
     @PostMapping(value = "/edit-blog")
-    public String saveEdit(@Valid @ModelAttribute Blog blog, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String saveEdit(@Valid @ModelAttribute Blog blog, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if (bindingResult.hasErrors()){
             return "blog/edit";
         }else {
-            redirectAttributes.addFlashAttribute("status", "Bài viết đã được cập nhập");
-            service.save(blog);
-            return "redirect:/";
+            if (service.findById(blog.getId()).getURLTitle().equals(blog.getURLTitle())){
+                redirectAttributes.addFlashAttribute("status", "Bài viết đã được cập nhập");
+                service.save(blog);
+                return "redirect:/";
+            }else {
+                if (service.existsByURLTitle(blog.getURLTitle())){
+                    model.addAttribute("statusURLTitle", "URL tiêu đề đã tồn tại");
+                    model.addAttribute("blog", blog);
+                    return "blog/edit";
+                }else {
+                    redirectAttributes.addFlashAttribute("status", "Bài viết đã được cập nhập");
+                    service.save(blog);
+                    return "redirect:/";
+                }
+            }
+
         }
     }
 
     @GetMapping(value = "/delete-blog")
-    public String delete(@RequestParam("id") Integer id, @RequestParam("location") String location, RedirectAttributes redirectAttributes){
+    public String delete(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("status", "Bài viết đã được xoá");
         service.delete(id);
-        switch (location){
-            case "mysql":
-                return "redirect:/mysql";
-            case "tips":
-                return "redirect:/tips";
-            default:
-                return "redirect:/";
-        }
-
+        return "redirect:/";
     }
 
     @GetMapping(value = "/search")
@@ -100,4 +107,8 @@ public class BlogController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/about")
+    public String viewAbout(){
+        return "blog/about";
+    }
 }

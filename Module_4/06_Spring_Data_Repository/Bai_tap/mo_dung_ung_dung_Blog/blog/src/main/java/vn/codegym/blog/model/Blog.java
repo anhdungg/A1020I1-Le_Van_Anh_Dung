@@ -14,9 +14,14 @@ public class Blog {
     @NotBlank(message = "Không được để trống")
     @Size(min = 0, max = 255, message = "Tối đa 255 kí tự")
     private String title;
+    @NotBlank(message = "Không được để trống")
+    @Size(min = 0, max = 255, message = "Tối đa 255 kí tự")
+    @Column(unique = true)
+    private String URLTitle;
     @Column(columnDefinition = "TEXT")
     @NotBlank(message = "Không được để trống")
     private String content;
+
     private Date date;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -26,19 +31,18 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog( String title, String content) {
+    public Blog(String title, String URLTitle, String content, Date date, Category category) {
         this.title = title;
-        this.content = content;
-    }
-
-    public Blog(String title, String content, Date date) {
-        this.title = title;
+        this.URLTitle = URLTitle;
         this.content = content;
         this.date = date;
+        this.category = category;
     }
 
-    public Blog(String title, String content, Date date, Category category) {
+    public Blog(Integer id, String title, String URLTitle, String content, Date date, Category category) {
+        this.id = id;
         this.title = title;
+        this.URLTitle = URLTitle;
         this.content = content;
         this.date = date;
         this.category = category;
@@ -84,12 +88,12 @@ public class Blog {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "Blog{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
+    public String getURLTitle() {
+        return URLTitle;
     }
+
+    public void setURLTitle(String URLTitle) {
+        this.URLTitle = URLTitle;
+    }
+
 }
