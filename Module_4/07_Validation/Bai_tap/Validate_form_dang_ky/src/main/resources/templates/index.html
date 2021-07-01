@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List - Customer</title>
+</head>
+<body>
+<h3 th:text="${message}" style="text-align: center"></h3>
+<div style="display: flex">
+    <div style="margin: 30px auto 0 auto">
+        <div>
+            <a th:href="@{/create}">New customer</a>
+        </div>
+        <div style="margin-top: 30px">
+            <table border="1px">
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Phone number</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="customer : ${listCustomer}">
+                    <td th:text="${customer.firstName}"></td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.phoneNumber}"></td>
+                    <td th:text="${customer.age}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td>
+                        <a th:href="@{/edit/__${customer.id}__}" style="margin-right: 5px"><button>Edit</button></a>
+                        <a th:href="@{/delete/__${customer.id}__}" style="margin-left: 5px"><button>Delete</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

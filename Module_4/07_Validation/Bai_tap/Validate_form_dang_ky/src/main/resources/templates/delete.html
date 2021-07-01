@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create - Customer</title>
+    <style>
+        span{
+            word-break: break-all;
+        }
+        th{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div style="display: flex">
+    <div style="margin: 30px auto 0 auto">
+        <form th:action="@{/delete}" th:method="post" th:object="${customer}">
+            <input type="hidden" th:field="*{id}">
+            <div>
+                <table>
+                    <tr>
+                        <th>First name</th>
+                        <td th:text="${customer.firstName}"></td>
+                    </tr>
+                    <tr>
+                        <th>Last name</th>
+                        <td th:text="${customer.lastName}"></td>
+                    </tr>
+                    <tr>
+                        <th>Phone number</th>
+                        <td th:text="${customer.phoneNumber}"></td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td th:text="${customer.age}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${customer.email}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="display: flex; margin-top: 30px">
+                <button type="submit" style="margin-left: auto; margin-right: 5px">Delete</button>
+                <a th:href="@{/}" style="margin-left: 5px; margin-right: auto"><button>Back</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
