@@ -12,10 +12,10 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Không được để trống")
-    @Size(min = 0, max = 255, message = "Tối đa 255 kí tự")
+    @Size(max = 255, message = "Tối đa 255 kí tự")
     private String title;
     @NotBlank(message = "Không được để trống")
-    @Size(min = 0, max = 255, message = "Tối đa 255 kí tự")
+    @Size(max = 255, message = "Tối đa 255 kí tự")
     @Column(unique = true)
     private String URLTitle;
     @Column(columnDefinition = "TEXT")
