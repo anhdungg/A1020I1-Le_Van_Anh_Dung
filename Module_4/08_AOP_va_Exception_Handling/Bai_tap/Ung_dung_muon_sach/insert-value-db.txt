@@ -1,0 +1,20 @@
+-category
+INSERT INTO `library`.`category` (`id`, `urlname`, `name`) VALUES ('1', 'sach-tam-ly', 'Sách tâm lý ');
+INSERT INTO `library`.`category` (`id`, `urlname`, `name`) VALUES ('2', 'ky-nang-song', 'Kỹ năng sống ');
+INSERT INTO `library`.`category` (`id`, `urlname`, `name`) VALUES ('3', 'sach-kinh-doanh', 'Sách kinh doanh ');
+INSERT INTO `library`.`category` (`id`, `urlname`, `name`) VALUES ('4', 'sach-khoi-nghiep', 'Sách khởi nghiệp ');
+INSERT INTO `library`.`category` (`id`, `urlname`, `name`) VALUES ('5', 'sach-kinh-te', 'Sách kinh tế');
+-book
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('1', 'tu-duy-nhanh-va-cham', 'Daniel Kahneman', 'tu_duy_nhanh_va_cham.jpg', 'Tư Duy Nhanh Và Chậm', 'NXB Thế giới', '10', '1', '2');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('2', 'doc-vi-bat-ki-ai', 'David J. Liebermen', 'doc-vi-bat-ki-ai.jpg', 'Đọc Vị Bất Kỳ Ai', 'ĐH Kinh tế Quốc dân', '10', '2', '3');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('3', 'co-may-ban-hang-toi-uu', 'Chet Holmes', 'co-may-ban-hang-toi-uu.jpg', 'Cỗ Máy Bán Hàng Tối Ưu', 'NXB Lao động', '10', '3', '2');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('4', 'nhung-nguyen-tac-thanh-cong', 'Jack Canfield', 'nhung-nguyen-tac-thanh-cong.jpg', 'Những Nguyên Tắc Thành Công', 'NXB Tri thức', '10', '4', '4');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('5', '21-nguyen-tac-tu-do-tai-chinh-brian-tracy', 'Brian Tracy', '21-nguyen-tac-tu-do-tai-chinh-brian-tracy.jpg', '21 nguyên tắc tự do tài chính - Brian Tracy', 'NXB Lao động', '10', '3', '5');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('6', '7-chien-luoc-thinh-vuong-va-hanh-phuc', 'Jim Rohn', '7-chien-luoc-thinh-vuong-va-hanh-phuc.jpg', '7 Chiến Lược Thịnh Vượng Và Hạnh Phúc', 'NXB Thế giới', '10', '5', '4');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('7', 'bi-mat-dotcom', 'Russell Brunson', 'bi-mat-dotcom.jpg', 'Bí Mật Dotcom', 'NXB Tổng hợp TP. Hồ Chí Minh', '10', '3', '3');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('8', 'viet-gi-cung-dung', 'Anthony Weston', 'viet-gi-cung-dung.jpg', 'Viết Gì Cũng Đúng', 'NXB Lao động - Xã hội', '10', '3', '4');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('9', 'ban-niem-tin', 'Dan Kennedy', 'ban-niem-tin.jpg', 'Bán Niềm Tin', 'NXB Thế giới', '10', '3', '2');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('10', 'tung-san-pham', 'Jeff Walker', 'tung-san-pham.jpg', 'Tung Sản phẩm', 'NXB Tổng hợp TP. Hồ Chí Minh', '10', '3', '2');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('11', 'thu-ban-hang-dinh-cao', 'Dan Kennedy', 'thu-ban-hang-dinh-cao.jpg', 'Thư Bán Hàng Đỉnh Cao', 'NXB Tổng hợp TP. Hồ Chí Minh', '10', '3', '3');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('12', 'co-phieu-thuong-loi-nhuan-phi-thuong', 'Philip A. Fisher', 'co-phieu-thuong-loi-nhuan-phi-thuong.jpg', 'Cổ Phiếu Thường Lợi Nhuận Phi Thường', 'Nhà Xuất Bản Lao Động Xã Hội', '10', '3', '5');
+INSERT INTO `library`.`book` (`id`, `urlname`, `author`, `img`, `name`, `producer`, `unit`, `category_id`, `vote`) VALUES ('13', 'diem-bung-phat', 'Malcolm Gladwell', 'diem-bung-phat.jpg', 'Điểm Bùng Phát', 'NXB Thế Giới', '10', '3', '5');
