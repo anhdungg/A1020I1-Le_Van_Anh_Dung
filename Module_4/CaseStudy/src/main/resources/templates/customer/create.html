@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New customer - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container-fluid mt-3 mb-3">
+    <form th:action="@{/customer/create}" th:method="post" th:object="${customer}">
+        <input type="hidden" th:field="*{id}" value="">
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}">
+            </div>
+            <div class="form-group col-md-5">
+                <label for="dayOfBirth">Day of birth</label>
+                <input type="date" class="form-control" id="dayOfBirth" name="dayOfBirth">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Gender</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" th:field="*{gender}" id="male" value="1">
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" th:field="*{gender}" id="female" value="0">
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" th:field="*{address}" placeholder="1234 Main St">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="idCard">ID Card</label>
+                <input type="text" class="form-control" id="idCard" th:field="*{idCard}" placeholder="XXX">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="phoneNumber">Phone number</label>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" placeholder="XXX">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="XXX@xxx.xxx">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="type">Type</label>
+                <select th:field="*{customerType}" id="type" class="form-control" required>
+                    <option value="">Choose...</option>
+                    <option th:each="customerType : ${listCustomerType}" th:value="${customerType.id}" th:text="${customerType.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <a th:href="@{/customer}" class="btn btn-secondary ml-auto mr-1">Back</a>
+            <button type="submit" class="btn btn-primary ml-1 mr-auto">Create</button>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+</body>
+</html>

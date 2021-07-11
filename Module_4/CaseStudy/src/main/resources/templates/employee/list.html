@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div>
+
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+</body>
+</html>

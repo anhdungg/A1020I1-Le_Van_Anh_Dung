@@ -14,10 +14,17 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-//    @OneToMany(mappedBy = "role")
-//    private Set<AppUserRole> appUserRoles;
 
     public Role() {
+    }
+
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Role(Integer id, String roleName) {
+        this.id = id;
+        this.roleName = roleName;
     }
 
     public Role(String roleName, Set<User> users) {

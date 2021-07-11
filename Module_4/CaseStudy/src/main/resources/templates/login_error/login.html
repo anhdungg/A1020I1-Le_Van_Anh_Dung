@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Login - Furama resort</title>
+    <link rel="icon" th:href="@{./image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
+    <link href="css/login.css" rel="stylesheet" id="style">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
 </head>
 <body>
-$END$
+<div th:replace="~{/fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-5 col-md-4 text-center mr-auto ml-auto">
+                <h1 class='text-white'>Furama resort Login</h1>
+                <div class="form-login"></br>
+                    <h4>Secure Login</h4>
+                    </br>
+                    <form name="f" th:action="@{/loginSecurity}" th:method="post">
+                        <input type="text" name="username" class="form-control input-sm chat-input" placeholder=" username"/>
+                        </br></br>
+                        <input type="password" name="password" class="form-control input-sm chat-input" placeholder=" password"/>
+                        <br>
+                        <input type="checkbox" name="remember-me" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                        <p th:text="${message}" class="text-white" style="font-size: 20px"></p>
+                        <div class="wrapper">
+                            <span class="group-btn">
+                                <button type="submit" class="btn btn-danger btn-md">login <i class="fas fa-sign-in-alt"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </br></br></br>
+    </div>
+</div>
+<!--<form name='f' th:action="@{/j_spring_security_check}" method='POST'>-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <td>User:</td>-->
+<!--            <td><input type='text' name='username' value=''></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Password:</td>-->
+<!--            <td><input type='password' name='password' /></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Remember Me?</td>-->
+<!--            <td><input type="checkbox" name="remember-me" /></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td><input name="submit" type="submit" value="submit" /></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</form>-->
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/popper.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
 </body>
 </html>

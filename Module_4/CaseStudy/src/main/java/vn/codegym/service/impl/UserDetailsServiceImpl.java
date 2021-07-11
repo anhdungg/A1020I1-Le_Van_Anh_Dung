@@ -1,7 +1,6 @@
-package vn.codegym.service;
+package vn.codegym.service.impl;
 
 
-import vn.codegym.model.Role;
 //import vn.codegym.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,15 +10,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import vn.codegym.repository.UserRepository;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import vn.codegym.model.Role;
 import vn.codegym.repository.RoleRepository;
+import vn.codegym.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -31,25 +32,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         vn.codegym.model.User user = this.userRepository.findByUserName(userName);
 
         if (user == null) {
-            System.out.println("User not found! " + userName);
+//            System.out.println("User not found! " + userName);
             throw new UsernameNotFoundException("User " + userName + " was not found in the database");
         }
 
-        System.out.println("Found User: " + userName);
-
+//        System.out.println("Found User: " + userName);
         // [ROLE_USER, ROLE_ADMIN,..]
         List<Role> roles = this.roleRepository.findAllByUsers(user);
-
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> grantList = new ArrayList<>();
         if (roles != null) {
-            for (Role role : roles) {
+            for (Role role1 : roles) {
                 // ROLE_USER, ROLE_ADMIN,..
-                GrantedAuthority authority = new SimpleGrantedAuthority(role.getRoleName());
+                GrantedAuthority authority = new SimpleGrantedAuthority(role1.getRoleName());
                 grantList.add(authority);
             }
         }
 
-        return (UserDetails) new User(user.getUserName(), user.getPassword(), grantList);
+        return new User(user.getUserName(), user.getPassword(), grantList);
     }
 
 }

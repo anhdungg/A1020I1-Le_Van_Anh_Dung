@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
 </head>
 <body>
-$END$
+
+
+<div class="container-fluid" th:fragment="header">
+    <div class="row">
+        <div class="col">
+            <img th:src="@{../../image/logo.png}" alt="" class="float-left img-fluid" style="height: 9rem; width: 9rem">
+            <div class="float-right h-100 list-group">
+                <h2 class="mt-auto text-center" th:if="${nameUser != ''}" th:text="${nameUser}"></h2>
+<!--                <h2 class="mt-auto text-center" th:if="${nameUser != ''}" th:text="${role}"></h2>-->
+                <p class="text-center mb-auto" th:classappend="${nameUser == ''} ? mt-auto">
+                    <a th:href="@{/logout}" class="btn btn-danger " style="font-size: 0.7rem" th:if="${nameUser != ''}">Logout</a>
+                    <a th:href="@{/login}" class="btn btn-danger " style="font-size: 0.7rem" th:if="${nameUser == ''}">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a id="back-to-top"  href="#" class="btn btn-primary btn-lg back-to-top" role="button" th:fragment="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" th:fragment="navbar">
+<!--    <a class="navbar-brand" href="#">Navbar</a>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto ml-auto">
+            <li class="nav-item mr-5" th:classappend="${selectNavbar == 'home'} ? active">
+                <a class="nav-link font-weight-normal" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item mr-5" th:classappend="${selectNavbar == 'employee'} ? active">
+                <a class="nav-link font-weight-normal" th:href="@{/employee}">Employee</a>
+            </li>
+            <li class="nav-item mr-5"  th:classappend="${selectNavbar == 'customer'} ? active">
+                <a class="nav-link font-weight-normal" th:href="@{/customer}">Customer</a>
+            </li>
+            <li class="nav-item mr-5"  th:classappend="${selectNavbar == 'service'} ? active">
+                <a class="nav-link font-weight-normal" th:href="@{/service}">Service</a>
+            </li>
+            <li class="nav-item mr-5"  th:classappend="${selectNavbar == 'contract'} ? active">
+                <a class="nav-link font-weight-normal" th:href="@{/contract}">Contract</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/__(${selectNavbar})__/search}" th:method="get"
+              th:if="${selectNavbar == 'employee' || selectNavbar == 'customer' || selectNavbar == 'service' || selectNavbar == 'contract'}">
+            <input class="form-control mr-sm-2" name="key-word" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="row w-100 m-0" style="background-color: #5a6268" th:fragment="footer">
+    <div class="col pt-4 pb-4">
+        <p class="text-center mb-0">Footer</p>
+    </div>
+</div>
+
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
 </body>
 </html>

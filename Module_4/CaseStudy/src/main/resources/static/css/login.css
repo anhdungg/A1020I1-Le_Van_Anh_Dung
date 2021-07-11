@@ -1,7 +1,10 @@
 /*author:starttemplate*/
 /*reference site : starttemplate.com*/
 body {
-    background-image:url('/image/backgroud-login.jpg');
+
+}
+.main{
+    background-image:url('/image/image_1.jpg');
     background-position:center;
     background-size:cover;
 

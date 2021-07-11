@@ -7,6 +7,7 @@ import java.util.Set;
 @Table
 public class User {
     @Id
+    @Column(length = 50)
     private String userName;
 
     private String password;
@@ -15,11 +16,9 @@ public class User {
     private Employee employee;
 
     @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_userName"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_userName", referencedColumnName = "userName"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
-//    @OneToMany(mappedBy = "appUser")
-//    private Set<AppUserRole> appUserRoles;
 
     public User() {
     }
@@ -30,7 +29,6 @@ public class User {
         this.employee = employee;
         this.roles = roles;
     }
-
 
     public String getUserName() {
         return userName;
@@ -63,4 +61,5 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }
