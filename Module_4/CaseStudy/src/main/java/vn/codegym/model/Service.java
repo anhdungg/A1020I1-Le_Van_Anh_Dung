@@ -1,29 +1,44 @@
 package vn.codegym.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 @Entity
 @Table
 public class Service {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(length = 50)
+    @Pattern(regexp = "^(DV-)[\\d]{4}$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
+    private String id;
 
+    @NotBlank(message = "Không được để trống")
     private String name;
 
-    private Integer area;
+    @DecimalMin(value = "0.0", message = "Không đúng định dạng")
+    @NotNull(message = "Không được để trống")
+    private Double area;
 
+    @DecimalMin(value = "0.0", message = "Không đúng định dạng")
+    @NotNull(message = "Không được để trống")
     private Double cost;
 
+    @Positive(message = "Không đúng định dạng")
+    @NotNull(message = "Không được để trống")
     private Integer maxPeople;
 
+    @NotBlank(message = "Không được để trống")
     private String standardRoom;
 
     private String descriptionOtherConvenience;
 
+    @DecimalMin(value = "0.0", message = "Không đúng định dạng")
+    @NotNull(message = "Không được để trống")
     private Double poolArea;
 
+    @PositiveOrZero(message = "Sai địng dạng")
+    @NotNull(message = "Không được để trống")
     private Integer numberOfFloors;
 
     @ManyToOne(targetEntity = ServiceType.class)
@@ -40,7 +55,7 @@ public class Service {
     public Service() {
     }
 
-    public Service(String name, Integer area, Double cost, Integer maxPeople, String standardRoom, String descriptionOtherConvenience,
+    public Service(String name, Double area, Double cost, Integer maxPeople, String standardRoom, String descriptionOtherConvenience,
                    Double poolArea, Integer numberOfFloors, ServiceType serviceType, RentType rentType, Set<Contract> contracts) {
         this.name = name;
         this.area = area;
@@ -55,7 +70,7 @@ public class Service {
         this.contracts = contracts;
     }
 
-    public Service(Integer id, String name, Integer area, Double cost, Integer maxPeople, String standardRoom,
+    public Service(String id, String name, Double area, Double cost, Integer maxPeople, String standardRoom,
                    String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, ServiceType serviceType,
                    RentType rentType, Set<Contract> contracts) {
         this.id = id;
@@ -72,11 +87,11 @@ public class Service {
         this.contracts = contracts;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,11 +103,11 @@ public class Service {
         this.name = name;
     }
 
-    public Integer getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(Integer area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 

@@ -1,22 +1,28 @@
 package vn.codegym.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table
 public class ContractDetail {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Positive(message = "Số lượg phải lớn hơn 0")
+    @NotNull(message = "Không được để trống")
     private Integer quantity;
 
     @ManyToOne(targetEntity = AttachService.class)
     @JoinColumn(name = "attachService_id", referencedColumnName = "id")
+    @NotNull(message = "Không được để trống")
     private AttachService attachService;
 
-    @ManyToOne(targetEntity = Contract.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Contract.class)
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
+    @NotNull(message = "Không được để trống")
     private Contract contract;
 
     public ContractDetail() {

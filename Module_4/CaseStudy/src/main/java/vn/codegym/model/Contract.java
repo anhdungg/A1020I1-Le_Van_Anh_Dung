@@ -1,6 +1,11 @@
 package vn.codegym.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.Set;
 
@@ -11,25 +16,38 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Past(message = "Ngày bắt đầu không hợp lệ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Không được để trống")
     private Date startDate;
 
+    @Past(message = "Ngày kết thúc không hợp lệ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Không được để trống")
     private Date endDate;
 
+    @DecimalMin(value = "0.0", message = "Phải lớn hơn 0")
+    @NotNull(message = "Không được để trống")
     private Double deposit;
 
+    @DecimalMin(value = "0.0", message = "Phải lớn hơn 0")
+    @NotNull(message = "Không được để trống")
     private Double totalMoney;
 
-    @OneToMany(mappedBy = "contract")
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
     private Set<ContractDetail> contractDetails;
 
-    @ManyToOne(targetEntity = Employee.class, cascade = CascadeType.ALL)
+    @NotNull(message = "Không được để trống")
+    @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
-    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+    @NotNull(message = "Không được để trống")
+    @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
+    @NotNull(message = "Không được để trống")
     @ManyToOne(targetEntity = Service.class)
     @JoinColumn(name = "service_id", referencedColumnName = "id")
     private Service service;

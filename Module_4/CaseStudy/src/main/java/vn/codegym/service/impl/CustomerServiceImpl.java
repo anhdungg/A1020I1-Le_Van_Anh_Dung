@@ -8,6 +8,8 @@ import vn.codegym.model.Customer;
 import vn.codegym.repository.CustomerRepository;
 import vn.codegym.service.CustomerService;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -20,12 +22,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public List<Customer> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
     @Override
-    public Customer findById(Integer id) {
+    public Customer findById(String id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -37,5 +44,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void save(Customer customer) {
         repository.save(customer);
+    }
+
+    @Override
+    public boolean existsById(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public int updateById(String newId, String id) {
+        return repository.updateById(newId, id);
     }
 }

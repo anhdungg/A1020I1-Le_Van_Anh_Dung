@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //         Trang yêu cầu phải login với vai trò nhân viên
 //         Nếu chưa login, nó sẽ redirect tới trang /login.
         http.authorizeRequests().antMatchers("/customer/**", "/customer", "/service", "/service/**",
-                "/contract", "/contract/**").access("hasAnyRole('ROLE_MANAGE', 'ROLE_STAFF', 'ROLE_MANAGER')");
+                "/contract", "/contract/**", "/contract-detail", "/contract-detail/**")
+                .access("hasAnyRole('ROLE_MANAGE', 'ROLE_STAFF', 'ROLE_MANAGER')");
 //        http.authorizeRequests().antMatchers("/customer", "/service", "/contract")
 //                .access("hasRole('ROLE_STAFF')");
 
@@ -68,12 +69,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL của trang login
                 .loginProcessingUrl("/loginSecurity") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/")//
+                .defaultSuccessUrl("/", true)//
                 .failureUrl("/loginFail")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 // Cấu hình cho Logout Page.
                 .and().logout().deleteCookies("JSESSIONID").logoutUrl("/logout").logoutSuccessUrl("/");
+
 
         // Cấu hình Remember Me.
         http.authorizeRequests().and() //

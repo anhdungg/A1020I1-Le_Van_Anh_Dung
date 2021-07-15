@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New contract - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container-fluid mt-3 mb-3">
+    <form id="form" th:action="${action == 'create'} ? @{/contract/create} : @{/contract/edit}" th:method="post" th:object="${contract}">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-row">
+            <div class="form-group col-3">
+                <label for="startDate">Start date</label>
+                <input type="date" class="form-control" id="startDate" th:field="*{startDate}">
+                <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="endDate">End date</label>
+                <input type="date" class="form-control" id="endDate" th:field="*{endDate}">
+                <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="deposit">Deposit</label>
+                <input type="number" step="0.01" class="form-control" id="deposit" th:field="*{deposit}">
+                <span th:if="${#fields.hasErrors('deposit')}" th:errors="*{deposit}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="totalMoney">Total money</label>
+                <input type="number" step="0.01" class="form-control" id="totalMoney" th:field="*{totalMoney}">
+                <span th:if="${#fields.hasErrors('totalMoney')}" th:errors="*{totalMoney}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label for="employee">Name employee</label>
+                <select class="form-control" th:field="*{employee}" id="employee" required>
+                    <option value="">Choose...</option>
+                    <option th:each="employee : ${listEmployee}" th:value="${employee.id}" th:text="${employee.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <label for="customer">Name customer</label>
+                <select class="form-control" th:field="*{customer}" id="customer" required>
+                    <option value="">Choose...</option>
+                    <option th:each="customer : ${listCustomer}" th:value="${customer.id}" th:text="${customer.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <label for="service">Name customer</label>
+                <select class="form-control" th:field="*{service}" id="service" required>
+                    <option value="">Choose...</option>
+                    <option th:each="service : ${listService}" th:value="${service.id}" th:text="${service.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <a th:href="@{/contract}" class="btn btn-secondary ml-auto mr-1">Back</a>
+            <button type="submit" class="btn btn-primary ml-1 mr-auto" th:text="${action == 'create'} ? 'Create' : 'Update'"></button>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+</body>
+</html>

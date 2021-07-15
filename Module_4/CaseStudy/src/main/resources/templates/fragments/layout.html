@@ -14,7 +14,7 @@
         <div class="col">
             <img th:src="@{../../image/logo.png}" alt="" class="float-left img-fluid" style="height: 9rem; width: 9rem">
             <div class="float-right h-100 list-group">
-                <h2 class="mt-auto text-center" th:if="${nameUser != ''}" th:text="${nameUser}"></h2>
+                <h2 class="mt-auto text-center" th:text="${session.nameUser}"></h2>
 <!--                <h2 class="mt-auto text-center" th:if="${nameUser != ''}" th:text="${role}"></h2>-->
                 <p class="text-center mb-auto" th:classappend="${nameUser == ''} ? mt-auto">
                     <a th:href="@{/logout}" class="btn btn-danger " style="font-size: 0.7rem" th:if="${nameUser != ''}">Logout</a>
@@ -49,12 +49,18 @@
             <li class="nav-item mr-5"  th:classappend="${selectNavbar == 'service'} ? active">
                 <a class="nav-link font-weight-normal" th:href="@{/service}">Service</a>
             </li>
-            <li class="nav-item mr-5"  th:classappend="${selectNavbar == 'contract'} ? active">
-                <a class="nav-link font-weight-normal" th:href="@{/contract}">Contract</a>
+            <li class="nav-item mr-5 dropdown"  th:classappend="${selectNavbar == 'contract' || selectNavbar == 'contract-detail'} ? active">
+                <a class="nav-link dropdown-toggle" href="#" id="contractDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Contract
+                </a>
+                <div class="dropdown-menu" aria-labelledby="contractDropdown">
+                    <a class="dropdown-item font-weight-normal" th:href="@{/contract}">Contract</a>
+                    <a class="dropdown-item font-weight-normal" th:href="@{/contract-detail}">Contract detail</a>
+                </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" th:action="@{/__(${selectNavbar})__/search}" th:method="get"
-              th:if="${selectNavbar == 'employee' || selectNavbar == 'customer' || selectNavbar == 'service' || selectNavbar == 'contract'}">
+              th:if="${selectNavbar == 'employee' || selectNavbar == 'customer' || selectNavbar == 'service' || selectNavbar == 'contract' || selectNavbar == 'contract-detail'}">
             <input class="form-control mr-sm-2" name="key-word" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>

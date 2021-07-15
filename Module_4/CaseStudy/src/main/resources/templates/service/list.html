@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Service - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--Modal-->
+<div class="modal fade" id="modalConfirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/service/delete}" th:method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to delete service: <span style="color: red" id="nameService"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="idService">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalStatusDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:if="${messageDelete}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Successfully delete service: <span style="color: red" th:text="${messageDelete}"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="row">
+    <a th:href="@{/service/create}" class="btn btn-primary ml-auto mr-3">New service</a>
+</div>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-primary ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Area</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Max people</th>
+                    <th scope="col">Rent type</th>
+                    <th scope="col">Service type</th>
+                    <th scope="col">Standard room</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Pool area</th>
+                    <th scope="col">Number of floors</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="service : ${listService}">
+                    <td th:text="${service.id}"></td>
+                    <td th:text="${service.name}" th:id="'name' + ${service.id}"></td>
+                    <td th:text="${#numbers.formatDecimal(service.area, 0, 'WHITESPACE', 2, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatDecimal(service.cost, 0, 'WHITESPACE', 1, 'POINT')}"></td>
+                    <td th:text="${service.maxPeople}"></td>
+                    <td th:text="${service.rentType.name}"></td>
+                    <td th:text="${service.serviceType.name}"></td>
+                    <td th:text="${service.standardRoom}"></td>
+                    <td th:text="${service.descriptionOtherConvenience}"></td>
+                    <td th:text="${#numbers.formatDecimal(service.poolArea, 0, 'WHITESPACE', 2, 'POINT')}"></td>
+                    <td th:text="${service.numberOfFloors}"></td>
+                    <td>
+                        <p class="text-center mb-1"><a th:href="@{/service/edit/__${service.id}__}" class="btn btn-outline-warning p-1" style="font-size: 10px">Edit</a></p>
+                        <p class="text-center m-0">
+                            <button class="btn btn-outline-danger p-1" style="font-size: 10px" th:value="${service.id}" onclick="confirmDelete(this)">Delete</button>
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row" th:if="${keyWord != null}">
+    <ul class="pagination mr-auto ml-auto">
+        <li class="page-item" th:classappend="${listService.first} ? disabled">
+            <a class="page-link" th:href="@{'/service/search?key-word=' + ${keyWord} + '&page=0' }" aria-label="First">
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li class="page-item " th:classappend="${!listService.hasPrevious()} ? disabled">
+            <a class="page-link" th:href="@{'/service/search?key-word=' + ${keyWord} + '&page=' + ${listService.number - 1}}" aria-label="Previous">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+        <li class="page-item" th:each="page, index : ${page}" th:classappend="${index.index == listService.number} ? active">
+            <a class="page-link" th:href="@{'/service/search?key-word=' + ${keyWord} + '&page=' + ${index.index}}" th:text="${index.count}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!listService.hasNext()} ? disabled">
+            <a class="page-link" th:href="@{'/service/search?key-word=' + ${keyWord} + '&page=' + ${listService.number + 1}}" aria-label="Next">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${listService.last} ? disabled">
+            <a class="page-link" th:href="@{'/service/search?key-word=' + ${keyWord} + '&page=' + ${listService.getTotalPages()-1}}" aria-label="Last">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="row" th:if="${keyWord == null}">
+    <ul class="pagination mr-auto ml-auto">
+        <li class="page-item" th:classappend="${listService.first} ? disabled">
+            <a class="page-link" th:href="@{/service(page = 0)}" aria-label="First">
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li class="page-item " th:classappend="${!listService.hasPrevious()} ? disabled">
+            <a class="page-link" th:href="@{/service(page=${listService.number}-1)}" aria-label="Previous">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+        <li class="page-item" th:each="page, index : ${page}" th:classappend="${index.index == listService.number} ? active">
+            <a class="page-link" th:href="@{/service(page=${index.index})}" th:text="${index.count}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!listService.hasNext()} ? disabled">
+            <a class="page-link" th:href="@{/service(page=${listService.number}+1)}" aria-label="Next">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${listService.last} ? disabled">
+            <a class="page-link" th:href="@{/service(page = ${listService.getTotalPages()-1})}" aria-label="Last">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+<script>
+    function confirmDelete(input) {
+        let id = input.value;
+        document.getElementById("nameService").innerHTML = document.getElementById("name" + id).innerText;
+        document.getElementById("idService").value = id;
+        $('#modalConfirm').modal('show');
+    }
+    $(document).ready(function () {
+        $('#modalStatusDelete').modal('show');
+    })
+</script>
+</body>
+</html>

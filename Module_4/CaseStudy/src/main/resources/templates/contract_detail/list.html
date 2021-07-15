@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract detail - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--Modal-->
+<div class="modal fade" id="modalConfirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/contract-detail/delete}" th:method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete contract detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to delete contract detail id: <span style="color: red" id="nameContractDetail"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="idContractDetail">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalStatusDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:if="${messageDelete}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete contract detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Successfully delete contract  detail: <span style="color: red" th:text="${messageDelete}"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="row">
+    <a th:href="@{/contract-detail/create}" class="btn btn-primary ml-auto mr-3">New contract detail</a>
+</div>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-primary ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">ID contract</th>
+                    <th scope="col">Name attach service</th>
+                    <th scope="col">Quantity</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="contractDetail : ${listContractDetail}">
+                    <td th:text="${contractDetail.id}"></td>
+                    <td th:text="${contractDetail.contract.id}"></td>
+                    <td th:text="${contractDetail.attachService.name}"></td>
+                    <td th:text="${contractDetail.quantity}"></td>
+                    <td>
+                        <p class="text-center mb-1"><a th:href="@{/contract-detail/edit/__${contractDetail.id}__}" class="btn btn-outline-warning p-1" style="font-size: 10px">Edit</a></p>
+                        <p class="text-center m-0">
+                            <button class="btn btn-outline-danger p-1" style="font-size: 10px" th:value="${contractDetail.id}" onclick="confirmDelete(this)">Delete</button>
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row" th:if="${keyWord != null}">
+    <ul class="pagination mr-auto ml-auto">
+        <li class="page-item" th:classappend="${listContractDetail.first} ? disabled">
+            <a class="page-link" th:href="@{'/contract-detail/search?key-word=' + ${keyWord} + '&page=0' }" aria-label="First">
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li class="page-item " th:classappend="${!listContractDetail.hasPrevious()} ? disabled">
+            <a class="page-link" th:href="@{'/contract-detail/search?key-word=' + ${keyWord} + '&page=' + ${listContractDetail.number - 1}}" aria-label="Previous">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+        <li class="page-item" th:each="page, index : ${page}" th:classappend="${index.index == listContractDetail.number} ? active">
+            <a class="page-link" th:href="@{'/contract-detail/search?key-word=' + ${keyWord} + '&page=' + ${index.index}}" th:text="${index.count}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!listContractDetail.hasNext()} ? disabled">
+            <a class="page-link" th:href="@{'/contract-detail/search?key-word=' + ${keyWord} + '&page=' + ${listContractDetail.number + 1}}" aria-label="Next">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${listContractDetail.last} ? disabled">
+            <a class="page-link" th:href="@{'/contract-detail/search?key-word=' + ${keyWord} + '&page=' + ${listContractDetail.getTotalPages()-1}}" aria-label="Last">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="row" th:if="${keyWord == null}">
+    <ul class="pagination mr-auto ml-auto">
+        <li class="page-item" th:classappend="${listContractDetail.first} ? disabled">
+            <a class="page-link" th:href="@{/contract-detail(page = 0)}" aria-label="First">
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li class="page-item " th:classappend="${!listContractDetail.hasPrevious()} ? disabled">
+            <a class="page-link" th:href="@{/contract-detail(page=${listContractDetail.number}-1)}" aria-label="Previous">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+        <li class="page-item" th:each="page, index : ${page}" th:classappend="${index.index == listContractDetail.number} ? active">
+            <a class="page-link" th:href="@{/contract-detail(page=${index.index})}" th:text="${index.count}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!listContractDetail.hasNext()} ? disabled">
+            <a class="page-link" th:href="@{/contract-detail(page=${listContractDetail.number}+1)}" aria-label="Next">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${listContractDetail.last} ? disabled">
+            <a class="page-link" th:href="@{/contract-detail(page = ${listContractDetail.getTotalPages()-1})}" aria-label="Last">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+<script>
+    function confirmDelete(input) {
+        let id = input.value;
+        document.getElementById("nameContractDetail").innerHTML = id;
+        document.getElementById("idContractDetail").value = id;
+        $('#modalConfirm').modal('show');
+    }
+    $(document).ready(function () {
+        $('#modalStatusDelete').modal('show');
+    })
+</script>
+</body>
+</html>

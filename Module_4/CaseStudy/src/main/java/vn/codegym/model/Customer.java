@@ -1,7 +1,9 @@
 package vn.codegym.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,21 +11,34 @@ import java.util.Set;
 @Table
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Pattern(regexp = "^(KH-)[\\d]{4}$", message = "Mã Khách hàng có định dạng là KH-XXXX (X là số từ 0-9)")
+    @NotBlank(message = "Không được để trống")
+    @Column(length = 50)
+    private String id;
 
+    @NotBlank(message = "Không được để trống")
     private String name;
 
-    private LocalDate dateOfBirth;
+    @Past(message = "Ngày sinh không hợp lệ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Không được để trống")
+    private Date dateOfBirth;
 
-    private boolean gender;
+    private boolean gender = true;
 
+    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
     private String idCard;
 
+    @Pattern(regexp = "^((\\(84\\)\\+)|(0))((91)|(90))[\\d]{7}$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
     private String phoneNumber;
 
+    @Pattern(regexp = "^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
     private String email;
 
+    @NotBlank(message = "Không được để trống")
     private String address;
 
     @ManyToOne(targetEntity = CustomerType.class)
@@ -36,7 +51,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name, LocalDate dateOfBirth, boolean gender, String idCard, String phoneNumber, String email,
+    public Customer(String name, Date dateOfBirth, boolean gender, String idCard, String phoneNumber, String email,
                     String address, CustomerType customerType, Set<Contract> contracts) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -49,7 +64,7 @@ public class Customer {
         this.contracts = contracts;
     }
 
-    public Customer(Integer id, String name, LocalDate dateOfBirth, boolean gender, String idCard, String phoneNumber,
+    public Customer(String id, String name, Date dateOfBirth, boolean gender, String idCard, String phoneNumber,
                     String email, String address, CustomerType customerType, Set<Contract> contracts) {
         this.id = id;
         this.name = name;
@@ -63,11 +78,11 @@ public class Customer {
         this.contracts = contracts;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,11 +94,11 @@ public class Customer {
         this.name = name;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

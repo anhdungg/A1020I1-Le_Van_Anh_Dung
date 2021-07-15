@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New customer - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container-fluid mt-3 mb-3">
+    <form id="form" th:action="${action == 'create'} ? @{/service/create} : @{/service/edit}" th:method="post" th:object="${service}">
+        <input type="hidden" name="idOriginal" th:value="${idOriginal}">
+        <div class="form-row">
+            <div class="form-group col-3">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" th:field="*{id}" placeholder="DV-XXXX" th:readonly="${action == 'edit'}">
+                <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color: red"></span>
+                <span th:text="${duplicateId}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="area">Area</label>
+                <input type="number" step="any" class="form-control" id="area" th:field="*{area}">
+                <span th:if="${#fields.hasErrors('area')}" th:errors="*{area}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="cost">Cost</label>
+                <input type="number" step="any" class="form-control" id="cost" th:field="*{cost}">
+                <span th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-3">
+                <label for="maxPeople">Max people</label>
+                <input type="number" class="form-control" id="maxPeople" th:field="*{maxPeople}">
+                <span th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="rentType">Rent type</label>
+                <select th:field="*{rentType}" id="rentType" class="form-control" required>
+                    <option value="">Choose...</option>
+                    <option th:each="rentType : ${listRentType}" th:value="${rentType.id}" th:text="${rentType.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-3">
+                <label for="serviceType">Service type</label>
+                <select th:field="*{serviceType}" id="serviceType" class="form-control" onchange="selectTypeService()" required>
+<!--                <select th:field="*{serviceType}" id="serviceType" class="form-control" required>-->
+                    <option value="">Choose...</option>
+                    <option th:each="serviceType : ${listServiceType}" th:value="${serviceType.id}" th:text="${serviceType.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-3" id="div-standardRoom">
+                <label for="standardRoom">Standard room</label>
+                <input type="text" class="form-control" id="standardRoom" th:field="*{standardRoom}">
+                <span th:if="${#fields.hasErrors('standardRoom')}" th:errors="*{standardRoom}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-group" id="div-description">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" th:field="*{descriptionOtherConvenience}">
+            <span th:if="${#fields.hasErrors('descriptionOtherConvenience')}" th:errors="*{descriptionOtherConvenience}" style="color: red"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-3" id="div-poolArea">
+                <label for="poolArea">Pool area</label>
+                <input type="number" step="any" class="form-control" id="poolArea" th:field="*{poolArea}">
+                <span th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3" id="div-numberOfFloors">
+                <label for="numberOfFloors">Number of floors</label>
+                <input type="number" class="form-control" id="numberOfFloors" th:field="*{numberOfFloors}">
+                <span th:if="${#fields.hasErrors('numberOfFloors')}" th:errors="*{numberOfFloors}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <a th:href="@{/service}" class="btn btn-secondary ml-auto mr-1">Back</a>
+            <button type="submit" class="btn btn-primary ml-1 mr-auto" th:text="${action == 'create'} ? 'Create' : 'Update'">Create</button>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+<script>
+    $(document).ready(function () {
+        let typeService = document.getElementById("serviceType").value;
+        switch (typeService) {
+            case "1":
+                document.getElementById("div-standardRoom").style.display = "block";
+                document.getElementById("div-description").style.display = "block";
+                document.getElementById("div-poolArea").style.display = "block";
+                document.getElementById("div-numberOfFloors").style.display = "block";
+                break;
+            case "2":
+                document.getElementById("div-standardRoom").style.display = "block";
+                document.getElementById("div-description").style.display = "block";
+                document.getElementById("div-poolArea").style.display = "none";
+                document.getElementById("div-numberOfFloors").style.display = "block";
+                break;
+            default:
+                document.getElementById("div-standardRoom").style.display = "none";
+                document.getElementById("div-description").style.display = "none";
+                document.getElementById("div-poolArea").style.display = "none";
+                document.getElementById("div-numberOfFloors").style.display = "none";
+        }
+    })
+    function selectTypeService() {
+        let typeService = document.getElementById("serviceType").value;
+        switch (typeService) {
+            case "1":
+                document.getElementById("div-standardRoom").style.display = "block";
+                document.getElementById("standardRoom").value = "";
+                document.getElementById("div-description").style.display = "block";
+                document.getElementById("div-poolArea").style.display = "block";
+                document.getElementById("poolArea").value = "";
+                document.getElementById("div-numberOfFloors").style.display = "block";
+                document.getElementById("numberOfFloors").value = "";
+                break;
+            case "2":
+                document.getElementById("div-standardRoom").style.display = "block";
+                document.getElementById("standardRoom").value = "";
+                document.getElementById("div-description").style.display = "block";
+                document.getElementById("div-poolArea").style.display = "none";
+                document.getElementById("poolArea").value = "0.0";
+                document.getElementById("div-numberOfFloors").style.display = "block";
+                document.getElementById("numberOfFloors").value = "";
+                break;
+            default:
+                document.getElementById("div-standardRoom").style.display = "none";
+                document.getElementById("standardRoom").value = "Không";
+                document.getElementById("div-description").style.display = "none";
+                document.getElementById("div-poolArea").style.display = "none";
+                document.getElementById("poolArea").value = "0.0";
+                document.getElementById("div-numberOfFloors").style.display = "none";
+                document.getElementById("numberOfFloors").value = "0";
+        }
+    }
+</script>
+</body>
+</html>

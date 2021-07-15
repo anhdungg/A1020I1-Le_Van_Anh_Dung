@@ -8,6 +8,8 @@ import vn.codegym.model.Employee;
 import vn.codegym.repository.EmployeeRepository;
 import vn.codegym.service.EmployeeService;
 
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
@@ -16,5 +18,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Page<Employee> findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return repository.findAll();
     }
 }

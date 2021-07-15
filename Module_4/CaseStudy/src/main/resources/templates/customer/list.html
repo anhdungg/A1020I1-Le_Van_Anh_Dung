@@ -68,7 +68,7 @@
             <table class="table table-bordered table-primary ">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Gender</th>
                         <th scope="col">Date of birth</th>
@@ -81,20 +81,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="customer, index : ${listCustomer}">
-                        <th th:text="${index.count}"></th>
+                    <tr th:each="customer : ${listCustomer}">
+                        <td th:text="${customer.id}"></td>
                         <td th:text="${customer.name}" th:id="'name' + ${customer.id}"></td>
                         <td th:text="${customer.gender} ? 'Nam' : 'Nữ'"></td>
-                        <td th:text="${customer.dateOfBirth}"></td>
+                        <td th:text="${#dates.format(customer.dateOfBirth, 'dd/MM/yyyy')}"></td>
                         <td th:text="${customer.address}"></td>
                         <td th:text="${customer.idCard}"></td>
                         <td th:text="${customer.phoneNumber}"></td>
                         <td th:text="${customer.email}"></td>
                         <td th:text="${customer.customerType.name}"></td>
                         <td>
-                            <p class="text-center mb-1"><a th:href="@{#}" class="btn btn-outline-warning p-1" style="font-size: 10px">Edit</a></p>
+                            <p class="text-center mb-1"><a th:href="@{/customer/edit/__${customer.id}__}" class="btn btn-outline-warning p-1" style="font-size: 10px">Edit</a></p>
                             <p class="text-center m-0">
-                                <button class="btn btn-outline-danger p-1" style="font-size: 10px" th:onclick="|confirmDelete('${customer.id}')|">Delete</button>
+                                <button class="btn btn-outline-danger p-1" style="font-size: 10px" th:value="${customer.id}" onclick="confirmDelete(this)">Delete</button>
                             </p>
                         </td>
                     </tr>
@@ -166,7 +166,8 @@
 <script th:src="@{../../js/bootstrap.min.js}"></script>
 <script th:src="@{../../js/scroll-to-top.js}"></script>
 <script>
-    function confirmDelete(id) {
+    function confirmDelete(input) {
+        let id = input.value;
         document.getElementById("nameCustomer").innerHTML = document.getElementById("name" + id).innerText;
         document.getElementById("idCustomer").value = id;
         $('#modalConfirm').modal('show');

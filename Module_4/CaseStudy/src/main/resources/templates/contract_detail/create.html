@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New contract - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container-fluid mt-3 mb-3">
+    <form id="form" th:action="${action == 'create'} ? @{/contract-detail/create} : @{/contract-detail/edit}" th:method="post" th:object="${contractDetail}">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-row">
+            <div class="form-group col-3 ml-auto">
+                <label for="contract">ID contract</label>
+                <select class="form-control" id="contract" th:field="*{contract}" required>
+                    <option value="">Choose...</option>
+                    <option th:each="contract : ${listContract}" th:value="${contract.id}" th:text="${contract.id}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('contract')}" th:errors="*{contract}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3">
+                <label for="attachService">Attach service</label>
+                <select class="form-control" id="attachService" th:field="*{attachService}" required>
+                    <option value="">Choose...</option>
+                    <option th:each="attachService : ${listAttachService}" th:value="${attachService.id}" th:text="${attachService.name}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('attachService')}" th:errors="*{attachService}" style="color: red"></span>
+            </div>
+            <div class="form-group col-3 mr-auto">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" th:field="*{quantity}">
+                <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <a th:href="@{/contract-detail}" class="btn btn-secondary ml-auto mr-1">Back</a>
+            <button type="submit" class="btn btn-primary ml-1 mr-auto" th:text="${action == 'create'} ? 'Create' : 'Update'"></button>
+        </div>
+    </form>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+</body>
+</html>
