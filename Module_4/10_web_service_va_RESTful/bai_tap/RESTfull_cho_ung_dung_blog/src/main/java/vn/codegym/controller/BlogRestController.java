@@ -59,7 +59,7 @@ public class BlogRestController {
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/sign-blog/{URLTitle}")
+    @GetMapping(value = "/single-blog/{URLTitle}")
     public ResponseEntity<Blog> signBlog(@PathVariable String URLTitle){
         Blog blog = service.findByURLTitle(URLTitle);
         if (blog == null){
