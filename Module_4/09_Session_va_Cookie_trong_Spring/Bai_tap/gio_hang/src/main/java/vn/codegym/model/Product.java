@@ -40,6 +40,26 @@ public class Product {
         this.moTa = moTa;
     }
 
+    public Product(Product product) {
+        this.id = product.getId();
+        this.tenSP = product.getTenSP();
+        this.maSp = product.getMaSp();
+        this.hinhAnh = product.getHinhAnh();
+        this.gia = product.getGia();
+        this.soLuong = product.getSoLuong();
+        this.moTa = product.getMoTa();
+    }
+
+    public Product(Product product, int soLuong) {
+        this.id = product.getId();
+        this.tenSP = product.getTenSP();
+        this.maSp = product.getMaSp();
+        this.hinhAnh = product.getHinhAnh();
+        this.gia = product.getGia();
+        this.soLuong = soLuong;
+        this.moTa = product.getMoTa();
+    }
+
     public int getId() {
         return id;
     }

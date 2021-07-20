@@ -5,6 +5,7 @@ import vn.codegym.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class CartRepositoryImpl implements CartRepository{
@@ -72,5 +73,26 @@ public class CartRepositoryImpl implements CartRepository{
                 break;
             }
         }
+    }
+
+    @Override
+    public Product getFirstProduct(Set<Product> list) {
+        if (list.isEmpty()){
+            return null;
+        }
+        for (Product product : list){
+            return product;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean existById(Set<Product> list, int id) {
+        for (Product product : list){
+            if (product.getId() == id){
+                return true;
+            }
+        }
+        return false;
     }
 }

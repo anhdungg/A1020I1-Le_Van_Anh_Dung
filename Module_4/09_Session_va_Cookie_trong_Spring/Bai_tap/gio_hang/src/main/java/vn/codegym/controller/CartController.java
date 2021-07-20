@@ -3,135 +3,111 @@ package vn.codegym.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import vn.codegym.model.Product;
 import vn.codegym.repository.CartRepository;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Controller
+@SessionAttributes({"listCart", "listRecommend"})
 public class CartController {
 
     @Autowired
     CartRepository repository;
 
+    @ModelAttribute("listCart")
+    public Set<Product> listCart(){
+        return new LinkedHashSet<>();
+    }
+
+    @ModelAttribute("listRecommend")
+    public Set<Product> listRecommend(){
+        return new LinkedHashSet<>();
+    }
+
     @GetMapping(value = "/")
-    public String home(HttpServletRequest request, Model model){
+    public String home(Model model, @SessionAttribute(name = "listCart", required = false) Set<Product> listCart,
+                       @SessionAttribute(name = "listRecommend", required = false) Set<Product> listRecommend){
         model.addAttribute("listProduct", repository.findAll());
-        model.addAttribute("listRecommend", this.getRecommend(request));
-        model.addAttribute("listCart", this.getListProduct(request));
+        if (listCart == null || listRecommend == null){
+            model.addAttribute("listCart", new LinkedHashSet<>());
+            model.addAttribute("listRecommend", new LinkedHashSet<>());
+        }else {
+            model.addAttribute("listCart", new LinkedHashSet<>(listCart));
+            model.addAttribute("listRecommend", new LinkedHashSet<>(listRecommend));
+        }
         return "index";
     }
 
     @GetMapping(value = "/view/{id}")
-    public String view(@PathVariable int id, HttpServletResponse response, @CookieValue(name = "countRecommend", defaultValue = "0") String count){
-        if (count.equals("4")){
-            count = "0";
-        }
-        Cookie cookie = new Cookie("countRecommend", ""+(Integer.parseInt(count)+1));
-        cookie.setMaxAge(5 * 60);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        cookie = new Cookie("recommend"+(Integer.parseInt(count)+1), ""+id);
-        cookie.setMaxAge(5 * 60);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-
-        return "redirect:/views/" + id;
-    }
-
-    @GetMapping(value = "/views/{id}")
-    public String views(@PathVariable int id, Model model, HttpServletRequest request){
-        model.addAttribute("listCart", this.getListProduct(request));
+    public String view(Model model, @PathVariable int id,
+                       @SessionAttribute(name = "listRecommend", required = false) Set<Product> listRecommend){
         model.addAttribute("product", repository.findById(id));
-        model.addAttribute("listRecommend", this.getRecommend(request));
+        this.setListRecommend(listRecommend, id);
         return "view";
     }
 
     @GetMapping(value = "/addcart/{id}")
-    public String addCart(@PathVariable int id, HttpServletResponse response){
-        Product product = repository.findById(id);
-        product.setSoLuong(1);
-        Cookie cookie = new Cookie("cart"+id, ""+id);
-        cookie.setMaxAge(5 * 60);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+    public String addCart(@PathVariable int id, @SessionAttribute(name = "listCart", required = false) Set<Product> listCart){
+        if (repository.existById(listCart, id)){
+            for (Product product : listCart){
+                if (product.getId() == id){
+                    product.setSoLuong(product.getSoLuong()+1);
+                    break;
+                }
+            }
+        }else {
+            Product product = repository.findById(id);
+            listCart.add(new Product(product, 1));
+        }
         return "redirect:/";
     }
 
     @GetMapping(value = "/cart")
-    public String viewCart(Model model, HttpServletRequest request){
-        List<Product> list = this.getListProduct(request);
+    public String viewCart(Model model, @SessionAttribute(name = "listCart", required = false) Set<Product> listCart){
         long total=0;
-        for (Product product : list){
+        for (Product product : listCart){
             total+=(product.getGia()*product.getSoLuong());
         }
-        model.addAttribute("listCart", list);
-        model.addAttribute("listRecommend", this.getRecommend(request));
         model.addAttribute("totalMoney", total);
-        model.addAttribute("finallyMoney", total+20);
+        model.addAttribute("finallyMoney", total-20000);
         return "cart";
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteProduct(@PathVariable String id, HttpServletResponse response){
-        Cookie cookie = new Cookie("cart"+id, id);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+    public String deleteProduct(@PathVariable int id, @SessionAttribute(name = "listCart", required = false) Set<Product> listCart){
+        listCart.removeIf(product -> product.getId()==id);
         return "redirect:/cart";
     }
 
     @GetMapping(value = "/deleteAll")
-    public String deleteAll(HttpServletResponse response, HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        for (Cookie ck : cookies){
-            if (ck.getName().contains("cart")){
-                Cookie cookie = new Cookie(ck.getName(), ck.getValue());
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-            }
-        }
+    public String deleteAll(@SessionAttribute(name = "listCart", required = false) Set<Product> listCart){
+        listCart.clear();
         return "redirect:/";
     }
 
     @GetMapping(value = "/changeSL/{id}/{sl}")
-    public String change(@PathVariable int id, @PathVariable int sl){
-        Product product = repository.findById(id);
-        product.setSoLuong(sl);
-        return "redirect:/cart";
+    public String change(@PathVariable int id, @PathVariable int sl, @SessionAttribute(name = "listCart", required = false) Set<Product> listCart){
+       for (Product product : listCart){
+           if (product.getId() == id){
+               product.setSoLuong(sl);
+               break;
+           }
+       }
+       return "redirect:/cart";
     }
 
-    private List<Product> getRecommend(HttpServletRequest request){
-        List<Product> list = new ArrayList<>();
-        Cookie[] listCookie = request.getCookies();
-        for (Cookie cookie : listCookie){
-            if (cookie.getName().contains("recommend")){
-                int id = Integer.parseInt(cookie.getValue());
-                list.add(repository.findById(id));
+    private void setListRecommend(Set<Product> listRecommend, int id){
+        if (!repository.existById(listRecommend, id)){
+            if (listRecommend.size() > 3){
+                listRecommend.remove(repository.getFirstProduct(listRecommend));
+            }
+            Product product = repository.findById(id);
+            if (product != null){
+                listRecommend.add(new Product((product)));
             }
         }
-        return list;
     }
-
-    private List<Product> getListProduct(HttpServletRequest request){
-        List<Product> list = new ArrayList<>();
-        Cookie[] listCookie = request.getCookies();
-        for (Cookie cookie : listCookie){
-            if (cookie.getName().contains("cart")){
-                int id = Integer.parseInt(cookie.getValue());
-                list.add(repository.findById(id));
-            }
-        }
-        return list;
-    }
-
 }
