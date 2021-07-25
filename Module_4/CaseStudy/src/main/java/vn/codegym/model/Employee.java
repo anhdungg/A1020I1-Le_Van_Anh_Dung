@@ -1,6 +1,9 @@
 package vn.codegym.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.Set;
 
@@ -11,18 +14,31 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "Không được để trống")
     private String name;
 
+    @Past(message = "Ngày sinh không hợp lệ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Không được để trống")
     private Date dateOfBirth;
 
+    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
     private String idCard;
 
+    @DecimalMin(value = "1", message = "Phải lớn hơn 0")
+    @NotNull(message = "Không được để trống")
     private Double salary;
 
+    @Pattern(regexp = "^((\\(84\\)\\+)|(0))((91)|(90))[\\d]{7}$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
     private String phoneNumber;
 
+    @Pattern(regexp = "^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$", message = "Sai định dạng")
+    @NotBlank(message = "Không được để trống")
     private String email;
 
+    @NotBlank(message = "Không được để trống")
     private String address;
 
     @ManyToOne(targetEntity = Position.class)

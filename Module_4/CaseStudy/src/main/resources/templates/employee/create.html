@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New employee - Furama resort</title>
+    <link rel="icon" th:href="@{../../image/logo.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container-fluid mt-3 mb-3">
+    <form id="form" th:action="${action == 'create'} ? @{/employee/create} : @{/employee/edit}" th:method="post" th:object="${employee}">
+        <input type="hidden" th:field="*{employee.id}">
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" th:field="*{employee.name}">
+                <span th:if="${#fields.hasErrors('employee.name')}" th:errors="*{employee.name}" style="color: red"></span>
+            </div>
+            <div class="form-group col-4">
+                <label for="dateOfBirth">Date of birth</label>
+                <input type="date" class="form-control" id="dateOfBirth" th:field="*{employee.dateOfBirth}" required>
+                <span th:if="${#fields.hasErrors('employee.dateOfBirth')}" th:errors="*{employee.dateOfBirth}" style="color: red"></span>
+                <span th:if="${errorAge}" th:text="${errorAge}" style="color: red"></span>
+            </div>
+            <div class="form-group col-4">
+                <label for="idCard">ID Card</label>
+                <input type="number" min="100000000" class="form-control" id="idCard" th:field="*{employee.idCard}">
+                <span th:if="${#fields.hasErrors('employee.idCard')}" th:errors="*{employee.idCard}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label for="salary">Salary</label>
+                <input type="number" min="0" class="form-control" id="salary" th:field="*{employee.salary}">
+                <span th:if="${#fields.hasErrors('employee.salary')}" th:errors="*{employee.salary}" style="color: red"></span>
+            </div>
+            <div class="form-group col-4">
+                <label for="phoneNumber">Phone number</label>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{employee.phoneNumber}">
+                <span th:if="${#fields.hasErrors('employee.phoneNumber')}" th:errors="*{employee.phoneNumber}" style="color: red"></span>
+            </div>
+            <div class="form-group col-4">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{employee.email}">
+                <span th:if="${#fields.hasErrors('employee.email')}" th:errors="*{employee.email}" style="color: red"></span>
+                <span th:if="${errorEmail}" th:text="${errorEmail}" style="color: red"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" th:field="*{employee.address}">
+            <span th:if="${#fields.hasErrors('employee.address')}" th:errors="*{employee.address}" style="color: red"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-4">
+                <label for="position">Position</label>
+                <select class="form-control" th:field="*{employee.position}" id="position" required>
+                    <option value="">Choose...</option>
+                    <option th:each="position : ${listPosition}" th:value="${position.id}" th:text="${position.positionName}"></option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <label for="educationDegree">Education degree</label>
+                <select class="form-control" th:field="*{employee.educationDegree}" id="educationDegree" required>
+                    <option value="">Choose...</option>
+                    <option th:each="education : ${listEducation}" th:value="${education.id}" th:text="${education.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <label for="division">Division</label>
+                <select class="form-control" th:field="*{employee.division}" id="division" required>
+                    <option value="">Choose...</option>
+                    <option th:each="division : ${listDivision}" th:value="${division.id}" th:text="${division.divisionName}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <th:block th:each="role : ${listRole}">
+                <input type="checkbox" th:field="*{role}" th:value="${role.id}"/>
+                <label th:text="${role.roleName}"></label>
+            </th:block>
+        </div>
+        <div class="d-flex mt-4">
+            <a th:href="@{/employee}" class="btn btn-secondary ml-auto mr-1">Back</a>
+            <button type="submit" class="btn btn-primary ml-1 mr-auto" th:text="${action == 'create'} ? 'Create' : 'Update'"></button>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scrollToTop}"></div>
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+</body>
+</html>

@@ -9,4 +9,8 @@ import vn.codegym.model.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Page<Employee> findAll(Pageable pageable);
+
+    Page<Employee> findAllByName(String keyword, Pageable pageable);
+
+    boolean existsByEmail(String email);
 }
