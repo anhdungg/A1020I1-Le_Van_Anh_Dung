@@ -1,15 +1,18 @@
 package vn.codegym.model;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 public class EmployeeRole {
     private @Valid Employee employee;
-    private Role role;
+    @NotNull(message = "Không được để trống")
+    private Set<Role> role;
 
     public EmployeeRole() {
     }
 
-    public EmployeeRole(@Valid Employee employee, Role role) {
+    public EmployeeRole(@Valid Employee employee, Set<Role> role) {
         this.employee = employee;
         this.role = role;
     }
@@ -22,11 +25,11 @@ public class EmployeeRole {
         this.employee = employee;
     }
 
-    public Role getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Set<Role> role) {
         this.role = role;
     }
 }

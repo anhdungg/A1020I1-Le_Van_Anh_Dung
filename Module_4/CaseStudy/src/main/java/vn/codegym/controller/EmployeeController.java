@@ -7,16 +7,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.codegym.model.*;
-import vn.codegym.repository.DivisionRepository;
-import vn.codegym.repository.EducationRepository;
-import vn.codegym.repository.PositionRepository;
-import vn.codegym.repository.RoleRepository;
+import vn.codegym.repository.*;
 import vn.codegym.service.EmployeeService;
 import vn.codegym.service.FuramaService;
 
@@ -44,6 +38,9 @@ public class EmployeeController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @ModelAttribute("listDivision")
     public List<Division> listDivision(){
@@ -113,13 +110,43 @@ public class EmployeeController {
         }
         boolean checkExistEmail = employeeService.existsByEmail(employeeRole.getEmployee().getEmail());
         boolean checkAge = employeeService.checkAge(employeeRole.getEmployee().getDateOfBirth());
-        if (checkExistEmail){
-            model.addAttribute("errorEmail", "Email đã tồn tại");
+        if(checkExistEmail || !checkAge){
+            if (checkExistEmail){
+                model.addAttribute("errorEmail", "Email đã tồn tại");
+            }
+            if (!checkAge){
+                model.addAttribute("errorAge", "Phải lớn hơn 18 tuổi");
+            }
+            model.addAttribute("employee", employeeRole);
+            return "employee/create";
         }
-        if (checkAge){
-            model.addAttribute("errorAge", "Phải lớn hơn 18 tuổi");
+        employeeService.save(employeeRole);
+        return "redirect:/employee";
+    }
+
+    @GetMapping(value = "/employee/edit/{id}")
+    public String viewEdit(Model model, @PathVariable Integer id){
+        Employee employee = this.employeeService.findById(id);
+        if (employee == null){
+            return "redirect:/employee";
         }
-//        employeeService.save(employeeRole);
+        User user = userRepository.findByUserName(employee.getEmail());
+        if (user == null){
+            return "redirect:/employee";
+        }
+        model.addAttribute("employee", new EmployeeRole(employee, user.getRoles()));
+        model.addAttribute("action", "edit");
+        return "employee/create";
+    }
+
+    @PostMapping(value = "/employee/edit")
+    public String saveEdit(@Valid @ModelAttribute EmployeeRole employeeRole, BindingResult bindingResult, Model model){
+        model.addAttribute("action", "edit");
+        if (bindingResult.hasErrors()){
+            model.addAttribute("employee", employeeRole);
+            return "employee/create";
+        }
+        this.employeeService.save(employeeRole);
         return "redirect:/employee";
     }
 }

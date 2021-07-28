@@ -17,25 +17,25 @@ public class Employee {
     @NotBlank(message = "Không được để trống")
     private String name;
 
+    @NotNull(message = "Không được để trống")
     @Past(message = "Ngày sinh không hợp lệ")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Không được để trống")
     private Date dateOfBirth;
 
-    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$", message = "Sai định dạng")
     @NotBlank(message = "Không được để trống")
+    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$", message = "Sai định dạng")
     private String idCard;
 
-    @DecimalMin(value = "1", message = "Phải lớn hơn 0")
     @NotNull(message = "Không được để trống")
+    @DecimalMin(value = "1", message = "Phải lớn hơn 0")
     private Double salary;
 
-    @Pattern(regexp = "^((\\(84\\)\\+)|(0))((91)|(90))[\\d]{7}$", message = "Sai định dạng")
     @NotBlank(message = "Không được để trống")
+    @Pattern(regexp = "^((\\(84\\)\\+)|(0))((91)|(90))[\\d]{7}$", message = "Sai định dạng")
     private String phoneNumber;
 
-    @Pattern(regexp = "^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$", message = "Sai định dạng")
     @NotBlank(message = "Không được để trống")
+    @Pattern(regexp = "^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$", message = "Sai định dạng")
     private String email;
 
     @NotBlank(message = "Không được để trống")
@@ -96,6 +96,21 @@ public class Employee {
         this.division = division;
         this.user = user;
         this.contracts = contracts;
+    }
+
+    public Employee(Employee employee, User user) {
+        this.id = employee.getId();
+        this.name = employee.getName();
+        this.dateOfBirth = employee.getDateOfBirth();
+        this.idCard = employee.getIdCard();
+        this.salary = employee.getSalary();
+        this.phoneNumber = employee.getPhoneNumber();
+        this.email = employee.getEmail();
+        this.address = employee.getAddress();
+        this.position = employee.getPosition();
+        this.educationDegree = employee.getEducationDegree();
+        this.division = employee.getDivision();
+        this.user = user;
     }
 
     public Integer getId() {
